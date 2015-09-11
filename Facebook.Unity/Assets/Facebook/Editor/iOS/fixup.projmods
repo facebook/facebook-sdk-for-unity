@@ -1,0 +1,24 @@
+{
+  "group": "Facebook",
+  "patches": [],
+  "libs": [
+    "libsqlite3.0.dylib:weak",
+  ],
+  "librarysearchpaths": [
+  ],
+  "frameworks": [
+    "Accounts.framework:weak",
+    "AdSupport.framework:weak",
+    "Social.framework:weak",
+    "Security.framework:weak",
+  ],
+  "headerpaths": [
+    "Facebook/Editor/iOS",
+    "Facebook/Scripts"
+  ],
+  "files": [
+    "Facebook/Scripts/NativeDialogModes.cs",
+  ],
+  "folders": [],	
+  "excludes": ["^.*\\.meta$", "^.*\\.mdown^", "^.*\\.pdf$"]
+}

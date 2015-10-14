@@ -29,6 +29,7 @@ namespace Facebook.Unity.Example
     internal class GraphRequest : MenuBase
     {
         private string apiQuery = string.Empty;
+        private Texture2D profilePic;
 
         protected override void GetGui()
         {
@@ -37,6 +38,11 @@ namespace Facebook.Unity.Example
             if (this.Button("Basic Request - Me"))
             {
                 FB.API("/me", HttpMethod.GET, this.HandleResult);
+            }
+
+            if (this.Button("Retrieve Profile Photo"))
+            {
+                FB.API("/me/picture", HttpMethod.GET, this.ProfilePhotoCallback);
             }
 
             if (this.Button("Take and Upload screenshot"))
@@ -50,7 +56,22 @@ namespace Facebook.Unity.Example
                 FB.API(this.apiQuery, HttpMethod.GET, this.HandleResult);
             }
 
+            if (this.profilePic != null)
+            {
+                GUILayout.Box(this.profilePic);
+            }
+
             GUI.enabled = enabled;
+        }
+
+        private void ProfilePhotoCallback(IGraphResult result)
+        {
+            if (string.IsNullOrEmpty(result.Error) && result.Texture != null)
+            {
+                this.profilePic = result.Texture;
+            }
+
+            this.HandleResult(result);
         }
 
         private IEnumerator TakeScreenshot()

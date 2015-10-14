@@ -418,13 +418,16 @@ extern "C" {
 
   void IOSInit(const char *_appId, bool _cookie, bool _logging, bool _status, bool _frictionlessRequests, const char *_urlSuffix, const char *_userAgentSuffix)
   {
+    // Set the user agent before calling init to ensure that calls made during
+    // init use the user agent suffix.
+    [FBSDKSettings setUserAgentSuffix:[FBUnityUtility stringFromCString:_userAgentSuffix]];
+
     [[FBUnityInterface sharedInstance] configureAppId:_appId
                                                cookie:_cookie
                                               logging:_logging
                                                status:_status
                                  frictionlessRequests:_frictionlessRequests
                                             urlSuffix:_urlSuffix];
-    [FBSDKSettings setUserAgentSuffix:[FBUnityUtility stringFromCString:_userAgentSuffix]];
   }
 
   void IOSLogInWithReadPermissions(int requestId,

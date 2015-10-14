@@ -29,16 +29,6 @@ namespace Facebook.Unity.Editor.Dialogs
     {
         private string accessToken = string.Empty;
 
-        public IEnumerable<string> Permissions { private get; set; }
-
-        protected override float WindowHeight
-        {
-            get
-            {
-                return 592;
-            }
-        }
-
         protected override string DialogTitle
         {
             get
@@ -53,11 +43,13 @@ namespace Facebook.Unity.Editor.Dialogs
             GUILayout.Label("User Access Token:");
             this.accessToken = GUILayout.TextField(this.accessToken, GUI.skin.textArea, GUILayout.MinWidth(400));
             GUILayout.EndHorizontal();
-            GUILayout.Space(20);
+            GUILayout.Space(10);
             if (GUILayout.Button("Find Access Token"))
             {
                 Application.OpenURL(string.Format("https://developers.facebook.com/tools/accesstoken/?app_id={0}", FB.AppId));
             }
+
+            GUILayout.Space(20);
         }
 
         protected override void SendSuccessResult()
@@ -68,21 +60,69 @@ namespace Facebook.Unity.Editor.Dialogs
                 return;
             }
 
-            var token = new AccessToken(
-                this.accessToken,
-                "MockUserId",
-                DateTime.Now.AddDays(60),
-                this.Permissions);
-            var result = (IDictionary<string, object>)MiniJSON.Json.Deserialize(token.ToJson());
-            if (!string.IsNullOrEmpty(this.CallbackID))
+            // Make a Graph API call to get FBID
+            FB.API(
+                "/me?fields=id&access_token=" + this.accessToken,
+               HttpMethod.GET,
+               delegate(IGraphResult graphResult)
             {
-                result[Constants.CallbackIdKey] = this.CallbackID;
-            }
+                if (!string.IsNullOrEmpty(graphResult.Error))
+                {
+                    this.SendErrorResult("Graph API error: " + graphResult.Error);
+                    return;
+                }
 
-            if (this.Callback != null)
-            {
-                this.Callback(MiniJSON.Json.Serialize(result));
-            }
+                string facebookID = graphResult.ResultDictionary["id"] as string;
+
+                // Make a Graph API call to get Permissions
+                FB.API(
+                    "/me/permissions?access_token=" + this.accessToken,
+                   HttpMethod.GET,
+                   delegate(IGraphResult permResult)
+                {
+                    if (!string.IsNullOrEmpty(permResult.Error))
+                    {
+                        this.SendErrorResult("Graph API error: " + permResult.Error);
+                        return;
+                    }
+
+                    // Parse permissions
+                    List<string> grantedPerms = new List<string>();
+                    List<string> declinedPerms = new List<string>();
+                    var data = permResult.ResultDictionary["data"] as List<object>;
+                    foreach (Dictionary<string, object> dict in data)
+                    {
+                        if (dict["status"] as string == "granted")
+                        {
+                            grantedPerms.Add(dict["permission"] as string);
+                        }
+                        else
+                        {
+                            declinedPerms.Add(dict["permission"] as string);
+                        }
+                    }
+
+                    // Create Access Token
+                    var newToken = new AccessToken(
+                        this.accessToken,
+                        facebookID,
+                        DateTime.Now.AddDays(60),
+                        grantedPerms);
+
+                    var result = (IDictionary<string, object>)MiniJSON.Json.Deserialize(newToken.ToJson());
+                    result.Add("granted_permissions", grantedPerms);
+                    result.Add("declined_permissions", declinedPerms);
+                    if (!string.IsNullOrEmpty(this.CallbackID))
+                    {
+                        result[Constants.CallbackIdKey] = this.CallbackID;
+                    }
+
+                    if (this.Callback != null)
+                    {
+                        this.Callback(MiniJSON.Json.Serialize(result));
+                    }
+                });
+            });
         }
     }
 }

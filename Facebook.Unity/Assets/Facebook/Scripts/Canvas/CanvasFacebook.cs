@@ -22,6 +22,7 @@ namespace Facebook.Unity.Canvas
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using UnityEngine;
 
@@ -34,7 +35,6 @@ namespace Facebook.Unity.Canvas
         internal const string MethodGameGroupJoin = "game_group_join";
         internal const string CancelledResponse = "{\"cancelled\":true}";
         internal const string FacebookConnectURL = "https://connect.facebook.net";
-        internal const string SDKVersion = "v2.4";
 
         private const string AuthResponseKey = "authResponse";
         private const string ResponseKey = "response";
@@ -59,11 +59,48 @@ namespace Facebook.Unity.Canvas
 
         public override bool LimitEventUsage { get; set; }
 
-        public override string FacebookSdkVersion
+        public override string SDKName
         {
             get
             {
-                return string.Format("Facebook.JS.SDK.{0}", SDKVersion);
+                return "FBJSSDK";
+            }
+        }
+
+        public override string SDKVersion
+        {
+            get
+            {
+                return Constants.GraphAPIVersion;
+            }
+        }
+
+        public override string SDKUserAgent
+        {
+            get
+            {
+                if (Constants.IsEditor)
+                {
+                    // If we are running in the editor just return the base
+                    return base.SDKUserAgent;
+                }
+
+                // We want to log whether we are running as webgl or in the web player.
+                string webPlatform;
+
+#if UNITY_WEBGL
+                webPlatform = "FBUnityWebGL";
+#elif UNITY_WEBPLAYER
+                webPlatform = "FBUnityWebPlayer";
+#else
+                webPlatform = "FBUnityWebUnknown";
+#endif
+
+                return string.Format(
+                    CultureInfo.InvariantCulture,
+                    "{0} {1}",
+                    base.SDKUserAgent,
+                    Utilities.GetUserAgent(webPlatform, FacebookSdkVersion.Build));
             }
         }
 
@@ -127,7 +164,7 @@ namespace Facebook.Unity.Canvas
             parameters.AddString("channelUrl", channelUrl);
             parameters.AddString("authResponse", authResponse);
             parameters.AddPrimative("frictionlessRequests", frictionlessRequests);
-            parameters.AddString("version", SDKVersion);
+            parameters.AddString("version", Constants.GraphAPIVersion);
 
             // use 1/0 for booleans, otherwise you'll get strings "True"/"False"
             Application.ExternalCall(

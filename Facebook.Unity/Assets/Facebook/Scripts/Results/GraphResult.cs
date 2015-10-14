@@ -30,9 +30,20 @@ namespace Facebook.Unity
         internal GraphResult(WWW result) : base(result.text, result.error, false)
         {
             this.Init(this.RawResult);
+
+            // The WWW object will throw an exception if accessing the texture field and
+            // an error has occured.
+            if (result.error == null)
+            {
+                // The Graph API does not return textures directly, but a few endpoints can
+                // redirect to images when no 'redirect=false' parameter is specified. Ex: '/me/picture'
+                this.Texture = result.texture;
+            }
         }
 
         public IList<object> ResultList { get; private set; }
+
+        public Texture2D Texture { get; private set; }
 
         private void Init(string rawResult)
         {

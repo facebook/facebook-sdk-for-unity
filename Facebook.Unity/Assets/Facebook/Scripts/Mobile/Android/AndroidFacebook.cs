@@ -58,12 +58,19 @@ namespace Facebook.Unity.Mobile.Android
             }
         }
 
-        public override string FacebookSdkVersion
+        public override string SDKName
         {
             get
             {
-                string buildVersion = this.facebookJava.CallStatic<string>("GetSdkVersion");
-                return string.Format("Facebook.Android.SDK.{0}", buildVersion);
+                return "FBAndroidSDK";
+            }
+        }
+
+        public override string SDKVersion
+        {
+            get
+            {
+                return this.facebookJava.CallStatic<string>("GetSdkVersion");
             }
         }
 
@@ -79,6 +86,13 @@ namespace Facebook.Unity.Mobile.Android
             HideUnityDelegate hideUnityDelegate,
             InitDelegate onInitComplete)
         {
+            // Set the user agent suffix for graph requests
+            // This should be set before a call to init to ensure that
+            // requests made during init include this suffix.
+            this.CallFB(
+                "SetUserAgentSuffix",
+                string.Format("Unity.{0}", Constants.UnitySDKUserAgentSuffixLegacy));
+
             base.Init(
                 appId,
                 cookie,
@@ -102,9 +116,6 @@ namespace Facebook.Unity.Mobile.Android
             args.AddPrimative("frictionlessRequests", frictionlessRequests);
             var initCall = new JavaMethodCall<IResult>(this, "Init");
             initCall.Call(args);
-            this.CallFB(
-                "SetUserAgentSuffix",
-                string.Format("Unity.{0}", Facebook.Unity.FacebookSdkVersion.Build));
         }
 
         public override void LogInWithReadPermissions(

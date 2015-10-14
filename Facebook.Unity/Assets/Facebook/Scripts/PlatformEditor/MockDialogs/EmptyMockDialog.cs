@@ -28,14 +28,6 @@ namespace Facebook.Unity.Editor.Dialogs
     {
         public string EmptyDialogTitle { get; set; }
 
-        protected override float WindowHeight
-        {
-            get
-            {
-                return 500;
-            }
-        }
-
         protected override string DialogTitle
         {
             get

@@ -36,7 +36,17 @@ namespace Facebook.Unity
 
         public abstract bool LimitEventUsage { get; set; }
 
-        public abstract string FacebookSdkVersion { get; }
+        public abstract string SDKName { get; }
+
+        public abstract string SDKVersion { get; }
+
+        public virtual string SDKUserAgent
+        {
+            get
+            {
+                return Utilities.GetUserAgent(this.SDKName, this.SDKVersion);
+            }
+        }
 
         public bool LoggedIn
         {
@@ -261,20 +271,20 @@ namespace Facebook.Unity
             var newData = new Dictionary<string, string>(data.Count);
             foreach (KeyValuePair<string, string> kvp in data)
             {
-                newData[kvp.Key] = string.Copy(kvp.Value);
+                newData[kvp.Key] = kvp.Value != null ? new string(kvp.Value.ToCharArray()) : null;
             }
 
             return newData;
         }
 
-        private string GetGraphUrl(string query)
+        private Uri GetGraphUrl(string query)
         {
-            if (!query.StartsWith("/"))
+            if (!string.IsNullOrEmpty(query) && query.StartsWith("/"))
             {
-                query = "/" + query;
+                query = query.Substring(1);
             }
 
-            return Constants.GraphUrl + query;
+            return new Uri(Constants.GraphUrl, query);
         }
     }
 }

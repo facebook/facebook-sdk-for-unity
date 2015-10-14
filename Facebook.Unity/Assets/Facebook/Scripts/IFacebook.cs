@@ -30,7 +30,11 @@ namespace Facebook.Unity
 
         bool LimitEventUsage { get; set; }
 
-        string FacebookSdkVersion { get; }
+        string SDKName { get; }
+
+        string SDKVersion { get; }
+
+        string SDKUserAgent { get; }
 
         void Init(
             string appId,

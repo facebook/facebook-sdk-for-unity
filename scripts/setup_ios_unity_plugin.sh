@@ -49,7 +49,7 @@ else
       exit 1
     fi
     packageName="facebook-ios-sdk-$FB_IOS_SDK_VERSION"
-    curl -L "http://fb.me/$FB_IOS_RESOURCE_NAME" -o "$packageName.zip"
+    curl -L "https://origincache.facebook.com/developers/resources/?id=$FB_IOS_RESOURCE_NAME" -o "$packageName.zip"
 
     unzip -q "$packageName.zip" -d $packageName
     sdkFolder="$PROJECT_ROOT/tempIosBuild/$packageName"

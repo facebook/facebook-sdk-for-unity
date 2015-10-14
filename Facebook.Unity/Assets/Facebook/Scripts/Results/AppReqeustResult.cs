@@ -41,6 +41,25 @@ namespace Facebook.Unity
                 {
                     this.To = toStr.Split(',');
                 }
+                else
+                {
+                    // On iOS the to field is an array of IDs
+                    IEnumerable<object> toArray;
+                    if (this.ResultDictionary.TryGetValue("to", out toArray))
+                    {
+                        var toList = new List<string>();
+                        foreach (object toEntry in toArray)
+                        {
+                            var toID = toEntry as string;
+                            if (toID != null)
+                            {
+                                toList.Add(toID);
+                            }
+                        }
+
+                        this.To = toList;
+                    }
+                }
             }
         }
 

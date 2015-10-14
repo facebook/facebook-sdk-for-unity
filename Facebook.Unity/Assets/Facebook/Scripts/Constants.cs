@@ -20,6 +20,9 @@
 
 namespace Facebook.Unity
 {
+    using System;
+    using System.Globalization;
+
     internal static class Constants
     {
         // Callback keys
@@ -40,13 +43,44 @@ namespace Facebook.Unity
         public const string OnJoinGroupCompleteMethodName = "OnJoinGroupComplete";
 
         // Graph API
-        public const string GraphUrl = "https://graph.facebook.com";
+        public const string GraphAPIVersion = "v2.5";
+        public const string GraphUrlFormat = "https://graph.{0}/{1}/";
 
         // Permission Strings
         public const string UserLikesPermission = "user_likes";
         public const string EmailPermission = "email";
         public const string PublishActionsPermission = "publish_actions";
         public const string PublishPagesPermission = "publish_pages";
+
+        /// <summary>
+        /// Gets the graph URL.
+        /// </summary>
+        /// <value>The graph URL. Ex. https://graph.facebook.com/v2.5/</value>
+        public static Uri GraphUrl
+        {
+            get
+            {
+                string urlStr = string.Format(
+                    CultureInfo.InvariantCulture,
+                    Constants.GraphUrlFormat,
+                    FB.FacebookDomain,
+                    Constants.GraphAPIVersion);
+                return new Uri(urlStr);
+            }
+        }
+
+        public static string GraphApiUserAgent
+        {
+            get
+            {
+                // Return the Unity SDK User Agent and our platform user agent
+                return string.Format(
+                    CultureInfo.InvariantCulture,
+                    "{0} {1}",
+                    FB.FacebookImpl.SDKUserAgent,
+                    Constants.UnitySDKUserAgent);
+            }
+        }
 
         public static bool IsMobile
         {
@@ -81,6 +115,33 @@ namespace Facebook.Unity
 #else
                 return false;
 #endif
+            }
+        }
+
+        /// <summary>
+        /// Returns the legacy user agent suffix that gets
+        /// appended to graph requests on ios and android.
+        /// </summary>
+        /// <value>The user agent unity suffix legacy.</value>
+        public static string UnitySDKUserAgentSuffixLegacy
+        {
+            get
+            {
+                return string.Format(
+                    CultureInfo.InvariantCulture,
+                    "Unity.{0}",
+                    FacebookSdkVersion.Build);
+            }
+        }
+
+        /// <summary>
+        /// Gets the Unity SDK user agent.
+        /// </summary>
+        public static string UnitySDKUserAgent
+        {
+            get
+            {
+                return Utilities.GetUserAgent("FBUnitySDK", FacebookSdkVersion.Build);
             }
         }
     }

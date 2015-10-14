@@ -47,6 +47,7 @@ namespace Facebook.Unity
         private static bool status;
         private static bool xfbml;
         private static bool frictionlessRequests;
+        private static string facebookDomain = "facebook.com";
 
         /// <summary>
         /// Gets the app identifier. AppId might be different from FBSettings.AppId
@@ -116,6 +117,18 @@ namespace Facebook.Unity
                 }
 
                 return facebook.Facebook;
+            }
+        }
+
+        internal static string FacebookDomain
+        {
+            get
+            {
+                return FB.facebookDomain;
+            }
+            set
+            {
+                FB.facebookDomain = value;
             }
         }
 
@@ -454,6 +467,11 @@ namespace Facebook.Unity
             FacebookDelegate<IGraphResult> callback = null,
             IDictionary<string, string> formData = null)
         {
+            if (string.IsNullOrEmpty(query))
+            {
+                throw new ArgumentNullException("query", "The query param cannot be null or empty");
+            }
+
             FacebookImpl.API(query, method, formData, callback);
         }
 
@@ -473,6 +491,11 @@ namespace Facebook.Unity
             FacebookDelegate<IGraphResult> callback,
             WWWForm formData)
         {
+            if (string.IsNullOrEmpty(query))
+            {
+                throw new ArgumentNullException("query", "The query param cannot be null or empty");
+            }
+
             FacebookImpl.API(query, method, formData, callback);
         }
 
@@ -593,7 +616,7 @@ namespace Facebook.Unity
                 FacebookLogger.Info(string.Format(
                     "Using Unity SDK v{0} with {1}",
                     FacebookSdkVersion.Build,
-                    FB.FacebookImpl.FacebookSdkVersion));
+                    FB.FacebookImpl.SDKUserAgent));
             }
             else
             {

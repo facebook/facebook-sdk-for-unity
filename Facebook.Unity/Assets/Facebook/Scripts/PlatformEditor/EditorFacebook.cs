@@ -43,11 +43,19 @@ namespace Facebook.Unity.Editor
 
         public ShareDialogMode ShareDialogMode { get; set; }
 
-        public override string FacebookSdkVersion
+        public override string SDKName
         {
             get
             {
-                return "None";
+                return "FBUnityEditorSDK";
+            }
+        }
+
+        public override string SDKVersion
+        {
+            get
+            {
+                return Facebook.Unity.FacebookSdkVersion.Build;
             }
         }
 
@@ -105,7 +113,6 @@ namespace Facebook.Unity.Editor
             var dialog = ComponentFactory.GetComponent<MockLoginDialog>();
             dialog.Callback = this.EditorGameObject.OnLoginComplete;
             dialog.CallbackID = this.CallbackManager.AddFacebookDelegate(callback);
-            dialog.Permissions = permissions != null ? permissions : new List<string>();
         }
 
         public override void AppRequest(

@@ -28,6 +28,7 @@ import com.facebook.FacebookException;
 import com.facebook.share.model.GameRequestContent;
 import com.facebook.share.widget.GameRequestDialog;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 public class FBUnityGameRequestActivity extends BaseActivity {
@@ -67,7 +68,8 @@ public class FBUnityGameRequestActivity extends BaseActivity {
         }
 
         if (params.containsKey("to")) {
-            contentBuilder.setTo(params.getString("to"));
+            String toStr = params.getString("to");
+            contentBuilder.setRecipients(Arrays.asList(toStr.split(",")));
         }
 
         if (params.containsKey("filters")) {

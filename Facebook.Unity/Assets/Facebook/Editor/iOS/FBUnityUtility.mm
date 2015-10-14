@@ -125,7 +125,7 @@ char* MakeStringCopy (const char* string)
     return FBSDKGameRequestFilterNone;
   } else if ([filter isEqualToString:@"app_users"]) {
     return FBSDKGameRequestFilterAppUsers;
-  } else if ([filter isEqualToString:@"non_app_users"]) {
+  } else if ([filter isEqualToString:@"app_non_users"]) {
     return FBSDKGameRequestFilterAppNonUsers;
   }
 

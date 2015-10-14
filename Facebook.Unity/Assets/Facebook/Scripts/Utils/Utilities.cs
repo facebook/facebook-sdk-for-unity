@@ -23,6 +23,7 @@ namespace Facebook.Unity
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
 
     internal static class Utilities
@@ -84,6 +85,15 @@ namespace Facebook.Unity
             }
 
             return uri.AbsoluteUri;
+        }
+
+        public static string GetUserAgent(string productName, string productVersion)
+        {
+            return string.Format(
+                CultureInfo.InvariantCulture,
+                "{0}/{1}",
+                productName,
+                productVersion);
         }
     }
 }

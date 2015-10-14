@@ -26,29 +26,29 @@ namespace Facebook.Unity.Editor
 
     internal abstract class EditorFacebookMockDialog : MonoBehaviour
     {
-        private float windowHeight = 200;
-        private GUIStyle greyButton;
-
         public delegate void OnComplete(string result);
 
         public OnComplete Callback { protected get; set; }
 
         public string CallbackID { protected get; set; }
 
-        protected abstract float WindowHeight { get; }
-
         protected abstract string DialogTitle { get; }
 
         public void OnGUI()
         {
-            var windowTop = (Screen.height / 2) - (this.WindowHeight / 2);
-            var windowLeft = (Screen.width / 2) - (this.WindowHeight / 2);
-            this.greyButton = GUI.skin.button;
+            var rect = new Rect(10, 10, Screen.width - 20, Screen.height - 20);
+            Texture2D texture = new Texture2D(1, 1);
+            texture.SetPixel(0, 0, new Color(0.2f, 0.2f, 0.2f, 1.0f));
+            texture.Apply();
+            var style = new GUIStyle(GUI.skin.window);
+            style.normal.background = texture;
+
             GUI.ModalWindow(
                 this.GetHashCode(),
-                new Rect(windowLeft, windowTop, this.WindowHeight, this.windowHeight),
+                rect,
                 this.OnGUIDialog,
-                this.DialogTitle);
+                this.DialogTitle,
+                style);
         }
 
         protected abstract void DoGui();
@@ -99,27 +99,22 @@ namespace Facebook.Unity.Editor
             }
 
             var cancelLabel = new GUIContent("Send Cancel");
-            var cancelButtonRect = GUILayoutUtility.GetRect(cancelLabel, this.greyButton);
-            if (GUI.Button(cancelButtonRect, cancelLabel, this.greyButton))
+            var cancelButtonRect = GUILayoutUtility.GetRect(cancelLabel, GUI.skin.button);
+            if (GUI.Button(cancelButtonRect, cancelLabel, GUI.skin.button))
             {
                 this.SendCancelResult();
                 MonoBehaviour.Destroy(this);
             }
 
             var errorLabel = new GUIContent("Send Error");
-            var errorButtonRect = GUILayoutUtility.GetRect(cancelLabel, this.greyButton);
-            if (GUI.Button(errorButtonRect, errorLabel, this.greyButton))
+            var errorButtonRect = GUILayoutUtility.GetRect(cancelLabel, GUI.skin.button);
+            if (GUI.Button(errorButtonRect, errorLabel, GUI.skin.button))
             {
                 this.SendErrorResult("Error: Error button pressed");
                 MonoBehaviour.Destroy(this);
             }
 
             GUILayout.EndHorizontal();
-
-            if (Event.current.type == EventType.Repaint)
-            {
-                this.windowHeight = cancelButtonRect.y + cancelButtonRect.height + GUI.skin.window.padding.bottom;
-            }
         }
     }
 }

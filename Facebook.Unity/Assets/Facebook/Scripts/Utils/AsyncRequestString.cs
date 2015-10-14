@@ -30,14 +30,14 @@ namespace Facebook.Unity
      */
     internal class AsyncRequestString : MonoBehaviour
     {
-        private string url;
+        private Uri url;
         private HttpMethod method;
         private IDictionary<string, string> formData;
         private WWWForm query;
         private FacebookDelegate<IGraphResult> callback;
 
         internal static void Post(
-            string url,
+            Uri url,
             Dictionary<string, string> formData = null,
             FacebookDelegate<IGraphResult> callback = null)
         {
@@ -45,7 +45,7 @@ namespace Facebook.Unity
         }
 
         internal static void Get(
-            string url,
+            Uri url,
             Dictionary<string, string> formData = null,
             FacebookDelegate<IGraphResult> callback = null)
         {
@@ -53,7 +53,7 @@ namespace Facebook.Unity
         }
 
         internal static void Request(
-            string url,
+            Uri url,
             HttpMethod method,
             WWWForm query = null,
             FacebookDelegate<IGraphResult> callback = null)
@@ -66,7 +66,7 @@ namespace Facebook.Unity
         }
 
         internal static void Request(
-            string url,
+            Uri url,
             HttpMethod method,
             IDictionary<string, string> formData = null,
             FacebookDelegate<IGraphResult> callback = null)
@@ -83,7 +83,7 @@ namespace Facebook.Unity
             WWW www;
             if (this.method == HttpMethod.GET)
             {
-                string urlParams = this.url.Contains("?") ? "&" : "?";
+                string urlParams = this.url.AbsoluteUri.Contains("?") ? "&" : "?";
                 if (this.formData != null)
                 {
                     foreach (KeyValuePair<string, string> pair in this.formData)
@@ -92,7 +92,12 @@ namespace Facebook.Unity
                     }
                 }
 
-                www = new WWW(this.url + urlParams);
+                var headers = new Dictionary<string, string>()
+                {
+                    { "User-Agent", Constants.GraphApiUserAgent },
+                };
+
+                www = new WWW(this.url + urlParams, null, headers);
             }
             else
             {
@@ -115,7 +120,8 @@ namespace Facebook.Unity
                     }
                 }
 
-                www = new WWW(this.url, this.query);
+                this.query.headers["User-Agent"] = Constants.GraphApiUserAgent;
+                www = new WWW(this.url.AbsoluteUri, this.query);
             }
 
             yield return www;
@@ -130,7 +136,7 @@ namespace Facebook.Unity
             MonoBehaviour.Destroy(this);
         }
 
-        internal AsyncRequestString SetUrl(string url)
+        internal AsyncRequestString SetUrl(Uri url)
         {
             this.url = url;
             return this;

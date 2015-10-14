@@ -60,11 +60,19 @@ namespace Facebook.Unity.Mobile.IOS
             }
         }
 
-        public override string FacebookSdkVersion
+        public override string SDKName
         {
             get
             {
-                return string.Format("Facebook.iOS.SDK.{0}", IOSFacebook.IOSFBSdkVersion());
+                return "FBiOSSDK";
+            }
+        }
+
+        public override string SDKVersion
+        {
+            get
+            {
+                return IOSFacebook.IOSFBSdkVersion();
             }
         }
 
@@ -92,10 +100,6 @@ namespace Facebook.Unity.Mobile.IOS
                 hideUnityDelegate,
                 onInitComplete);
 
-            string unityUserAgentSuffix = string.Format(
-                "Unity.{0}",
-                Facebook.Unity.FacebookSdkVersion.Build);
-
             IOSFacebook.IOSInit(
                 appId,
                 cookie,
@@ -103,7 +107,7 @@ namespace Facebook.Unity.Mobile.IOS
                 status,
                 frictionlessRequests,
                 FacebookSettings.IosURLSuffix,
-                unityUserAgentSuffix);
+                Constants.UnitySDKUserAgentSuffixLegacy);
         }
 
         public override void LogInWithReadPermissions(

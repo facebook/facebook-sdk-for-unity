@@ -92,10 +92,11 @@ namespace Facebook.Unity
                     }
                 }
 
-                var headers = new Dictionary<string, string>()
-                {
-                    { "User-Agent", Constants.GraphApiUserAgent },
-                };
+                Dictionary<string, string> headers = new Dictionary<string, string>();
+                // Unity has a bug where setting the headers on a get request fails when running on the webplayer
+#if !UNITY_WEBPLAYER
+                headers["User-Agent"] = Constants.GraphApiUserAgent;
+#endif
 
                 www = new WWW(this.url + urlParams, null, headers);
             }

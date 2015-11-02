@@ -30,7 +30,7 @@
 const char* const FB_OBJECT_NAME = "UnityFacebookSDKPlugin";
 
 // Helper method to create C string copy
-char* MakeStringCopy (const char* string)
+static char* FBUnityMakeStringCopy (const char* string)
 {
   if (string == NULL)
     return NULL;
@@ -92,7 +92,7 @@ char* MakeStringCopy (const char* string)
   }
 
   const char *cString = [jsonString UTF8String];
-  UnitySendMessage(FB_OBJECT_NAME, [unityMessage cStringUsingEncoding:NSASCIIStringEncoding], MakeStringCopy(cString));
+  UnitySendMessage(FB_OBJECT_NAME, [unityMessage cStringUsingEncoding:NSASCIIStringEncoding], FBUnityMakeStringCopy(cString));
 }
 
 + (NSString *)stringFromCString:(const char *)string {

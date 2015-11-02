@@ -50,6 +50,14 @@ public class FBLogin {
 
     public static void sendLoginSuccessMessage(AccessToken token, String callbackID) {
         UnityMessage unityMessage = new UnityMessage("OnLoginComplete");
+        FBLogin.addLoginParametersToMessage(unityMessage, token, callbackID);
+        unityMessage.send();
+    }
+
+    public static void addLoginParametersToMessage(
+            UnityMessage unityMessage,
+            AccessToken token,
+            String callbackID) {
         unityMessage.put("key_hash", FB.getKeyHash());
         unityMessage.put("opened", true);
         unityMessage.put("access_token", token.getToken());
@@ -64,8 +72,6 @@ public class FBLogin {
         if (callbackID != null && !callbackID.isEmpty()) {
             unityMessage.put(Constants.CALLBACK_ID_KEY, callbackID);
         }
-
-        unityMessage.send();
     }
 
     private static void login(

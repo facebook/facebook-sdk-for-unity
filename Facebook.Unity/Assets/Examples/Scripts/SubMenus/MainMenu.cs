@@ -141,7 +141,11 @@ namespace Facebook.Unity.Example
         {
             this.Status = "Success - Check logk for details";
             this.LastResponse = "Success Response: OnInitComplete Called\n";
-            LogView.AddLog("OnInitComplete Called");
+            string logMessage = string.Format(
+                "OnInitCompleteCalled IsLoggedIn='{0}' IsInitialized='{1}'",
+                FB.IsLoggedIn,
+                FB.IsInitialized);
+            LogView.AddLog(logMessage);
         }
 
         private void OnHideUnity(bool isGameShown)

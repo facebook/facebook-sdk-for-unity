@@ -80,15 +80,18 @@ public class FB {
         FacebookSdk.sdkInitialize(FB.getUnityActivity(), new FacebookSdk.InitializeCallback() {
             @Override
             public void onInitialized() {
+                final UnityMessage unityMessage = new UnityMessage("OnInitComplete");
                 // If we have a cached access token send it back as well
-                if (AccessToken.getCurrentAccessToken() != null) {
-                    FBLogin.sendLoginSuccessMessage(AccessToken.getCurrentAccessToken(), null);
+                AccessToken token = AccessToken.getCurrentAccessToken();
+                if (token != null) {
+                    FBLogin.addLoginParametersToMessage(unityMessage, token, null);
+                } else {
+                    unityMessage.put("key_hash", FB.getKeyHash());
                 }
+
+                unityMessage.send();
             }
         });
-        final UnityMessage unityMessage = new UnityMessage("OnInitComplete");
-        unityMessage.put("key_hash", FB.getKeyHash());
-        unityMessage.send();
     }
 
     @UnityCallable

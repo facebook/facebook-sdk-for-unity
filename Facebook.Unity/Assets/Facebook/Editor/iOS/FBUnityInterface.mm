@@ -110,8 +110,9 @@ static FBUnityInterface *_instance = [FBUnityInterface sharedInstance];
     [FBSDKSettings setAppURLSchemeSuffix:[FBUnityUtility stringFromCString:urlSuffix]];
   }
 
-  [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnInitComplete userData:@{} requestId:0];
-  [self tryCompleteLoginWithRequestId:0];
+  NSDictionary *userData = [self getAccessTokenUserData] ?: @{};
+
+  [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnInitComplete userData:userData requestId:0];
 }
 
 - (void)logInWithPublishPermissions:(int) requestId
@@ -390,24 +391,46 @@ isPublishPermLogin:(BOOL)isPublishPermLogin
 
 - (BOOL)tryCompleteLoginWithRequestId:(int) requestId
 {
-  FBSDKAccessToken *token = [FBSDKAccessToken currentAccessToken];
-  if (token) {
-    NSInteger expiration = token.expirationDate.timeIntervalSince1970;
+  NSDictionary *userData = [self getAccessTokenUserData];
+  if (userData) {
     [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnLoginComplete
-                              userData:@{
-                                         @"opened" : @"true",
-                                         @"access_token" : token.tokenString,
-                                         @"expiration_timestamp" : [@(expiration) stringValue],
-                                         @"user_id" : token.userID,
-                                         @"permissions" : [token.permissions allObjects],
-                                         @"granted_permissions" : [token.permissions allObjects],
-                                         @"declined_permissions" : [token.declinedPermissions allObjects]
-                                         }
+                              userData:userData
                              requestId:requestId];
     return YES;
   } else {
     return NO;
   }
+}
+
+- (NSDictionary *)getAccessTokenUserData
+{
+  FBSDKAccessToken *token = [FBSDKAccessToken currentAccessToken];
+  if (token) {
+    // Old v3 sdk tokens don't always contain a UserID. If the user ID is null
+    // treat the token as bad and clear it. These values are all required
+    // on c# side for initlizing a token.
+    if (token.tokenString &&
+        token.expirationDate &&
+        token.userID &&
+        token.permissions &&
+        token.declinedPermissions) {
+      NSInteger expiration = token.expirationDate.timeIntervalSince1970;
+      return @{
+               @"opened" : @"true",
+               @"access_token" : token.tokenString,
+               @"expiration_timestamp" : [@(expiration) stringValue],
+               @"user_id" : token.userID,
+               @"permissions" : [token.permissions allObjects],
+               @"granted_permissions" : [token.permissions allObjects],
+               @"declined_permissions" : [token.declinedPermissions allObjects]
+               };
+    } else {
+      // The token is missing a required value. Clear the token
+      [[[FBSDKLoginManager alloc] init] logOut];
+    }
+  }
+
+  return nil;
 }
 
 @end

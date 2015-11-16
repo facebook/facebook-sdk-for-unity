@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<class name="FBProfilePicture" bindable="no">
+    <property name="height" type="int32" />
+    <property name="is_silhouette" type="bool" />
+    <property name="url" type="string" />
+    <property name="width" type="int32" />
+</class>

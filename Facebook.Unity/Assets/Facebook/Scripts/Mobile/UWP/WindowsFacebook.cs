@@ -310,22 +310,3 @@ namespace Facebook.Unity.Mobile.UWP
 #endregion
     }
 }
-
-
-//If FeedShare was successful: (example)
-//{"id":"10153763649240087_10153806534915087","callback_id":"4","posted":true}
-//If FeedShare was cancelled (example)
-//{"cancelled":true,"callback_id":"4"}
-//If FeedShare had an error (example)
-//{"error":"{FacebookDialogException: errorCode: -2, message: net::ERR_NAME_NOT_RESOLVED, url: https:\/\/m.facebook.com\/v2.5\/dialog\/app_requests\/submit}","callback_id":"6"}
-
-
-//If AppRequest was successful (example)
-//{"to":"1074841552539546","request":"1644435765832100","callback_id":"2"}
-//If AppRequest was cancelled (example)
-//{"cancelled":true,"callback_id":"4"}
-//If AppRequest had an error (example)
-//{"error":"{FacebookDialogException: errorCode: -2, message: net::ERR_NAME_NOT_RESOLVED, url: https:\/\/m.facebook.com\/v2.5\/dialog\/app_requests\/submit}","callback_id":"6"}
-
-//If LoginWithReadPermissions was successful (example)
-//{"access_token":"CAAXQerl5lWMBADRNQ3VMY93eqIkzxdCpbgwRBShxL8tCBU1qaCxrNW3XgecnlEOFoa545FGiIbXJr5p991X5Un5e46ftVGhESRIjC1ZCYZBDAmKQ3FJ8rA8ZCZCWLTWmNZAUJXmilUOronOWZCxwrszNcrj5pUu7ZCtZBpOL11dfGD0ZCovW4tGv25WiVc6fFRKWCEjOq5MI9jyk4JMLTFmPI4gk1U53YDGt5KpFhvjwBjwZDZD","key_hash":"zgF719HeIJnfeKhUbk5\/iq1e+ag=\n","permissions":"public_profile,user_friends,publish_pages,email,manage_pages","opened":true,"expiration_timestamp":"9223372036854775","callback_id":"1","user_id":"10153763649240087","declined_permissions":""}

@@ -6,11 +6,12 @@ using System.IO;
 
 public static class UWPFacebookPostprocess
 {
-    private const string FacebookUWPPath = "Assets/UWPFacebook/";
-
     [PostProcessBuild(100)]
     public static void OnPostProcessBuild(BuildTarget target, string path)
     {
+        if (target != BuildTarget.WP8Player && target != BuildTarget.WSAPlayer)
+            return;
+
         //We copy all files in the directory "../Plugins/UWP" because the winsdkfb requires the .windmd, .dll and .pri file along with the files inside the "Facebook" folder
         string fromDestination = Application.dataPath + "/Plugins/UWP";
         string toDestination = path + "/" + Application.productName;

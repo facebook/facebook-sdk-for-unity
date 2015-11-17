@@ -28,6 +28,7 @@ namespace Facebook.Unity
     using Facebook.Unity.Mobile;
     using Facebook.Unity.Mobile.Android;
     using Facebook.Unity.Mobile.IOS;
+    using Facebook.Unity.Mobile.UWP;
     using UnityEngine;
 
     /// <summary>
@@ -204,17 +205,19 @@ namespace Facebook.Unity
             {
                 FB.LogVersion();
 
-                #if UNITY_EDITOR
+#if UNITY_EDITOR
                 ComponentFactory.GetComponent<EditorFacebookLoader>();
-                #elif UNITY_WEBPLAYER || UNITY_WEBGL
+#elif UNITY_WEBPLAYER || UNITY_WEBGL
                 ComponentFactory.GetComponent<CanvasFacebookLoader>();
-                #elif UNITY_IOS
+#elif UNITY_IOS
                 ComponentFactory.GetComponent<IOSFacebookLoader>();
-                #elif UNITY_ANDROID
+#elif UNITY_ANDROID
                 ComponentFactory.GetComponent<AndroidFacebookLoader>();
-                #else
+#elif UNITY_UWP
+                ComponentFactory.GetComponent<WindowsFacebookLoader>();
+#else
                 throw new NotImplementedException("Facebook API does not yet support this platform");
-                #endif
+#endif
                 isInitCalled = true;
                 return;
             }

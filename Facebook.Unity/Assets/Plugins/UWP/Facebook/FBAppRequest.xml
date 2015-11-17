@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<class name="FBAppRequest" bindable="no">
+  <property name="action_type" type="string" />
+  <!-- TODO: application -->
+  <property name="created_time" type="string" />
+  <property name="data" type="string" />
+  <property name="from" type="fbclass" className="FBUser"/>
+  <property name="id" type="string" />
+  <property name="message" type="string" />
+  <property name="to" type="fbclass" className="FBUser"/>
+</class>

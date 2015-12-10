@@ -1,0 +1,208 @@
+/**
+ * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
+ *
+ * You are hereby granted a non-exclusive, worldwide, royalty-free license to use,
+ * copy, modify, and distribute this software in source code or binary form for use
+ * in connection with the web services and APIs provided by Facebook.
+ *
+ * As with any software that integrates with the Facebook platform, your use of
+ * this software is subject to the Facebook Developer Principles and Policies
+ * [http://developers.facebook.com/policy/]. This copyright notice shall be
+ * included in all copies or substantial portions of the software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+namespace Facebook.Unity.Tests.Mobile.IOS
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using Facebook.Unity.Mobile;
+    using Facebook.Unity.Mobile.IOS;
+
+    internal class MockIOS : MockWrapper, IIOSWrapper
+    {
+        public void Init(
+            string appId,
+            bool frictionlessRequests,
+            string urlSuffix,
+            string unityUserAgentSuffix)
+        {
+            this.LogMethodCall();
+            Facebook.OnInitComplete(string.Empty);
+        }
+
+        public void LogInWithReadPermissions(
+            int requestId,
+            string scope)
+        {
+            this.LogMethodCall();
+            this.LoginCommon(requestId, scope);
+        }
+
+        public void LogInWithPublishPermissions(
+            int requestId,
+            string scope)
+        {
+            this.LogMethodCall();
+            this.LoginCommon(requestId, scope);
+        }
+
+        public void LogOut()
+        {
+            this.LogMethodCall();
+        }
+
+        public void SetShareDialogMode(int mode)
+        {
+            this.LogMethodCall();
+        }
+
+        public void ShareLink(
+            int requestId,
+            string contentURL,
+            string contentTitle,
+            string contentDescription,
+            string photoURL)
+        {
+            this.LogMethodCall();
+            var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
+            this.Facebook.OnShareLinkComplete(result.ToJson());
+        }
+
+        public void FeedShare(
+            int requestId,
+            string toId,
+            string link,
+            string linkName,
+            string linkCaption,
+            string linkDescription,
+            string picture,
+            string mediaSource)
+        {
+            this.LogMethodCall();
+            var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
+            this.Facebook.OnShareLinkComplete(result.ToJson());
+        }
+
+        public void AppRequest(
+            int requestId,
+            string message,
+            string actionType,
+            string objectId,
+            string[] to = null,
+            int toLength = 0,
+            string filters = "",
+            string[] excludeIds = null,
+            int excludeIdsLength = 0,
+            bool hasMaxRecipients = false,
+            int maxRecipients = 0,
+            string data = "",
+            string title = "")
+        {
+            this.LogMethodCall();
+            var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
+            this.Facebook.OnAppRequestsComplete(result.ToJson());
+        }
+
+        public void AppInvite(
+            int requestId,
+            string appLinkUrl,
+            string previewImageUrl)
+        {
+            this.LogMethodCall();
+            var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
+            this.MobileFacebook.OnAppInviteComplete(result.ToJson());
+        }
+
+        public void CreateGameGroup(
+            int requestId,
+            string name,
+            string description,
+            string privacy)
+        {
+            this.LogMethodCall();
+            var result = MockResults.GetGroupCreateResult(requestId, this.ResultExtras);
+            this.Facebook.OnGroupCreateComplete(result.ToJson());
+        }
+
+        public void JoinGameGroup(int requestId, string groupId)
+        {
+            this.LogMethodCall();
+            var result = this.GetResultDictionary(requestId);
+            this.Facebook.OnGroupJoinComplete(result.ToJson());
+        }
+
+        public void FBSettingsActivateApp(string appId)
+        {
+            this.LogMethodCall();
+        }
+
+        public void LogAppEvent(
+            string logEvent,
+            double valueToSum,
+            int numParams,
+            string[] paramKeys,
+            string[] paramVals)
+        {
+            this.LogMethodCall();
+        }
+
+        public void LogPurchaseAppEvent(
+            double logPurchase,
+            string currency,
+            int numParams,
+            string[] paramKeys,
+            string[] paramVals)
+        {
+            this.LogMethodCall();
+        }
+
+        public void FBAppEventsSetLimitEventUsage(bool limitEventUsage)
+        {
+            this.LogMethodCall();
+        }
+
+        public void GetAppLink(int requestId)
+        {
+            var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
+            this.Facebook.OnGetAppLinkComplete(MiniJSON.Json.Serialize(result));
+        }
+
+        public string FBSdkVersion()
+        {
+            return "1.0.0";
+        }
+
+        public void FetchDeferredAppLink(int requestId)
+        {
+            this.LogMethodCall();
+        }
+
+        public void RefreshCurrentAccessToken(int requestID)
+        {
+            var result = MockResults.GetLoginResult(
+                requestID,
+                string.Empty,
+                this.ResultExtras);
+            this.MobileFacebook.OnRefreshCurrentAccessTokenComplete(result.ToJson());
+        }
+
+        private void LoginCommon(
+            int requestID,
+            string scope)
+        {
+            var result = MockResults.GetLoginResult(
+                requestID,
+                scope,
+            this.ResultExtras);
+            this.Facebook.OnLoginComplete(result.ToJson());
+        }
+    }
+}

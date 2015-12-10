@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
 
 public abstract class BaseActivity extends Activity {
     public static final String ACTIVITY_PARAMS = "activity_params";
@@ -34,6 +35,14 @@ public abstract class BaseActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCallbackManager = CallbackManager.Factory.create();
+
+        // During a share or other activity switch this activity may be destroyed.
+        // The UnityActivity will also get killed and the developers game will need to restart and
+        // the callback won't be registered. But to avoid throwing an exception initialize the sdk
+        // to allow the callback to complete.
+        if (!FacebookSdk.isInitialized()) {
+            FacebookSdk.sdkInitialize(getApplicationContext());
+        }
     }
 
     @Override

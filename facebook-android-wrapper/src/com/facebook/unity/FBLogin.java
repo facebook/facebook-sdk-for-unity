@@ -69,6 +69,11 @@ public class FBLogin {
         unityMessage.put("declined_permissions",
                 TextUtils.join(",", token.getDeclinedPermissions()));
 
+        if (token.getLastRefresh() != null) {
+            Long lastRefresh = token.getLastRefresh().getTime() / 1000;
+            unityMessage.put("last_refresh", lastRefresh.toString());
+        }
+
         if (callbackID != null && !callbackID.isEmpty()) {
             unityMessage.put(Constants.CALLBACK_ID_KEY, callbackID);
         }

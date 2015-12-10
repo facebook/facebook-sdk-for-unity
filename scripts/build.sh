@@ -22,5 +22,19 @@
 
 . $(dirname $0)/common.sh
 
-$SCRIPTS_DIR/setup_ios_unity_plugin.sh $@ || die "Failed to setup the ios sdk plugin"
-$SCRIPTS_DIR/setup_android_unity_plugin.sh $@ || die "Failed to build the android sdk plugin"
+CSPROJ_ERROR="To generate csproj files open this project in unity at least once"
+SDK_CSPROJ=$UNITY_PACKAGE_ROOT/Assembly-CSharp.csproj
+SDK_EDITOR_CSPROJ=$UNITY_PACKAGE_ROOT/Assembly-CSharp-Editor.csproj
+TEST_CSPROJ=$TEST_ROOT/Facebook.Unity.Tests.csproj
+
+validate_file_exists $UNITY_PACKAGE_ROOT/Assembly-CSharp.csproj $CSPROJERROR
+validate_file_exists $UNITY_PACKAGE_ROOT/Assembly-CSharp-Editor.csproj $CSPROJERROR
+
+// Build the core sdk
+xbuild /p:Configuration=Release $SDK_CSPROJ || die "Failed to build SDK DLL"
+
+// Buidl the editor support
+xbuild /p:Configuration=Release $SDK_EDITOR_CSPROJ || die "Failed to build SDK Edior DLL"
+
+// Build unit test proejct
+xbuild /p:Configuration=Release $TEST_CSPROJ || die "Failed to build test DLL"

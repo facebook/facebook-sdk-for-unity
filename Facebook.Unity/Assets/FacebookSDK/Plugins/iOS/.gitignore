@@ -1,0 +1,7 @@
+# Ignore the binary files in this directory but keep the meta files
+# since they contain information about what platform the binary files
+# apply to
+*.aar
+*.jar
+
+*.framework/

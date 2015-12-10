@@ -28,9 +28,9 @@ rm -rf tempIosBuild
 mkdir tempIosBuild
 cd tempIosBuild
 
-UNITY_PLUGIN_FACEBOOK="$UNITY_PACKAGE_ROOT/Assets/Plugins/iOS/Facebook"
+UNITY_PLUGIN_FACEBOOK="$UNITY_PACKAGE_ROOT/Assets/FacebookSDK/Plugins/iOS"
 mkdir -p "$UNITY_PLUGIN_FACEBOOK"
-rm -rf "$UNITY_PLUGIN_FACEBOOK/*"
+rm -rf "$UNITY_PLUGIN_FACEBOOK/*.framework"
 
 if [[ $* == *--local* ]]; then
     info "Local build selected"

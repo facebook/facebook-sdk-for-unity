@@ -20,6 +20,7 @@
 cd "$( dirname "${BASH_SOURCE[0]}" )/.."
 PROJECT_ROOT=$(pwd)
 UNITY_PACKAGE_ROOT=$PROJECT_ROOT/Facebook.Unity
+TEST_ROOT=$PROJECT_ROOT/Facebook.Unity.Tests
 SCRIPTS_DIR="$PROJECT_ROOT/scripts"
 
 RED='\033[0;31m'
@@ -36,7 +37,7 @@ else
 fi
 
 # Extract the SDK version from FacebookSdkVersion.java
-SDK_VERSION_RAW=$(sed -n 's/.*"\(.*\)\";/\1/p' "$UNITY_PACKAGE_ROOT/Assets/Facebook/Scripts/FacebookSdkVersion.cs")
+SDK_VERSION_RAW=$(sed -n 's/.*"\(.*\)\";/\1/p' "$UNITY_PACKAGE_ROOT/Assets/FacebookSDK/SDK/Scripts/FacebookSdkVersion.cs")
 SDK_VERSION_MAJOR=$(echo $SDK_VERSION_RAW | awk -F'.' '{print $1}')
 SDK_VERSION_MAJOR=${SDK_VERSION_MAJOR:-0}
 SDK_VERSION_MINOR=$(echo $SDK_VERSION_RAW | awk -F'.' '{print $2}')
@@ -83,4 +84,11 @@ function add_resource() {
   ssh $DEV_SERVER '~/www/scripts/developer/resource_admin' add /tmp/$RES >/tmp/$RES.handle.txt \
     || die "Error running resource_admin add $RES"
   echo "$RES handle: $(cat /tmp/$RES.handle.txt)"
+}
+
+function validate_file_exists() {
+  if [ ! -f "$1" ]; then
+    echo "${RED}FATAL: File not found $1 ${NC}" >&2
+    die $2
+  fi
 }

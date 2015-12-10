@@ -11,6 +11,7 @@
 # generated files
 bin/
 gen/
+obj/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -51,10 +52,10 @@ ProjectVersion.txt
 # MD unit test results
 test-results/
 unit_test_results.txt
+TestResult.xml
 
 # Ignore Plugin Folders which are build by build
-/Facebook.Unity/Assets/Plugins/Android/
-/Facebook.Unity/Assets/Plugins/iOS/
+/Facebook.Unity/Assets/Plugins/
 
 # Ignore Current Facebook Settings
 FacebookSettings.asset*

@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{4A088D45-0F5D-400B-9FF6-5AAF3ED10D9A}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Facebook.Unity.Test</RootNamespace>
+    <RootNamespace>Facebook.Unity.Tests</RootNamespace>
     <AssemblyName>Facebook.Unity.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
@@ -32,25 +32,72 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\Facebook.Unity\Assembly-CSharp.csproj">
-      <Project>{25723619-BB7C-ACF1-BFE7-AEB6DC175F4C}</Project>
+      <Project>{04FA0AD3-535B-3BAA-7249-1CD42F6252E7}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Android\AppInvite.cs" />
-    <Compile Include="Android\ShareLink.cs" />
-    <Compile Include="Android\MockAndroidJavaClass.cs" />
-    <Compile Include="Android\AndroidTest.cs" />
-    <Compile Include="Android\Login.cs" />
     <Compile Include="FacebookTestClass.cs" />
     <Compile Include="Utilities.cs" />
-    <Compile Include="Android\AppLinks.cs" />
+    <Compile Include="Canvas\UserAgent.cs" />
+    <Compile Include="Canvas\Pay.cs" />
+    <Compile Include="MockResults.cs" />
+    <Compile Include="AppGroup.cs" />
+    <Compile Include="AppRequest.cs" />
+    <Compile Include="FeedShare.cs" />
+    <Compile Include="Login.cs" />
+    <Compile Include="ShareLink.cs" />
+    <Compile Include="AppEvents.cs" />
+    <Compile Include="Canvas\CanvasTestAttribute.cs" />
+    <Compile Include="UserAgent.cs" />
+    <Compile Include="Canvas\AppEvents.cs" />
+    <Compile Include="Canvas\AppGroup.cs" />
+    <Compile Include="Canvas\AppLinks.cs" />
+    <Compile Include="Canvas\AppRequest.cs" />
+    <Compile Include="Canvas\FeedShare.cs" />
+    <Compile Include="Canvas\Login.cs" />
+    <Compile Include="Canvas\ShareLink.cs" />
+    <Compile Include="Canvas\MockCanvas.cs" />
+    <Compile Include="MockWrapper.cs" />
+    <Compile Include="Mobile\IOS\UserAgent.cs" />
+    <Compile Include="Mobile\IOS\IOSTestAttribute.cs" />
+    <Compile Include="Mobile\IOS\AppEvents.cs" />
+    <Compile Include="Mobile\IOS\AppGroup.cs" />
+    <Compile Include="Mobile\IOS\AppInvite.cs" />
+    <Compile Include="Mobile\IOS\AppLinks.cs" />
+    <Compile Include="Mobile\IOS\AppRequest.cs" />
+    <Compile Include="Mobile\IOS\FeedShare.cs" />
+    <Compile Include="Mobile\IOS\Login.cs" />
+    <Compile Include="Mobile\IOS\ShareLink.cs" />
+    <Compile Include="Mobile\Android\AppInvite.cs" />
+    <Compile Include="Mobile\Android\ShareLink.cs" />
+    <Compile Include="Mobile\Android\Login.cs" />
+    <Compile Include="Mobile\Android\AppLinks.cs" />
+    <Compile Include="Mobile\Android\UserAgent.cs" />
+    <Compile Include="Mobile\Android\FeedShare.cs" />
+    <Compile Include="Mobile\Android\AppRequest.cs" />
+    <Compile Include="Mobile\Android\AppEvents.cs" />
+    <Compile Include="Mobile\Android\AndroidTestAttribute.cs" />
+    <Compile Include="Mobile\Android\AppGroup.cs" />
+    <Compile Include="Mobile\AppInvite.cs" />
+    <Compile Include="Mobile\Login.cs" />
+    <Compile Include="AppLinks.cs" />
+    <Compile Include="Mobile\AppLinks.cs" />
+    <Compile Include="Mobile\Android\MockAndroid.cs" />
+    <Compile Include="Mobile\IOS\MockIOS.cs" />
+    <Compile Include="Mobile\AccessTokenRefresh.cs" />
+    <Compile Include="Mobile\IOS\AccessTokenRefresh.cs" />
+    <Compile Include="Mobile\Android\AccessTokenRefresh.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="nunit.core, Version=2.4.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
-      <Private>False</Private>
+    <Reference Include="System" />
+    <Reference Include="UnityEditor">
+      <HintPath>..\..\..\..\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.core.interfaces, Version=2.4.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.core, Version=2.4.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
       <Private>False</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=2.4.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
@@ -59,9 +106,19 @@
     <Reference Include="nunit.mocks, Version=2.4.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
       <Private>False</Private>
     </Reference>
-    <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Android\" />
+    <Folder Include="Canvas\" />
+    <Folder Include="Mobile\" />
   </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <TextStylePolicy inheritsSet="VisualStudio" inheritsScope="text/plain" scope="text/x-csharp" />
+          <CSharpFormattingPolicy IndentSwitchBody="True" AnonymousMethodBraceStyle="NextLine" PropertyBraceStyle="NextLine" PropertyGetBraceStyle="NextLine" PropertySetBraceStyle="NextLine" EventBraceStyle="NextLine" EventAddBraceStyle="NextLine" EventRemoveBraceStyle="NextLine" StatementBraceStyle="NextLine" ArrayInitializerBraceStyle="NextLine" BeforeMethodDeclarationParentheses="False" BeforeMethodCallParentheses="False" BeforeConstructorDeclarationParentheses="False" BeforeDelegateDeclarationParentheses="False" NewParentheses="False" inheritsSet="Mono" inheritsScope="text/x-csharp" scope="text/x-csharp" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>

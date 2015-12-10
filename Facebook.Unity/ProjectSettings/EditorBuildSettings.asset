@@ -6,22 +6,22 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Examples/MainMenu.unity
+    path: Assets/FacebookSDK/Examples/MainMenu.unity
   - enabled: 1
-    path: Assets/Examples/AppEvents.unity
+    path: Assets/FacebookSDK/Examples/AppEvents.unity
   - enabled: 1
-    path: Assets/Examples/AppRequests.unity
+    path: Assets/FacebookSDK/Examples/AppRequests.unity
   - enabled: 1
-    path: Assets/Examples/DialogShare.unity
+    path: Assets/FacebookSDK/Examples/DialogShare.unity
   - enabled: 1
-    path: Assets/Examples/GameGroups.unity
+    path: Assets/FacebookSDK/Examples/GameGroups.unity
   - enabled: 1
-    path: Assets/Examples/GraphRequest.unity
+    path: Assets/FacebookSDK/Examples/GraphRequest.unity
   - enabled: 1
-    path: Assets/Examples/LogView.unity
+    path: Assets/FacebookSDK/Examples/LogView.unity
   - enabled: 1
-    path: Assets/Examples/AppLinks.unity
+    path: Assets/FacebookSDK/Examples/AppLinks.unity
   - enabled: 1
-    path: Assets/Examples/AppInvites.unity
+    path: Assets/FacebookSDK/Examples/AppInvites.unity
   - enabled: 1
-    path: Assets/Examples/Pay.unity
+    path: Assets/FacebookSDK/Examples/Pay.unity

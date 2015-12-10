@@ -21,6 +21,7 @@
 namespace Facebook.Unity.Tests
 {
     using System;
+    using System.Collections.Generic;
 
     public static class Utilities
     {
@@ -29,6 +30,34 @@ namespace Facebook.Unity.Tests
             TimeSpan t = dateTime - new DateTime(1970, 1, 1);
             long secondsSinceEpoch = (long)t.TotalSeconds;
             return secondsSinceEpoch;
+        }
+
+        public static string ToJson(this IDictionary<string, object> dictionary)
+        {
+            return MiniJSON.Json.Serialize(dictionary);
+        }
+
+        public static void AddAllKVPFrom<T1, T2>(this IDictionary<T1, T2> dest, IDictionary<T1, T2> source)
+        {
+            foreach (T1 key in source.Keys)
+            {
+                dest[key] = source[key];
+            }
+        }
+
+        /// <summary>
+        /// Sets the value for the specified key if the dictionary does not already contain a value
+        /// for this key.
+        /// </summary>
+        public static bool TrySetKey<T1, T2>(this IDictionary<T1, T2> dictionary, T1 key, T2 value)
+        {
+            if (dictionary.ContainsKey(key))
+            {
+                return false;
+            }
+
+            dictionary[key] = value;
+            return true;
         }
     }
 }

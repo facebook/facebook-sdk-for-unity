@@ -212,8 +212,8 @@ public class FB {
     }
 
     @UnityCallable
-    public static void AppEvents(String params_str) {
-        Log.v(TAG, "AppEvents(" + params_str + ")");
+    public static void LogAppEvent(String params_str) {
+        Log.v(TAG, "LogAppEvent(" + params_str + ")");
         UnityParams unity_params = UnityParams.parse(params_str);
 
         Bundle parameters = new Bundle();
@@ -332,6 +332,40 @@ public class FB {
         }
 
         unityMessage.send();
+    }
+
+    @UnityCallable
+    public static void RefreshCurrentAccessToken(String paramsStr) {
+        FB.LogMethodCall("RefreshCurrentAccessToken", paramsStr);
+
+        UnityParams unityParams = UnityParams.parse(paramsStr);
+        final UnityMessage unityMessage = new UnityMessage("OnRefreshCurrentAccessTokenComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+
+        AccessToken.refreshCurrentAccessTokenAsync(new AccessToken.AccessTokenRefreshCallback() {
+            @Override
+            public void OnTokenRefreshed(AccessToken accessToken) {
+                FBLogin.addLoginParametersToMessage(unityMessage, accessToken, null);
+                unityMessage.send();
+            }
+
+            @Override
+            public void OnTokenRefreshFailed(FacebookException e) {
+                unityMessage.sendError(e.getMessage());
+            }
+        });
+
+        AppLinkData.fetchDeferredAppLinkData(
+                getUnityActivity(),
+                new AppLinkData.CompletionHandler() {
+                    @Override
+                    public void onDeferredAppLinkDataFetched(AppLinkData appLinkData) {
+                        FB.addAppLinkToMessage(unityMessage, appLinkData);
+                        unityMessage.send();
+                    }
+                });
     }
 
     /**

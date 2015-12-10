@@ -33,7 +33,7 @@ if [[ $* == *--local* ]]; then
 fi
 
 # Copy the required libs
-UNITY_PLUGIN_FACEBOOK="$UNITY_PACKAGE_ROOT/Assets/Plugins/Android/libs/"
+UNITY_PLUGIN_FACEBOOK="$UNITY_PACKAGE_ROOT/Assets/FacebookSDK/Plugins/Android/libs/"
 
 FB_WRAPPER_PATH=$PROJECT_ROOT/facebook-android-wrapper
 FB_WRAPPER_LIB_PATH=$FB_WRAPPER_PATH/libs
@@ -102,7 +102,8 @@ if [ ! -d "$UNITY_PLUGIN_FACEBOOK" ]; then
   mkdir -p $UNITY_PLUGIN_FACEBOOK || die "Failed to make unity plugin lib folder"
 fi
 # clean the unity lib folder
-rm -r -f $UNITY_PLUGIN_FACEBOOK/*
+rm -r -f $UNITY_PLUGIN_FACEBOOK/*.jar
+rm -r -f $UNITY_PLUGIN_FACEBOOK/*.aar
 # Copy aars
 cp $FB_SDK_AAR_PATH $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy fb sdk to unity plugin folders'
 cp $FB_ANDROID_SDK_WRAPPER  $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy wrapper to unity plugin folder'

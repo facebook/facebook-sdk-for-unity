@@ -49,6 +49,15 @@ namespace Facebook.Unity.Editor
 
         public void OnGUI()
         {
+            if ( this.modalStyle == null )
+            {
+                this.modalRect = new Rect(10, 10, Screen.width - 20, Screen.height - 20);
+                this.modalStyle = new GUIStyle(GUI.skin.window);
+                Texture2D texture = new Texture2D(1, 1);
+                texture.SetPixel(0, 0, new Color(0.2f, 0.2f, 0.2f, 1.0f));
+                texture.Apply();
+                this.modalStyle.normal.background = texture;
+            }
             GUI.ModalWindow(
                 this.GetHashCode(),
                 this.modalRect,

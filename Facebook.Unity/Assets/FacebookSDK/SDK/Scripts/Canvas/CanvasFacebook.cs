@@ -140,7 +140,7 @@ namespace Facebook.Unity.Canvas
             parameters.AddString("channelUrl", channelUrl);
             parameters.AddString("authResponse", authResponse);
             parameters.AddPrimative("frictionlessRequests", frictionlessRequests);
-            parameters.AddString("version", Constants.GraphAPIVersion);
+            parameters.AddString("version", FB.GraphApiVersion);
 
             // use 1/0 for booleans, otherwise you'll get strings "True"/"False"
             this.canvasJSWrapper.ExternalCall(

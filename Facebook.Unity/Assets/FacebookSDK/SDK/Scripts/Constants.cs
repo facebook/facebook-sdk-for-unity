@@ -44,7 +44,7 @@ namespace Facebook.Unity
         public const string OnGroupJoinCompleteMethodName = "OnJoinGroupComplete";
 
         // Graph API
-        public const string GraphAPIVersion = "v2.5";
+        public const string GraphApiVersion = "v2.5";
         public const string GraphUrlFormat = "https://graph.{0}/{1}/";
 
         // Permission Strings
@@ -69,7 +69,7 @@ namespace Facebook.Unity
                     CultureInfo.InvariantCulture,
                     Constants.GraphUrlFormat,
                     FB.FacebookDomain,
-                    Constants.GraphAPIVersion);
+                    FB.GraphApiVersion);
                 return new Uri(urlStr);
             }
         }

@@ -39,6 +39,7 @@ namespace Facebook.Unity
         private static IFacebook facebook;
         private static bool isInitCalled = false;
         private static string facebookDomain = "facebook.com";
+        private static string graphApiVersion = Constants.GraphApiVersion;
 
         private delegate void OnDLLLoaded();
 
@@ -48,6 +49,33 @@ namespace Facebook.Unity
         /// </summary>
         /// <value>The app identifier.</value>
         public static string AppId { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the graph API version.
+        ///
+        /// The Unity sdk is by default pegged to the lastest version of the graph api
+        /// at the time of the SDKs release. To override this value to use a different
+        /// version set this value.
+        /// <remarks>
+        /// This value is only valid for direct api calls made through FB.Api and the
+        /// graph api version used by the javscript sdk when running on the web. The
+        /// underlyting Android and iOS SDKs will still be pegged to the graph api
+        /// version of this release.
+        /// </remarks>
+        /// </summary>
+        /// <value>The graph API version.</value>
+        public static string GraphApiVersion
+        {
+            get
+            {
+                return FB.graphApiVersion;
+            }
+
+            set
+            {
+                FB.graphApiVersion = value;
+            }
+        }
 
         /// <summary>
         /// Gets a value indicating a user logged in.

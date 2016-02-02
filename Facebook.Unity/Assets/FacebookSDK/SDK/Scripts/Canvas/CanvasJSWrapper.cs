@@ -43,7 +43,7 @@ namespace Facebook.Unity.Canvas
 
         public string GetSDKVersion()
         {
-            return Constants.GraphAPIVersion;
+            return Constants.GraphApiVersion;
         }
 
         public void ExternalCall(string functionName, params object[] args)

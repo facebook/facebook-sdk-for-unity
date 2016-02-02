@@ -25,5 +25,12 @@
 # Run build script to ensure that test DLL is built
 $SCRIPTS_DIR/build.sh || die "Build failed"
 
-mono /Library/Frameworks/Mono.framework/Versions/Current/lib/mono/4.5/nunit-console.exe ~/unity-facebook/Facebook.Unity.Tests/bin/Release/Facebook.Unity.Tests.dll --noshadow --nothread \
-|| die "Some tests failed"
+which mono &>/dev/null || die "mono command not found. Please install mono."
+
+NUNIT_CONSOLE="/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/4.5/nunit-console.exe"
+TEST_DLL="$PROJECT_ROOT/Facebook.Unity.Tests/bin/Release/Facebook.Unity.Tests.dll"
+
+validate_file_exists $NUNIT_CONSOLE "Make sure mono is installed at this path"
+validate_file_exists $TEST_DLL "Make sure that the Unity Project successfully built"
+
+mono $NUNIT_CONSOLE $TEST_DLL --noshadow --nothread || die "Some tests failed"

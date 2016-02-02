@@ -48,7 +48,6 @@ SDK_VERSION=$SDK_VERSION_MAJOR.$SDK_VERSION_MINOR.$SDK_VERSION_REVISION
 SDK_VERSION_SHORT=$(echo $SDK_VERSION | sed 's/\.0$//')
 
 OUT="$PROJECT_ROOT/out"
-DEV_SERVER=$(whoami).sb.facebook.com
 MAVEN_BASE_URL='http://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=%s&a=%s&p=%s&v=%s'
 
 function die() {
@@ -75,15 +74,6 @@ function downloadFromMaven() {
 
   OUTPUT_PATH=$5
   curl -L "$MAVEN_DOWNLOAD_URL" -o "$OUTPUT_PATH" || die "Failed download $MAVEN_DOWNLOAD_URL"
-}
-
-function add_resource() {
-  RES=$1
-  scp $OUT/$RES ${DEV_SERVER}:/tmp/$RES \
-    || die "Error copying $RES to ${DEV_SERVER}:/tmp/$RES"
-  ssh $DEV_SERVER '~/www/scripts/developer/resource_admin' add /tmp/$RES >/tmp/$RES.handle.txt \
-    || die "Error running resource_admin add $RES"
-  echo "$RES handle: $(cat /tmp/$RES.handle.txt)"
 }
 
 function validate_file_exists() {

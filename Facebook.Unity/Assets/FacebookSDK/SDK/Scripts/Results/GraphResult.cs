@@ -20,14 +20,12 @@
 
 namespace Facebook.Unity
 {
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
 
     internal class GraphResult : ResultBase, IGraphResult
     {
-        internal GraphResult(WWW result) : base(result.text, result.error, false)
+        internal GraphResult(WWW result) : base(new ResultContainer(result.text), result.error, false)
         {
             this.Init(this.RawResult);
 

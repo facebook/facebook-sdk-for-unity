@@ -20,7 +20,6 @@
 
 namespace Facebook.Unity
 {
-    using System;
     using System.Collections.Generic;
 
     /// <summary>
@@ -29,13 +28,13 @@ namespace Facebook.Unity
     public interface IAppRequestResult : IResult
     {
         /// <summary>
-        /// Gets RequestID
+        /// Gets RequestID.
         /// </summary>
-        /// <value>A request ID assigned by Facebook</value>
+        /// <value>A request ID assigned by Facebook.</value>
         string RequestID { get; }
 
         /// <summary>
-        /// Gets to.
+        /// Gets the list of users who the request was sent to.
         /// </summary>
         /// <value>An array of string, each element being the Facebook ID of one of the selected recipients.</value>
         IEnumerable<string> To { get; }

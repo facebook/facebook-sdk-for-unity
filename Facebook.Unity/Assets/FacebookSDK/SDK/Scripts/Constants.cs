@@ -53,14 +53,14 @@ namespace Facebook.Unity
         public const string PublishActionsPermission = "publish_actions";
         public const string PublishPagesPermission = "publish_pages";
 
-        // The current platform. We save this in a varriable to allow for
+        // The current platform. We save this in a variable to allow for
         // mocking during testing
         private static FacebookUnityPlatform? currentPlatform;
 
         /// <summary>
         /// Gets the graph URL.
         /// </summary>
-        /// <value>The graph URL. Ex. https://graph.facebook.com/v2.5/</value>
+        /// <value>The graph URL. Ex. https://graph.facebook.com/v2.5/.</value>
         public static Uri GraphUrl
         {
             get
@@ -118,7 +118,7 @@ namespace Facebook.Unity
         }
 
         /// <summary>
-        /// Returns the legacy user agent suffix that gets
+        /// Gets the legacy user agent suffix that gets
         /// appended to graph requests on ios and android.
         /// </summary>
         /// <value>The user agent unity suffix legacy.</value>
@@ -178,11 +178,13 @@ namespace Facebook.Unity
                     return FacebookUnityPlatform.Android;
                 case RuntimePlatform.IPhonePlayer:
                     return FacebookUnityPlatform.IOS;
-                case RuntimePlatform.WebGLPlayer:
-                    return FacebookUnityPlatform.WebGL;
                 case RuntimePlatform.WindowsWebPlayer:
                 case RuntimePlatform.OSXWebPlayer:
                     return FacebookUnityPlatform.WebPlayer;
+#if UNITY_5
+                case RuntimePlatform.WebGLPlayer:
+                    return FacebookUnityPlatform.WebGL;
+#endif
                 default:
                     return FacebookUnityPlatform.Unknown;
             }

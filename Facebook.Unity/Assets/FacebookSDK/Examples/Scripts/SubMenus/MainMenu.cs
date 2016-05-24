@@ -20,8 +20,6 @@
 
 namespace Facebook.Unity.Example
 {
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
@@ -153,6 +151,10 @@ namespace Facebook.Unity.Example
                 FB.IsLoggedIn,
                 FB.IsInitialized);
             LogView.AddLog(logMessage);
+            if (AccessToken.CurrentAccessToken != null)
+            {
+                LogView.AddLog(AccessToken.CurrentAccessToken.ToString());
+            }
         }
 
         private void OnHideUnity(bool isGameShown)

@@ -20,19 +20,7 @@
 
 namespace Facebook.Unity.Canvas
 {
-    using System;
-
-    internal interface ICanvasFacebook : IFacebook
+    internal interface ICanvasFacebook : IPayFacebook, IFacebook
     {
-        void Pay(
-            string product,
-            string action,
-            int quantity,
-            int? quantityMin,
-            int? quantityMax,
-            string requestId,
-            string pricepointId,
-            string testCurrency,
-            FacebookDelegate<IPayResult> callback);
     }
 }

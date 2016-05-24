@@ -20,7 +20,6 @@
 
 namespace Facebook.Unity
 {
-    using System;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -32,7 +31,7 @@ namespace Facebook.Unity
         /// <summary>
         /// Gets the result.
         /// </summary>
-        /// <value>A list parsed from the result</value>
+        /// <value>A list parsed from the result.</value>
         IList<object> ResultList { get; }
 
         /// <summary>
@@ -43,7 +42,7 @@ namespace Facebook.Unity
         /// </value>
         /// <remarks>
         ///     The Graph API does not return textures directly, but a few endpoints can
-        ///     redirect to images when no 'redirect=false' parameter is specified. Ex: '/me/picture'
+        ///     redirect to images when no 'redirect=false' parameter is specified. Ex: '/me/picture'.
         /// </remarks>
         Texture2D Texture { get; }
     }

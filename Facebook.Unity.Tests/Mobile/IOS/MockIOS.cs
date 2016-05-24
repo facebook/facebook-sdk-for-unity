@@ -35,7 +35,7 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             string unityUserAgentSuffix)
         {
             this.LogMethodCall();
-            Facebook.OnInitComplete(string.Empty);
+            Facebook.OnInitComplete(new ResultContainer(string.Empty));
         }
 
         public void LogInWithReadPermissions(
@@ -73,7 +73,7 @@ namespace Facebook.Unity.Tests.Mobile.IOS
         {
             this.LogMethodCall();
             var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
-            this.Facebook.OnShareLinkComplete(result.ToJson());
+            this.Facebook.OnShareLinkComplete(new ResultContainer(result));
         }
 
         public void FeedShare(
@@ -88,7 +88,7 @@ namespace Facebook.Unity.Tests.Mobile.IOS
         {
             this.LogMethodCall();
             var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
-            this.Facebook.OnShareLinkComplete(result.ToJson());
+            this.Facebook.OnShareLinkComplete(new ResultContainer(result));
         }
 
         public void AppRequest(
@@ -108,7 +108,7 @@ namespace Facebook.Unity.Tests.Mobile.IOS
         {
             this.LogMethodCall();
             var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
-            this.Facebook.OnAppRequestsComplete(result.ToJson());
+            this.Facebook.OnAppRequestsComplete(new ResultContainer(result));
         }
 
         public void AppInvite(
@@ -118,7 +118,7 @@ namespace Facebook.Unity.Tests.Mobile.IOS
         {
             this.LogMethodCall();
             var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
-            this.MobileFacebook.OnAppInviteComplete(result.ToJson());
+            this.MobileFacebook.OnAppInviteComplete(new ResultContainer(result));
         }
 
         public void CreateGameGroup(
@@ -129,14 +129,14 @@ namespace Facebook.Unity.Tests.Mobile.IOS
         {
             this.LogMethodCall();
             var result = MockResults.GetGroupCreateResult(requestId, this.ResultExtras);
-            this.Facebook.OnGroupCreateComplete(result.ToJson());
+            this.Facebook.OnGroupCreateComplete(new ResultContainer(result));
         }
 
         public void JoinGameGroup(int requestId, string groupId)
         {
             this.LogMethodCall();
             var result = this.GetResultDictionary(requestId);
-            this.Facebook.OnGroupJoinComplete(result.ToJson());
+            this.Facebook.OnGroupJoinComplete(new ResultContainer(result));
         }
 
         public void FBSettingsActivateApp(string appId)
@@ -172,7 +172,7 @@ namespace Facebook.Unity.Tests.Mobile.IOS
         public void GetAppLink(int requestId)
         {
             var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
-            this.Facebook.OnGetAppLinkComplete(MiniJSON.Json.Serialize(result));
+            this.Facebook.OnGetAppLinkComplete(new ResultContainer(result));
         }
 
         public string FBSdkVersion()
@@ -191,7 +191,7 @@ namespace Facebook.Unity.Tests.Mobile.IOS
                 requestID,
                 string.Empty,
                 this.ResultExtras);
-            this.MobileFacebook.OnRefreshCurrentAccessTokenComplete(result.ToJson());
+            this.MobileFacebook.OnRefreshCurrentAccessTokenComplete(new ResultContainer(result));
         }
 
         private void LoginCommon(
@@ -202,7 +202,7 @@ namespace Facebook.Unity.Tests.Mobile.IOS
                 requestID,
                 scope,
             this.ResultExtras);
-            this.Facebook.OnLoginComplete(result.ToJson());
+            this.Facebook.OnLoginComplete(new ResultContainer(result));
         }
     }
 }

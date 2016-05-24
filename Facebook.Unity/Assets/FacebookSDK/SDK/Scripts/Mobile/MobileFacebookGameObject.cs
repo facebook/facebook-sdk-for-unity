@@ -20,8 +20,6 @@
 
 namespace Facebook.Unity.Mobile
 {
-    using System;
-
     internal abstract class MobileFacebookGameObject : FacebookGameObject, IMobileFacebookCallbackHandler
     {
         private IMobileFacebookImplementation MobileFacebook
@@ -34,17 +32,17 @@ namespace Facebook.Unity.Mobile
 
         public void OnAppInviteComplete(string message)
         {
-            this.MobileFacebook.OnAppInviteComplete(message);
+            this.MobileFacebook.OnAppInviteComplete(new ResultContainer(message));
         }
 
         public void OnFetchDeferredAppLinkComplete(string message)
         {
-            this.MobileFacebook.OnFetchDeferredAppLinkComplete(message);
+            this.MobileFacebook.OnFetchDeferredAppLinkComplete(new ResultContainer(message));
         }
 
         public void OnRefreshCurrentAccessTokenComplete(string message)
         {
-            this.MobileFacebook.OnRefreshCurrentAccessTokenComplete(message);
+            this.MobileFacebook.OnRefreshCurrentAccessTokenComplete(new ResultContainer(message));
         }
     }
 }

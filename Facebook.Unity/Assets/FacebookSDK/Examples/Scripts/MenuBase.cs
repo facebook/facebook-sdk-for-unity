@@ -21,8 +21,6 @@
 namespace Facebook.Unity.Example
 {
     using System;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
 
@@ -58,25 +56,23 @@ namespace Facebook.Unity.Example
             {
                 this.Status = "Error - Check log for details";
                 this.LastResponse = "Error Response:\n" + result.Error;
-                LogView.AddLog(result.Error);
             }
             else if (result.Cancelled)
             {
                 this.Status = "Cancelled - Check log for details";
                 this.LastResponse = "Cancelled Response:\n" + result.RawResult;
-                LogView.AddLog(result.RawResult);
             }
             else if (!string.IsNullOrEmpty(result.RawResult))
             {
                 this.Status = "Success - Check log for details";
                 this.LastResponse = "Success Response:\n" + result.RawResult;
-                LogView.AddLog(result.RawResult);
             }
             else
             {
                 this.LastResponse = "Empty Response\n";
-                LogView.AddLog(this.LastResponse);
             }
+
+            LogView.AddLog(result.ToString());
         }
 
         protected void OnGUI()

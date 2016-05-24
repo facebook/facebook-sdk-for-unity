@@ -22,7 +22,7 @@ namespace Facebook.Unity
 {
     internal class GroupJoinResult : ResultBase, IGroupJoinResult
     {
-        internal GroupJoinResult(string result) : base(result)
+        internal GroupJoinResult(ResultContainer resultContainer) : base(resultContainer)
         {
         }
     }

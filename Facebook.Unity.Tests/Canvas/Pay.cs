@@ -20,6 +20,7 @@
 
 namespace Facebook.Unity.Tests.Canvas
 {
+    using System.Collections.Generic;
     using NUnit.Framework;
 
     [CanvasTest]
@@ -32,6 +33,40 @@ namespace Facebook.Unity.Tests.Canvas
             IPayResult result = null;
             FB.Canvas.Pay("testProduct", callback: (r) => (result = r));
             Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void CancelPayTest()
+        {
+            IPayResult result = null;
+
+            var extras = new Dictionary<string, object>()
+            {
+                { ResultBase.ErrorCodeKey, ResultBase.CancelDialogCode },
+            };
+
+            this.Mock.ResultExtras = extras;
+            FB.Canvas.Pay("testProduct", callback: (r) => (result = r));
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Cancelled);
+        }
+
+        [Test]
+        public void ErrorPayTest()
+        {
+            IPayResult result = null;
+
+            var extras = new Dictionary<string, object>()
+            {
+                { ResultBase.ErrorCodeKey, 1L },
+                { ResultBase.ErrorMessageKey, "Test error message" },
+            };
+
+            this.Mock.ResultExtras = extras;
+            FB.Canvas.Pay("testProduct", callback: (r) => (result = r));
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.ErrorCode, extras[PayResult.ErrorCodeKey]);
+            Assert.AreEqual(result.Error, extras[PayResult.ErrorMessageKey]);
         }
     }
 }

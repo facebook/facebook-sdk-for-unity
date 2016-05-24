@@ -26,7 +26,7 @@ namespace Facebook.Unity
     public interface IGroupCreateResult : IResult
     {
         /// <summary>
-        /// Gets or sets the group identifier.
+        /// Gets the group identifier.
         /// </summary>
         /// <value>The group id of the group created.</value>
         string GroupId { get; }

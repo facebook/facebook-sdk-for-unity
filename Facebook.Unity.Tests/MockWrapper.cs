@@ -49,21 +49,21 @@ namespace Facebook.Unity.Tests
             }
         }
 
-        internal IFacebookCallbackHandler Facebook { get; set; }
+        internal IFacebookResultHandler Facebook { get; set; }
 
-        internal ICanvasFacebookCallbackHandler CanvasFacebook
+        internal ICanvasFacebookResultHandler CanvasFacebook
         {
             get
             {
-                return this.Facebook as ICanvasFacebookCallbackHandler;
+                return this.Facebook as ICanvasFacebookResultHandler;
             }
         }
 
-        internal IMobileFacebookCallbackHandler MobileFacebook
+        internal IMobileFacebookResultHandler MobileFacebook
         {
             get
             {
-                return this.Facebook as IMobileFacebookCallbackHandler;
+                return this.Facebook as IMobileFacebookResultHandler;
             }
         }
 

@@ -20,16 +20,17 @@
 
 namespace Facebook.Unity
 {
-    using System;
     using System.Collections.Generic;
 
     /// <summary>
-    /// A result containing an app link
+    /// A result containing an app link.
     /// </summary>
     public interface IAppLinkResult : IResult
     {
         /// <summary>
-        /// Gets the URL.
+        /// Gets the URL. This is the url that was used to open the app on iOS
+        /// or on Android the intent's data string. When handling deffered app
+        /// links on Android this may not be available.
         /// </summary>
         /// <value>The link url.</value>
         string Url { get; }
@@ -37,24 +38,24 @@ namespace Facebook.Unity
         /// <summary>
         /// Gets the target URI.
         /// </summary>
-        /// <value>The target uri for this App Link..</value>
+        /// <value>The target uri for this App Link.</value>
         string TargetUrl { get; }
 
         /// <summary>
         /// Gets the ref.
         /// </summary>
-        /// <value> Returns the ref for this App Link.</value>
-        ///     The referer data associated with the app link.
-        ///     This will contain Facebook specific information like fb_access_token, fb_expires_in, and fb_ref.
+        /// <value> Returns the ref for this App Link.
+        /// The referer data associated with the app link.
+        /// This will contain Facebook specific information like fb_access_token, fb_expires_in, and fb_ref.
         /// </value>
         string Ref { get; }
 
         /// <summary>
-        /// Gets the extras data.
+        /// Gets the extras.
         /// </summary>
         /// <value>
-        ///     The full set of arguments for this app link. Properties like target uri & ref are typically
-        ///     picked out of this set of arguments.
+        /// The full set of arguments for this app link. Properties like target uri &amp; ref are typically
+        /// picked out of this set of arguments.
         /// </value>
         IDictionary<string, object> Extras { get; }
     }

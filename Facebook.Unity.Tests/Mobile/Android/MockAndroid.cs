@@ -27,8 +27,6 @@ namespace Facebook.Unity.Tests.Mobile.Android
 
     internal class MockAndroid : MockWrapper, IAndroidJavaClass
     {
-        public delegate void OnResult(string result);
-
         public T CallStatic<T>(string methodName)
         {
             if (methodName == "GetSdkVersion")
@@ -43,7 +41,7 @@ namespace Facebook.Unity.Tests.Mobile.Android
         public void CallStatic(string methodName, params object[] args)
         {
             this.LogMethodCall(methodName);
-            OnResult callback = null;
+            Utilities.Callback<ResultContainer> callback = null;
             IDictionary<string, object> result;
             IDictionary<string, object> methodArguments = null;
             int callbackID = -1;
@@ -125,7 +123,7 @@ namespace Facebook.Unity.Tests.Mobile.Android
                 throw new NotImplementedException("Not implemented for " + methodName);
             }
 
-            callback(result.ToJson());
+            callback(new ResultContainer(result));
         }
     }
 }

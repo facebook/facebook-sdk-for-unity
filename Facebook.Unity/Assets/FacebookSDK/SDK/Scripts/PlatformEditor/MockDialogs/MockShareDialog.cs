@@ -20,10 +20,8 @@
 
 namespace Facebook.Unity.Editor.Dialogs
 {
-    using System;
     using System.Collections.Generic;
     using System.Text;
-    using UnityEngine;
 
     internal class MockShareDialog : EditorFacebookMockDialog
     {
@@ -62,7 +60,7 @@ namespace Facebook.Unity.Editor.Dialogs
 
             if (this.Callback != null)
             {
-                this.Callback(MiniJSON.Json.Serialize(result));
+                this.Callback(new ResultContainer(result));
             }
         }
 
@@ -75,7 +73,7 @@ namespace Facebook.Unity.Editor.Dialogs
                 result[Constants.CallbackIdKey] = this.CallbackID;
             }
 
-            this.Callback(MiniJSON.Json.Serialize(result));
+            this.Callback(new ResultContainer(result));
         }
 
         private string GenerateFakePostID()

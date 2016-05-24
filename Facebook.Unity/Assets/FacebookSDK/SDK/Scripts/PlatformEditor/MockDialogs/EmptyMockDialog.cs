@@ -20,9 +20,7 @@
 
 namespace Facebook.Unity.Editor.Dialogs
 {
-    using System;
     using System.Collections.Generic;
-    using UnityEngine;
 
     internal class EmptyMockDialog : EditorFacebookMockDialog
     {
@@ -52,7 +50,7 @@ namespace Facebook.Unity.Editor.Dialogs
 
             if (this.Callback != null)
             {
-                this.Callback(MiniJSON.Json.Serialize(result));
+                this.Callback(new ResultContainer(result));
             }
         }
     }

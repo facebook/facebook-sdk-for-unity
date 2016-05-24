@@ -63,6 +63,37 @@ namespace Facebook.Unity.Tests
             Login.ValidateToken(result, this.PublishPermissions);
         }
 
+        [Test]
+        public void IsLoggedInNullAccessToken()
+        {
+            AccessToken.CurrentAccessToken = null;
+            Assert.IsFalse(FB.IsLoggedIn);
+        }
+
+        [Test]
+        public void IsLoggedInValidExpiration()
+        {
+            AccessToken.CurrentAccessToken = new AccessToken(
+                "faketokenstring",
+                "1",
+                DateTime.UtcNow.AddDays(1),
+                new List<string>(), 
+                null);
+            Assert.IsTrue(FB.IsLoggedIn);
+        }
+
+        [Test]
+        public void IsLoggedInValidExpiredToken()
+        {
+            AccessToken.CurrentAccessToken = new AccessToken(
+                "faketokenstring",
+                "1",
+                DateTime.UtcNow.AddDays(-1),
+                new List<string>(), 
+                null);
+            Assert.IsFalse(FB.IsLoggedIn);
+        }
+
         protected override void OnInit()
         {
             base.OnInit();
@@ -86,6 +117,9 @@ namespace Facebook.Unity.Tests
             Assert.AreEqual(MockResults.MockTokenStringValue, token.TokenString);
             Assert.AreEqual(MockResults.MockUserIDValue, token.UserId);
             Assert.AreEqual(permissions.Count(), token.Permissions.Count());
+
+            diff = token.LastRefresh.Value.TotalSeconds() - MockResults.MockLastRefresh.TotalSeconds();
+            Assert.IsTrue(Math.Abs(diff) < 5);
             foreach (var perm in permissions)
             {
                 Assert.IsTrue(token.Permissions.Contains(perm));

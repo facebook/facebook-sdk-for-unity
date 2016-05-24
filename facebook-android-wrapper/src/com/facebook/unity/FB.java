@@ -24,12 +24,16 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.test.ActivityTestCase;
 import android.util.Log;
 import android.util.Base64;
 import android.content.pm.*;
@@ -37,6 +41,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 
 import com.facebook.*;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.appevents.internal.ActivityLifecycleTracker;
 import com.facebook.applinks.AppLinkData;
 import com.facebook.internal.BundleJSONConverter;
 import com.facebook.internal.Utility;
@@ -52,6 +57,7 @@ public class FB {
     static final String FB_UNITY_OBJECT = "UnityFacebookSDKPlugin";
     private static Intent intent;
     private static AppEventsLogger appEventsLogger;
+    private static AtomicBoolean activateAppCalled = new AtomicBoolean();
     static ShareDialog.Mode ShareDialogMode = ShareDialog.Mode.AUTOMATIC;
 
     private static AppEventsLogger getAppEventsLogger() {
@@ -66,10 +72,10 @@ public class FB {
     }
 
     @UnityCallable
-    public static void Init(String params_str) {
+    public static void Init(final String params_str) {
         Log.v(TAG, "Init(" + params_str + ")");
         UnityParams unity_params = UnityParams.parse(params_str, "couldn't parse init params: "+params_str);
-        String appID;
+        final String appID;
         if (unity_params.hasString("appId")) {
             appID = unity_params.getString("appId");
         } else {
@@ -88,6 +94,8 @@ public class FB {
                 } else {
                     unityMessage.put("key_hash", FB.getKeyHash());
                 }
+
+                FB.ActivateApp(appID);
 
                 unityMessage.send();
             }
@@ -171,33 +179,6 @@ public class FB {
         intent.putExtra(FBUnityDialogsActivity.DIALOG_TYPE, ShareDialog.Mode.FEED);
         intent.putExtra(FBUnityDialogsActivity.FEED_DIALOG_PARAMS, params);
         getUnityActivity().startActivity(intent);
-    }
-
-    @UnityCallable
-    public static void PublishInstall(String params_str) {
-        Log.v(TAG, "PublishInstall(" + params_str + ")");
-        final UnityMessage unityMessage = new UnityMessage("OnPublishInstallComplete");
-        final UnityParams unity_params = UnityParams.parse(params_str);
-        if (unity_params.hasString(Constants.CALLBACK_ID_KEY)) {
-            unityMessage.put(
-                    Constants.CALLBACK_ID_KEY,
-                    unity_params.getString(Constants.CALLBACK_ID_KEY));
-        }
-        AppEventsLogger.activateApp(getUnityActivity().getApplicationContext());
-        unityMessage.send();
-    }
-
-    @UnityCallable
-    public static void ActivateApp(String params_str) {
-        Log.v(TAG, "ActivateApp(" + params_str + ")");
-        final UnityParams unity_params = UnityParams.parse(params_str);
-        if (unity_params.hasString("app_id")) {
-            AppEventsLogger.activateApp(
-                    getUnityActivity().getApplicationContext(),
-                    unity_params.getString("app_id"));
-        } else {
-            AppEventsLogger.activateApp(getUnityActivity().getApplicationContext());
-        }
     }
 
     public static void SetIntent(Intent intent) {
@@ -323,6 +304,7 @@ public class FB {
         if (appLinkData != null) {
             // We have an app link
             FB.addAppLinkToMessage(unityMessage, appLinkData);
+            unityMessage.put("url", intent.getDataString());
         } else if (intent.getData() != null) {
             // We have a deep link
             unityMessage.put("url", intent.getDataString());
@@ -375,8 +357,19 @@ public class FB {
     @TargetApi(Build.VERSION_CODES.FROYO)
     public static String getKeyHash() {
         try {
-            PackageInfo info = getUnityActivity().getPackageManager().getPackageInfo(
-                getUnityActivity().getPackageName(), PackageManager.GET_SIGNATURES);
+            // In some cases the unity activity may not exist. This can happen when we are
+            // completing a login and unity activity was killed in the background. In this
+            // situation it's not necessary to send back the keyhash since the app will overwrite
+            // the value with the value they get during the init call and the unity activity
+            // wil be created by the time init is called.
+            Activity activity = getUnityActivity();
+            if (activity == null) {
+                return "";
+            }
+
+            PackageInfo info = activity.getPackageManager().getPackageInfo(
+                    activity.getPackageName(),
+                    PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures){
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
@@ -388,6 +381,32 @@ public class FB {
         } catch (NoSuchAlgorithmException e) {
         }
         return "";
+    }
+
+    private static void ActivateApp(String appId) {
+        if (!activateAppCalled.compareAndSet(false, true)) {
+            Log.w(TAG, "Activite app only needs to be called once");
+            return;
+        }
+        final Activity unityActivity = getUnityActivity();
+        if (appId != null) {
+            AppEventsLogger.activateApp(
+                    unityActivity.getApplication(),
+                    appId);
+        } else {
+            AppEventsLogger.activateApp(unityActivity.getApplication());
+        }
+
+        // We already have a running activity so we need to call create activity to ensure the
+        // logging is correct
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                // These calls should be run on the ui thread.
+                ActivityLifecycleTracker.onActivityCreated(unityActivity);
+                ActivityLifecycleTracker.onActivityResumed(unityActivity);
+            }
+        });
     }
 
     private static void startActivity(Class<?> cls, String paramsStr) {

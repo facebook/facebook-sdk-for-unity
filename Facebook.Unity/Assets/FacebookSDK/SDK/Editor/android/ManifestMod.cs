@@ -23,8 +23,6 @@ namespace UnityEditor.FacebookEditor
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
-    using System.Linq;
-    using System.Text;
     using System.Xml;
     using Facebook.Unity;
     using UnityEditor;
@@ -52,6 +50,7 @@ namespace UnityEditor.FacebookEditor
         public static void GenerateManifest()
         {
             var outputFile = Path.Combine(Application.dataPath, ManifestMod.AndroidManifestPath);
+
             // Create containing directory if it does not exist
             Directory.CreateDirectory(Path.GetDirectoryName(outputFile));
 

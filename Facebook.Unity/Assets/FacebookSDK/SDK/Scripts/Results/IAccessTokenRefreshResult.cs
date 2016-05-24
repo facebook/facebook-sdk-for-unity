@@ -20,8 +20,15 @@
 
 namespace Facebook.Unity
 {
+    /// <summary>
+    /// The access token refresh result.
+    /// </summary>
     public interface IAccessTokenRefreshResult : IResult
     {
+        /// <summary>
+        /// Gets the refreshed access token.
+        /// </summary>
+        /// <value>The access token.</value>
         AccessToken AccessToken { get; }
     }
 }

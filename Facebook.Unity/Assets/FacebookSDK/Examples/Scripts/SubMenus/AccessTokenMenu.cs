@@ -18,12 +18,8 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-﻿namespace Facebook.Unity.Example
+namespace Facebook.Unity.Example
 {
-    using System.Collections;
-    using System.Collections.Generic;
-    using UnityEngine;
-
     internal class AccessTokenMenu : MenuBase
     {
         protected override void GetGui()

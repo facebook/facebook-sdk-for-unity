@@ -20,7 +20,6 @@
 
 namespace Facebook.Unity.Editor
 {
-    using System;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -29,9 +28,7 @@ namespace Facebook.Unity.Editor
         private Rect modalRect;
         private GUIStyle modalStyle;
 
-        public delegate void OnComplete(string result);
-
-        public OnComplete Callback { protected get; set; }
+        public Utilities.Callback<ResultContainer> Callback { protected get; set; }
 
         public string CallbackID { protected get; set; }
 
@@ -70,7 +67,7 @@ namespace Facebook.Unity.Editor
                 dictionary[Constants.CallbackIdKey] = this.CallbackID;
             }
 
-            this.Callback(MiniJSON.Json.Serialize(dictionary));
+            this.Callback(new ResultContainer(dictionary.ToJson()));
         }
 
         protected virtual void SendErrorResult(string errorMessage)
@@ -82,7 +79,7 @@ namespace Facebook.Unity.Editor
                 dictionary[Constants.CallbackIdKey] = this.CallbackID;
             }
 
-            this.Callback(MiniJSON.Json.Serialize(dictionary));
+            this.Callback(new ResultContainer(dictionary.ToJson()));
         }
 
         private void OnGUIDialog(int windowId)

@@ -20,16 +20,14 @@
 
 namespace Facebook.Unity
 {
-    using System.Collections;
     using System.Collections.Generic;
-    using UnityEngine;
 
     internal class AppRequestResult : ResultBase, IAppRequestResult
     {
         public const string RequestIDKey = "request";
         public const string ToKey = "to";
 
-        public AppRequestResult(string result) : base(result)
+        public AppRequestResult(ResultContainer resultContainer) : base(resultContainer)
         {
             if (this.ResultDictionary != null)
             {
@@ -69,5 +67,17 @@ namespace Facebook.Unity
         public string RequestID { get; private set; }
 
         public IEnumerable<string> To { get; private set; }
+
+        public override string ToString()
+        {
+            return Utilities.FormatToString(
+                base.ToString(),
+                this.GetType().Name,
+                new Dictionary<string, string>()
+                {
+                    { "RequestID", this.RequestID },
+                    { "To", this.To != null ? this.To.ToCommaSeparateList() : null },
+                });
+        }
     }
 }

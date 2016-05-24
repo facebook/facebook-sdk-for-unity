@@ -23,7 +23,7 @@ namespace Facebook.Unity.Tests
     using System;
     using System.Collections.Generic;
 
-    public static class Utilities
+    public static class TestUtilities
     {
         public static long TimeInSeconds(this DateTime dateTime)
         {

@@ -21,14 +21,42 @@
 namespace Facebook.Unity
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using System.Text;
 
     internal static class Utilities
     {
         private const string WarningMissingParameter = "Did not find expected value '{0}' in dictionary";
+        private static Dictionary<string, string> commandLineArguments;
+
+        public delegate void Callback<T>(T obj);
+
+        public static Dictionary<string, string> CommandLineArguments
+        {
+            get
+            {
+                if (commandLineArguments != null)
+                {
+                    return commandLineArguments;
+                }
+
+                var localCommandLineArguments = new Dictionary<string, string>();
+                var arguments = Environment.GetCommandLineArgs();
+                for (int i = 0; i < arguments.Length; i++)
+                {
+                    if (arguments[i].StartsWith("/") || arguments[i].StartsWith("-"))
+                    {
+                        var value = i + 1 < arguments.Length ? arguments[i + 1] : null;
+                        localCommandLineArguments.Add(arguments[i], value);
+                    }
+                }
+
+                commandLineArguments = localCommandLineArguments;
+                return commandLineArguments;
+            }
+        }
 
         public static bool TryGetValue<T>(
             this IDictionary<string, object> dictionary,
@@ -48,7 +76,7 @@ namespace Facebook.Unity
 
         public static long TotalSeconds(this DateTime dateTime)
         {
-            TimeSpan t = dateTime - new DateTime(1970, 1, 1);
+            TimeSpan t = dateTime - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             long secondsSinceEpoch = (long)t.TotalSeconds;
             return secondsSinceEpoch;
         }
@@ -59,7 +87,7 @@ namespace Facebook.Unity
             bool logWarning = true)
         {
             T result;
-            if (!dictionary.TryGetValue<T>(key, out result))
+            if (!dictionary.TryGetValue<T>(key, out result) && logWarning)
             {
                 FacebookLogger.Warn(WarningMissingParameter, key);
             }
@@ -125,13 +153,47 @@ namespace Facebook.Unity
                 lastRefresh);
         }
 
+        public static string ToStringNullOk(this object obj)
+        {
+            if (obj == null)
+            {
+                return "null";
+            }
+
+            return obj.ToString();
+        }
+
+        // Use this instead of reflection to avoid crashing at
+        // runtime due to Unity's stripping
+        public static string FormatToString(
+            string baseString,
+            string className,
+            IDictionary<string, string> propertiesAndValues)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (baseString != null)
+            {
+                sb.Append(baseString);
+            }
+
+            sb.AppendFormat("\n{0}:", className);
+            foreach (var kvp in propertiesAndValues)
+            {
+                string value = kvp.Value != null ? kvp.Value : "null";
+                sb.AppendFormat("\n\t{0}: {1}", kvp.Key, value);
+            }
+
+            return sb.ToString();
+        }
+
         private static DateTime ParseExpirationDateFromResult(IDictionary<string, object> resultDictionary)
         {
             DateTime expiration;
             if (Constants.IsWeb)
             {
                 // For canvas we get back the time as seconds since now instead of in epoch time.
-                expiration = DateTime.Now.AddSeconds(resultDictionary.GetValueOrDefault<long>(LoginResult.ExpirationTimestampKey));
+                long timeTillExpiration = resultDictionary.GetValueOrDefault<long>(LoginResult.ExpirationTimestampKey);
+                expiration = DateTime.UtcNow.AddSeconds(timeTillExpiration);
             }
             else
             {
@@ -152,11 +214,11 @@ namespace Facebook.Unity
 
         private static DateTime? ParseLastRefreshFromResult(IDictionary<string, object> resultDictionary)
         {
-            string expirationStr = resultDictionary.GetValueOrDefault<string>(LoginResult.ExpirationTimestampKey);
-            int expiredTimeSeconds;
-            if (int.TryParse(expirationStr, out expiredTimeSeconds) && expiredTimeSeconds > 0)
+            string lastRefreshStr = resultDictionary.GetValueOrDefault<string>(LoginResult.LastRefreshKey, false);
+            int lastRefresh;
+            if (int.TryParse(lastRefreshStr, out lastRefresh) && lastRefresh > 0)
             {
-                return Utilities.FromTimestamp(expiredTimeSeconds);
+                return Utilities.FromTimestamp(lastRefresh);
             }
             else
             {

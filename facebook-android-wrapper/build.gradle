@@ -17,7 +17,7 @@ buildscript {
     }
 }
 
-def fbSdkVersion = project.hasProperty("sdkVersion") ? sdkVersion : '4.8.1'
+def fbSdkVersion = project.hasProperty("sdkVersion") ? sdkVersion : '4.11.0'
 
 repositories {
     // If we are doing a local build use our local dir
@@ -35,7 +35,10 @@ dependencies {
     // not released to maven.
     if (project.hasProperty("localRepo")) {
         compile 'com.facebook.android:facebook-android-sdk:' + fbSdkVersion + '@aar'
-        compile fileTree(dir: 'libs', include: ['*.jar'])
+        compile 'com.android.support:support-v4:23.2.1'
+        compile 'com.android.support:cardview-v7:23.2.1'
+        compile 'com.android.support:customtabs:23.2.1'
+        compile 'com.parse.bolts:bolts-android:1.4.0'
     } else {
         compile 'com.facebook.android:facebook-android-sdk:' + fbSdkVersion
     }

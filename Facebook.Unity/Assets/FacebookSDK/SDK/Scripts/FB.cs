@@ -21,7 +21,6 @@
 namespace Facebook.Unity
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using Facebook.Unity.Canvas;
     using Facebook.Unity.Editor;
@@ -31,7 +30,7 @@ namespace Facebook.Unity
     using UnityEngine;
 
     /// <summary>
-    /// Static class for exposing the facebook integration
+    /// Static class for exposing the facebook integration.
     /// </summary>
     public sealed class FB : ScriptableObject
     {
@@ -45,14 +44,13 @@ namespace Facebook.Unity
 
         /// <summary>
         /// Gets the app identifier. AppId might be different from FBSettings.AppId
-        /// if using the programmatic version of FB.Init()
+        /// if using the programmatic version of FB.Init().
         /// </summary>
         /// <value>The app identifier.</value>
         public static string AppId { get; private set; }
 
         /// <summary>
         /// Gets or sets the graph API version.
-        ///
         /// The Unity sdk is by default pegged to the lastest version of the graph api
         /// at the time of the SDKs release. To override this value to use a different
         /// version set this value.
@@ -78,7 +76,7 @@ namespace Facebook.Unity
         }
 
         /// <summary>
-        /// Gets a value indicating a user logged in.
+        /// Gets a value indicating whether a user logged in.
         /// </summary>
         /// <value><c>true</c> if is logged in; otherwise, <c>false</c>.</value>
         public static bool IsLoggedIn
@@ -90,7 +88,7 @@ namespace Facebook.Unity
         }
 
         /// <summary>
-        /// Gets a value indicating is the SDK is initialized.
+        /// Gets a value indicating whether is the SDK is initialized.
         /// </summary>
         /// <value><c>true</c> if is initialized; otherwise, <c>false</c>.</value>
         public static bool IsInitialized
@@ -101,11 +99,15 @@ namespace Facebook.Unity
             }
         }
 
-        // If the player has set the limitEventUsage flag to YES, your app will continue
-        // to send this data to Facebook, but Facebook will not use the data to serve
-        // targeted ads. Facebook may continue to use the information for other purposes,
-        // including frequency capping, conversion events, estimating the number of unique
-        // users, security and fraud detection, and debugging.
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="Facebook.Unity.FB"/> limit app event usage.
+        /// If the player has set the limitEventUsage flag to YES, your app will continue
+        /// to send this data to Facebook, but Facebook will not use the data to serve
+        /// targeted ads. Facebook may continue to use the information for other purposes,
+        /// including frequency capping, conversion events, estimating the number of unique
+        /// users, security and fraud detection, and debugging.
+        /// </summary>
+        /// <value><c>true</c> if limit app event usage; otherwise, <c>false</c>.</value>
         public static bool LimitAppEventUsage
         {
             get
@@ -153,7 +155,6 @@ namespace Facebook.Unity
             }
         }
 
-
         private static OnDLLLoaded OnDLLLoadedDelegate { get; set; }
 
         /// <summary>
@@ -192,7 +193,7 @@ namespace Facebook.Unity
         /// <param name="xfbml">If set to <c>true</c> xfbml.</param>
         /// <param name="frictionlessRequests">If set to <c>true</c> frictionless requests.</param>
         /// <param name="authResponse">Auth response.</param>
-        /// <param name="jsSDKLocale">
+        /// <param name="javascriptSDKLocale">
         /// The locale of the js sdk used see
         /// https://developers.facebook.com/docs/internationalization#plugins.
         /// </param>
@@ -211,7 +212,7 @@ namespace Facebook.Unity
             bool xfbml = false,
             bool frictionlessRequests = true,
             string authResponse = null,
-            string jsSDKLocale = FB.DefaultJSSDKLocale,
+            string javascriptSDKLocale = FB.DefaultJSSDKLocale,
             HideUnityDelegate onHideUnity = null,
             InitDelegate onInitComplete = null)
         {
@@ -228,8 +229,9 @@ namespace Facebook.Unity
 
                 if (Constants.IsEditor)
                 {
-                    FB.OnDLLLoadedDelegate = delegate {
-                        ((EditorFacebook) FB.facebook).Init(onHideUnity, onInitComplete);
+                    FB.OnDLLLoadedDelegate = delegate
+                    {
+                        ((EditorFacebook)FB.facebook).Init(onHideUnity, onInitComplete);
                     };
 
                     ComponentFactory.GetComponent<EditorFacebookLoader>();
@@ -240,8 +242,9 @@ namespace Facebook.Unity
                     {
                         case FacebookUnityPlatform.WebGL:
                         case FacebookUnityPlatform.WebPlayer:
-                            FB.OnDLLLoadedDelegate = delegate {
-                                ((CanvasFacebook) FB.facebook).Init(
+                            FB.OnDLLLoadedDelegate = delegate
+                            {
+                                ((CanvasFacebook)FB.facebook).Init(
                                     appId,
                                     cookie,
                                     logging,
@@ -250,15 +253,16 @@ namespace Facebook.Unity
                                     FacebookSettings.ChannelUrl,
                                     authResponse,
                                     frictionlessRequests,
-                                    jsSDKLocale,
+                                    javascriptSDKLocale,
                                     onHideUnity,
                                     onInitComplete);
                             };
                             ComponentFactory.GetComponent<CanvasFacebookLoader>();
                             break;
                         case FacebookUnityPlatform.IOS:
-                            FB.OnDLLLoadedDelegate = delegate {
-                                ((IOSFacebook) FB.facebook).Init(
+                            FB.OnDLLLoadedDelegate = delegate
+                            {
+                                ((IOSFacebook)FB.facebook).Init(
                                     appId,
                                     frictionlessRequests,
                                     onHideUnity,
@@ -267,8 +271,9 @@ namespace Facebook.Unity
                             ComponentFactory.GetComponent<IOSFacebookLoader>();
                             break;
                         case FacebookUnityPlatform.Android:
-                            FB.OnDLLLoadedDelegate = delegate {
-                                ((AndroidFacebook) FB.facebook).Init(
+                            FB.OnDLLLoadedDelegate = delegate
+                            {
+                                ((AndroidFacebook)FB.facebook).Init(
                                     appId,
                                     onHideUnity,
                                     onInitComplete);
@@ -279,7 +284,9 @@ namespace Facebook.Unity
                             throw new NotImplementedException("Facebook API does not yet support this platform");
                     }
                 }
-            } else {
+            }
+            else
+            {
                 FacebookLogger.Warn("FB.Init() has already been called.  You only need to call this once and only once.");
             }
         }
@@ -297,7 +304,7 @@ namespace Facebook.Unity
         }
 
         /// <summary>
-        /// Logs the user in with the requested read permissions
+        /// Logs the user in with the requested read permissions.
         /// </summary>
         /// <param name="permissions">A list of requested permissions.</param>
         /// <param name="callback">Callback to be called when request completes.</param>
@@ -359,7 +366,7 @@ namespace Facebook.Unity
         /// </param>
         /// <param name="excludeIds">
         /// A list of Facebook IDs to exclude from the platform multi-friend selector dialog.
-        /// This list is currently not supported for mobile devices
+        /// This list is currently not supported for mobile devices.
         /// </param>
         /// <param name="maxRecipients">
         /// Platform-dependent The maximum number of recipients the sender should be able to
@@ -400,7 +407,7 @@ namespace Facebook.Unity
         /// </param>
         /// <param name="excludeIds">
         /// A list of Facebook IDs to exclude from the platform multi-friend selector dialog.
-        /// This list is currently not supported for mobile devices
+        /// This list is currently not supported for mobile devices.
         /// </param>
         /// <param name="maxRecipients">
         /// Platform-dependent The maximum number of recipients the sender should be able to
@@ -557,6 +564,12 @@ namespace Facebook.Unity
 
         /// <summary>
         /// Sends an app activation event to Facebook when your app is activated.
+        ///
+        /// On iOS and Android this event is logged automatically. You may still
+        /// need to call this event if you are running on web.
+        ///
+        /// On iOS the activate event is fired when the app becomes active
+        /// On Android the activate event is fired during FB.Init
         /// </summary>
         public static void ActivateApp()
         {
@@ -580,7 +593,7 @@ namespace Facebook.Unity
         }
 
         /// <summary>
-        /// Opens a dialog to create a new game group
+        /// Opens a dialog to create a new game group.
         /// </summary>
         /// <param name="name">The name of the group you wish to create.</param>
         /// <param name="description">A short description of the group's purpose.</param>
@@ -664,16 +677,20 @@ namespace Facebook.Unity
             }
         }
 
+        /// <summary>
+        /// Contains methods specific to the Facebook Games Canvas platform.
+        /// </summary>
         public sealed class Canvas
         {
-            private static ICanvasFacebook CanvasFacebookImpl
+            private static IPayFacebook FacebookPayImpl
             {
                 get
                 {
-                    ICanvasFacebook impl = FacebookImpl as ICanvasFacebook;
+                    IPayFacebook impl = FacebookImpl as IPayFacebook;
+
                     if (impl == null)
                     {
-                        throw new InvalidOperationException("Attempt to call Canvas interface on non canvas platform");
+                        throw new InvalidOperationException("Attempt to call Facebook pay interface on unsupported platform");
                     }
 
                     return impl;
@@ -725,7 +742,7 @@ namespace Facebook.Unity
                 string testCurrency = null,
                 FacebookDelegate<IPayResult> callback = null)
             {
-                CanvasFacebookImpl.Pay(
+                FacebookPayImpl.Pay(
                     product,
                     action,
                     quantity,
@@ -778,11 +795,11 @@ namespace Facebook.Unity
             /// Show the app invite dialog.
             /// </summary>
             /// <param name="appLinkUrl">
-            ///     App Link for what should be opened when the recipient clicks on the
-            ///     install/play button on the app invite page.
+            /// App Link for what should be opened when the recipient clicks on the
+            /// install/play button on the app invite page.
             /// </param>
             /// <param name="previewImageUrl">A url to an image to be used in the invite.</param>
-            /// <param name="callback">A callback for when the dialog completes</para>
+            /// <param name="callback">A callback for when the dialog completes.</param>
             public static void AppInvite(
                 Uri appLinkUrl,
                 Uri previewImageUrl = null,
@@ -807,6 +824,10 @@ namespace Facebook.Unity
                 Mobile.MobileFacebookImpl.FetchDeferredAppLink(callback);
             }
 
+            /// <summary>
+            /// Refreshs the current access to get a new access token if possible.
+            /// </summary>
+            /// <param name="callback">A on refresh access token compelte callback.</param>
             public static void RefreshCurrentAccessToken(
                 FacebookDelegate<IAccessTokenRefreshResult> callback = null)
             {
@@ -814,6 +835,9 @@ namespace Facebook.Unity
             }
         }
 
+        /// <summary>
+        /// Contains code specific to the Android Platform.
+        /// </summary>
         public sealed class Android
         {
             /// <summary>

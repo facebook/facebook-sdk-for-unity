@@ -20,9 +20,6 @@
 
 namespace Facebook.Unity.Example
 {
-    using System.Collections;
-    using UnityEngine;
-
     internal class AppLinks : MenuBase
     {
         protected override void GetGui()

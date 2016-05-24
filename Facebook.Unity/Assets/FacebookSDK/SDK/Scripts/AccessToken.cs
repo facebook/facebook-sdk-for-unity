@@ -21,10 +21,8 @@
 namespace Facebook.Unity
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using UnityEngine;
 
     /// <summary>
     /// Contains the access token and related information.
@@ -32,12 +30,13 @@ namespace Facebook.Unity
     public class AccessToken
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Facebook.AccessToken"/> class.
+        /// Initializes a new instance of the <see cref="AccessToken"/> class.
         /// </summary>
-        /// <param name="tokenString">Token string.</param>
-        /// <param name="userId">User identifier.</param>
-        /// <param name="expirationTime">Expiration time.</param>
-        /// <param name="permissions">Permissions.</param>
+        /// <param name="tokenString">Token string of the token.</param>
+        /// <param name="userId">User identifier of the token.</param>
+        /// <param name="expirationTime">Expiration time of the token.</param>
+        /// <param name="permissions">Permissions of the token.</param>
+        /// <param name="lastRefresh">Last Refresh time of token.</param>
         internal AccessToken(
             string tokenString,
             string userId,
@@ -73,40 +72,58 @@ namespace Facebook.Unity
         }
 
         /// <summary>
-        /// Gets or sets the current access token.
+        /// Gets the current access token.
         /// </summary>
         /// <value>The current access token.</value>
         public static AccessToken CurrentAccessToken { get; internal set; }
 
         /// <summary>
-        /// Gets or sets the token string.
+        /// Gets the token string.
         /// </summary>
         /// <value>The token string.</value>
         public string TokenString { get; private set; }
 
         /// <summary>
-        /// Gets or sets the expiration time.
+        /// Gets the expiration time.
         /// </summary>
         /// <value>The expiration time.</value>
         public DateTime ExpirationTime { get; private set; }
 
         /// <summary>
-        /// Gets or sets the list of permissions.
+        /// Gets the list of permissions.
         /// </summary>
         /// <value>The permissions.</value>
         public IEnumerable<string> Permissions { get; private set; }
 
         /// <summary>
-        /// Gets or sets the user identifier.
+        /// Gets the user identifier.
         /// </summary>
         /// <value>The user identifier.</value>
         public string UserId { get; private set; }
 
         /// <summary>
-        /// Gets or sets the last refresh.
+        /// Gets the last refresh.
         /// </summary>
         /// <value>The last refresh.</value>
         public DateTime? LastRefresh { get; private set; }
+
+        /// <summary>
+        /// Returns a <see cref="System.String"/> that represents the current <see cref="Facebook.Unity.AccessToken"/>.
+        /// </summary>
+        /// <returns>A <see cref="System.String"/> that represents the current <see cref="Facebook.Unity.AccessToken"/>.</returns>
+        public override string ToString()
+        {
+            return Utilities.FormatToString(
+                null,
+                this.GetType().Name,
+                new Dictionary<string, string>()
+                {
+                    { "ExpirationTime", this.ExpirationTime.TotalSeconds().ToString() },
+                    { "Permissions", this.Permissions.ToCommaSeparateList() },
+                    { "UserId", this.UserId.ToStringNullOk() },
+                    { "LastRefresh", this.LastRefresh.ToStringNullOk() },
+                });
+        }
 
         internal string ToJson()
         {

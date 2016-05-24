@@ -23,8 +23,6 @@ namespace UnityEditor.FacebookEditor
     using System;
     using System.IO;
     using System.Text.RegularExpressions;
-    using Facebook.Unity;
-    using UnityEditor;
     using UnityEngine;
 
     public class FixupFiles

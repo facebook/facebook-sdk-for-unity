@@ -20,10 +20,7 @@
 
 namespace Facebook.Unity
 {
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
 
     internal class LoginResult : ResultBase, ILoginResult
     {
@@ -33,7 +30,7 @@ namespace Facebook.Unity
         public static readonly string PermissionsKey = Constants.IsWeb ? "grantedScopes" : "permissions";
         public static readonly string AccessTokenKey = Constants.IsWeb ? "accessToken" : Constants.AccessTokenKey;
 
-        internal LoginResult(string response) : base(response)
+        internal LoginResult(ResultContainer resultContainer) : base(resultContainer)
         {
             if (this.ResultDictionary != null && this.ResultDictionary.ContainsKey(LoginResult.AccessTokenKey))
             {
@@ -42,5 +39,16 @@ namespace Facebook.Unity
         }
 
         public AccessToken AccessToken { get; private set; }
+
+        public override string ToString()
+        {
+            return Utilities.FormatToString(
+                base.ToString(),
+                this.GetType().Name,
+                new Dictionary<string, string>()
+                {
+                    { "AccessToken", this.AccessToken.ToStringNullOk() },
+                });
+        }
     }
 }

@@ -20,18 +20,20 @@
 
 namespace Facebook.Unity
 {
-    using System;
-
     /// <summary>
     /// Facebook sdk version.
     /// </summary>
     public class FacebookSdkVersion
     {
+        /// <summary>
+        /// Gets the SDK build version.
+        /// </summary>
+        /// <value>The sdk version.</value>
         public static string Build
         {
             get
             {
-                return "7.4.0";
+                return "7.5.0";
             }
         }
     }

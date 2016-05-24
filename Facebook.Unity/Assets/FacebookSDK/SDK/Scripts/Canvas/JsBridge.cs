@@ -20,7 +20,6 @@
 
 namespace Facebook.Unity.Canvas
 {
-    using System.Collections.Generic;
     using UnityEngine;
 
     internal class JsBridge : MonoBehaviour

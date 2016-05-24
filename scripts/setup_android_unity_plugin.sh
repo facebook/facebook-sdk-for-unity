@@ -43,6 +43,8 @@ FB_ANDROID_SDK_WRAPPER="$FB_WRAPPER_PATH/build/outputs/aar/$FB_ANDROID_SDK_WRAPP
 FB_SDK_AAR_NAME="$FB_ANDROID_SDK_ARTIFACT_ID-$FB_ANDROID_SDK_VERSION.$FB_ANDROID_SDK_PACKAGING"
 FB_SDK_AAR_PATH="$FB_WRAPPER_LIB_PATH/$FB_SDK_AAR_NAME"
 
+BOLTS_SDK_JAR_NAME="$BOLTS_ARTIFACT_ID-$BOLTS_VERSION.jar"
+BOLTS_JAR_PATH="$FB_WRAPPER_LIB_PATH/$BOLTS_SDK_JAR_NAME"
 BOLTS_TASKS_SDK_JAR_NAME="$BOLTS_TASKS_ARTIFACT_ID-$BOLTS_VERSION.jar"
 BOLTS_TASKS_JAR_PATH="$FB_WRAPPER_LIB_PATH/$BOLTS_TASKS_SDK_JAR_NAME"
 BOLTS_APPLINKS_SDK_JAR_NAME="$BOLTS_APPLINKS_ARTIFACT_ID-$BOLTS_VERSION.jar"
@@ -60,18 +62,25 @@ if [ ! -d "$FB_WRAPPER_LIB_PATH" ]; then
 fi
 pushd "$FB_WRAPPER_LIB_PATH" || die "Cannot navigate to directory $FB_WRAPPER_LIB_PATH"
 # Only delete everything except the expected bolts and sdk versions
-find . ! -name $BOLTS_TASKS_SDK_JAR_NAME ! -name $FB_SDK_AAR_NAME ! -name $BOLTS_APPLINKS_SDK_JAR_NAME -maxdepth 1 -type f -delete
+find . ! -name $BOLTS_SDK_JAR_NAME ! -name $FB_SDK_AAR_NAME -maxdepth 1 -type f -delete
 popd
 
 info "Step 2 - Get depenancies for android wrapper"
-info "Step 2.1.0 - Download $BOLTS_TASKS_SDK_JAR_NAME"
+info "Step 2.1.0 - Download $BOLTS_SDK_JAR_NAME"
+if [ ! -f "$BOLTS_JAR_PATH" ]; then
+  downloadFromMaven $BOLTS_GROUP_ID $BOLTS_ARTIFACT_ID $BOLTS_PACKAGING $BOLTS_VERSION "$BOLTS_JAR_PATH" || die "Failed to download from maven"
+else
+  info "$BOLTS_SDK_JAR_NAME already exists. Skipping download."
+fi
+
+info "Step 2.1.1 - Download $BOLTS_TASKS_SDK_JAR_NAME"
 if [ ! -f "$BOLTS_TASKS_JAR_PATH" ]; then
   downloadFromMaven $BOLTS_GROUP_ID $BOLTS_TASKS_ARTIFACT_ID $BOLTS_PACKAGING $BOLTS_VERSION "$BOLTS_TASKS_JAR_PATH"
 else
   info "$BOLTS_TASKS_SDK_JAR_NAME already exists. Skipping download."
 fi
 
-info "Step 2.1.1 - Download $BOLTS_APPLINKS_SDK_JAR_NAME"
+info "Step 2.1.2 - Download $BOLTS_APPLINKS_SDK_JAR_NAME"
 if [ ! -f "$BOLTS_APPLINKS_JAR_PATH" ]; then
   downloadFromMaven $BOLTS_GROUP_ID $BOLTS_APPLINKS_ARTIFACT_ID $BOLTS_PACKAGING $BOLTS_VERSION "$BOLTS_APPLINKS_JAR_PATH"
 else
@@ -89,7 +98,7 @@ if [ "$localBuild" = true ]; then
 else
   info "Step 2.2 - Download $FB_SDK_AAR_NAME"
   if [ ! -f "$FB_SDK_AAR_PATH" ]; then
-    downloadFromMaven $FB_ANDROID_SDK_GROUP_ID $FB_ANDROID_SDK_ARTIFACT_ID $FB_ANDROID_SDK_PACKAGING $FB_ANDROID_SDK_VERSION "$FB_SDK_AAR_PATH"
+    downloadFromMaven $FB_ANDROID_SDK_GROUP_ID $FB_ANDROID_SDK_ARTIFACT_ID $FB_ANDROID_SDK_PACKAGING $FB_ANDROID_SDK_VERSION "$FB_SDK_AAR_PATH" || die "failed to download sdk from maven"
   else
     info "$FB_SDK_AAR_NAME already exists. Skipping download"
   fi
@@ -102,10 +111,11 @@ cp "$ANDROID_CARDVIEW_LIB_PATH" $FB_WRAPPER_LIB_PATH || die "Failed to copy '$AN
 
 info "Step 3 - Build android wrapper"
 pushd $FB_WRAPPER_PATH
-./gradlew clean || die "Failed to perform gradle clean"
 if [ "$localBuild" = true ]; then
+  ./gradlew clean -PlocalRepo=libs -PsdkVersion=$FB_ANDROID_SDK_VERSION || die "Failed to perform gradle clean"
   ./gradlew assemble -PlocalRepo=libs -PsdkVersion=$FB_ANDROID_SDK_VERSION || die "Failed to build facebook android wrapper"
 else
+  ./gradlew clean -PsdkVersion=$FB_ANDROID_SDK_VERSION || die "Failed to perform gradle clean"
   ./gradlew assemble -PsdkVersion=$FB_ANDROID_SDK_VERSION || die "Failed to build facebook android wrapper"
 fi
 popd
@@ -125,10 +135,13 @@ mv $UNITY_PLUGIN_FACEBOOK/$FB_ANDROID_SDK_WRAPPER_NAME "$UNITY_PLUGIN_FACEBOOK/f
 
 if [ "$localBuild" = false ]; then
   # For local builds the jars are included in the wrapper for maven builds we have to copy them over
+  cp $BOLTS_JAR_PATH $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy bolts aar to unity plugin folder'
   cp $BOLTS_TASKS_JAR_PATH $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy bolts tasks jar to unity plugin folder'
   cp $BOLTS_APPLINKS_JAR_PATH $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy bolts app links jar to unity plugin folder'
   cp $ANDROID_SUPPORT_LIB_PATH $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy support lib to unity plugin folder'
   cp $ANDROID_CARDVIEW_LIB_PATH $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy cardview support lib to unity plugin folder'
+else
+  cp $FB_WRAPPER_LIB_PATH/* $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy wrapper lib files'
 fi
 
 info "Done!"

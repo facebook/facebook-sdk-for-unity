@@ -30,8 +30,8 @@ namespace Facebook.Unity.Tests
         private const string MockUserID = "100000000000000";
         private const string MockGroupID = "123456789";
 
-        private static DateTime mockLastRefresh = DateTime.Now;
-        private static DateTime mockExpirationTime = DateTime.Now.AddDays(60);
+        private static DateTime mockLastRefresh = DateTime.UtcNow;
+        private static DateTime mockExpirationTime = DateTime.UtcNow.AddDays(60);
 
         public static DateTime MockExpirationTimeValue
         {
@@ -73,6 +73,14 @@ namespace Facebook.Unity.Tests
             }
         }
 
+        public static DateTime MockLastRefresh
+        {
+            get
+            {
+                return MockResults.mockLastRefresh;
+            }
+        }
+
         public static IDictionary<string, object> GetLoginResult(
             int requestID,
             string permissions,
@@ -99,7 +107,7 @@ namespace Facebook.Unity.Tests
             object expirationTime;
             if (Constants.IsWeb)
             {
-                expirationTime = (long)(MockResults.MockExpirationTimeValue - DateTime.Now).TotalSeconds;
+                expirationTime = (long)(MockResults.MockExpirationTimeValue - DateTime.UtcNow).TotalSeconds;
             }
             else
             {

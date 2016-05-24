@@ -20,7 +20,6 @@
 
 namespace Facebook.Unity.Canvas
 {
-    using System;
     using UnityEngine;
 
     internal class CanvasFacebookGameObject : FacebookGameObject, ICanvasFacebookCallbackHandler
@@ -35,12 +34,12 @@ namespace Facebook.Unity.Canvas
 
         public void OnPayComplete(string result)
         {
-            this.CanvasFacebookImpl.OnPayComplete(result);
+            this.CanvasFacebookImpl.OnPayComplete(new ResultContainer(result));
         }
 
         public void OnFacebookAuthResponseChange(string message)
         {
-            this.CanvasFacebookImpl.OnFacebookAuthResponseChange(message);
+            this.CanvasFacebookImpl.OnFacebookAuthResponseChange(new ResultContainer(message));
         }
 
         public void OnUrlResponse(string message)

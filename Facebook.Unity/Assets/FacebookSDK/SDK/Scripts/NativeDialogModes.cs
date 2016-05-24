@@ -20,9 +20,13 @@
 
 namespace Facebook.Unity
 {
-    // If you make changes in here make the same changes in Assets/Facebook/Editor/iOS/FBUnityInterface.h
+    /// <summary>
+    /// Share dialog mode.
+    /// </summary>
     public enum ShareDialogMode
     {
+        // If you make changes in here make the same changes in Assets/Facebook/Editor/iOS/FBUnityInterface.h
+
         /// <summary>
         /// The sdk will choose which type of dialog to show
         /// See the Facebook SDKs for ios and android for specific details.

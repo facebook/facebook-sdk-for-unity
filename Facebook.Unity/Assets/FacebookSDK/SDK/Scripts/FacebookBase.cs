@@ -52,7 +52,8 @@ namespace Facebook.Unity
         {
             get
             {
-                return AccessToken.CurrentAccessToken != null;
+                AccessToken token = AccessToken.CurrentAccessToken;
+                return token != null && token.ExpirationTime > DateTime.UtcNow;
             }
         }
 
@@ -194,32 +195,51 @@ namespace Facebook.Unity
             }
         }
 
-        public virtual void OnInitComplete(string message)
+        public void OnInitComplete(string message)
         {
-            this.Initialized = true;
-            this.OnLoginComplete(message);
-            if (this.onInitCompleteDelegate != null)
-            {
-                this.onInitCompleteDelegate();
-            }
+            this.OnInitComplete(new ResultContainer(message));
         }
 
-        public abstract void OnLoginComplete(string message);
+        public virtual void OnInitComplete(ResultContainer resultContainer)
+        {
+            this.Initialized = true;
 
-        public void OnLogoutComplete(string message)
+            // Wait for the parsing of login to complete since we may need to pull
+            // in more info about the access token returned
+            FacebookDelegate<ILoginResult> loginCallback = (ILoginResult result) =>
+            {
+                if (this.onInitCompleteDelegate != null)
+                {
+                    this.onInitCompleteDelegate();
+                }
+            };
+
+            resultContainer.ResultDictionary[Constants.CallbackIdKey]
+                = this.CallbackManager.AddFacebookDelegate(loginCallback);
+            this.OnLoginComplete(resultContainer);
+        }
+
+        public void OnLoginComplete(string message)
+        {
+            this.OnInitComplete(new ResultContainer(message));
+        }
+
+        public abstract void OnLoginComplete(ResultContainer resultContainer);
+
+        public void OnLogoutComplete(ResultContainer resultContainer)
         {
             AccessToken.CurrentAccessToken = null;
         }
 
-        public abstract void OnGetAppLinkComplete(string message);
+        public abstract void OnGetAppLinkComplete(ResultContainer resultContainer);
 
-        public abstract void OnGroupCreateComplete(string message);
+        public abstract void OnGroupCreateComplete(ResultContainer resultContainer);
 
-        public abstract void OnGroupJoinComplete(string message);
+        public abstract void OnGroupJoinComplete(ResultContainer resultContainer);
 
-        public abstract void OnAppRequestsComplete(string message);
+        public abstract void OnAppRequestsComplete(ResultContainer resultContainer);
 
-        public abstract void OnShareLinkComplete(string message);
+        public abstract void OnShareLinkComplete(ResultContainer resultContainer);
 
         protected void ValidateAppRequestArgs(
             string message,

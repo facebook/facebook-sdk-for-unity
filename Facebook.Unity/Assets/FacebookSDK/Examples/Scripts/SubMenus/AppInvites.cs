@@ -21,8 +21,6 @@
 namespace Facebook.Unity.Example
 {
     using System;
-    using System.Collections;
-    using UnityEngine;
 
     internal class AppInvites : MenuBase
     {

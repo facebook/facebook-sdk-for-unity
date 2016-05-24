@@ -20,7 +20,6 @@
 
 namespace Facebook.Unity.Mobile.IOS
 {
-    using System;
     using System.Runtime.InteropServices;
 
     internal class IOSWrapper : IIOSWrapper

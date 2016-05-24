@@ -21,12 +21,10 @@
 namespace Facebook.Unity.Editor
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using Facebook.Unity.Canvas;
     using Facebook.Unity.Editor.Dialogs;
     using Facebook.Unity.Mobile;
-    using UnityEngine;
 
     internal class EditorFacebook : FacebookBase, IMobileFacebookImplementation, ICanvasFacebookImplementation
     {
@@ -95,7 +93,7 @@ namespace Facebook.Unity.Editor
             FacebookDelegate<ILoginResult> callback)
         {
             var dialog = ComponentFactory.GetComponent<MockLoginDialog>();
-            dialog.Callback = this.EditorGameObject.OnLoginComplete;
+            dialog.Callback = this.OnLoginComplete;
             dialog.CallbackID = this.CallbackManager.AddFacebookDelegate(callback);
         }
 
@@ -163,7 +161,7 @@ namespace Facebook.Unity.Editor
             var result = new Dictionary<string, object>();
             result[Constants.UrlKey] = "mockurl://testing.url";
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
-            this.OnGetAppLinkComplete(MiniJSON.Json.Serialize(result));
+            this.OnGetAppLinkComplete(new ResultContainer(result));
         }
 
         public override void AppEventsLogEvent(
@@ -205,7 +203,7 @@ namespace Facebook.Unity.Editor
 
             result[Constants.TargetUrlKey] = "mocktargeturl://mocktarget.url";
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
-            this.OnFetchDeferredAppLinkComplete(MiniJSON.Json.Serialize(result));
+            this.OnFetchDeferredAppLinkComplete(new ResultContainer(result));
         }
 
         public void Pay(
@@ -247,72 +245,72 @@ namespace Facebook.Unity.Editor
                 result.AddAllKVPFrom(accessTokenDic);
             }
 
-            this.OnRefreshCurrentAccessTokenComplete(result.ToJson());
+            this.OnRefreshCurrentAccessTokenComplete(new ResultContainer(result));
         }
 
-        public override void OnAppRequestsComplete(string message)
+        public override void OnAppRequestsComplete(ResultContainer resultContainer)
         {
-            var result = new AppRequestResult(message);
+            var result = new AppRequestResult(resultContainer);
             CallbackManager.OnFacebookResponse(result);
         }
 
-        public override void OnGetAppLinkComplete(string message)
+        public override void OnGetAppLinkComplete(ResultContainer resultContainer)
         {
-            var result = new AppLinkResult(message);
+            var result = new AppLinkResult(resultContainer);
             CallbackManager.OnFacebookResponse(result);
         }
 
-        public override void OnGroupCreateComplete(string message)
+        public override void OnGroupCreateComplete(ResultContainer resultContainer)
         {
-            var result = new GroupCreateResult(message);
+            var result = new GroupCreateResult(resultContainer);
             CallbackManager.OnFacebookResponse(result);
         }
 
-        public override void OnGroupJoinComplete(string message)
+        public override void OnGroupJoinComplete(ResultContainer resultContainer)
         {
-            var result = new GroupJoinResult(message);
+            var result = new GroupJoinResult(resultContainer);
             CallbackManager.OnFacebookResponse(result);
         }
 
-        public override void OnLoginComplete(string message)
+        public override void OnLoginComplete(ResultContainer resultContainer)
         {
-            var result = new LoginResult(message);
+            var result = new LoginResult(resultContainer);
             this.OnAuthResponse(result);
         }
 
-        public override void OnShareLinkComplete(string message)
+        public override void OnShareLinkComplete(ResultContainer resultContainer)
         {
-            var result = new ShareResult(message);
+            var result = new ShareResult(resultContainer);
             CallbackManager.OnFacebookResponse(result);
         }
 
-        public void OnAppInviteComplete(string message)
+        public void OnAppInviteComplete(ResultContainer resultContainer)
         {
-            var result = new AppInviteResult(message);
+            var result = new AppInviteResult(resultContainer);
             CallbackManager.OnFacebookResponse(result);
         }
 
-        public void OnFetchDeferredAppLinkComplete(string message)
+        public void OnFetchDeferredAppLinkComplete(ResultContainer resultContainer)
         {
-            var result = new AppLinkResult(message);
+            var result = new AppLinkResult(resultContainer);
             CallbackManager.OnFacebookResponse(result);
         }
 
-        public void OnPayComplete(string message)
+        public void OnPayComplete(ResultContainer resultContainer)
         {
-            var result = new PayResult(message);
+            var result = new PayResult(resultContainer);
             CallbackManager.OnFacebookResponse(result);
         }
 
-        public void OnRefreshCurrentAccessTokenComplete(string message)
+        public void OnRefreshCurrentAccessTokenComplete(ResultContainer resultContainer)
         {
-            var result = new AccessTokenRefreshResult(message);
+            var result = new AccessTokenRefreshResult(resultContainer);
             CallbackManager.OnFacebookResponse(result);
         }
 
         #region Canvas Dummy Methods
 
-        public void OnFacebookAuthResponseChange(string message)
+        public void OnFacebookAuthResponseChange(ResultContainer resultContainer)
         {
             throw new NotSupportedException();
         }
@@ -325,7 +323,7 @@ namespace Facebook.Unity.Editor
         #endregion
 
         private void ShowEmptyMockDialog<T>(
-            EditorFacebookMockDialog.OnComplete callback,
+            Utilities.Callback<ResultContainer> callback,
             FacebookDelegate<T> userCallback,
             string title) where T : IResult
         {
@@ -341,7 +339,7 @@ namespace Facebook.Unity.Editor
         {
             var dialog = ComponentFactory.GetComponent<MockShareDialog>();
             dialog.SubTitle = subTitle;
-            dialog.Callback = this.EditorGameObject.OnShareLinkComplete;
+            dialog.Callback = this.OnShareLinkComplete;
             dialog.CallbackID = this.CallbackManager.AddFacebookDelegate(userCallback);
         }
     }

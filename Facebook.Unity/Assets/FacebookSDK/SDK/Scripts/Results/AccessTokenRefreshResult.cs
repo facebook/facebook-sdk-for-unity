@@ -20,9 +20,11 @@
 
 namespace Facebook.Unity
 {
+    using System.Collections.Generic;
+
     internal class AccessTokenRefreshResult : ResultBase, IAccessTokenRefreshResult
     {
-        public AccessTokenRefreshResult(string result) : base(result)
+        public AccessTokenRefreshResult(ResultContainer resultContainer) : base(resultContainer)
         {
             if (this.ResultDictionary != null && this.ResultDictionary.ContainsKey(LoginResult.AccessTokenKey))
             {
@@ -31,5 +33,16 @@ namespace Facebook.Unity
         }
 
         public AccessToken AccessToken { get; private set; }
+
+        public override string ToString()
+        {
+            return Utilities.FormatToString(
+                base.ToString(),
+                this.GetType().Name,
+                new Dictionary<string, string>()
+                {
+                    { "AccessToken", this.AccessToken.ToStringNullOk() },
+                });
+        }
     }
 }

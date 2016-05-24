@@ -26,8 +26,6 @@ namespace Facebook.Unity.Tests.Canvas
 
     internal class MockCanvas : MockWrapper, ICanvasJSWrapper
     {
-        public delegate void OnResult(string result);
-
         public string IntegrationMethodJs
         {
             get
@@ -45,7 +43,7 @@ namespace Facebook.Unity.Tests.Canvas
         {
             this.LogMethodCall(functionName);
             IDictionary<string, object> result;
-            OnResult callback = null;
+            Utilities.Callback<ResultContainer> callback = null;
 
             if (functionName == "FBUnity.logAppEvent")
             {
@@ -102,7 +100,7 @@ namespace Facebook.Unity.Tests.Canvas
                 throw new NotImplementedException("Mock missing function: " + functionName);
             }
 
-            callback(result.ToJson());
+            callback(new ResultContainer(result));
         }
 
         public void ExternalEval(string script)

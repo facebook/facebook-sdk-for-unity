@@ -20,9 +20,6 @@
 
 namespace Facebook.Unity.Mobile.Android
 {
-    using System.Collections;
-    using UnityEngine;
-
     internal class AndroidFacebookLoader : FB.CompiledFacebookLoader
     {
         protected override FacebookGameObject FBGameObject

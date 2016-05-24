@@ -21,6 +21,7 @@
 namespace Facebook.Unity.Tests
 {
     using System;
+    using System.Collections.Generic;
     using NUnit.Framework;
 
     public abstract class ShareLink : FacebookTestClass
@@ -29,6 +30,14 @@ namespace Facebook.Unity.Tests
         public void SimpleLinkShare()
         {
             IShareResult result = null;
+
+            var extras = new Dictionary<string, object>()
+            {
+                { ShareResult.PostIDKey, "12345" },
+            };
+
+            this.Mock.ResultExtras = extras;
+
             FB.ShareLink(
                 new Uri("http://www.test.com/"),
                  "test title",
@@ -36,6 +45,7 @@ namespace Facebook.Unity.Tests
                  new Uri("http://www.photo.com/"),
                  (r) => (result = r));
             Assert.IsNotNull(result);
+            Assert.AreEqual(extras[ShareResult.PostIDKey], result.PostId);
         }
     }
 }

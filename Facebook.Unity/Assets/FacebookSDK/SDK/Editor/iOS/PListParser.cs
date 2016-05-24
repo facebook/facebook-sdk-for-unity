@@ -22,20 +22,14 @@ namespace UnityEditor.FacebookEditor
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Text;
     using System.Xml;
     using System.Xml.Linq;
     using Facebook.Unity.Editor;
-    using UnityEngine;
 
     internal class PListParser
     {
         private const string LSApplicationQueriesSchemesKey = "LSApplicationQueriesSchemes";
-        private const string NSAppTransportSecurityKey = "NSAppTransportSecurity";
-        private const string NSExceptionDomainsKey = "NSExceptionDomains";
-        private const string NSIncludesSubdomainsKey = "NSIncludesSubdomains";
-        private const string NSExceptionRequiresForwardSecrecyKey = "NSExceptionRequiresForwardSecrecy";
         private const string CFBundleURLTypesKey = "CFBundleURLTypes";
         private const string CFBundleURLSchemesKey = "CFBundleURLSchemes";
         private const string CFBundleURLName = "CFBundleURLName";
@@ -49,24 +43,6 @@ namespace UnityEditor.FacebookEditor
             "fb-messenger-api",
             "fbauth2",
             "fbshareextension"
-        };
-
-        private static readonly PListDict FacebookNSExceptionDomainsEntry = new PListDict()
-        {
-            { NSIncludesSubdomainsKey, true },
-            { NSExceptionRequiresForwardSecrecyKey, false }
-        };
-
-        private static readonly PListDict FacebookNSExceptionDomainsKey = new PListDict()
-        {
-            { "facebook.com", new PListDict(FacebookNSExceptionDomainsEntry) },
-            { "fbcdn.net", new PListDict(FacebookNSExceptionDomainsEntry) },
-            { "akamaihd.net", new PListDict(FacebookNSExceptionDomainsEntry) },
-        };
-
-        private static readonly PListDict FacebookNSAppTransportSecurity = new PListDict()
-        {
-            { PListParser.NSExceptionDomainsKey, FacebookNSExceptionDomainsKey }
         };
 
         private static readonly PListDict FacebookUrlSchemes = new PListDict()
@@ -101,7 +77,6 @@ namespace UnityEditor.FacebookEditor
             SetCFBundleURLSchemes(this.XMLDict, appID, urlSuffix, appLinkSchemes);
 
             // iOS 9+ Support
-            WhilelistFacebookServersForNetworkRequests(this.XMLDict);
             WhitelistFacebookApps(this.XMLDict);
         }
 
@@ -115,30 +90,6 @@ namespace UnityEditor.FacebookEditor
             XDocumentType docType = new XDocumentType("plist", publicId, stringId, internalSubset);
 
             this.XMLDict.Save(this.filePath, declaration, docType);
-        }
-
-        private static void WhilelistFacebookServersForNetworkRequests(PListDict plistDict)
-        {
-            if (!ContainsKeyWithValueType(plistDict, PListParser.NSAppTransportSecurityKey, typeof(PListDict)))
-            {
-                // We don't have a NSAppTransportSecurity entry. We can easily add one
-                plistDict[PListParser.NSAppTransportSecurityKey] = PListParser.FacebookNSAppTransportSecurity;
-                return;
-            }
-
-            var appTransportSecurityDict = (PListDict)plistDict[PListParser.NSAppTransportSecurityKey];
-            if (!ContainsKeyWithValueType(appTransportSecurityDict, PListParser.NSExceptionDomainsKey, typeof(PListDict)))
-            {
-                appTransportSecurityDict[PListParser.NSExceptionDomainsKey] = PListParser.FacebookNSExceptionDomainsEntry;
-                return;
-            }
-
-            var exceptionDomains = (PListDict)appTransportSecurityDict[PListParser.NSExceptionDomainsKey];
-            foreach (var key in PListParser.FacebookNSExceptionDomainsEntry.Keys)
-            {
-                // Instead of just updating overwrite values to keep things up to date
-                exceptionDomains[key] = FacebookNSExceptionDomainsEntry[key];
-            }
         }
 
         private static void WhitelistFacebookApps(PListDict plistDict)

@@ -50,25 +50,36 @@ window.FBUnity = {
     onInitWithStatus: function() {
         var timeoutHandler = setTimeout(function() { requestFailed(); }, 3000);
 
-    	function requestFailed() {
-    		FBUnity.onInit();
+        function requestFailed() {
+            FBUnity.onInit();
         }
 
-    	// try to get the login status right after init'ing
-    	FB.getLoginStatus(function(response) {
-    		clearTimeout(timeoutHandler);
-    		FBUnity.onInit(response);
-    	});
+        // try to get the login status right after init'ing
+        FB.getLoginStatus(function(response) {
+            clearTimeout(timeoutHandler);
+            FBUnity.onInit(response);
+        });
     },
 
     onInit: function(response) {
-    	var jsonResponse = "";
-    	if(response && response.authResponse) {
-    		jsonResponse = JSON.stringify(response);
-    	}
-    	
-    	FBUnity.sendMessage('OnInitComplete', jsonResponse);
-    	FB.Event.subscribe('auth.authResponseChange', function(r){ FBUnity.onAuthResponseChange(r) });
+        var jsonResponse = "";
+        if(response && response.authResponse) {
+            jsonResponse = JSON.stringify(response);
+        }
+        
+        FBUnity.sendMessage('OnInitComplete', jsonResponse);
+        FB.Event.subscribe('auth.authResponseChange', function(r){ FBUnity.onAuthResponseChange(r) });
+
+        FBUnity.logLoadingTime(response);
+    },
+
+    logLoadingTime: function(response) {
+        FB.Canvas.setDoneLoading(
+          function (result) {
+            // send implicitly event to log the time from the canvas pages load to facebook init being called.
+            FBUnity.logAppEvent('fb_canvas_time_till_init_complete', result.time_delta_ms / 1000, null);
+          }
+        );
     },
 
     onAuthResponseChange: function(response) {
@@ -76,12 +87,12 @@ window.FBUnity = {
     },
 
     apiCallback: function(query, response) {
-    	response = {'query': query, 'response': response};
-    	FBUnity.sendMessage('OnFacebookAPIResponse', JSON.stringify(response));
+        response = {'query': query, 'response': response};
+        FBUnity.sendMessage('OnFacebookAPIResponse', JSON.stringify(response));
     },
 
     api: function(query) {
-    	FB.api(query, FBUnity.apiCallback.bind(null , query));
+        FB.api(query, FBUnity.apiCallback.bind(null , query));
     },
 
     activateApp: function() {
@@ -89,58 +100,58 @@ window.FBUnity = {
     },
 
     uiCallback: function(uid, callbackMethodName, response) {
-    	response = {'callback_id': uid, 'response': response};
-    	FBUnity.sendMessage(callbackMethodName, JSON.stringify(response));
+        response = {'callback_id': uid, 'response': response};
+        FBUnity.sendMessage(callbackMethodName, JSON.stringify(response));
     },
 
     logout: function() {
-    	FB.logout();
+        FB.logout();
     },
 
     logAppEvent: function(eventName, valueToSum, parameters) {
-    	FB.AppEvents.logEvent(
-    		eventName,
-    		valueToSum,
-    		JSON.parse(parameters)
-    	);
+        FB.AppEvents.logEvent(
+            eventName,
+            valueToSum,
+            JSON.parse(parameters)
+        );
     },
 
     logPurchase: function(purchaseAmount, currency, parameters) {
-    	FB.AppEvents.logPurchase(
-    		purchaseAmount,
-    		currency,
-    		JSON.parse(parameters)
-    	);
+        FB.AppEvents.logPurchase(
+            purchaseAmount,
+            currency,
+            JSON.parse(parameters)
+        );
     },
 
     ui: function(x, uid, callbackMethodName) {
-    	x = JSON.parse(x);
-    	FB.ui(x, FBUnity.uiCallback.bind(null, uid, callbackMethodName));
+        x = JSON.parse(x);
+        FB.ui(x, FBUnity.uiCallback.bind(null, uid, callbackMethodName));
     },
 
     
     hideUnity: function(direction) {
-    	direction = direction || 'hide';
-    	//TODO support this for webgl
-    	var unityDiv = jQuery(u.getUnity());
+        direction = direction || 'hide';
+        //TODO support this for webgl
+        var unityDiv = jQuery(u.getUnity());
 
-    	if(direction == 'hide') {
-    		FBUnity.sendMessage('OnFacebookFocus', 'hide');
-    	} else /*show*/ {
-    		FBUnity.sendMessage('OnFacebookFocus', 'show');
+        if(direction == 'hide') {
+            FBUnity.sendMessage('OnFacebookFocus', 'hide');
+        } else /*show*/ {
+            FBUnity.sendMessage('OnFacebookFocus', 'show');
 
-    		if (FBUnity.showScreenshotBackground.savedBackground) {
-    			/*
-    			if(fbShowScreenshotBackground.savedBackground == 'sentinel') {
-    				jQuery('body').css('background', null);
-    			} else {
-    				jQuery('body').css('background', fbShowScreenshotBackground.savedBackground);
-    			}
-    			*/
-    		}
+            if (FBUnity.showScreenshotBackground.savedBackground) {
+                /*
+                if(fbShowScreenshotBackground.savedBackground == 'sentinel') {
+                    jQuery('body').css('background', null);
+                } else {
+                    jQuery('body').css('background', fbShowScreenshotBackground.savedBackground);
+                }
+                */
+            }
 
-    		hideUnity.savedCSS = FBUnity.showScreenshotBackground.savedBackground = null;
-    	}
+            hideUnity.savedCSS = FBUnity.showScreenshotBackground.savedBackground = null;
+        }
     },
     
     showScreenshotBackground: function(pngbytes) /*and hide unity*/ {

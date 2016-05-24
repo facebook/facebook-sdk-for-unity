@@ -22,7 +22,6 @@ namespace Facebook.Unity
 {
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     #if UNITY_EDITOR
     using UnityEditor;
     #endif
@@ -31,6 +30,10 @@ namespace Facebook.Unity
     #if UNITY_EDITOR
     [InitializeOnLoad]
     #endif
+
+    /// <summary>
+    /// Facebook settings.
+    /// </summary>
     public class FacebookSettings : ScriptableObject
     {
         private const string FacebookSettingsAssetName = "FacebookSettings";
@@ -60,6 +63,10 @@ namespace Facebook.Unity
         [SerializeField]
         private List<UrlSchemes> appLinkSchemes = new List<UrlSchemes>() { new UrlSchemes() };
 
+        /// <summary>
+        /// Gets or sets the index of the selected app.
+        /// </summary>
+        /// <value>The index of the selected app.</value>
         public static int SelectedAppIndex
         {
             get
@@ -77,6 +84,10 @@ namespace Facebook.Unity
             }
         }
 
+        /// <summary>
+        /// Gets or sets the app identifiers.
+        /// </summary>
+        /// <value>The app identifiers.</value>
         public static List<string> AppIds
         {
             get
@@ -94,6 +105,10 @@ namespace Facebook.Unity
             }
         }
 
+        /// <summary>
+        /// Gets or sets the app labels.
+        /// </summary>
+        /// <value>The app labels.</value>
         public static List<string> AppLabels
         {
             get
@@ -111,6 +126,10 @@ namespace Facebook.Unity
             }
         }
 
+        /// <summary>
+        /// Gets the app identifier.
+        /// </summary>
+        /// <value>The app identifier.</value>
         public static string AppId
         {
             get
@@ -119,6 +138,10 @@ namespace Facebook.Unity
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the app id is valid app identifier.
+        /// </summary>
+        /// <value><c>true</c> if is valid app identifier; otherwise, <c>false</c>.</value>
         public static bool IsValidAppId
         {
             get
@@ -129,6 +152,10 @@ namespace Facebook.Unity
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="Facebook.Unity.FacebookSettings"/> is cookie.
+        /// </summary>
+        /// <value><c>true</c> if cookie; otherwise, <c>false</c>.</value>
         public static bool Cookie
         {
             get
@@ -146,6 +173,10 @@ namespace Facebook.Unity
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="Facebook.Unity.FacebookSettings"/> is logging.
+        /// </summary>
+        /// <value><c>true</c> if logging; otherwise, <c>false</c>.</value>
         public static bool Logging
         {
             get
@@ -163,6 +194,10 @@ namespace Facebook.Unity
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="Facebook.Unity.FacebookSettings"/> is status.
+        /// </summary>
+        /// <value><c>true</c> if status; otherwise, <c>false</c>.</value>
         public static bool Status
         {
             get
@@ -180,6 +215,10 @@ namespace Facebook.Unity
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="Facebook.Unity.FacebookSettings"/> is xfbml.
+        /// </summary>
+        /// <value><c>true</c> if xfbml; otherwise, <c>false</c>.</value>
         public static bool Xfbml
         {
             get
@@ -197,6 +236,10 @@ namespace Facebook.Unity
             }
         }
 
+        /// <summary>
+        /// Gets or sets the ios URL suffix.
+        /// </summary>
+        /// <value>The ios URL suffix.</value>
         public static string IosURLSuffix
         {
             get
@@ -214,11 +257,19 @@ namespace Facebook.Unity
             }
         }
 
+        /// <summary>
+        /// Gets the channel URL.
+        /// </summary>
+        /// <value>The channel URL.</value>
         public static string ChannelUrl
         {
             get { return "/channel.html"; }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="Facebook.Unity.FacebookSettings"/> frictionless requests.
+        /// </summary>
+        /// <value><c>true</c> if frictionless requests; otherwise, <c>false</c>.</value>
         public static bool FrictionlessRequests
         {
             get
@@ -239,7 +290,7 @@ namespace Facebook.Unity
         /// <summary>
         /// Gets or sets the app link schemes.
         /// </summary>
-        /// <value>A list of app link schemese for each app</value>
+        /// <value>A list of app link schemese for each app.</value>
         public static List<UrlSchemes> AppLinkSchemes
         {
             get
@@ -319,6 +370,9 @@ namespace Facebook.Unity
             }
         }
 
+        /// <summary>
+        /// Settingses the changed.
+        /// </summary>
         public static void SettingsChanged()
         {
             FacebookSettings.DirtyEditor();
@@ -369,18 +423,28 @@ namespace Facebook.Unity
 #endif
         }
 
-        // Unity doesn't seralize lists of lists so create a serializable type to wrapp the list for use.
+        /// <summary>
+        /// Unity doesn't seralize lists of lists so create a serializable type to wrapp the list for use.
+        /// </summary>
         [System.Serializable]
         public class UrlSchemes
         {
             [SerializeField]
             private List<string> list;
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="UrlSchemes"/> class.
+            /// </summary>
+            /// <param name="schemes">Url schemes.</param>
             public UrlSchemes(List<string> schemes = null)
             {
                 this.list = schemes == null ? new List<string>() : schemes;
             }
 
+            /// <summary>
+            /// Gets or sets the schemes.
+            /// </summary>
+            /// <value>The schemes.</value>
             public List<string> Schemes
             {
                 get

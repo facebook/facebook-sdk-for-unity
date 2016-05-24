@@ -30,6 +30,8 @@ TEST_CSPROJ=$TEST_ROOT/Facebook.Unity.Tests.csproj
 validate_file_exists $UNITY_PACKAGE_ROOT/Assembly-CSharp.csproj $CSPROJERROR
 validate_file_exists $UNITY_PACKAGE_ROOT/Assembly-CSharp-Editor.csproj $CSPROJERROR
 
+which mono &>/dev/null || die "mono command not found. Please install mono."
+
 // Build the core sdk
 xbuild /p:Configuration=Release $SDK_CSPROJ || die "Failed to build SDK DLL"
 

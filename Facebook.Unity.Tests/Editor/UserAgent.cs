@@ -18,23 +18,24 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity
+namespace Facebook.Unity.Tests.Editor
 {
-    /// <summary>
-    /// Facebook sdk version.
-    /// </summary>
-    public class FacebookSdkVersion
+    using System.Globalization;
+    using NUnit.Framework;
+
+    [EditorTest]
+    [TestFixture]
+    public class UserAgent : Facebook.Unity.Tests.UserAgent
     {
-        /// <summary>
-        /// Gets the SDK build version.
-        /// </summary>
-        /// <value>The sdk version.</value>
-        public static string Build
+        [Test]
+        public void VerifyUserAgent()
         {
-            get
-            {
-                return "7.6.0";
-            }
+            string expected = string.Format(
+                CultureInfo.InvariantCulture,
+                "FBUnityEditorSDK/{0} FBUnitySDK/{0}",
+                FacebookSdkVersion.Build);
+
+            this.VerifyUserAgent(expected);
         }
     }
 }

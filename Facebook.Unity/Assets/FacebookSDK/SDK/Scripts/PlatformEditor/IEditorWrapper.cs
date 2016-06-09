@@ -18,23 +18,40 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity
+namespace Facebook.Unity.Editor
 {
-    /// <summary>
-    /// Facebook sdk version.
-    /// </summary>
-    public class FacebookSdkVersion
+    internal interface IEditorWrapper
     {
-        /// <summary>
-        /// Gets the SDK build version.
-        /// </summary>
-        /// <value>The sdk version.</value>
-        public static string Build
-        {
-            get
-            {
-                return "7.6.0";
-            }
-        }
+        void Init();
+
+        void ShowLoginMockDialog(
+            Utilities.Callback<ResultContainer> callback,
+            string callbackId,
+            string permissions);
+
+        void ShowAppRequestMockDialog(
+            Utilities.Callback<ResultContainer> callback,
+            string callbackId);
+
+        void ShowGameGroupCreateMockDialog(
+            Utilities.Callback<ResultContainer> callback,
+            string callbackId);
+
+        void ShowGameGroupJoinMockDialog(
+            Utilities.Callback<ResultContainer> callback,
+            string callbackId);
+
+        void ShowAppInviteMockDialog(
+            Utilities.Callback<ResultContainer> callback,
+            string callbackId);
+
+        void ShowPayMockDialog(
+            Utilities.Callback<ResultContainer> callback,
+            string callbackId);
+
+        void ShowMockShareDialog(
+            Utilities.Callback<ResultContainer> callback,
+            string subTitle,
+            string callbackId);
     }
 }

@@ -41,11 +41,17 @@ namespace Facebook.Unity
         {
             this.RawResult = result;
 
-            if (!string.IsNullOrEmpty(result))
+            if (string.IsNullOrEmpty(result))
+            {
+                this.ResultDictionary = new Dictionary<string, object>();
+            }
+            else
             {
                 this.ResultDictionary = Facebook.MiniJSON.Json.Deserialize(result) as Dictionary<string, object>;
 
-                if (Constants.IsWeb)
+                // The result dictionary can be null for graph requests that return lists. For these cases
+                // we won't need to format the results anyways since the results don't contain a callback id.
+                if (Constants.IsWeb && this.ResultDictionary != null)
                 {
                     // Web has a different format from mobile so reformat the result to match our
                     // mobile responses

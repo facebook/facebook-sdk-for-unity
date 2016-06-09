@@ -18,23 +18,16 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity
+namespace Facebook.Unity.Tests.Mobile.IOS
 {
-    /// <summary>
-    /// Facebook sdk version.
-    /// </summary>
-    public class FacebookSdkVersion
+    using Facebook.Unity.Mobile.IOS;
+
+    [IOSTest]
+    public class Init : Facebook.Unity.Tests.Init
     {
-        /// <summary>
-        /// Gets the SDK build version.
-        /// </summary>
-        /// <value>The sdk version.</value>
-        public static string Build
+        protected override void CallInit(InitDelegate callback)
         {
-            get
-            {
-                return "7.6.0";
-            }
+            ((IOSFacebook)this.Mock.Facebook).Init("123456789", false, null, null, callback);
         }
     }
 }

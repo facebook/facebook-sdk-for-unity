@@ -109,6 +109,7 @@ namespace Facebook.Unity.Canvas
                 string authResponse,
                 bool frictionlessRequests,
                 string javascriptSDKLocale,
+                bool loadDebugJSSDK,
                 HideUnityDelegate hideUnityDelegate,
                 InitDelegate onInitComplete)
         {
@@ -146,7 +147,7 @@ namespace Facebook.Unity.Canvas
                 isPlayer ? 1 : 0,
                 FacebookConnectURL,
                 javascriptSDKLocale,
-                Constants.DebugMode ? 1 : 0,
+                loadDebugJSSDK ? 1 : 0,
                 parameters.ToJsonString(),
                 status ? 1 : 0);
         }
@@ -442,10 +443,11 @@ namespace Facebook.Unity.Canvas
             {
                 var parameters = new Dictionary<string, string>()
                 {
-                    {"fields", "permissions"},
-                    {Constants.AccessTokenKey, (string) result.ResultDictionary[LoginResult.AccessTokenKey]},
+                    { "fields", "permissions" },
+                    { Constants.AccessTokenKey, (string)result.ResultDictionary[LoginResult.AccessTokenKey] },
                 };
-                FacebookDelegate<IGraphResult> apiCallback = (IGraphResult r) => {
+                FacebookDelegate<IGraphResult> apiCallback = (IGraphResult r) =>
+                {
                     IDictionary<string, object> permissionsJson;
                     if (r.ResultDictionary != null && r.ResultDictionary.TryGetValue("permissions", out permissionsJson))
                     {

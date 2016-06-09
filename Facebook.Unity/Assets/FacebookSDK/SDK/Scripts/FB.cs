@@ -254,6 +254,7 @@ namespace Facebook.Unity
                                     authResponse,
                                     frictionlessRequests,
                                     javascriptSDKLocale,
+                                    Constants.DebugMode,
                                     onHideUnity,
                                     onInitComplete);
                             };
@@ -265,6 +266,7 @@ namespace Facebook.Unity
                                 ((IOSFacebook)FB.facebook).Init(
                                     appId,
                                     frictionlessRequests,
+                                    FacebookSettings.IosURLSuffix,
                                     onHideUnity,
                                     onInitComplete);
                             };

@@ -33,7 +33,14 @@ namespace Facebook.Unity.Editor
 
         private const string AccessTokenKey = "com.facebook.unity.editor.accesstoken";
 
-        public EditorFacebook() : base(new CallbackManager())
+        private IEditorWrapper editorWrapper;
+
+        public EditorFacebook(IEditorWrapper wrapper, CallbackManager callbackManager) : base(callbackManager)
+        {
+            this.editorWrapper = wrapper;
+        }
+
+        public EditorFacebook() : this(new EditorWrapper(EditorFacebook.EditorGameObject), new CallbackManager())
         {
         }
 
@@ -57,7 +64,7 @@ namespace Facebook.Unity.Editor
             }
         }
 
-        private IFacebookCallbackHandler EditorGameObject
+        private static IFacebookCallbackHandler EditorGameObject
         {
             get
             {
@@ -76,7 +83,7 @@ namespace Facebook.Unity.Editor
                 hideUnityDelegate,
                 onInitComplete);
 
-            this.EditorGameObject.OnInitComplete(string.Empty);
+            this.editorWrapper.Init();
         }
 
         public override void LogInWithReadPermissions(
@@ -92,9 +99,10 @@ namespace Facebook.Unity.Editor
             IEnumerable<string> permissions,
             FacebookDelegate<ILoginResult> callback)
         {
-            var dialog = ComponentFactory.GetComponent<MockLoginDialog>();
-            dialog.Callback = this.OnLoginComplete;
-            dialog.CallbackID = this.CallbackManager.AddFacebookDelegate(callback);
+            this.editorWrapper.ShowLoginMockDialog(
+                this.OnLoginComplete,
+                this.CallbackManager.AddFacebookDelegate(callback),
+                permissions.ToCommaSeparateList());
         }
 
         public override void AppRequest(
@@ -109,7 +117,9 @@ namespace Facebook.Unity.Editor
             string title,
             FacebookDelegate<IAppRequestResult> callback)
         {
-            this.ShowEmptyMockDialog(this.OnAppRequestsComplete, callback, "Mock App Request");
+            this.editorWrapper.ShowAppRequestMockDialog(
+                this.OnAppRequestsComplete,
+                this.CallbackManager.AddFacebookDelegate(callback));
         }
 
         public override void ShareLink(
@@ -119,7 +129,10 @@ namespace Facebook.Unity.Editor
             Uri photoURL,
             FacebookDelegate<IShareResult> callback)
         {
-            this.ShowMockShareDialog("ShareLink", callback);
+            this.editorWrapper.ShowMockShareDialog(
+                this.OnShareLinkComplete,
+                "ShareLink",
+                this.CallbackManager.AddFacebookDelegate(callback));
         }
 
         public override void FeedShare(
@@ -132,7 +145,10 @@ namespace Facebook.Unity.Editor
             string mediaSource,
             FacebookDelegate<IShareResult> callback)
         {
-            this.ShowMockShareDialog("FeedShare", callback);
+            this.editorWrapper.ShowMockShareDialog(
+                this.OnShareLinkComplete,
+                "FeedShare",
+                this.CallbackManager.AddFacebookDelegate(callback));
         }
 
         public override void GameGroupCreate(
@@ -141,14 +157,18 @@ namespace Facebook.Unity.Editor
             string privacy,
             FacebookDelegate<IGroupCreateResult> callback)
         {
-            this.ShowEmptyMockDialog(this.OnGroupCreateComplete, callback, "Mock Group Create");
+            this.editorWrapper.ShowGameGroupCreateMockDialog(
+                this.OnGroupCreateComplete,
+                this.CallbackManager.AddFacebookDelegate(callback));
         }
 
         public override void GameGroupJoin(
             string id,
             FacebookDelegate<IGroupJoinResult> callback)
         {
-            this.ShowEmptyMockDialog(this.OnGroupJoinComplete, callback, "Mock Group Join");
+            this.editorWrapper.ShowGameGroupJoinMockDialog(
+                this.OnGroupJoinComplete,
+                this.CallbackManager.AddFacebookDelegate(callback));
         }
 
         public override void ActivateApp(string appId)
@@ -185,7 +205,9 @@ namespace Facebook.Unity.Editor
             Uri previewImageUrl,
             FacebookDelegate<IAppInviteResult> callback)
         {
-            this.ShowEmptyMockDialog(this.OnAppInviteComplete, callback, "Mock App Invite");
+            this.editorWrapper.ShowAppInviteMockDialog(
+                this.OnAppInviteComplete,
+                this.CallbackManager.AddFacebookDelegate(callback));
         }
 
         public void FetchDeferredAppLink(
@@ -217,7 +239,9 @@ namespace Facebook.Unity.Editor
             string testCurrency,
             FacebookDelegate<IPayResult> callback)
         {
-            this.ShowEmptyMockDialog(this.OnPayComplete, callback, "Mock Pay Dialog");
+            this.editorWrapper.ShowPayMockDialog(
+                this.OnPayComplete,
+                this.CallbackManager.AddFacebookDelegate(callback));
         }
 
         public void RefreshCurrentAccessToken(
@@ -321,26 +345,5 @@ namespace Facebook.Unity.Editor
         }
 
         #endregion
-
-        private void ShowEmptyMockDialog<T>(
-            Utilities.Callback<ResultContainer> callback,
-            FacebookDelegate<T> userCallback,
-            string title) where T : IResult
-        {
-            var dialog = ComponentFactory.GetComponent<EmptyMockDialog>();
-            dialog.Callback = callback;
-            dialog.CallbackID = this.CallbackManager.AddFacebookDelegate(userCallback);
-            dialog.EmptyDialogTitle = title;
-        }
-
-        private void ShowMockShareDialog(
-            string subTitle,
-            FacebookDelegate<IShareResult> userCallback)
-        {
-            var dialog = ComponentFactory.GetComponent<MockShareDialog>();
-            dialog.SubTitle = subTitle;
-            dialog.Callback = this.OnShareLinkComplete;
-            dialog.CallbackID = this.CallbackManager.AddFacebookDelegate(userCallback);
-        }
     }
 }

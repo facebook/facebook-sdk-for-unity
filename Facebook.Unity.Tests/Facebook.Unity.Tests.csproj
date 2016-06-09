@@ -88,6 +88,21 @@
     <Compile Include="Mobile\IOS\AccessTokenRefresh.cs" />
     <Compile Include="Mobile\Android\AccessTokenRefresh.cs" />
     <Compile Include="TestUtilities.cs" />
+    <Compile Include="Init.cs" />
+    <Compile Include="Editor\MockEditor.cs" />
+    <Compile Include="Editor\EditorTestAttribute.cs" />
+    <Compile Include="Editor\Init.cs" />
+    <Compile Include="Canvas\Init.cs" />
+    <Compile Include="Mobile\Android\Init.cs" />
+    <Compile Include="Mobile\IOS\Init.cs" />
+    <Compile Include="Editor\AccessTokenRefresh.cs" />
+    <Compile Include="Editor\AppGroup.cs" />
+    <Compile Include="Editor\AppInvite.cs" />
+    <Compile Include="Editor\AppRequest.cs" />
+    <Compile Include="Editor\FeedShare.cs" />
+    <Compile Include="Editor\Login.cs" />
+    <Compile Include="Editor\ShareLink.cs" />
+    <Compile Include="Editor\UserAgent.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -104,6 +119,7 @@
   <ItemGroup>
     <Folder Include="Canvas\" />
     <Folder Include="Mobile\" />
+    <Folder Include="Editor\" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

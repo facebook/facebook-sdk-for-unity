@@ -32,7 +32,6 @@ namespace UnityEditor.FacebookEditor
     {
         public const string AppLinkActivityName = "com.facebook.unity.FBUnityAppLinkActivity";
         public const string DeepLinkingActivityName = "com.facebook.unity.FBUnityDeepLinkingActivity";
-        public const string LoginActivityName = "com.facebook.LoginActivity";
         public const string UnityLoginActivityName = "com.facebook.unity.FBUnityLoginActivity";
         public const string UnityDialogsActivityName = "com.facebook.unity.FBUnityDialogsActivity";
         public const string UnityGameRequestActivityName = "com.facebook.unity.FBUnityGameRequestActivity";
@@ -44,7 +43,6 @@ namespace UnityEditor.FacebookEditor
         public const string FacebookContentProviderAuthFormat = "com.facebook.app.FacebookContentProvider{0}";
         public const string FacebookActivityName = "com.facebook.FacebookActivity";
         public const string AndroidManifestPath = "Plugins/Android/AndroidManifest.xml";
-        public const string AndroidManifestName = "AndroidManifest.xml";
         public const string FacebookDefaultAndroidManifestPath = "FacebookSDK/SDK/Editor/android/DefaultAndroidManifest.xml";
 
         public static void GenerateManifest()
@@ -94,7 +92,7 @@ namespace UnityEditor.FacebookEditor
             XmlElement loginElement;
             if (!ManifestMod.TryFindElementWithAndroidName(dict, UnityLoginActivityName, out loginElement))
             {
-                Debug.LogError(string.Format("{0} is missing from your android manifest.  Go to Facebook->Edit Settings and press \"Regenerate Android Manifest\"", LoginActivityName));
+                Debug.LogError(string.Format("{0} is missing from your android manifest.  Go to Facebook->Edit Settings and press \"Regenerate Android Manifest\"", UnityLoginActivityName));
                 result = false;
             }
 
@@ -146,10 +144,6 @@ namespace UnityEditor.FacebookEditor
             XmlElement unityDialogsElement = CreateUnityOverlayElement(doc, ns, UnityDialogsActivityName);
             ManifestMod.SetOrReplaceXmlElement(dict, unityDialogsElement);
 
-            // add the login activity
-            XmlElement loginElement = CreateLoginElement(doc, ns);
-            ManifestMod.SetOrReplaceXmlElement(dict, loginElement);
-
             ManifestMod.AddAppLinkingActivity(doc, dict, ns, FacebookSettings.AppLinkSchemes[FacebookSettings.SelectedAppIndex].Schemes);
 
             ManifestMod.AddSimpleActivity(doc, dict, ns, DeepLinkingActivityName, true);
@@ -173,14 +167,12 @@ namespace UnityEditor.FacebookEditor
             XmlElement contentProviderElement = CreateContentProviderElement(doc, ns, appId);
             ManifestMod.SetOrReplaceXmlElement(dict, contentProviderElement);
 
-            // Add the facebook activity
-            // <activity
-            //   android:name="com.facebook.FacebookActivity"
-            //   android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            //   android:label="@string/app_name"
-            //   android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-            XmlElement facebookElement = CreateFacebookElement(doc, ns);
-            ManifestMod.SetOrReplaceXmlElement(dict, facebookElement);
+            // Remove the FacebookActivity since we can rely on it in the androidsdk aar as of v4.12
+            // (otherwise unity manifest merge likes fail if there's any difference at all)
+            XmlElement facebookElement;
+            if (TryFindElementWithAndroidName(dict, FacebookActivityName, out facebookElement)) {
+                dict.RemoveChild(facebookElement);
+            }
 
             // Save the document formatted
             XmlWriterSettings settings = new XmlWriterSettings
@@ -263,16 +255,6 @@ namespace UnityEditor.FacebookEditor
             ManifestMod.SetOrReplaceXmlElement(xmlNode, element);
         }
 
-        private static XmlElement CreateLoginElement(XmlDocument doc, string ns)
-        {
-            // <activity android:name="com.facebook.LoginActivity" android:configChanges="keyboardHidden|orientation" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
-            // </activity>
-            XmlElement activityElement = ManifestMod.CreateActivityElement(doc, ns, LoginActivityName);
-            activityElement.SetAttribute("configChanges", ns, "keyboardHidden|orientation");
-            activityElement.SetAttribute("theme", ns, "@android:style/Theme.Translucent.NoTitleBar.Fullscreen");
-            return activityElement;
-        }
-
         private static XmlElement CreateUnityOverlayElement(XmlDocument doc, string ns, string activityName)
         {
             // <activity android:name="activityName" android:configChanges="all|of|them" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
@@ -280,17 +262,6 @@ namespace UnityEditor.FacebookEditor
             XmlElement activityElement = ManifestMod.CreateActivityElement(doc, ns, activityName);
             activityElement.SetAttribute("configChanges", ns, "fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen");
             activityElement.SetAttribute("theme", ns, "@android:style/Theme.Translucent.NoTitleBar.Fullscreen");
-            return activityElement;
-        }
-
-        private static XmlElement CreateFacebookElement(XmlDocument doc, string ns)
-        {
-            // <activity android:name="com.facebook.unity.FBUnityGameRequestActivity" android:exported="true">
-            // </activity>
-            XmlElement activityElement = ManifestMod.CreateActivityElement(doc, ns, FacebookActivityName);
-            activityElement.SetAttribute("configChanges", ns, "keyboard|keyboardHidden|screenLayout|screenSize|orientation");
-            activityElement.SetAttribute("label", ns, "@string/app_name");
-            activityElement.SetAttribute("theme", ns, "@android:style/Theme.Translucent.NoTitleBar");
             return activityElement;
         }
 

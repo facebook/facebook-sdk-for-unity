@@ -195,11 +195,6 @@ namespace Facebook.Unity
             }
         }
 
-        public void OnInitComplete(string message)
-        {
-            this.OnInitComplete(new ResultContainer(message));
-        }
-
         public virtual void OnInitComplete(ResultContainer resultContainer)
         {
             this.Initialized = true;
@@ -217,11 +212,6 @@ namespace Facebook.Unity
             resultContainer.ResultDictionary[Constants.CallbackIdKey]
                 = this.CallbackManager.AddFacebookDelegate(loginCallback);
             this.OnLoginComplete(resultContainer);
-        }
-
-        public void OnLoginComplete(string message)
-        {
-            this.OnInitComplete(new ResultContainer(message));
         }
 
         public abstract void OnLoginComplete(ResultContainer resultContainer);

@@ -22,9 +22,11 @@ namespace Facebook.Unity.Tests
 {
     using System;
     using Facebook.Unity.Canvas;
+    using Facebook.Unity.Editor;
     using Facebook.Unity.Mobile.Android;
     using Facebook.Unity.Mobile.IOS;
     using Facebook.Unity.Tests.Canvas;
+    using Facebook.Unity.Tests.Editor;
     using Facebook.Unity.Tests.Mobile.Android;
     using Facebook.Unity.Tests.Mobile.IOS;
     using NUnit.Framework;
@@ -38,9 +40,9 @@ namespace Facebook.Unity.Tests
         {
             FacebookLogger.Instance = new FacebookTestLogger();
             Type type = this.GetType();
+            var callbackManager = new CallbackManager();
             if (Attribute.GetCustomAttribute(type, typeof(AndroidTestAttribute)) != null)
             {
-                var callbackManager = new CallbackManager();
                 var mockWrapper = new MockAndroid();
                 Constants.CurrentPlatform = FacebookUnityPlatform.Android;
                 var facebook = new AndroidFacebook(mockWrapper, callbackManager);
@@ -50,7 +52,6 @@ namespace Facebook.Unity.Tests
             }
             else if (Attribute.GetCustomAttribute(type, typeof(IOSTestAttribute)) != null)
             {
-                var callbackManager = new CallbackManager();
                 var mockWrapper = new MockIOS();
                 Constants.CurrentPlatform = FacebookUnityPlatform.IOS;
                 var facebook = new IOSFacebook(mockWrapper, callbackManager);
@@ -60,10 +61,20 @@ namespace Facebook.Unity.Tests
             }
             else if (Attribute.GetCustomAttribute(type, typeof(CanvasTestAttribute)) != null)
             {
-                var callbackManager = new CallbackManager();
                 var mockWrapper = new MockCanvas();
                 Constants.CurrentPlatform = FacebookUnityPlatform.WebGL;
                 var facebook = new CanvasFacebook(mockWrapper, callbackManager);
+                this.Mock = mockWrapper;
+                this.Mock.Facebook = facebook;
+                FB.FacebookImpl = facebook;
+            }
+            else if (Attribute.GetCustomAttribute(type, typeof(EditorTestAttribute)) != null)
+            {
+                var mockWrapper = new MockEditor();
+
+                // The editor works for all platforms but claim to be android for testing.
+                Constants.CurrentPlatform = FacebookUnityPlatform.Android;
+                var facebook = new EditorFacebook(mockWrapper, callbackManager);
                 this.Mock = mockWrapper;
                 this.Mock.Facebook = facebook;
                 FB.FacebookImpl = facebook;

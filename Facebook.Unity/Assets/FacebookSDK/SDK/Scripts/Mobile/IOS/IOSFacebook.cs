@@ -87,6 +87,7 @@ namespace Facebook.Unity.Mobile.IOS
         public void Init(
             string appId,
             bool frictionlessRequests,
+            string iosURLSuffix,
             HideUnityDelegate hideUnityDelegate,
             InitDelegate onInitComplete)
         {
@@ -97,7 +98,7 @@ namespace Facebook.Unity.Mobile.IOS
             this.iosWrapper.Init(
                 appId,
                 frictionlessRequests,
-                FacebookSettings.IosURLSuffix,
+                iosURLSuffix,
                 Constants.UnitySDKUserAgentSuffixLegacy);
         }
 

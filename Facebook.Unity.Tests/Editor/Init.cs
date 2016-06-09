@@ -18,23 +18,18 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity
+namespace Facebook.Unity.Tests.Editor
 {
-    /// <summary>
-    /// Facebook sdk version.
-    /// </summary>
-    public class FacebookSdkVersion
+    using Facebook.Unity.Editor;
+    using NUnit.Framework;
+
+    [EditorTest]
+    [TestFixture]
+    public class Init : Facebook.Unity.Tests.Init
     {
-        /// <summary>
-        /// Gets the SDK build version.
-        /// </summary>
-        /// <value>The sdk version.</value>
-        public static string Build
+        protected override void CallInit(InitDelegate callback)
         {
-            get
-            {
-                return "7.6.0";
-            }
+            ((EditorFacebook)this.Mock.Facebook).Init(null, callback);
         }
     }
 }

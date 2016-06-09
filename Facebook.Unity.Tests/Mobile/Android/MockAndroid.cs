@@ -52,20 +52,25 @@ namespace Facebook.Unity.Tests.Mobile.Android
                 {
                     methodArguments = MiniJSON.Json.Deserialize(jsonParams) as IDictionary<string, object>;
                     string callbackStr;
-                    if (methodArguments.TryGetValue(Constants.CallbackIdKey, out callbackStr))
+                    if (methodArguments != null && methodArguments.TryGetValue(Constants.CallbackIdKey, out callbackStr))
                     {
                         callbackID = int.Parse(callbackStr);
                     }
                 }
             }
 
-            if (callbackID == -1)
+            if (callbackID == -1 && methodName != "Init")
             {
                 // There was no callback so just return;
                 return;
             }
 
-            if (methodName == "AppInvite")
+            if (methodName == "Init")
+            {
+                callback = this.MobileFacebook.OnInitComplete;
+                result = MockResults.GetGenericResult(0, this.ResultExtras);
+            }
+            else if (methodName == "AppInvite")
             {
                 callback = this.MobileFacebook.OnAppInviteComplete;
                 result = MockResults.GetGenericResult(callbackID, this.ResultExtras);

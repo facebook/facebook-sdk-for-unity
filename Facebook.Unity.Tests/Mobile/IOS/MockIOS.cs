@@ -35,7 +35,23 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             string unityUserAgentSuffix)
         {
             this.LogMethodCall();
-            Facebook.OnInitComplete(new ResultContainer(string.Empty));
+
+            // Handle testing of init returning access token. It would be nice
+            // to not have init return the access token but this could be
+            // a breaking change for people who read the raw result
+            ResultContainer resultContainer;
+            IDictionary<string, object> resultExtras = this.ResultExtras;
+            if (resultExtras != null)
+            {
+                var result = MockResults.GetGenericResult(0, resultExtras);
+                resultContainer = new ResultContainer(result);
+            }
+            else
+            {
+                resultContainer = new ResultContainer(string.Empty);
+            }
+
+            Facebook.OnInitComplete(resultContainer);
         }
 
         public void LogInWithReadPermissions(

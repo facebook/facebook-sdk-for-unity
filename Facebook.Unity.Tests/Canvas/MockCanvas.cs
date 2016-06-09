@@ -30,7 +30,7 @@ namespace Facebook.Unity.Tests.Canvas
         {
             get
             {
-                return null;
+                return "alert(\"MockCanvasTest\");";
             }
         }
 
@@ -45,7 +45,12 @@ namespace Facebook.Unity.Tests.Canvas
             IDictionary<string, object> result;
             Utilities.Callback<ResultContainer> callback = null;
 
-            if (functionName == "FBUnity.logAppEvent")
+            if (functionName == "FBUnity.init")
+            {
+                result = MockResults.GetGenericResult(0, this.ResultExtras);
+                callback = this.Facebook.OnInitComplete;
+            }
+            else if (functionName == "FBUnity.logAppEvent")
             {
                 // Workaround log the method call to match the signature of ios and android.
                 this.LogMethodCall("LogAppEvent");

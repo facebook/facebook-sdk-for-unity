@@ -58,6 +58,7 @@ public class FBUnityGameRequestActivity extends BaseActivity {
                 contentBuilder.setActionType(type);
             } catch (IllegalArgumentException exception) {
                 response.sendError("Unknown action type: " + actionTypeStr);
+                finish();
                 return;
             }
         }
@@ -79,6 +80,7 @@ public class FBUnityGameRequestActivity extends BaseActivity {
                 contentBuilder.setFilters(filters);
             } catch (IllegalArgumentException exception) {
                 response.sendError("Unsupported filter type: " + filtersStr);
+                finish();
                 return;
             }
         }
@@ -116,6 +118,15 @@ public class FBUnityGameRequestActivity extends BaseActivity {
                         response.sendError(e.getMessage());
                     }
                 });
-        requestDialog.show(content);
+
+        try {
+            requestDialog.show(content);
+        } catch (IllegalArgumentException exception) {
+            response.sendError("Unexpected exception encountered: " + exception.toString());
+            finish();
+            return;
+        }
+
+
     }
 }

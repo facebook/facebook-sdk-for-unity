@@ -44,7 +44,7 @@ namespace Facebook.Unity
         public const string OnGroupJoinCompleteMethodName = "OnJoinGroupComplete";
 
         // Graph API
-        public const string GraphApiVersion = "v2.5";
+        public const string GraphApiVersion = "v2.6";
         public const string GraphUrlFormat = "https://graph.{0}/{1}/";
 
         // Permission Strings
@@ -60,7 +60,7 @@ namespace Facebook.Unity
         /// <summary>
         /// Gets the graph URL.
         /// </summary>
-        /// <value>The graph URL. Ex. https://graph.facebook.com/v2.5/.</value>
+        /// <value>The graph URL. Ex. https://graph.facebook.com/v2.6/.</value>
         public static Uri GraphUrl
         {
             get

@@ -86,7 +86,7 @@ namespace Facebook.Unity.Mobile.Android
             // requests made during init include this suffix.
             this.CallFB(
                 "SetUserAgentSuffix",
-                string.Format("Unity.{0}", Constants.UnitySDKUserAgentSuffixLegacy));
+                string.Format(Constants.UnitySDKUserAgentSuffixLegacy));
 
             base.Init(
                 hideUnityDelegate,

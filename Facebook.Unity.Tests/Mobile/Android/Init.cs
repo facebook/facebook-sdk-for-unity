@@ -21,8 +21,10 @@
 namespace Facebook.Unity.Tests.Mobile.Android
 {
     using Facebook.Unity.Mobile.Android;
+    using NUnit.Framework;
 
     [AndroidTest]
+    [TestFixture]
     public class Init : Facebook.Unity.Tests.Init
     {
         protected override void CallInit(InitDelegate callback)

@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity.Tests", "Facebook.Unity.Tests\Facebook.Unity.Tests.csproj", "{4A088D45-0F5D-400B-9FF6-5AAF3ED10D9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity.Arcade", "Facebook.Unity.Arcade\Facebook.Unity.Arcade.csproj", "{D8F7CF97-7FE9-48B7-A30C-CB14BAA73010}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity", "Facebook.Unity\Facebook.Unity.csproj", "{3DFF6C0C-BB04-405D-A23F-95999630E7F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity.Editor", "Facebook.Unity.Editor\Facebook.Unity.Editor.csproj", "{4F631992-8D32-4AB5-8073-4BDC8A79380B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DFF6C0C-BB04-405D-A23F-95999630E7F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DFF6C0C-BB04-405D-A23F-95999630E7F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DFF6C0C-BB04-405D-A23F-95999630E7F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DFF6C0C-BB04-405D-A23F-95999630E7F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A088D45-0F5D-400B-9FF6-5AAF3ED10D9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A088D45-0F5D-400B-9FF6-5AAF3ED10D9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A088D45-0F5D-400B-9FF6-5AAF3ED10D9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A088D45-0F5D-400B-9FF6-5AAF3ED10D9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F631992-8D32-4AB5-8073-4BDC8A79380B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F631992-8D32-4AB5-8073-4BDC8A79380B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F631992-8D32-4AB5-8073-4BDC8A79380B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F631992-8D32-4AB5-8073-4BDC8A79380B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8F7CF97-7FE9-48B7-A30C-CB14BAA73010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8F7CF97-7FE9-48B7-A30C-CB14BAA73010}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8F7CF97-7FE9-48B7-A30C-CB14BAA73010}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8F7CF97-7FE9-48B7-A30C-CB14BAA73010}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		version =
+	EndGlobalSection
+EndGlobal

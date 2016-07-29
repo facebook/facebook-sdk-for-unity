@@ -22,5 +22,8 @@
 
 . $(dirname $0)/common.sh
 
+buildAndCopyCore
+buildAndCopyPlatformDLLs
+
 $SCRIPTS_DIR/setup_ios_unity_plugin.sh "$@" || die "Failed to setup the ios sdk plugin"
 $SCRIPTS_DIR/setup_android_unity_plugin.sh "$@" || die "Failed to build the android sdk plugin"

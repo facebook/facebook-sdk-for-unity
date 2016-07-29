@@ -25,7 +25,7 @@ namespace Facebook.Unity.Tests.Mobile.Android
     using Facebook.Unity.Mobile.Android;
     using NUnit.Framework;
 
-    internal class MockAndroid : MockWrapper, IAndroidJavaClass
+    internal class MockAndroid : MockWrapper, IAndroidWrapper
     {
         public T CallStatic<T>(string methodName)
         {

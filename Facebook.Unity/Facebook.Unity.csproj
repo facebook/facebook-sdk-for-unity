@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3DFF6C0C-BB04-405D-A23F-95999630E7F8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Facebook.Unity</RootNamespace>
+    <AssemblyName>Facebook.Unity</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <ReleaseVersion>
+    </ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="UnityEngine">
+      <HintPath>\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccessToken.cs" />
+    <Compile Include="AppEventName.cs" />
+    <Compile Include="AppEventParameterName.cs" />
+    <Compile Include="CallbackManager.cs" />
+    <Compile Include="ComponentFactory.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="FB.cs" />
+    <Compile Include="FacebookBase.cs" />
+    <Compile Include="FacebookGameObject.cs" />
+    <Compile Include="FacebookSdkVersion.cs" />
+    <Compile Include="FacebookSettings.cs" />
+    <Compile Include="FacebookUnityPlatform.cs" />
+    <Compile Include="IFacebook.cs" />
+    <Compile Include="IFacebookCallbackHandler.cs" />
+    <Compile Include="IFacebookImplementation.cs" />
+    <Compile Include="IFacebookResultHandler.cs" />
+    <Compile Include="IPayFacebook.cs" />
+    <Compile Include="MethodArguments.cs" />
+    <Compile Include="MethodCall.cs" />
+    <Compile Include="NativeDialogModes.cs" />
+    <Compile Include="OGActionType.cs" />
+    <Compile Include="Canvas\CanvasFacebook.cs" />
+    <Compile Include="Canvas\CanvasFacebookGameObject.cs" />
+    <Compile Include="Canvas\CanvasFacebookLoader.cs" />
+    <Compile Include="Canvas\CanvasJSWrapper.cs" />
+    <Compile Include="Canvas\ICanvasFacebook.cs" />
+    <Compile Include="Canvas\ICanvasFacebookCallbackHandler.cs" />
+    <Compile Include="Canvas\ICanvasFacebookImplementation.cs" />
+    <Compile Include="Canvas\ICanvasFacebookResultHandler.cs" />
+    <Compile Include="Canvas\ICanvasJSWrapper.cs" />
+    <Compile Include="Canvas\JsBridge.cs" />
+    <Compile Include="Arcade\ArcadeFacebook.cs" />
+    <Compile Include="Arcade\ArcadeFacebookGameObject.cs" />
+    <Compile Include="Arcade\ArcadeFacebookLoader.cs" />
+    <Compile Include="Arcade\IArcadeFacebook.cs" />
+    <Compile Include="Arcade\IArcadeFacebookImplementation.cs" />
+    <Compile Include="Arcade\IArcadeFacebookResultHandler.cs" />
+    <Compile Include="Arcade\IArcadeWrapper.cs" />
+    <Compile Include="Mobile\IMobileFacebook.cs" />
+    <Compile Include="Mobile\IMobileFacebookCallbackHandler.cs" />
+    <Compile Include="Mobile\IMobileFacebookImplementation.cs" />
+    <Compile Include="Mobile\IMobileFacebookResultHandler.cs" />
+    <Compile Include="Mobile\MobileFacebook.cs" />
+    <Compile Include="Mobile\MobileFacebookGameObject.cs" />
+    <Compile Include="Mobile\Android\AndroidFacebook.cs" />
+    <Compile Include="Mobile\Android\AndroidFacebookGameObject.cs" />
+    <Compile Include="Mobile\Android\AndroidFacebookLoader.cs" />
+    <Compile Include="Mobile\Android\IAndroidWrapper.cs" />
+    <Compile Include="Mobile\IOS\IIOSWrapper.cs" />
+    <Compile Include="Mobile\IOS\IOSFacebook.cs" />
+    <Compile Include="Mobile\IOS\IOSFacebookGameObject.cs" />
+    <Compile Include="Mobile\IOS\IOSFacebookLoader.cs" />
+    <Compile Include="PlatformEditor\EditorFacebook.cs" />
+    <Compile Include="PlatformEditor\EditorFacebookGameObject.cs" />
+    <Compile Include="PlatformEditor\EditorFacebookLoader.cs" />
+    <Compile Include="PlatformEditor\EditorFacebookMockDialog.cs" />
+    <Compile Include="PlatformEditor\EditorWrapper.cs" />
+    <Compile Include="PlatformEditor\IEditorWrapper.cs" />
+    <Compile Include="PlatformEditor\MockDialogs\EmptyMockDialog.cs" />
+    <Compile Include="PlatformEditor\MockDialogs\MockLoginDialog.cs" />
+    <Compile Include="PlatformEditor\MockDialogs\MockShareDialog.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Results\AccessTokenRefreshResult.cs" />
+    <Compile Include="Results\AppInviteResult.cs" />
+    <Compile Include="Results\AppLinkResult.cs" />
+    <Compile Include="Results\AppReqeustResult.cs" />
+    <Compile Include="Results\GraphResult.cs" />
+    <Compile Include="Results\GroupCreateResult.cs" />
+    <Compile Include="Results\GroupJoinResult.cs" />
+    <Compile Include="Results\IAccessTokenRefreshResult.cs" />
+    <Compile Include="Results\IAppInviteResult.cs" />
+    <Compile Include="Results\IAppLinkResult.cs" />
+    <Compile Include="Results\IAppRequestResult.cs" />
+    <Compile Include="Results\IGraphResult.cs" />
+    <Compile Include="Results\IGroupCreateResult.cs" />
+    <Compile Include="Results\IGroupJoinResult.cs" />
+    <Compile Include="Results\IInternalResult.cs" />
+    <Compile Include="Results\ILoginResult.cs" />
+    <Compile Include="Results\IPayResult.cs" />
+    <Compile Include="Results\IResult.cs" />
+    <Compile Include="Results\IShareResult.cs" />
+    <Compile Include="Results\LoginResult.cs" />
+    <Compile Include="Results\PayResult.cs" />
+    <Compile Include="Results\ResultBase.cs" />
+    <Compile Include="Results\ResultContainer.cs" />
+    <Compile Include="Results\ShareResult.cs" />
+    <Compile Include="Utils\AsyncRequestString.cs" />
+    <Compile Include="Utils\FacebookLogger.cs" />
+    <Compile Include="Utils\HttpMethod.cs" />
+    <Compile Include="Utils\IFacebookLogger.cs" />
+    <Compile Include="Utils\MiniJson.cs" />
+    <Compile Include="Utils\Utilities.cs" />
+    <Compile Include="Canvas\CanvasConstants.cs" />
+    <Compile Include="Mobile\IOS\IOSWrapper.cs" />
+    <Compile Include="Mobile\Android\AndroidWrapper.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Plugins\" />
+  </ItemGroup>
+</Project>

@@ -29,7 +29,7 @@ namespace Facebook.Unity.Tests
     {
         public void VerifyUserAgent(string expected)
         {
-            var mock = new DynamicMock(typeof(IAndroidJavaClass));
+            var mock = new DynamicMock(typeof(IAndroidWrapper));
             mock.ExpectAndReturn("CallStatic", "1.0.0", "GetSdkVersion");
             Assert.AreEqual(
                 string.Format(

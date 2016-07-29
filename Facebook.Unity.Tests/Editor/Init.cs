@@ -29,7 +29,7 @@ namespace Facebook.Unity.Tests.Editor
     {
         protected override void CallInit(InitDelegate callback)
         {
-            ((EditorFacebook)this.Mock.Facebook).Init(null, callback);
+            ((EditorFacebook)this.Mock.Facebook).Init(callback);
         }
     }
 }

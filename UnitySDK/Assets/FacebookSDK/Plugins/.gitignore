@@ -1,0 +1,7 @@
+# Ignore binaries but not meta files
+*.xml
+*.aar
+*.jar
+*.dll
+*.framework
+

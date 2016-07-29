@@ -19,8 +19,14 @@
 
 cd "$( dirname "${BASH_SOURCE[0]}" )/.."
 PROJECT_ROOT=$(pwd)
-UNITY_PACKAGE_ROOT=$PROJECT_ROOT/Facebook.Unity
-TEST_ROOT=$PROJECT_ROOT/Facebook.Unity.Tests
+
+SCRIPTS_DIR="$PROJECT_ROOT/scripts"
+
+UNITY_PACKAGE_ROOT=$PROJECT_ROOT/UnitySDK
+UNITY_PACKAGE_PLUGIN=$UNITY_PACKAGE_ROOT/Assets/FacebookSDK/Plugins/
+UNITY_ARCADE_PLUGIN=$UNITY_PACKAGE_PLUGIN/Arcade/
+UNITY_EDITOR_PLUGIN=$UNITY_PACKAGE_PLUGIN/Editor/
+
 SCRIPTS_DIR="$PROJECT_ROOT/scripts"
 
 RED='\033[0;31m'
@@ -37,7 +43,7 @@ else
 fi
 
 # Extract the SDK version from FacebookSdkVersion.java
-SDK_VERSION_RAW=$(sed -n 's/.*"\(.*\)\";/\1/p' "$UNITY_PACKAGE_ROOT/Assets/FacebookSDK/SDK/Scripts/FacebookSdkVersion.cs")
+SDK_VERSION_RAW=$(sed -n 's/.*"\(.*\)\";/\1/p' "$CORE_ROOT/FacebookSdkVersion.cs")
 SDK_VERSION_MAJOR=$(echo $SDK_VERSION_RAW | awk -F'.' '{print $1}')
 SDK_VERSION_MAJOR=${SDK_VERSION_MAJOR:-0}
 SDK_VERSION_MINOR=$(echo $SDK_VERSION_RAW | awk -F'.' '{print $2}')

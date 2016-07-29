@@ -24,7 +24,6 @@ namespace Facebook.Unity.Tests.Editor
     using System.Collections.Generic;
     using Facebook.Unity.Editor;
 
-    [EditorTest]
     internal class MockEditor : MockWrapper, IEditorWrapper
     {
         public void Init()

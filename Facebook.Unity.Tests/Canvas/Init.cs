@@ -21,8 +21,10 @@
 namespace Facebook.Unity.Tests.Canvas
 {
     using Facebook.Unity.Canvas;
+    using NUnit.Framework;
 
     [CanvasTest]
+    [TestFixture]
     public class Init : Facebook.Unity.Tests.Init
     {
         protected override void CallInit(InitDelegate callback)

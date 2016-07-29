@@ -21,8 +21,10 @@
 namespace Facebook.Unity.Tests.Mobile.IOS
 {
     using Facebook.Unity.Mobile.IOS;
+    using NUnit.Framework;
 
     [IOSTest]
+    [TestFixture]
     public class Init : Facebook.Unity.Tests.Init
     {
         protected override void CallInit(InitDelegate callback)

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4F631992-8D32-4AB5-8073-4BDC8A79380B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Facebook.Unity.Editor</RootNamespace>
+    <AssemblyName>Facebook.Unity.Editor</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <ReleaseVersion>
+    </ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="UnityEditor">
+      <HintPath>\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FacebookBuild.cs" />
+    <Compile Include="FacebookConsoleEndpoint.cs" />
+    <Compile Include="FacebookPostprocess.cs" />
+    <Compile Include="FacebookSettingsEditor.cs" />
+    <Compile Include="Utility.cs" />
+    <Compile Include="android\FacebookAndroidUtil.cs" />
+    <Compile Include="android\ManifestMod.cs" />
+    <Compile Include="iOS\FixupFiles.cs" />
+    <Compile Include="iOS\PListDict.cs" />
+    <Compile Include="iOS\PListParser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="FacebookBuild.cs.meta" />
+    <None Include="FacebookConsoleEndpoint.cs.meta" />
+    <None Include="FacebookPostprocess.cs.meta" />
+    <None Include="FacebookSettingsEditor.cs.meta" />
+    <None Include="Utility.cs.meta" />
+    <None Include="android\DefaultAndroidManifest.xml.meta" />
+    <None Include="android\FacebookAndroidUtil.cs.meta" />
+    <None Include="android\ManifestMod.cs.meta" />
+    <None Include="iOS\FixupFiles.cs.meta" />
+    <None Include="iOS\PListDict.cs.meta" />
+    <None Include="iOS\PListParser.cs.meta" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Facebook.Unity\Facebook.Unity.csproj">
+      <Project>{3DFF6C0C-BB04-405D-A23F-95999630E7F8}</Project>
+      <Name>Facebook.Unity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="android\DefaultAndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+</Project>

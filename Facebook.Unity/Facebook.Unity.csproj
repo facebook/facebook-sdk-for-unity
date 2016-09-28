@@ -129,7 +129,6 @@
     <Compile Include="Utils\MiniJson.cs" />
     <Compile Include="Utils\Utilities.cs" />
     <Compile Include="Canvas\CanvasConstants.cs" />
-    <Compile Include="Mobile\IOS\IOSWrapper.cs" />
     <Compile Include="Mobile\Android\AndroidWrapper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

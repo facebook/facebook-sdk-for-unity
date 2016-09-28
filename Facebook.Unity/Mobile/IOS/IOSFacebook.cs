@@ -32,7 +32,7 @@ namespace Facebook.Unity.Mobile.IOS
         private IIOSWrapper iosWrapper;
 
         public IOSFacebook()
-            : this(new IOSWrapper(), new CallbackManager())
+            : this(GetIOSWrapper(), new CallbackManager())
         {
         }
 
@@ -299,8 +299,12 @@ namespace Facebook.Unity.Mobile.IOS
 
         private static IIOSWrapper GetIOSWrapper()
         {
-            Assembly assembly = Assembly.Load("Facebook.Unity.IOS");
-            Type type = assembly.GetType("Facebook.Unity.IOS.IOSWrapper");
+            Type type = System.Type.GetType("Facebook.Unity.IOS.IOSWrapper, Facebook.Unity.IOS", false);
+            if (null == type)
+            {
+                Assembly assembly = Assembly.Load("Facebook.Unity.IOS");
+                type = assembly.GetType("Facebook.Unity.IOS.IOSWrapper");
+            }
             IIOSWrapper iosWrapper = (IIOSWrapper)Activator.CreateInstance(type);
             return iosWrapper;
         }

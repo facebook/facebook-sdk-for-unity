@@ -18,9 +18,8 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity
+namespace Facebook.Unity.IOS
 {
-    using System;
     using System.Runtime.InteropServices;
     using Facebook.Unity.Mobile.IOS;
 
@@ -32,7 +31,7 @@ namespace Facebook.Unity
             string urlSuffix,
             string unityUserAgentSuffix)
         {
-            IOSWrapper.IOSInit(
+            IOSWrapper.IOSFBInit(
                 appId,
                 frictionlessRequests,
                 urlSuffix,
@@ -43,7 +42,7 @@ namespace Facebook.Unity
             int requestId,
             string scope)
         {
-            IOSWrapper.IOSLogInWithReadPermissions(
+            IOSWrapper.IOSFBLogInWithReadPermissions(
                 requestId,
                 scope);
         }
@@ -52,19 +51,19 @@ namespace Facebook.Unity
             int requestId,
             string scope)
         {
-            IOSWrapper.IOSLogInWithPublishPermissions(
+            IOSWrapper.IOSFBLogInWithPublishPermissions(
                 requestId,
                 scope);
         }
 
         public void LogOut()
         {
-            IOSWrapper.IOSLogOut();
+            IOSWrapper.IOSFBLogOut();
         }
 
         public void SetShareDialogMode(int mode)
         {
-            IOSWrapper.IOSSetShareDialogMode(mode);
+            IOSWrapper.IOSFBSetShareDialogMode(mode);
         }
 
         public void ShareLink(
@@ -74,7 +73,7 @@ namespace Facebook.Unity
             string contentDescription,
             string photoURL)
         {
-            IOSWrapper.IOSShareLink(
+            IOSWrapper.IOSFBShareLink(
                 requestId,
                 contentURL,
                 contentTitle,
@@ -92,7 +91,7 @@ namespace Facebook.Unity
             string picture,
             string mediaSource)
         {
-            IOSWrapper.IOSFeedShare(
+            IOSWrapper.IOSFBFeedShare(
                 requestId,
                 toId,
                 link,
@@ -118,7 +117,7 @@ namespace Facebook.Unity
             string data = "",
             string title = "")
         {
-            IOSWrapper.IOSAppRequest(
+            IOSWrapper.IOSFBAppRequest(
                 requestId,
                 message,
                 actionType,
@@ -139,7 +138,7 @@ namespace Facebook.Unity
             string appLinkUrl,
             string previewImageUrl)
         {
-            IOSWrapper.IOSAppInvite(
+            IOSWrapper.IOSFBAppInvite(
                 requestId,
                 appLinkUrl,
                 previewImageUrl);
@@ -151,7 +150,7 @@ namespace Facebook.Unity
             string description,
             string privacy)
         {
-            IOSWrapper.IOSCreateGameGroup(
+            IOSWrapper.IOSFBCreateGameGroup(
                 requestId,
                 name,
                 description,
@@ -160,7 +159,7 @@ namespace Facebook.Unity
 
         public void JoinGameGroup(int requestId, string groupId)
         {
-            IOSWrapper.IOSJoinGameGroup(requestId, groupId);
+            IOSWrapper.IOSFBJoinGameGroup(requestId, groupId);
         }
 
         public void FBSettingsActivateApp(string appId)
@@ -205,7 +204,7 @@ namespace Facebook.Unity
 
         public void GetAppLink(int requestId)
         {
-            IOSWrapper.IOSGetAppLink(requestId);
+            IOSWrapper.IOSFBGetAppLink(requestId);
         }
 
         public string FBSdkVersion()
@@ -215,39 +214,39 @@ namespace Facebook.Unity
 
         public void FetchDeferredAppLink(int requestId)
         {
-            IOSWrapper.IOSFetchDeferredAppLink(requestId);
+            IOSWrapper.IOSFBFetchDeferredAppLink(requestId);
         }
 
         public void RefreshCurrentAccessToken(int requestId)
         {
-            IOSWrapper.IOSRefreshCurrentAccessToken(requestId);
+            IOSWrapper.IOSFBRefreshCurrentAccessToken(requestId);
         }
 
         [DllImport("__Internal")]
-        private static extern void IOSInit(
+        private static extern void IOSFBInit(
             string appId,
             bool frictionlessRequests,
             string urlSuffix,
             string unityUserAgentSuffix);
 
         [DllImport("__Internal")]
-        private static extern void IOSLogInWithReadPermissions(
+        private static extern void IOSFBLogInWithReadPermissions(
             int requestId,
             string scope);
 
         [DllImport("__Internal")]
-        private static extern void IOSLogInWithPublishPermissions(
+        private static extern void IOSFBLogInWithPublishPermissions(
             int requestId,
             string scope);
 
         [DllImport("__Internal")]
-        private static extern void IOSLogOut();
+        private static extern void IOSFBLogOut();
 
         [DllImport("__Internal")]
-        private static extern void IOSSetShareDialogMode(int mode);
+        private static extern void IOSFBSetShareDialogMode(int mode);
 
         [DllImport("__Internal")]
-        private static extern void IOSShareLink(
+        private static extern void IOSFBShareLink(
             int requestId,
             string contentURL,
             string contentTitle,
@@ -255,7 +254,7 @@ namespace Facebook.Unity
             string photoURL);
 
         [DllImport("__Internal")]
-        private static extern void IOSFeedShare(
+        private static extern void IOSFBFeedShare(
             int requestId,
             string toId,
             string link,
@@ -266,7 +265,7 @@ namespace Facebook.Unity
             string mediaSource);
 
         [DllImport("__Internal")]
-        private static extern void IOSAppRequest(
+        private static extern void IOSFBAppRequest(
             int requestId,
             string message,
             string actionType,
@@ -282,20 +281,20 @@ namespace Facebook.Unity
             string title = "");
 
         [DllImport("__Internal")]
-        private static extern void IOSAppInvite(
+        private static extern void IOSFBAppInvite(
             int requestId,
             string appLinkUrl,
             string previewImageUrl);
 
         [DllImport("__Internal")]
-        private static extern void IOSCreateGameGroup(
+        private static extern void IOSFBCreateGameGroup(
             int requestId,
             string name,
             string description,
             string privacy);
 
         [DllImport("__Internal")]
-        private static extern void IOSJoinGameGroup(int requestId, string groupId);
+        private static extern void IOSFBJoinGameGroup(int requestId, string groupId);
 
         [DllImport("__Internal")]
         private static extern void IOSFBSettingsActivateApp(string appId);
@@ -320,15 +319,15 @@ namespace Facebook.Unity
         private static extern void IOSFBAppEventsSetLimitEventUsage(bool limitEventUsage);
 
         [DllImport("__Internal")]
-        private static extern void IOSGetAppLink(int requestID);
+        private static extern void IOSFBGetAppLink(int requestID);
 
         [DllImport("__Internal")]
         private static extern string IOSFBSdkVersion();
 
         [DllImport("__Internal")]
-        private static extern void IOSFetchDeferredAppLink(int requestID);
+        private static extern void IOSFBFetchDeferredAppLink(int requestID);
 
         [DllImport("__Internal")]
-        private static extern void IOSRefreshCurrentAccessToken(int requestID);
+        private static extern void IOSFBRefreshCurrentAccessToken(int requestID);
     }
 }

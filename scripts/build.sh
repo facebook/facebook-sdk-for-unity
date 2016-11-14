@@ -22,10 +22,45 @@
 
 . $(dirname $0)/common.sh
 
+BUILD_TYPE="Release"
+localSettings=false
+
+while [ $# -gt 0 ]; do
+	opt="$1"
+	shift
+	case $opt in
+		--debug)
+			BUILD_TYPE=Debug
+			;;
+		--release)
+			;;
+		--local)
+			localSettings=true
+			;;
+		*)
+			die "Invalid arguments"
+			;;
+	esac
+done
+
+# Load settings
+source $PROJECT_ROOT/scripts/build.properties
+LOCAL_PROPS=$PROJECT_ROOT/scripts/local.properties
+if [ "$localSettings" = true ]; then
+  if [ -f "$LOCAL_PROPS" ]; then
+    source $LOCAL_PROPS
+  else
+    echo "No properties file found at $LOCAL_PROPS"
+  fi
+fi
+
 CSPROJ_ERROR="To generate csproj files open this project in unity at least once"
 
 PROJECT_SLN=$PROJECT_ROOT/Facebook.sln
 UNITY_CSPROJ=$UNITY_PACKAGE_ROOT/Assembly-CSharp.csproj
+
+ANDROID_ROOT=$PROJECT_ROOT/Facebook.Unity.Android
+ANDROID_DLL=$ANDROID_ROOT/bin/Release/Facebook.Unity.Android.dll
 
 ARCADE_ROOT=$PROJECT_ROOT/Facebook.Unity.Arcade
 ARCADE_DLL=$ARCADE_ROOT/bin/Release/Facebook.Unity.Arcade.dll
@@ -34,7 +69,17 @@ ARCADE_NAMED_PIPE_DLL=$ARCADE_ROOT/bin/Release/FacebookNamedPipeClient.dll
 EDITOR_ROOT=$PROJECT_ROOT/Facebook.Unity.Editor
 EDITOR_DLL=$EDITOR_ROOT/bin/Release/Facebook.Unity.Editor.dll
 
-CORE_ROOT=$PROJECT_ROOT/Facebook.Unity
+IOS_ROOT=$PROJECT_ROOT/Facebook.Unity.IOS
+IOS_DLL=$IOS_ROOT/bin/Release/Facebook.Unity.IOS.dll
+
+SETTINGS_ROOT=$PROJECT_ROOT/Facebook.Unity.Settings
+SETTINGS_DLL=$SETTINGS_ROOT/bin/Release/Facebook.Unity.Settings.dll
+
+IOS_STRIPPING_HACK_ROOT=$PROJECT_ROOT/Facebook.Unity.IOS.StrippingHack
+IOS_STRIPPING_HACK_DLL=$IOS_STRIPPING_HACK_ROOT/bin/Release/Facebook.Unity.IOS.dll
+ANDROID_STRIPPING_HACK_ROOT=$PROJECT_ROOT/Facebook.Unity.Android.StrippingHack
+ANDROID_STRIPPING_HACK_DLL=$ANDROID_STRIPPING_HACK_ROOT/bin/Release/Facebook.Unity.Android.dll
+
 CORE_DLL=$CORE_ROOT/bin/Release/Facebook.Unity.dll
 
 TEST_ROOT=$PROJECT_ROOT/Facebook.Unity.Tests
@@ -47,13 +92,16 @@ sed -i "" -e "s/AssemblyVersion(\"[0-9]\.[0-9]\.[0-9]\")/AssemblyVersion(\"$UNIT
 "$PROJECT_ROOT/Facebook.Unity/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Arcade/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Editor/Properties/AssemblyInfo.cs" \
+"$PROJECT_ROOT/Facebook.Unity.iOS/Properties/AssemblyInfo.cs" \
+"$PROJECT_ROOT/Facebook.Unity.Android/Properties/AssemblyInfo.cs" \
+"$PROJECT_ROOT/Facebook.Unity.Settings/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Tests/Properties/AssemblyInfo.cs" || die "Failed to update the DLL versions"
 
 ###############################################################################
 # BUILD SDK
 ###############################################################################
 which mono &>/dev/null || die "mono command not found. Please install mono."
-xbuild /p:Configuration=Release $PROJECT_SLN || die "Facebook.sln Build Failed"
+xbuild /p:Configuration=$BUILD_TYPE $PROJECT_SLN || die "Facebook.sln Build Failed"
 
 ###############################################################################
 # COPY DLLS
@@ -63,11 +111,16 @@ if [ ! -d "$UNITY_PACKAGE_PLUGIN" ]; then
 fi
 cp $CORE_DLL $UNITY_PACKAGE_PLUGIN || die "Failed to copy core DLL"
 
+if [ ! -d "$UNITY_ANDROID_PLUGIN" ]; then
+  mkdir -p $UNITY_ANDROID_PLUGIN || die "Failed to create Android plugins folder"
+fi
+cp $ANDROID_DLL $UNITY_ANDROID_PLUGIN || die "Failed to copy Android DLL"
+cp $IOS_STRIPPING_HACK_DLL $UNITY_ANDROID_PLUGIN || die "Failed to copy ios hack DLL"
+
 if [ ! -d "$UNITY_ARCADE_PLUGIN" ]; then
   mkdir -p $UNITY_ARCADE_PLUGIN || die "Failed to create Arcade plugins folder"
 fi
 cp $ARCADE_DLL $UNITY_ARCADE_PLUGIN || die "Failed to copy Arcade DLL"
-
 cp $ARCADE_NAMED_PIPE_DLL $UNITY_ARCADE_PLUGIN || die "Failed to copy FacebookNamedPipeClient DLL"
 
 if [ ! -d "$UNITY_EDITOR_PLUGIN" ]; then
@@ -75,8 +128,19 @@ if [ ! -d "$UNITY_EDITOR_PLUGIN" ]; then
 fi
 cp $EDITOR_DLL $UNITY_EDITOR_PLUGIN || die "Failed to copy Editor DLL"
 
+if [ ! -d "$UNITY_IOS_PLUGIN" ]; then
+  mkdir -p $UNITY_IOS_PLUGIN || die "Failed to create IOS plugins folder"
+fi
+cp $IOS_DLL $UNITY_IOS_PLUGIN || die "Failed to copy IOS DLL"
+cp $ANDROID_STRIPPING_HACK_DLL $UNITY_IOS_PLUGIN || die "Failed to copy android hack DLL"
+
+if [ ! -d "$UNITY_SETTINGS_PLUGIN" ]; then
+  mkdir -p $UNITY_SETTINGS_PLUGIN || die "Failed to create Settings plugins folder"
+fi
+cp $SETTINGS_DLL $UNITY_SETTINGS_PLUGIN || die "Failed to copy Settings DLL"
+
 ###############################################################################
 # BUILD EXAMPLE
 ###############################################################################
 validate_file_exists $UNITY_PACKAGE_ROOT/Assembly-CSharp.csproj $CSPROJERROR
-xbuild /p:Configuration=Release $UNITY_CSPROJ || die "Failed to build SDK DLL"
+xbuild /p:Configuration=$BUILD_TYPE $UNITY_CSPROJ || die "Failed to build SDK DLL"

@@ -44,6 +44,7 @@ namespace Facebook.Unity.Arcade
             string requestId,
             string pricepointId,
             string testCurrency,
+            string developerPayload,
             string callbackID,
             ArcadeFacebook.OnComplete completeDelegate);
 

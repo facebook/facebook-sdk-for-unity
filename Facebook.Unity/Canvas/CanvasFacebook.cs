@@ -84,7 +84,6 @@ namespace Facebook.Unity.Canvas
                 switch (Constants.CurrentPlatform)
                 {
                     case FacebookUnityPlatform.WebGL:
-                    case FacebookUnityPlatform.WebPlayer:
                         webPlatform = string.Format(
                             CultureInfo.InvariantCulture,
                             "FBUnity{0}",
@@ -272,6 +271,7 @@ namespace Facebook.Unity.Canvas
                  requestId,
                  pricepointId,
                  testCurrency,
+                 /*developerPayload*/ null,
                  callback);
         }
 
@@ -296,6 +296,28 @@ namespace Facebook.Unity.Canvas
                 requestId,
                 pricepointId,
                 testCurrency,
+                /*developerPayload*/ null,
+                callback);
+        }
+
+        public void PayWithProductId(
+            string productId,
+            string action,
+            string developerPayload,
+            string testCurrency,
+            FacebookDelegate<IPayResult> callback)
+        {
+            this.PayImpl(
+                /*product*/ null,
+                productId,
+                action,
+                /*quantity*/ 1,
+                /*quantityMin*/ null,
+                /*quantityMax*/ null,
+                /*requestId*/ null,
+                /*pricepointId*/ null,
+                testCurrency,
+                developerPayload,
                 callback);
         }
 
@@ -547,6 +569,7 @@ namespace Facebook.Unity.Canvas
             string requestId,
             string pricepointId,
             string testCurrency,
+            string developerPayload,
             FacebookDelegate<IPayResult> callback)
         {
             MethodArguments args = new MethodArguments();
@@ -559,6 +582,7 @@ namespace Facebook.Unity.Canvas
             args.AddString("request_id", requestId);
             args.AddString("pricepoint_id", pricepointId);
             args.AddString("test_currency", testCurrency);
+            args.AddString("developer_payload", developerPayload);
             var call = new CanvasUIMethodCall<IPayResult>(this, MethodPay, Constants.OnPayCompleteMethodName);
             call.Callback = callback;
             call.Call(args);

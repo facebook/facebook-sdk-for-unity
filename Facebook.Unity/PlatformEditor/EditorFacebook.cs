@@ -255,6 +255,18 @@ namespace Facebook.Unity.Editor
                 this.CallbackManager.AddFacebookDelegate(callback));
         }
 
+        public void PayWithProductId(
+            string productId,
+            string action,
+            string developerPayload,
+            string testCurrency,
+            FacebookDelegate<IPayResult> callback)
+        {
+            this.editorWrapper.ShowPayMockDialog(
+                this.OnPayComplete,
+                this.CallbackManager.AddFacebookDelegate(callback));
+        }
+
         public void RefreshCurrentAccessToken(
             FacebookDelegate<IAccessTokenRefreshResult> callback)
         {

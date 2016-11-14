@@ -26,6 +26,7 @@ namespace Facebook.Unity.Editor
     using System.Reflection;
     using System.Xml;
     using Facebook.Unity;
+    using Facebook.Unity.Settings;
     using UnityEditor;
     using UnityEngine;
 

@@ -22,25 +22,21 @@ PROJECT_ROOT=$(pwd)
 
 SCRIPTS_DIR="$PROJECT_ROOT/scripts"
 
+CORE_ROOT=$PROJECT_ROOT/Facebook.Unity
+
 UNITY_PACKAGE_ROOT=$PROJECT_ROOT/UnitySDK
 UNITY_PACKAGE_PLUGIN=$UNITY_PACKAGE_ROOT/Assets/FacebookSDK/Plugins/
+UNITY_ANDROID_PLUGIN=$UNITY_PACKAGE_PLUGIN/Android/
 UNITY_ARCADE_PLUGIN=$UNITY_PACKAGE_PLUGIN/Arcade/
 UNITY_EDITOR_PLUGIN=$UNITY_PACKAGE_PLUGIN/Editor/
+UNITY_IOS_PLUGIN=$UNITY_PACKAGE_PLUGIN/iOS/
+UNITY_SETTINGS_PLUGIN=$UNITY_PACKAGE_PLUGIN/Settings/
 
 SCRIPTS_DIR="$PROJECT_ROOT/scripts"
 
 RED='\033[0;31m'
 NC='\033[0m'
 CYAN='\033[0;36m'
-
-# Load settings
-source $PROJECT_ROOT/scripts/build.properties
-LOCAL_PROPS=$PROJECT_ROOT/scripts/local.properties
-if [ -f "$LOCAL_PROPS" ]; then
-  source $PROJECT_ROOT/scripts/local.properties
-else
-  echo "No properties file found at $LOCAL_PROPS"
-fi
 
 # Extract the SDK version from FacebookSdkVersion.java
 SDK_VERSION_RAW=$(sed -n 's/.*"\(.*\)\";/\1/p' "$CORE_ROOT/FacebookSdkVersion.cs")
@@ -86,5 +82,14 @@ function validate_file_exists() {
   if [ ! -f "$1" ]; then
     echo "${RED}FATAL: File not found $1 ${NC}" >&2
     die $2
+  fi
+}
+
+function validate_any_file_exists() {
+  FILE_COUNT=$(find "$1" -name "$2" | wc -l)
+
+  if [[ $FILE_COUNT -eq 0 ]]; then
+    echo "${RED}FATAL: File not found $2 ${NC}" >&2
+    die $3
   fi
 }

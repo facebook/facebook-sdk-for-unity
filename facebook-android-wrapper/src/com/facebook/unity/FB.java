@@ -130,6 +130,24 @@ public class FB {
     }
 
     @UnityCallable
+    public static void loginForTVWithReadPermissions(String params_str) {
+        Log.v(TAG, "loginForTVWithReadPermissions(" + params_str + ")");
+        Intent intent = new Intent(getUnityActivity(), FBUnityLoginActivity.class);
+        intent.putExtra(FBUnityLoginActivity.LOGIN_PARAMS, params_str);
+        intent.putExtra(FBUnityLoginActivity.LOGIN_TYPE, FBUnityLoginActivity.LoginType.TV_READ);
+        getUnityActivity().startActivity(intent);
+    }
+
+    @UnityCallable
+    public static void LoginForTVWithPublishPermissions(String params_str) {
+        Log.v(TAG, "LoginForTVWithPublishPermissions(" + params_str + ")");
+        Intent intent = new Intent(getUnityActivity(), FBUnityLoginActivity.class);
+        intent.putExtra(FBUnityLoginActivity.LOGIN_PARAMS, params_str);
+        intent.putExtra(FBUnityLoginActivity.LOGIN_TYPE, FBUnityLoginActivity.LoginType.TV_PUBLISH);
+        getUnityActivity().startActivity(intent);
+    }
+
+    @UnityCallable
     public static void AppRequest(String params_str) {
         Log.v(TAG, "AppRequest(" + params_str + ")");
         Intent intent = new Intent(getUnityActivity(), FBUnityGameRequestActivity.class);

@@ -42,6 +42,12 @@ public class FBUnityLoginActivity extends BaseActivity {
             case PUBLISH:
                 FBLogin.loginWithPublishPermissions(loginParams, this);
                 break;
+            case TV_READ:
+                FBLogin.loginForTVWithReadPermissions(loginParams, this);
+                break;
+            case TV_PUBLISH:
+                FBLogin.loginForTVWithPublishPermissions(loginParams, this);
+                break;
         }
     }
 
@@ -51,7 +57,9 @@ public class FBUnityLoginActivity extends BaseActivity {
 
     public enum LoginType {
         READ,
-        PUBLISH
+        PUBLISH,
+        TV_READ,
+        TV_PUBLISH
     }
 
 }

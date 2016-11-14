@@ -31,6 +31,7 @@ import com.facebook.AccessToken;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.login.DeviceLoginManager;
 import com.facebook.login.LoginBehavior;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
@@ -39,13 +40,25 @@ public class FBLogin {
     public static void loginWithReadPermissions(
             String params,
             final FBUnityLoginActivity activity) {
-        login(params, activity, false);
+        login(params, activity, false, false);
     }
 
     public static void loginWithPublishPermissions(
             String params,
             final FBUnityLoginActivity activity) {
-        login(params, activity, true);
+        login(params, activity, true, false);
+    }
+
+    public static void loginForTVWithReadPermissions(
+            String params,
+            final FBUnityLoginActivity activity) {
+        login(params, activity, false, true);
+    }
+
+    public static void loginForTVWithPublishPermissions(
+            String params,
+            final FBUnityLoginActivity activity) {
+        login(params, activity, true, true);
     }
 
     public static void sendLoginSuccessMessage(AccessToken token, String callbackID) {
@@ -82,7 +95,8 @@ public class FBLogin {
     private static void login(
             String params,
             final FBUnityLoginActivity activity,
-            boolean isPublishPermLogin) {
+            boolean isPublishPermLogin,
+            boolean isDeviceAuthLogin) {
         if (!FacebookSdk.isInitialized()) {
             Log.w(FB.TAG, "Facebook SDK not initialized. Call init() before calling login()");
             return;
@@ -128,10 +142,17 @@ public class FBLogin {
                     }
                 });
 
-        if (isPublishPermLogin) {
-            LoginManager.getInstance().logInWithPublishPermissions(activity, permissions);
+        LoginManager loginManager;
+        if (isDeviceAuthLogin) {
+            loginManager = DeviceLoginManager.getInstance();
         } else {
-            LoginManager.getInstance().logInWithReadPermissions(activity, permissions);
+            loginManager = LoginManager.getInstance();
+        }
+
+        if (isPublishPermLogin) {
+            loginManager.logInWithPublishPermissions(activity, permissions);
+        } else {
+            loginManager.logInWithReadPermissions(activity, permissions);
         }
     }
 }

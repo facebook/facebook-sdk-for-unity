@@ -94,7 +94,10 @@ namespace Facebook.Unity
 
                 Dictionary<string, string> headers = new Dictionary<string, string>();
 
-                headers["User-Agent"] = Constants.GraphApiUserAgent;
+                if (Constants.CurrentPlatform != FacebookUnityPlatform.WebGL)
+                {
+                    headers["User-Agent"] = Constants.GraphApiUserAgent;
+                }
 
                 www = new WWW(this.url + urlParams, null, headers);
             }
@@ -119,7 +122,11 @@ namespace Facebook.Unity
                     }
                 }
 
-                this.query.headers["User-Agent"] = Constants.GraphApiUserAgent;
+                if (Constants.CurrentPlatform != FacebookUnityPlatform.WebGL)
+                {
+                    this.query.headers["User-Agent"] = Constants.GraphApiUserAgent;
+                }
+
                 www = new WWW(this.url.AbsoluteUri, this.query);
             }
 

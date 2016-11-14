@@ -22,8 +22,13 @@
 
 . $(dirname $0)/common.sh
 
-buildAndCopyCore
-buildAndCopyPlatformDLLs
+which nuget &>/dev/null || die "nuget command not found. Please install nuget."
+echo "checking packages..."
+nuget restore $PROJECT_ROOT
+echo "checking packages done."
 
 $SCRIPTS_DIR/setup_ios_unity_plugin.sh "$@" || die "Failed to setup the ios sdk plugin"
 $SCRIPTS_DIR/setup_android_unity_plugin.sh "$@" || die "Failed to build the android sdk plugin"
+
+cd $SCRIPTS_DIR
+./build.sh

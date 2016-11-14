@@ -78,6 +78,7 @@ namespace Facebook.Unity.Example
                 this.CallFbGetUserGroups();
             }
 
+            GUI.enabled = enabled && !string.IsNullOrEmpty(this.gamerGroupCurrentGroup);
             if (this.Button("Make Group Post As User"))
             {
                 this.CallFbPostToGamerGroup();

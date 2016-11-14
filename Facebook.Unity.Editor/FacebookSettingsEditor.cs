@@ -23,6 +23,7 @@ namespace Facebook.Unity.Editor
     using System.Collections.Generic;
     using System.IO;
     using Facebook.Unity;
+    using Facebook.Unity.Settings;
     using UnityEditor;
     using UnityEngine;
 
@@ -31,13 +32,23 @@ namespace Facebook.Unity.Editor
     public class FacebookSettingsEditor : Editor
     {
         private bool showFacebookInitSettings = false;
-        private bool showAndroidUtils = EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android;
-        private bool showIOSSettings = EditorUserBuildSettings.activeBuildTarget.ToString() == "iOS";
+        private bool showAndroidUtils = false;
+        private bool showIOSSettings = false;
         private bool showAppLinksSettings = false;
+        private bool showFacebookUploadBuildSettings = false;
         private bool showAboutSection = false;
 
-        private GUIContent appNameLabel = new GUIContent("App Name [?]:", "For your own use and organization.\n(ex. 'dev', 'qa', 'prod')");
-        private GUIContent appIdLabel = new GUIContent("App Id [?]:", "Facebook App Ids can be found at https://developers.facebook.com/apps");
+        private GUIContent appNameLabel = new GUIContent(
+            "App Name (Optional) [?]:",
+            "For your own use and organization.\n(ex. 'dev', 'qa', 'prod')");
+
+        private GUIContent appIdLabel = new GUIContent(
+            "App Id [?]:",
+            "Facebook App Ids can be found at https://developers.facebook.com/apps");
+
+        private GUIContent clientTokenLabel = new GUIContent(
+            "Client Token (Optional) [?]:",
+            "For login purposes. Client Token can be found at https://developers.facebook.com/apps, in Settings -> Advanced");
 
         private GUIContent urlSuffixLabel = new GUIContent("URL Scheme Suffix [?]", "Use this to share Facebook APP ID's across multiple iOS apps.  https://developers.facebook.com/docs/ios/share-appid-across-multiple-apps-ios-sdk/");
 
@@ -50,6 +61,10 @@ namespace Facebook.Unity.Editor
         private GUIContent packageNameLabel = new GUIContent("Package Name [?]", "aka: the bundle identifier");
         private GUIContent classNameLabel = new GUIContent("Class Name [?]", "aka: the activity name");
         private GUIContent debugAndroidKeyLabel = new GUIContent("Debug Android Key Hash [?]", "Copy this key to the Facebook Settings in order to test a Facebook Android app");
+
+        private GUIContent uploadAccessTokenLabel = new GUIContent(
+            "Upload Access Token [?]",
+            "Use this to upload build for Facebook platform");
 
         private GUIContent sdkVersion = new GUIContent("SDK Version [?]", "This Unity Facebook SDK version.  If you have problems or compliments please include this so we know exactly what version to look out for.");
 
@@ -114,6 +129,13 @@ namespace Facebook.Unity.Editor
             Application.OpenURL(url);
         }
 
+        void OnEnable()
+        {
+            this.showAndroidUtils = EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android;
+            this.showIOSSettings = EditorUserBuildSettings.activeBuildTarget.ToString() == "iOS";
+        }
+
+
         public override void OnInspectorGUI()
         {
             EditorGUILayout.Separator();
@@ -145,23 +167,35 @@ namespace Facebook.Unity.Editor
                 EditorGUILayout.HelpBox("Invalid App Id", MessageType.Error);
             }
 
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField(this.appNameLabel);
-            EditorGUILayout.LabelField(this.appIdLabel);
-            EditorGUILayout.EndHorizontal();
             for (int i = 0; i < FacebookSettings.AppIds.Count; ++i)
             {
+                EditorGUILayout.BeginVertical();
+
+                EditorGUILayout.LabelField(string.Format("App #{0}", i + 1));
+
                 EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField(this.appNameLabel);
                 FacebookSettings.AppLabels[i] = EditorGUILayout.TextField(FacebookSettings.AppLabels[i]);
+                EditorGUILayout.EndHorizontal();
+
                 GUI.changed = false;
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField(this.appIdLabel);
                 FacebookSettings.AppIds[i] = EditorGUILayout.TextField(FacebookSettings.AppIds[i]);
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField(this.clientTokenLabel);
+                FacebookSettings.ClientTokens[i] = EditorGUILayout.TextField(FacebookSettings.ClientTokens[i]);
+                EditorGUILayout.EndHorizontal();
+
                 if (GUI.changed)
                 {
                     this.SettingsChanged();
                     ManifestMod.GenerateManifest();
                 }
 
-                EditorGUILayout.EndHorizontal();
+                EditorGUILayout.EndVertical();
             }
 
             EditorGUILayout.BeginHorizontal();
@@ -169,6 +203,7 @@ namespace Facebook.Unity.Editor
             {
                 FacebookSettings.AppLabels.Add("New App");
                 FacebookSettings.AppIds.Add("0");
+                FacebookSettings.ClientTokens.Add(string.Empty);
                 FacebookSettings.AppLinkSchemes.Add(new FacebookSettings.UrlSchemes());
                 this.SettingsChanged();
             }
@@ -179,6 +214,7 @@ namespace Facebook.Unity.Editor
                 {
                     FacebookSettings.AppLabels.Pop();
                     FacebookSettings.AppIds.Pop();
+                    FacebookSettings.ClientTokens.Pop();
                     FacebookSettings.AppLinkSchemes.Pop();
                     this.SettingsChanged();
                 }
@@ -323,6 +359,23 @@ namespace Facebook.Unity.Editor
                     EditorGUILayout.EndHorizontal();
                 }
             }
+        }
+
+        private void UploadBuildSettingsGUI()
+        {
+            this.showFacebookUploadBuildSettings = EditorGUILayout.Foldout(
+                this.showFacebookUploadBuildSettings,
+                "Upload Facebook Build Settings");
+
+            if (this.showFacebookUploadBuildSettings)
+            {
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField(this.uploadAccessTokenLabel, GUILayout.Width(135), GUILayout.Height(16));
+                FacebookSettings.UploadAccessToken = EditorGUILayout.TextField(FacebookSettings.UploadAccessToken);
+                EditorGUILayout.EndHorizontal();
+            }
+
+            EditorGUILayout.Space();
         }
 
         private void AboutGUI()

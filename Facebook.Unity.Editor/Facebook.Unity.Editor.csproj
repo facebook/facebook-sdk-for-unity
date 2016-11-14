@@ -20,6 +20,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -28,14 +29,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="UnityEditor">
-      <HintPath>\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEditor.dll</HintPath>
+      <HintPath>\Applications\Unity\Unity.app\Contents\Managed\UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEngine.dll</HintPath>
+      <HintPath>\Applications\Unity\Unity.app\Contents\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -55,22 +57,13 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <None Include="FacebookBuild.cs.meta" />
-    <None Include="FacebookConsoleEndpoint.cs.meta" />
-    <None Include="FacebookPostprocess.cs.meta" />
-    <None Include="FacebookSettingsEditor.cs.meta" />
-    <None Include="Utility.cs.meta" />
-    <None Include="android\DefaultAndroidManifest.xml.meta" />
-    <None Include="android\FacebookAndroidUtil.cs.meta" />
-    <None Include="android\ManifestMod.cs.meta" />
-    <None Include="iOS\FixupFiles.cs.meta" />
-    <None Include="iOS\PListDict.cs.meta" />
-    <None Include="iOS\PListParser.cs.meta" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Facebook.Unity\Facebook.Unity.csproj">
       <Project>{3DFF6C0C-BB04-405D-A23F-95999630E7F8}</Project>
       <Name>Facebook.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Facebook.Unity.Settings\Facebook.Unity.Settings.csproj">
+      <Project>{BA9BAAC5-5D12-460A-A8B3-428CC1F1CCC6}</Project>
+      <Name>Facebook.Unity.Settings</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

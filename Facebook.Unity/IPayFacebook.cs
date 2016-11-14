@@ -43,5 +43,12 @@ namespace Facebook.Unity
           string pricepointId,
           string testCurrency,
           FacebookDelegate<IPayResult> callback);
+
+      void PayWithProductId(
+          string productId,
+          string action,
+          string developerPayload,
+          string testCurrency,
+          FacebookDelegate<IPayResult> callback);
   }
 }

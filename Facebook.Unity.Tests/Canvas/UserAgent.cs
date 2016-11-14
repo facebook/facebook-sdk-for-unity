@@ -38,17 +38,5 @@ namespace Facebook.Unity.Tests.Canvas
 
             this.VerifyUserAgent(expected);
         }
-
-        [Test]
-        public void VerifyUserAgentWebPlayer()
-        {
-            Constants.CurrentPlatform = FacebookUnityPlatform.WebPlayer;
-            string expected = string.Format(
-                CultureInfo.InvariantCulture,
-                "FBJSSDK/1.0.0 FBUnityWebPlayer/{0} FBUnitySDK/{0}",
-                FacebookSdkVersion.Build);
-
-            this.VerifyUserAgent(expected);
-        }
     }
 }

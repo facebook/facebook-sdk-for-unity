@@ -29,6 +29,7 @@ namespace Facebook.Unity.Tests
     using Facebook.Unity.Tests.Editor;
     using Facebook.Unity.Tests.Mobile.Android;
     using Facebook.Unity.Tests.Mobile.IOS;
+    using NSubstitute;
     using NUnit.Framework;
 
     public abstract class FacebookTestClass
@@ -81,7 +82,7 @@ namespace Facebook.Unity.Tests
             }
             else
             {
-                throw new Exception("No platform specified on test class");
+                throw new Exception("Failed to specify platform specified on test class");
             }
 
             this.OnInit();

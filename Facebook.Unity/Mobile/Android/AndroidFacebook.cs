@@ -31,17 +31,17 @@ namespace Facebook.Unity.Mobile.Android
 
         // This class holds all the of the wrapper methods that we call into
         private bool limitEventUsage;
-        private IAndroidWrapper facebookJava;
+        private IAndroidWrapper androidWrapper;
 
-        public AndroidFacebook() : this(new AndroidWrapper(), new CallbackManager())
+        public AndroidFacebook() : this(GetAndroidWrapper(), new CallbackManager())
         {
         }
 
-        public AndroidFacebook(IAndroidWrapper facebookJavaClass, CallbackManager callbackManager)
+        public AndroidFacebook(IAndroidWrapper androidWrapper, CallbackManager callbackManager)
             : base(callbackManager)
         {
             this.KeyHash = string.Empty;
-            this.facebookJava = facebookJavaClass;
+            this.androidWrapper = androidWrapper;
         }
 
         // key Hash used for Android SDK
@@ -73,7 +73,7 @@ namespace Facebook.Unity.Mobile.Android
         {
             get
             {
-                return this.facebookJava.CallStatic<string>("GetSdkVersion");
+                return this.androidWrapper.CallStatic<string>("GetSdkVersion");
             }
         }
 
@@ -313,9 +313,17 @@ namespace Facebook.Unity.Mobile.Android
             this.CallFB("SetShareDialogMode", mode.ToString());
         }
 
+        private static IAndroidWrapper GetAndroidWrapper()
+        {
+            Assembly assembly = Assembly.Load("Facebook.Unity.Android");
+            Type type = assembly.GetType("Facebook.Unity.Android.AndroidWrapper");
+            IAndroidWrapper javaClass = (IAndroidWrapper)Activator.CreateInstance(type);
+            return javaClass;
+        }
+
         private void CallFB(string method, string args)
         {
-            this.facebookJava.CallStatic(method, args);
+            this.androidWrapper.CallStatic(method, args);
         }
 
         private class JavaMethodCall<T> : MethodCall<T> where T : IResult

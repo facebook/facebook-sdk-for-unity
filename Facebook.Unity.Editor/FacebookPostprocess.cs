@@ -22,6 +22,7 @@ namespace Facebook.Unity.Editor
 {
     using System.IO;
     using Facebook.Unity;
+    using Facebook.Unity.Settings;
     using UnityEditor;
     using UnityEditor.Callbacks;
     using UnityEngine;
@@ -32,7 +33,7 @@ namespace Facebook.Unity.Editor
         public static void OnPostProcessBuild(BuildTarget target, string path)
         {
             // If integrating with facebook on any platform, throw a warning if the app id is invalid
-            if (!Facebook.Unity.FacebookSettings.IsValidAppId)
+            if (!FacebookSettings.IsValidAppId)
             {
                 Debug.LogWarning("You didn't specify a Facebook app ID.  Please add one using the Facebook menu in the main Unity editor.");
             }

@@ -32,7 +32,7 @@ namespace Facebook.Unity.Mobile.IOS
         private IIOSWrapper iosWrapper;
 
         public IOSFacebook()
-            : this(new IOSWrapper(), new CallbackManager())
+            : this(GetIOSWrapper(), new CallbackManager())
         {
         }
 

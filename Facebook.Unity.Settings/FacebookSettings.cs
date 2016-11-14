@@ -18,7 +18,9 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity
+﻿using System;
+
+namespace Facebook.Unity.Settings
 {
     using System.Collections.Generic;
     using System.IO;
@@ -39,6 +41,8 @@ namespace Facebook.Unity
         [SerializeField]
         private int selectedAppIndex = 0;
         [SerializeField]
+        private List<string> clientTokens = new List<string> { string.Empty };
+        [SerializeField]
         private List<string> appIds = new List<string> { "0" };
         [SerializeField]
         private List<string> appLabels = new List<string> { "App Name" };
@@ -56,6 +60,8 @@ namespace Facebook.Unity
         private string iosURLSuffix = string.Empty;
         [SerializeField]
         private List<UrlSchemes> appLinkSchemes = new List<UrlSchemes>() { new UrlSchemes() };
+        [SerializeField]
+        private string uploadAccessToken = string.Empty;
 
         public delegate void OnChangeCallback();
 
@@ -123,6 +129,27 @@ namespace Facebook.Unity
         }
 
         /// <summary>
+        /// Gets or sets the app client token.
+        /// </summary>
+        /// <value>The app client token.</value>
+        public static List<string> ClientTokens
+        {
+            get
+            {
+                return Instance.clientTokens;
+            }
+
+            set
+            {
+                if (Instance.clientTokens != value)
+                {
+                    Instance.clientTokens = value;
+                    SettingsChanged();
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets the app identifier.
         /// </summary>
         /// <value>The app identifier.</value>
@@ -131,6 +158,18 @@ namespace Facebook.Unity
             get
             {
                 return AppIds[SelectedAppIndex];
+            }
+        }
+
+        /// <summary>
+        /// Gets the app client token.
+        /// </summary>
+        /// <value>The app identifier.</value>
+        public static string ClientToken
+        {
+            get
+            {
+                return ClientTokens[SelectedAppIndex];
             }
         }
 
@@ -299,6 +338,27 @@ namespace Facebook.Unity
                 if (Instance.appLinkSchemes != value)
                 {
                     Instance.appLinkSchemes = value;
+                    SettingsChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the upload access token.
+        /// </summary>
+        /// <value>The access token to upload build to Facebook hosting.</value>
+        public static string UploadAccessToken
+        {
+            get
+            {
+                return Instance.uploadAccessToken;
+            }
+
+            set
+            {
+                if (Instance.uploadAccessToken != value)
+                {
+                    Instance.uploadAccessToken = value;
                     SettingsChanged();
                 }
             }

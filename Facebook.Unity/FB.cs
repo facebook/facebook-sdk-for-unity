@@ -28,6 +28,7 @@ namespace Facebook.Unity
     using Facebook.Unity.Mobile;
     using Facebook.Unity.Mobile.Android;
     using Facebook.Unity.Mobile.IOS;
+    using Facebook.Unity.Settings;
     using UnityEngine;
 
     /// <summary>
@@ -49,6 +50,13 @@ namespace Facebook.Unity
         /// </summary>
         /// <value>The app identifier.</value>
         public static string AppId { get; private set; }
+
+        /// <summary>
+        /// Gets the app client token. ClientToken might be different from FBSettings.ClientToken
+        /// if using the programmatic version of FB.Init().
+        /// </summary>
+        /// <value>The app client token.</value>
+        public static string ClientToken { get; private set; }
 
         /// <summary>
         /// Gets or sets the graph API version.
@@ -172,6 +180,7 @@ namespace Facebook.Unity
         {
             Init(
                 FacebookSettings.AppId,
+                FacebookSettings.ClientToken,
                 FacebookSettings.Cookie,
                 FacebookSettings.Logging,
                 FacebookSettings.Status,
@@ -188,6 +197,7 @@ namespace Facebook.Unity
         /// Useful for a build pipeline that requires no human input.
         /// </summary>
         /// <param name="appId">App identifier.</param>
+        /// <param name="clientToken">App client token.</param>
         /// <param name="cookie">If set to <c>true</c> cookie.</param>
         /// <param name="logging">If set to <c>true</c> logging.</param>
         /// <param name="status">If set to <c>true</c> status.</param>
@@ -207,6 +217,7 @@ namespace Facebook.Unity
         /// </param>
         public static void Init(
             string appId,
+            string clientToken = null,
             bool cookie = true,
             bool logging = true,
             bool status = true,
@@ -223,6 +234,7 @@ namespace Facebook.Unity
             }
 
             FB.AppId = appId;
+            FB.ClientToken = clientToken;
 
             if (!isInitCalled)
             {
@@ -242,7 +254,6 @@ namespace Facebook.Unity
                     switch (Constants.CurrentPlatform)
                     {
                         case FacebookUnityPlatform.WebGL:
-                        case FacebookUnityPlatform.WebPlayer:
                             FB.OnDLLLoadedDelegate = delegate
                             {
                                 ((CanvasFacebook)FB.facebook).Init(
@@ -291,7 +302,7 @@ namespace Facebook.Unity
                             ComponentFactory.GetComponent<ArcadeFacebookLoader>();
                             break;
                         default:
-                            throw new NotImplementedException("Facebook API does not yet support this platform");
+                            throw new NotSupportedException("The facebook sdk does not support this platform");
                     }
                 }
             }
@@ -306,6 +317,9 @@ namespace Facebook.Unity
         /// </summary>
         /// <param name="permissions">A list of requested permissions.</param>
         /// <param name="callback">Callback to be called when request completes.</param>
+        /// <exception cref="System.NotSupportedException">
+        /// Thrown when called on a TV device.
+        /// </exception>
         public static void LogInWithPublishPermissions(
             IEnumerable<string> permissions = null,
             FacebookDelegate<ILoginResult> callback = null)
@@ -318,6 +332,9 @@ namespace Facebook.Unity
         /// </summary>
         /// <param name="permissions">A list of requested permissions.</param>
         /// <param name="callback">Callback to be called when request completes.</param>
+        /// <exception cref="System.NotSupportedException">
+        /// Thrown when called on a TV device.
+        /// </exception>
         public static void LogInWithReadPermissions(
             IEnumerable<string> permissions = null,
             FacebookDelegate<ILoginResult> callback = null)
@@ -817,6 +834,39 @@ namespace Facebook.Unity
                     quantityMax,
                     requestId,
                     pricepointId,
+                    testCurrency,
+                    callback);
+            }
+
+            /// <summary>
+            /// Pay the specified productId, action, developerPayload, testCurrency and callback.
+            /// </summary>
+            /// <param name="productId">The product Id referencing the product managed by Facebook.</param>
+            /// <param name="action">Should always be purchaseiap.</param>
+            /// <param name="developerPayload">
+            /// A string that can be used to provide supplemental information about an order. It can be
+            /// used to uniquely identify the purchase request.
+            /// </param>
+            /// <param name="testCurrency">
+            /// This parameter can be used during debugging and testing your implementation to force the dialog to
+            /// use a specific currency rather than the current user's preferred currency. This allows you to
+            /// rapidly prototype your payment experience for different currencies without having to repeatedly
+            /// change your personal currency preference settings. This parameter is only available for admins,
+            /// developers and testers associated with the app, in order to minimize the security risk of a
+            /// malicious JavaScript injection. Provide the 3 letter currency code of the intended forced currency.
+            /// </param>
+            /// <param name="callback">The callback to use upon completion.</param>
+            public static void PayWithProductId(
+                string productId,
+                string action = "purchaseiap",
+                string developerPayload = null,
+                string testCurrency = null,
+                FacebookDelegate<IPayResult> callback = null)
+            {
+                FacebookPayImpl.PayWithProductId(
+                    productId,
+                    action,
+                    developerPayload,
                     testCurrency,
                     callback);
             }

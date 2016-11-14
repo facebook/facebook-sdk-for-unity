@@ -137,7 +137,7 @@ namespace Facebook.Unity
                     FB.IsLoggedIn ? AccessToken.CurrentAccessToken.TokenString : string.Empty;
             }
 
-            AsyncRequestString.Request(this.GetGraphUrl(query), method, inputFormData, callback);
+            FBUnityUtility.AsyncRequestStringWrapper.Request(this.GetGraphUrl(query), method, inputFormData, callback);
         }
 
         public void API(
@@ -157,7 +157,7 @@ namespace Facebook.Unity
                 Constants.AccessTokenKey,
                 tokenString);
 
-            AsyncRequestString.Request(this.GetGraphUrl(query), method, formData, callback);
+            FBUnityUtility.AsyncRequestStringWrapper.Request(this.GetGraphUrl(query), method, formData, callback);
         }
 
         public abstract void GameGroupCreate(
@@ -253,7 +253,7 @@ namespace Facebook.Unity
             }
         }
 
-        protected void OnAuthResponse(LoginResult result)
+        protected virtual void OnAuthResponse(LoginResult result)
         {
             // If the login is cancelled we won't have a access token.
             // Don't overwrite a valid token

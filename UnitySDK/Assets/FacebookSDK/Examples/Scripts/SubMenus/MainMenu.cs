@@ -33,6 +33,8 @@ namespace Facebook.Unity.Example
 
         protected override void GetGui()
         {
+            GUILayout.BeginVertical();
+
             bool enabled = GUI.enabled;
             if (this.Button("FB.Init"))
             {
@@ -56,16 +58,24 @@ namespace Facebook.Unity.Example
                 this.Status = "Login (for publish_actions) called";
             }
 
-            #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_EDITOR
+            // Fix GUILayout margin issues
+            GUILayout.Label(GUIContent.none, GUILayout.MinWidth(ConsoleBase.MarginFix));
+            GUILayout.EndHorizontal();
+
+
+            GUILayout.BeginHorizontal();
+
+            // Fix GUILayout margin issues
+            GUILayout.Label(GUIContent.none, GUILayout.MinWidth(ConsoleBase.MarginFix));
+            GUILayout.EndHorizontal();
+
+            #if !UNITY_WEBGL
             if (this.Button("Logout"))
             {
                 CallFBLogout();
                 this.Status = "Logout called";
             }
             #endif
-            // Fix GUILayout margin issues
-            GUILayout.Label(GUIContent.none, GUILayout.MinWidth(ConsoleBase.MarginFix));
-            GUILayout.EndHorizontal();
 
             GUI.enabled = enabled && FB.IsInitialized;
             if (this.Button("Share Dialog"))
@@ -118,6 +128,8 @@ namespace Facebook.Unity.Example
             {
                 this.SwitchMenu(typeof(AccessTokenMenu));
             }
+
+            GUILayout.EndVertical();
 
             GUI.enabled = enabled;
         }

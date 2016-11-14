@@ -108,8 +108,7 @@ namespace Facebook.Unity
         {
             get
             {
-                return Constants.CurrentPlatform == FacebookUnityPlatform.WebGL ||
-                    Constants.CurrentPlatform == FacebookUnityPlatform.WebPlayer;
+                return Constants.CurrentPlatform == FacebookUnityPlatform.WebGL;
             }
         }
 
@@ -182,9 +181,6 @@ namespace Facebook.Unity
                     return FacebookUnityPlatform.Android;
                 case RuntimePlatform.IPhonePlayer:
                     return FacebookUnityPlatform.IOS;
-                case RuntimePlatform.WindowsWebPlayer:
-                case RuntimePlatform.OSXWebPlayer:
-                    return FacebookUnityPlatform.WebPlayer;
                 case RuntimePlatform.WebGLPlayer:
                     return FacebookUnityPlatform.WebGL;
                 case RuntimePlatform.WindowsPlayer:

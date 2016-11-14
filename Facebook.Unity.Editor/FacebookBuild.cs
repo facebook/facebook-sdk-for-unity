@@ -27,7 +27,8 @@ namespace Facebook.Unity.Editor
 
     internal class FacebookBuild
     {
-        private const string FacebookPath = "Assets/FacebookSDK/SDK/";
+        private const string FacebookPath = "Assets/FacebookSDK/";
+        private const string SDKPath = "Assets/FacebookSDK/SDK/";
         private const string ExamplesPath = "Assets/FacebookSDK/Examples/";
         private const string PluginsPath = "Assets/FacebookSDK/Plugins/";
 
@@ -73,17 +74,19 @@ namespace Facebook.Unity.Editor
                     AssetDatabase.CreateFolder("Assets", "Temp");
                 }
 
-                AssetDatabase.MoveAsset(FacebookPath + "Resources/FacebookSettings.asset", "Assets/Temp/FacebookSettings.asset");
+                AssetDatabase.MoveAsset(SDKPath + "Resources/FacebookSettings.asset", "Assets/Temp/FacebookSettings.asset");
                 AssetDatabase.DeleteAsset(PluginsPath + "Android/AndroidManifest.xml");
                 AssetDatabase.DeleteAsset(PluginsPath + "Android/AndroidManifest.xml.meta");
 
-                string[] facebookFiles = (string[])Directory.GetFiles(FacebookPath, "*.*", SearchOption.AllDirectories);
+                string[] facebookFiles = (string[])Directory.GetFiles(FacebookPath, "*.*", SearchOption.TopDirectoryOnly);
+                string[] sdkFiles = (string[])Directory.GetFiles(SDKPath, "*.*", SearchOption.AllDirectories);
                 string[] exampleFiles = (string[])Directory.GetFiles(ExamplesPath, "*.*", SearchOption.AllDirectories);
                 string[] pluginsFiles = (string[])Directory.GetFiles(PluginsPath, "*.*", SearchOption.AllDirectories);
-                string[] files = new string[facebookFiles.Length + exampleFiles.Length + pluginsFiles.Length];
+                string[] files = new string[facebookFiles.Length + sdkFiles.Length + exampleFiles.Length + pluginsFiles.Length];
                 facebookFiles.CopyTo(files, 0);
-                exampleFiles.CopyTo(files, facebookFiles.Length);
-                pluginsFiles.CopyTo(files, facebookFiles.Length + exampleFiles.Length);
+                sdkFiles.CopyTo(files, facebookFiles.Length);
+                exampleFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length);
+                pluginsFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length + exampleFiles.Length);
 
                 AssetDatabase.ExportPackage(
                     files,
@@ -93,7 +96,7 @@ namespace Facebook.Unity.Editor
             finally
             {
                 // Move files back no matter what
-                AssetDatabase.MoveAsset("Assets/Temp/FacebookSettings.asset", FacebookPath + "Resources/FacebookSettings.asset");
+                AssetDatabase.MoveAsset("Assets/Temp/FacebookSettings.asset", SDKPath + "Resources/FacebookSettings.asset");
                 AssetDatabase.DeleteAsset("Assets/Temp");
 
                 // regenerate the manifest

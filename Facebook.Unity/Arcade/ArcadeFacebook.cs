@@ -234,6 +234,7 @@ namespace Facebook.Unity.Arcade
                 requestId,
                 pricepointId,
                 testCurrency,
+                /*developerPayload*/ null,
                 callback);
         }
 
@@ -258,6 +259,28 @@ namespace Facebook.Unity.Arcade
                 requestId,
                 pricepointId,
                 testCurrency,
+                /*developerPayload*/ null,
+                callback);
+        }
+
+        public void PayWithProductId(
+            string productId,
+            string action,
+            string developerPayload,
+            string testCurrency,
+            FacebookDelegate<IPayResult> callback)
+        {
+            this.PayImpl(
+                /*product*/ null,
+                productId,
+                action,
+                /*quantity*/ 1,
+                /*quantityMin*/ null,
+                /*quantityMax*/ null,
+                /*requestId*/ null,
+                /*pricepointId*/ null,
+                testCurrency,
+                developerPayload,
                 callback);
         }
 
@@ -364,6 +387,7 @@ namespace Facebook.Unity.Arcade
             string requestId,
             string pricepointId,
             string testCurrency,
+            string developerPayload,
             FacebookDelegate<IPayResult> callback)
         {
             this.arcadeWrapper.DoPayRequest(
@@ -378,6 +402,7 @@ namespace Facebook.Unity.Arcade
                 requestId,
                 pricepointId,
                 testCurrency,
+                developerPayload,
                 this.CallbackManager.AddFacebookDelegate(callback),
                 this.OnPayComplete);
         }

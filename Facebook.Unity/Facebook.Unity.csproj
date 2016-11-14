@@ -20,6 +20,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -28,12 +29,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="UnityEngine">
-      <HintPath>\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEngine.dll</HintPath>
+      <HintPath>\Applications\Unity\Unity.app\Contents\Managed\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessToken.cs" />
@@ -46,7 +49,6 @@
     <Compile Include="FacebookBase.cs" />
     <Compile Include="FacebookGameObject.cs" />
     <Compile Include="FacebookSdkVersion.cs" />
-    <Compile Include="FacebookSettings.cs" />
     <Compile Include="FacebookUnityPlatform.cs" />
     <Compile Include="IFacebook.cs" />
     <Compile Include="IFacebookCallbackHandler.cs" />
@@ -128,12 +130,32 @@
     <Compile Include="Utils\IFacebookLogger.cs" />
     <Compile Include="Utils\MiniJson.cs" />
     <Compile Include="Utils\Utilities.cs" />
+    <Compile Include="Utils\FBUnityUtility.cs" />
+    <Compile Include="Utils\AsyncRequestStringWrapper.cs" />
+    <Compile Include="Utils\IAsyncRequestStringWrapper.cs" />
     <Compile Include="Canvas\CanvasConstants.cs" />
-    <Compile Include="Mobile\IOS\IOSWrapper.cs" />
-    <Compile Include="Mobile\Android\AndroidWrapper.cs" />
+    <Compile Include="Utils\FacebookScheduler.cs" />
+    <Compile Include="Utils\IFacebookScheduler.cs" />
+    <Compile Include="Utils\IFacebookSchedulerFactory.cs" />
+    <Compile Include="Utils\FacebookSchedulerFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Plugins\" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <TextStylePolicy FileWidth="120" inheritsSet="VisualStudio" inheritsScope="text/plain" scope="text/plain" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+  <ItemGroup>
+    <ProjectReference Include="..\Facebook.Unity.Settings\Facebook.Unity.Settings.csproj">
+      <Project>{BA9BAAC5-5D12-460A-A8B3-428CC1F1CCC6}</Project>
+      <Name>Facebook.Unity.Settings</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

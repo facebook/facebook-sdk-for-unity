@@ -98,6 +98,7 @@ namespace Facebook.Unity.Arcade
             string requestId,
             string pricepointId,
             string testCurrency,
+            string developerPayload,
             string callbackId,
             ArcadeFacebook.OnComplete completeDelegate)
         {
@@ -112,7 +113,8 @@ namespace Facebook.Unity.Arcade
                 quantityMax,
                 requestId,
                 pricepointId,
-                testCurrency);
+                testCurrency,
+                developerPayload);
             this.HandleRequest<PayRequest, PayResponse>(
                 request,
                 callbackId,

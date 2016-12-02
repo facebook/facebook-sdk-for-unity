@@ -181,7 +181,7 @@ namespace Facebook.Unity.Editor
                 GUI.changed = false;
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField(this.appIdLabel);
-                FacebookSettings.AppIds[i] = EditorGUILayout.TextField(FacebookSettings.AppIds[i]);
+                FacebookSettings.AppIds[i] = EditorGUILayout.TextField(FacebookSettings.AppIds[i]).Trim();
                 EditorGUILayout.EndHorizontal();
 
                 EditorGUILayout.BeginHorizontal();

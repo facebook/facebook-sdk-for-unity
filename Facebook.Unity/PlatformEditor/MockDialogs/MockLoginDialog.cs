@@ -36,6 +36,11 @@ namespace Facebook.Unity.Editor.Dialogs
             }
         }
 
+        void Awake()
+        {
+            accessToken = PlayerPrefs.GetString("lastToken");
+        }
+
         protected override void DoGui()
         {
             GUILayout.BeginHorizontal();
@@ -58,6 +63,9 @@ namespace Facebook.Unity.Editor.Dialogs
                 this.SendErrorResult("Empty Access token string");
                 return;
             }
+
+            PlayerPrefs.SetString("lastToken", accessToken);
+            PlayerPrefs.Save();
 
             // Make a Graph API call to get FBID
             FB.API(

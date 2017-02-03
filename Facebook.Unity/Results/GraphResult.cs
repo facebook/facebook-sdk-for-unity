@@ -50,19 +50,16 @@ namespace Facebook.Unity
                 return;
             }
 
-            object serailizedResult = MiniJSON.Json.Deserialize(this.RawResult);
-            var jsonObject = serailizedResult as IDictionary<string, object>;
-            if (jsonObject != null)
+            if (this.ResultDictionary == null)
             {
-                this.ResultDictionary = jsonObject;
-                return;
-            }
+                object serailizedResult = MiniJSON.Json.Deserialize(this.RawResult);
 
-            var jsonArray = serailizedResult as IList<object>;
-            if (jsonArray != null)
-            {
-                this.ResultList = jsonArray;
-                return;
+                var jsonArray = serailizedResult as IList<object>;
+                if (jsonArray != null)
+                {
+                    this.ResultList = jsonArray;
+                    return;
+                }
             }
         }
     }

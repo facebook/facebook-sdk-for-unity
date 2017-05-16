@@ -75,7 +75,7 @@ namespace Facebook.Unity.Editor
         public override void Init(InitDelegate onInitComplete)
         {
             // Warn that editor behavior will not match supported platforms
-            FacebookLogger.Warn(WarningMessage);
+            FacebookLogger.Info(WarningMessage);
 
             base.Init(onInitComplete);
             this.editorWrapper.Init();

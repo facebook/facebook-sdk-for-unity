@@ -31,17 +31,22 @@ namespace Facebook.Unity.Tests
     {
         private const string UnityPluginSubPath = "UnitySDK/Assets/FacebookSDK/Plugins/";
 
-        private static string unityRepoPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+        private static string unityRepoPath = Directory
+            .GetParent(TestContext.CurrentContext.TestDirectory)
+            .Parent
+            .Parent
+            .FullName;
+
         private static string unityPluginPath = Path.Combine(unityRepoPath, UnityPluginSubPath);
         private static string coreDLLSubPath = Path.Combine(unityPluginPath, "Facebook.Unity.dll");
-        private static string arcadeDLLSubPath = Path.Combine(unityPluginPath, "Arcade/Facebook.Unity.Arcade.dll");
+        private static string gameroomDLLSubPath = Path.Combine(unityPluginPath, "Gameroom/Facebook.Unity.Gameroom.dll");
         private static string editorDLLSubPath = Path.Combine(unityPluginPath, "Editor/Facebook.Unity.Editor.dll");
 
         [Test]
         public void ValidateDLLVersions()
         {
             VersionNumberCheck.CheckVersionOfDll(VersionNumberCheck.coreDLLSubPath);
-            VersionNumberCheck.CheckVersionOfDll(VersionNumberCheck.arcadeDLLSubPath);
+            VersionNumberCheck.CheckVersionOfDll(VersionNumberCheck.gameroomDLLSubPath);
             VersionNumberCheck.CheckVersionOfDll(VersionNumberCheck.editorDLLSubPath);
        }
 
@@ -51,7 +56,7 @@ namespace Facebook.Unity.Tests
 
             // We only worry about version numbers x.y.z but c# appends a 4th build number for local
             // builds that we don't use.
-            Assert.AreEqual(FacebookSdkVersion.Build + ".0", fileVersionInfo.FileVersion);
+            Assert.AreEqual(FacebookSdkVersion.Build + ".0", fileVersionInfo.FileVersion, dllPath);
         }
     }
 }

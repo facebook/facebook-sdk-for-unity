@@ -37,27 +37,28 @@
     <Compile Include="Canvas\UserAgent.cs" />
     <Compile Include="Canvas\Pay.cs" />
     <Compile Include="MockResults.cs" />
-    <Compile Include="AppGroup.cs" />
     <Compile Include="AppRequest.cs" />
     <Compile Include="FeedShare.cs" />
     <Compile Include="Login.cs" />
     <Compile Include="ShareLink.cs" />
     <Compile Include="AppEvents.cs" />
+    <Compile Include="Gameroom\GameroomTestAttribute.cs" />
     <Compile Include="Canvas\CanvasTestAttribute.cs" />
     <Compile Include="UserAgent.cs" />
+    <Compile Include="Gameroom\AppRequest.cs" />
+    <Compile Include="Gameroom\Login.cs" />
     <Compile Include="Canvas\AppEvents.cs" />
-    <Compile Include="Canvas\AppGroup.cs" />
     <Compile Include="Canvas\AppLinks.cs" />
     <Compile Include="Canvas\AppRequest.cs" />
     <Compile Include="Canvas\FeedShare.cs" />
     <Compile Include="Canvas\Login.cs" />
     <Compile Include="Canvas\ShareLink.cs" />
     <Compile Include="Canvas\MockCanvas.cs" />
+    <Compile Include="Gameroom\MockGameroom.cs" />
     <Compile Include="MockWrapper.cs" />
     <Compile Include="Mobile\IOS\UserAgent.cs" />
     <Compile Include="Mobile\IOS\IOSTestAttribute.cs" />
     <Compile Include="Mobile\IOS\AppEvents.cs" />
-    <Compile Include="Mobile\IOS\AppGroup.cs" />
     <Compile Include="Mobile\IOS\AppInvite.cs" />
     <Compile Include="Mobile\IOS\AppLinks.cs" />
     <Compile Include="Mobile\IOS\AppRequest.cs" />
@@ -73,7 +74,6 @@
     <Compile Include="Mobile\Android\AppRequest.cs" />
     <Compile Include="Mobile\Android\AppEvents.cs" />
     <Compile Include="Mobile\Android\AndroidTestAttribute.cs" />
-    <Compile Include="Mobile\Android\AppGroup.cs" />
     <Compile Include="Mobile\AppInvite.cs" />
     <Compile Include="Mobile\Login.cs" />
     <Compile Include="AppLinks.cs" />
@@ -87,12 +87,12 @@
     <Compile Include="Init.cs" />
     <Compile Include="Editor\MockEditor.cs" />
     <Compile Include="Editor\EditorTestAttribute.cs" />
+    <Compile Include="Gameroom\Init.cs" />
     <Compile Include="Editor\Init.cs" />
     <Compile Include="Canvas\Init.cs" />
     <Compile Include="Mobile\Android\Init.cs" />
     <Compile Include="Mobile\IOS\Init.cs" />
     <Compile Include="Editor\AccessTokenRefresh.cs" />
-    <Compile Include="Editor\AppGroup.cs" />
     <Compile Include="Editor\AppInvite.cs" />
     <Compile Include="Editor\AppRequest.cs" />
     <Compile Include="Editor\FeedShare.cs" />
@@ -111,10 +111,12 @@
       <HintPath>\Applications\Unity\Unity.app\Contents\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="nunit.core" />
-    <Reference Include="nunit.framework" />
     <Reference Include="nunit.mocks" />
     <Reference Include="NSubstitute">
-      <HintPath>..\packages\NSubstitute.1.10.0.0\lib\net40\NSubstitute.dll</HintPath>
+      <HintPath>..\packages\NSubstitute.2.0.3\lib\net40\NSubstitute.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.3.6.1\lib\net40\nunit.framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -127,7 +129,7 @@
       <Properties>
         <Policies>
           <TextStylePolicy FileWidth="80" TabWidth="4" TabsToSpaces="True" IndentWidth="4" RemoveTrailingWhitespace="True" NoTabsAfterNonTabs="False" EolMarker="Native" inheritsSet="VisualStudio" inheritsScope="text/plain" scope="text/x-csharp" />
-          <CSharpFormattingPolicy IndentBlock="True" IndentBraces="False" IndentSwitchSection="False" IndentSwitchCaseSection="True" LabelPositioning="OneLess" NewLinesForBracesInTypes="True" NewLinesForBracesInMethods="True" NewLinesForBracesInProperties="False" NewLinesForBracesInAccessors="False" NewLinesForBracesInAnonymousMethods="False" NewLinesForBracesInControlBlocks="False" NewLinesForBracesInAnonymousTypes="False" NewLinesForBracesInObjectCollectionArrayInitializers="False" NewLinesForBracesInLambdaExpressionBody="False" NewLineForElse="False" NewLineForCatch="False" NewLineForFinally="False" NewLineForMembersInObjectInit="False" NewLineForMembersInAnonymousTypes="False" NewLineForClausesInQuery="False" SpacingAfterMethodDeclarationName="True" SpaceWithinMethodDeclarationParenthesis="False" SpaceBetweenEmptyMethodDeclarationParentheses="False" SpaceAfterMethodCallName="True" SpaceWithinMethodCallParentheses="False" SpaceBetweenEmptyMethodCallParentheses="False" SpaceAfterControlFlowStatementKeyword="True" SpaceWithinExpressionParentheses="False" SpaceWithinCastParentheses="False" SpaceWithinOtherParentheses="False" SpaceAfterCast="False" SpacesIgnoreAroundVariableDeclaration="False" SpaceBeforeOpenSquareBracket="True" SpaceBetweenEmptySquareBrackets="False" SpaceWithinSquareBrackets="False" SpaceAfterColonInBaseTypeDeclaration="True" SpaceAfterComma="True" SpaceAfterDot="False" SpaceAfterSemicolonsInForStatement="True" SpaceBeforeColonInBaseTypeDeclaration="True" SpaceBeforeComma="False" SpaceBeforeDot="False" SpaceBeforeSemicolonsInForStatement="False" SpacingAroundBinaryOperator="Single" WrappingPreserveSingleLine="True" WrappingKeepStatementsOnSingleLine="True" PlaceSystemDirectiveFirst="True" inheritsSet="Mono" inheritsScope="text/x-csharp" scope="text/x-csharp" />
+          <CSharpFormattingPolicy IndentBlock="True" IndentBraces="False" IndentSwitchCaseSection="True" LabelPositioning="OneLess" NewLinesForBracesInTypes="True" NewLinesForBracesInMethods="True" SpaceWithinMethodDeclarationParenthesis="False" SpaceBetweenEmptyMethodDeclarationParentheses="False" SpaceWithinMethodCallParentheses="False" SpaceBetweenEmptyMethodCallParentheses="False" SpaceAfterControlFlowStatementKeyword="True" SpaceWithinExpressionParentheses="False" SpaceWithinCastParentheses="False" SpaceWithinOtherParentheses="False" SpaceAfterCast="False" SpacesIgnoreAroundVariableDeclaration="False" SpaceBetweenEmptySquareBrackets="False" SpaceWithinSquareBrackets="False" SpaceAfterColonInBaseTypeDeclaration="True" SpaceAfterComma="True" SpaceAfterDot="False" SpaceAfterSemicolonsInForStatement="True" SpaceBeforeColonInBaseTypeDeclaration="True" SpaceBeforeComma="False" SpaceBeforeDot="False" SpaceBeforeSemicolonsInForStatement="False" SpacingAroundBinaryOperator="Single" WrappingPreserveSingleLine="True" WrappingKeepStatementsOnSingleLine="True" PlaceSystemDirectiveFirst="True" IndentSwitchSection="True" NewLinesForBracesInProperties="True" NewLinesForBracesInAccessors="True" NewLinesForBracesInAnonymousMethods="True" NewLinesForBracesInControlBlocks="True" NewLinesForBracesInAnonymousTypes="True" NewLinesForBracesInObjectCollectionArrayInitializers="True" NewLinesForBracesInLambdaExpressionBody="True" NewLineForElse="True" NewLineForCatch="True" NewLineForFinally="True" NewLineForMembersInObjectInit="True" NewLineForMembersInAnonymousTypes="True" NewLineForClausesInQuery="True" SpacingAfterMethodDeclarationName="False" SpaceAfterMethodCallName="False" SpaceBeforeOpenSquareBracket="False" inheritsSet="Mono" inheritsScope="text/x-csharp" scope="text/x-csharp" />
         </Policies>
       </Properties>
     </MonoDevelop>

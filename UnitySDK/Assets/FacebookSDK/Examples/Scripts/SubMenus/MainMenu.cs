@@ -83,17 +83,6 @@ namespace Facebook.Unity.Example
                 this.SwitchMenu(typeof(DialogShare));
             }
 
-            bool savedEnabled = GUI.enabled;
-            GUI.enabled = enabled &&
-                AccessToken.CurrentAccessToken != null &&
-                AccessToken.CurrentAccessToken.Permissions.Contains("publish_actions");
-            if (this.Button("Game Groups"))
-            {
-                this.SwitchMenu(typeof(GameGroups));
-            }
-
-            GUI.enabled = savedEnabled;
-
             if (this.Button("App Requests"))
             {
                 this.SwitchMenu(typeof(AppRequests));

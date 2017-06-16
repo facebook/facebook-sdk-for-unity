@@ -35,6 +35,7 @@ namespace Facebook.Unity
         public const string TargetUrlKey = "target_url";
         public const string CancelledKey = "cancelled";
         public const string ErrorKey = "error";
+        public const string HasLicenseKey = "has_license";
 
         // Callback Method Names
         public const string OnPayCompleteMethodName = "OnPayComplete";
@@ -112,11 +113,11 @@ namespace Facebook.Unity
             }
         }
 
-        public static bool IsArcade
+        public static bool IsGameroom
         {
             get
             {
-                return Constants.CurrentPlatform == FacebookUnityPlatform.Arcade;
+                return Constants.CurrentPlatform == FacebookUnityPlatform.Gameroom;
             }
         }
 
@@ -184,7 +185,7 @@ namespace Facebook.Unity
                 case RuntimePlatform.WebGLPlayer:
                     return FacebookUnityPlatform.WebGL;
                 case RuntimePlatform.WindowsPlayer:
-                    return FacebookUnityPlatform.Arcade;
+                    return FacebookUnityPlatform.Gameroom;
                 default:
                     return FacebookUnityPlatform.Unknown;
             }

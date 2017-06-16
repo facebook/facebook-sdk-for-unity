@@ -29,7 +29,12 @@ namespace Facebook.Unity.Tests
         public void SimpleFeedShare()
         {
             IShareResult result = null;
-            FB.FeedShare(link: new Uri("https://www.facebook.com"), callback: (r) => (result = r));
+            FB.FeedShare(
+                link: new Uri("https://www.facebook.com"),
+                callback: delegate(IShareResult r)
+                    {
+                        result = r;
+                    });
             Assert.IsNotNull(result);
         }
     }

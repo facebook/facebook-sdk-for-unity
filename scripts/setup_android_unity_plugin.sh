@@ -53,14 +53,6 @@ BOLTS_TASKS_JAR_PATH="$FB_WRAPPER_LIB_PATH/$BOLTS_TASKS_SDK_JAR_NAME"
 BOLTS_APPLINKS_SDK_JAR_NAME="$BOLTS_APPLINKS_ARTIFACT_ID-$BOLTS_VERSION.jar"
 BOLTS_APPLINKS_JAR_PATH="$FB_WRAPPER_LIB_PATH/$BOLTS_APPLINKS_SDK_JAR_NAME"
 
-ANDROID_SUPPORT_LIB_PATH="$ANDROID_HOME/extras/android/m2repository/com/android/support/support-v4/$SUPPORT_LIB_VERSION/support-v4-$SUPPORT_LIB_VERSION.aar"
-ANDROID_CARDVIEW_LIB_PATH="$ANDROID_HOME/extras/android/m2repository/com/android/support/cardview-v7/$SUPPORT_LIB_VERSION/cardview-v7-$SUPPORT_LIB_VERSION.aar"
-ANDROID_APP_COMPAT_LIB_PATH="$ANDROID_HOME/extras/android/m2repository/com/android/support/appcompat-v7/$SUPPORT_LIB_VERSION/appcompat-v7-$SUPPORT_LIB_VERSION.aar"
-ANDROID_CUSTOMTABS_LIB_PATH="$ANDROID_HOME/extras/android/m2repository/com/android/support/customtabs/$SUPPORT_LIB_VERSION/customtabs-$SUPPORT_LIB_VERSION.aar"
-ANDROID_ANNOTATIONS_LIB_PATH="$ANDROID_HOME/extras/android/m2repository/com/android/support/support-annotations/$SUPPORT_LIB_VERSION/support-annotations-$SUPPORT_LIB_VERSION.jar"
-ANDROID_SUPPORT_VECTOR_DRAWABLE_LIB_PATH="$ANDROID_HOME/extras/android/m2repository/com/android/support/support-vector-drawable/$SUPPORT_LIB_VERSION/support-vector-drawable-$SUPPORT_LIB_VERSION.aar"
-ANDROID_ANIMATED_VECTOR_DRAWABLE_LIB_PATH="$ANDROID_HOME/extras/android/m2repository/com/android/support/animated-vector-drawable/$SUPPORT_LIB_VERSION/animated-vector-drawable-$SUPPORT_LIB_VERSION.aar"
-
 # Local build only properties
 FB_ANDROID_SDK_AAR="$FB_ANDROID_SDK_PATH/facebook/build/outputs/aar/facebook-release.aar"
 
@@ -95,6 +87,10 @@ else
   info "$BOLTS_APPLINKS_SDK_JAR_NAME already exists. Skipping download."
 fi
 
+# Get Unity Jar Resolver
+info "Step 2.1.3 - Download $UNITY_JAR_RESOLVER_NAME"
+downloadUnityJarResolverFromGithub
+
 # Get the android sdk
 if [ "$localBuild" = true ]; then
   info "Step 2.2.0 - Build local android sdk at '$FB_ANDROID_SDK_PATH'"
@@ -106,21 +102,11 @@ if [ "$localBuild" = true ]; then
 else
   info "Step 2.2 - Download $FB_SDK_AAR_NAME"
   if [ ! -f "$FB_SDK_AAR_PATH" ]; then
-    downloadFromMaven $FB_ANDROID_SDK_GROUP_ID $FB_ANDROID_SDK_ARTIFACT_ID $FB_ANDROID_SDK_PACKAGING $FB_ANDROID_SDK_VERSION "$FB_SDK_AAR_PATH" || die "failed to download sdk from maven"
+    downloadFromFacebook $FB_ANDROID_SDK_ARTIFACT_ID $FB_ANDROID_SDK_VERSION "$FB_SDK_AAR_PATH" || die "failed to download sdk from maven"
   else
     info "$FB_SDK_AAR_NAME already exists. Skipping download"
   fi
 fi
-
-# This step is only necessary for building local builds
-info "Step 2.3 - Coping support lib"
-cp "$ANDROID_SUPPORT_LIB_PATH" $FB_WRAPPER_LIB_PATH || die "Failed to copy '$ANDROID_SUPPORT_LIB_PATH'"
-cp "$ANDROID_CARDVIEW_LIB_PATH" $FB_WRAPPER_LIB_PATH || die "Failed to copy '$ANDROID_CARDVIEW_LIB_PATH'"
-cp "$ANDROID_APP_COMPAT_LIB_PATH" $FB_WRAPPER_LIB_PATH || die "Failed to copy '$ANDROID_APP_COMPAT_LIB_PATH'"
-cp "$ANDROID_CUSTOMTABS_LIB_PATH" $FB_WRAPPER_LIB_PATH || die "Failed to copy '$ANDROID_CUSTOMTABS_LIB_PATH'"
-cp "$ANDROID_ANNOTATIONS_LIB_PATH" $FB_WRAPPER_LIB_PATH || die "Failed to copy '$ANDROID_ANNOTATIONS_LIB_PATH'"
-cp "$ANDROID_SUPPORT_VECTOR_DRAWABLE_LIB_PATH" $FB_WRAPPER_LIB_PATH || die "Failed to copy '$ANDROID_SUPPORT_VECTOR_DRAWABLE_LIB_PATH'"
-cp "$ANDROID_ANIMATED_VECTOR_DRAWABLE_LIB_PATH" $FB_WRAPPER_LIB_PATH || die "Failed to copy '$ANDROID_ANIMATED_VECTOR_DRAWABLE_LIB_PATH'"
 
 info "Step 3 - Build android wrapper"
 pushd $FB_WRAPPER_PATH
@@ -151,13 +137,6 @@ if [ "$localBuild" = false ]; then
   cp $BOLTS_JAR_PATH $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy bolts aar to unity plugin folder'
   cp $BOLTS_TASKS_JAR_PATH $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy bolts tasks jar to unity plugin folder'
   cp $BOLTS_APPLINKS_JAR_PATH $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy bolts app links jar to unity plugin folder'
-  cp $ANDROID_SUPPORT_LIB_PATH $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy support lib to unity plugin folder'
-  cp $ANDROID_CARDVIEW_LIB_PATH $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy cardview support lib to unity plugin folder'
-  cp $ANDROID_APP_COMPAT_LIB_PATH $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy appcompat support lib to unity plugin folder'
-  cp $ANDROID_CUSTOMTABS_LIB_PATH $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy customtabs support lib to unity plugin folder'
-  cp $ANDROID_ANNOTATIONS_LIB_PATH $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy annotations support lib to unity plugin folder'
-  cp $ANDROID_SUPPORT_VECTOR_DRAWABLE_LIB_PATH $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy support vector drawable support lib to unity plugin folder'
-  cp $ANDROID_ANIMATED_VECTOR_DRAWABLE_LIB_PATH $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy animated vector drawable support lib to unity plugin folder'
 else
   cp $FB_WRAPPER_LIB_PATH/* $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy wrapper lib files'
 fi

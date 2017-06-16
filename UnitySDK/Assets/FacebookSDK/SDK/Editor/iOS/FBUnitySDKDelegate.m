@@ -60,46 +60,6 @@ static NSMutableArray *g_instances;
   [g_instances removeObject:self];
 }
 
-#pragma mark - AppGroupAddDelegate
-
-- (void)appGroupAddDialog:(FBSDKAppGroupAddDialog *)appGroupAddDialog didCompleteWithResults:(NSDictionary *)results
-{
-  [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnGroupCreateComplete userData:results requestId:_requestID];
-  [self complete];
-}
-
-- (void)appGroupAddDialog:(FBSDKAppGroupAddDialog *)appGroupAddDialog didFailWithError:(NSError *)error
-{
-  [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnGroupCreateComplete error:error requestId:_requestID];
-  [self complete];
-}
-
-- (void)appGroupAddDialogDidCancel:(FBSDKAppGroupAddDialog *)appGroupAddDialog
-{
-  [FBUnityUtility sendCancelToUnity:FBUnityMessageName_OnGroupCreateComplete requestId:_requestID];
-  [self complete];
-}
-
-#pragma mark - AppGroupJoinDelegate
-
-- (void)appGroupJoinDialog:(FBSDKAppGroupJoinDialog *)appGroupJoinDialog didCompleteWithResults:(NSDictionary *)results
-{
-  [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnGroupJoinComplete userData:results requestId:_requestID];
-  [self complete];
-}
-
-- (void)appGroupJoinDialog:(FBSDKAppGroupJoinDialog *)appGroupJoinDialog didFailWithError:(NSError *)error
-{
-  [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnGroupJoinComplete error:error requestId:_requestID];
-  [self complete];
-}
-
-- (void)appGroupJoinDialogDidCancel:(FBSDKAppGroupJoinDialog *)appGroupJoinDialog
-{
-  [FBUnityUtility sendCancelToUnity:FBUnityMessageName_OnGroupJoinComplete requestId:_requestID];
-  [self complete];
-}
-
 #pragma mark - GameRequestDelegate
 
 - (void)gameRequestDialog:(FBSDKGameRequestDialog *)gameRequestDialog didCompleteWithResults:(NSDictionary *)results

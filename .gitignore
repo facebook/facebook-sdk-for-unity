@@ -57,6 +57,10 @@ TestResult.xml
 # Ignore Plugin Folders which are build by build
 /UnitySDK/Assets/Plugins/
 
+# Ignore Unity Jar Resolver which is pulled in by build script
+/UnitySDK/Assets/PlayServicesResolver.meta
+/UnitySDK/Assets/PlayServicesResolver/
+
 # Ignore Current Facebook Settings
 FacebookSettings.asset*
 
@@ -79,3 +83,14 @@ StyleCop.Cache.meta
 
 # Nuget packages
 /packages/
+
+# AN SDK builds
+ads/Assets/AudienceNetwork/Plugins/Android/libs/ads-release.aar
+ads/Assets/AudienceNetwork/Plugins/iOS/libs/FBAudienceNetwork.framework/FBAudienceNetwork
+ads/Assets/AudienceNetwork/Plugins/iOS/libs/FBAudienceNetwork.framework/Headers/*.h
+ads/Assets/AudienceNetwork/Plugins/iOS/libs/FBAudienceNetwork.framework/Info.plist
+ads/Assets/AudienceNetwork/Plugins/iOS/libs/FBAudienceNetwork.framework/Modules/module.modulemap
+ads/Assets/AudienceNetwork/Editor/iOS.meta
+ads/Assets/AudienceNetwork/Plugins/Android/libs/ads-release.aar.meta
+ads/Assets/AudienceNetwork/Plugins/iOS/libs/FBAudienceNetwork.framework/*.h.meta
+ads/Assets/AudienceNetwork/Plugins/iOS/libs/FBAudienceNetwork.framework/Headers/*.h.meta

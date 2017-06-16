@@ -31,7 +31,12 @@ namespace Facebook.Unity.Tests.Canvas
         public void SimplePayTest()
         {
             IPayResult result = null;
-            FB.Canvas.Pay("testProduct", callback: (r) => (result = r));
+            FB.Canvas.Pay(
+                "testProduct",
+                callback: delegate(IPayResult r)
+                    {
+                        result = r;
+                    });
             Assert.IsNotNull(result);
         }
 
@@ -46,7 +51,12 @@ namespace Facebook.Unity.Tests.Canvas
             };
 
             this.Mock.ResultExtras = extras;
-            FB.Canvas.Pay("testProduct", callback: (r) => (result = r));
+            FB.Canvas.Pay(
+                "testProduct",
+                callback: delegate(IPayResult r)
+                    {
+                        result = r;
+                    });
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Cancelled);
         }
@@ -63,7 +73,12 @@ namespace Facebook.Unity.Tests.Canvas
             };
 
             this.Mock.ResultExtras = extras;
-            FB.Canvas.Pay("testProduct", callback: (r) => (result = r));
+            FB.Canvas.Pay(
+                "testProduct",
+                callback: delegate(IPayResult r)
+                    {
+                        result = r;
+                    });
             Assert.IsNotNull(result);
             Assert.AreEqual(result.ErrorCode, extras[PayResult.ErrorCodeKey]);
             Assert.AreEqual(result.Error, extras[PayResult.ErrorMessageKey]);

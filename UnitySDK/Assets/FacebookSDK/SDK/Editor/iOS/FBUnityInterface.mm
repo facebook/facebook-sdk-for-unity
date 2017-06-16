@@ -236,21 +236,6 @@ isPublishPermLogin:(BOOL)isPublishPermLogin
     linkContent.contentURL = [NSURL URLWithString:contentUrlStr];
   }
 
-  NSString *contentTitleStr = [FBUnityUtility stringFromCString:contentTitle];
-  if (contentTitleStr) {
-    linkContent.contentTitle = contentTitleStr;
-  }
-
-  NSString *contentDescStr = [FBUnityUtility stringFromCString:contentDescription];
-  if (contentDescStr) {
-    linkContent.contentDescription = contentDescStr;
-  }
-
-  NSString *imageURL = [FBUnityUtility stringFromCString:photoURL];
-  if (imageURL) {
-    linkContent.imageURL = [NSURL URLWithString:imageURL];
-  }
-
   [self shareContentWithRequestId:requestId
                      shareContent:linkContent
                        dialogMode:[self getDialogMode]];
@@ -269,21 +254,6 @@ isPublishPermLogin:(BOOL)isPublishPermLogin
   NSString *contentUrlStr = [FBUnityUtility stringFromCString:link];
   if (contentUrlStr) {
     linkContent.contentURL = [NSURL URLWithString:contentUrlStr];
-  }
-
-  NSString *contentTitleStr = [FBUnityUtility stringFromCString:linkName];
-  if (contentTitleStr) {
-    linkContent.contentTitle = contentTitleStr;
-  }
-
-  NSString *contentDescStr = [FBUnityUtility stringFromCString:linkDescription];
-  if (contentDescStr) {
-    linkContent.contentDescription = contentDescStr;
-  }
-
-  NSString *imageURL = [FBUnityUtility stringFromCString:picture];
-  if (imageURL) {
-    linkContent.imageURL = [NSURL URLWithString:imageURL];
   }
 
   NSMutableDictionary *feedParameters = [[NSMutableDictionary alloc] init];
@@ -341,48 +311,6 @@ isPublishPermLogin:(BOOL)isPublishPermLogin
     default:
       NSLog(@"Unexpected dialog mode: %@", [NSNumber numberWithInt:self.shareDialogMode]);
       return FBSDKShareDialogModeAutomatic;
-  }
-}
-
-- (void)showJoinAppGroupDialogWithRequestId:(int) requestId
-                                    groupId:(const char *) groupId
-{
-  FBUnitySDKDelegate *delegate = [FBUnitySDKDelegate instanceWithRequestID:requestId];
-  [FBSDKAppGroupJoinDialog showWithGroupID:[FBUnityUtility stringFromCString:groupId] delegate:delegate];
-}
-
-- (void)showCreateAppGroupDialogWithRequestId:(int) requestId
-                                    groupName:(const char *) groupName
-                             groupDescription:(const char *) groupDescription
-                                 groupPrivacy:(const char *) groupPrivacy
-{
-  FBSDKAppGroupContent *content = [[FBSDKAppGroupContent alloc] init];
-  content.name = [FBUnityUtility stringFromCString:groupName];
-  content.groupDescription = [FBUnityUtility stringFromCString:groupDescription];
-
-  FBSDKAppGroupPrivacy privacy;
-  NSString *privacyStr = [FBUnityUtility stringFromCString:groupPrivacy];
-  if ([privacyStr caseInsensitiveCompare:@"closed"] == NSOrderedSame) {
-    privacy = FBSDKAppGroupPrivacyClosed;
-  } else if ([privacyStr caseInsensitiveCompare:@"open"] == NSOrderedSame) {
-    privacy = FBSDKAppGroupPrivacyOpen;
-  } else {
-    NSLog(@"Unexpced privacy type: %@", privacyStr);
-    privacy = FBSDKAppGroupPrivacyClosed;
-  }
-
-  content.privacy = privacy;
-
-  FBSDKAppGroupAddDialog *dialog = [[FBSDKAppGroupAddDialog alloc] init];
-  dialog.content = content;
-  dialog.delegate = [FBUnitySDKDelegate instanceWithRequestID:requestId];
-
-  NSError *error;
-  if (![dialog validateWithError:&error]) {
-    [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnGroupCreateComplete error:error requestId:requestId];
-  }
-  if (![dialog show]) {
-    [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnGroupCreateComplete errorMessage:@"Failed to show group create dialog" requestId:requestId];
   }
 }
 
@@ -530,16 +458,6 @@ extern "C" {
                                               linkDescription:linkDescription
                                                       picture:picture
                                                   mediaSource:mediaSource];
-  }
-
-  void IOSFBJoinGameGroup(int requestId, const char *groupId)
-  {
-    [[FBUnityInterface sharedInstance] showJoinAppGroupDialogWithRequestId:requestId groupId:groupId];
-  }
-
-  void IOSFBCreateGameGroup(int requestId, const char *groupName, const char *groupDescription, const char *groupPrivacy)
-  {
-    [[FBUnityInterface sharedInstance] showCreateAppGroupDialogWithRequestId:requestId groupName:groupName groupDescription:groupDescription groupPrivacy:groupPrivacy];
   }
 
   void IOSFBSettingsActivateApp(const char *appId)

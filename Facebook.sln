@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity.Tests", "Facebook.Unity.Tests\Facebook.Unity.Tests.csproj", "{4A088D45-0F5D-400B-9FF6-5AAF3ED10D9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity.Arcade", "Facebook.Unity.Arcade\Facebook.Unity.Arcade.csproj", "{D8F7CF97-7FE9-48B7-A30C-CB14BAA73010}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity", "Facebook.Unity\Facebook.Unity.csproj", "{3DFF6C0C-BB04-405D-A23F-95999630E7F8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity.Editor", "Facebook.Unity.Editor\Facebook.Unity.Editor.csproj", "{4F631992-8D32-4AB5-8073-4BDC8A79380B}"
@@ -19,12 +17,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity.Android.Stri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity.IOS.StrippingHack", "Facebook.Unity.IOS.StrippingHack\Facebook.Unity.IOS.StrippingHack.csproj", "{15A3CC9F-9BB6-41A4-813B-40D2CAA91F27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity.Gameroom", "Facebook.Unity.Gameroom\Facebook.Unity.Gameroom.csproj", "{D8F7CF97-7FE9-48B7-A30C-CB14BAA73010}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15A3CC9F-9BB6-41A4-813B-40D2CAA91F27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15A3CC9F-9BB6-41A4-813B-40D2CAA91F27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15A3CC9F-9BB6-41A4-813B-40D2CAA91F27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15A3CC9F-9BB6-41A4-813B-40D2CAA91F27}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3DFF6C0C-BB04-405D-A23F-95999630E7F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3DFF6C0C-BB04-405D-A23F-95999630E7F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DFF6C0C-BB04-405D-A23F-95999630E7F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -41,6 +45,10 @@ Global
 		{BA9BAAC5-5D12-460A-A8B3-428CC1F1CCC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA9BAAC5-5D12-460A-A8B3-428CC1F1CCC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA9BAAC5-5D12-460A-A8B3-428CC1F1CCC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDB20BC1-DC6F-46BD-9FBB-7F689E790B1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDB20BC1-DC6F-46BD-9FBB-7F689E790B1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDB20BC1-DC6F-46BD-9FBB-7F689E790B1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDB20BC1-DC6F-46BD-9FBB-7F689E790B1B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D3DF5151-7271-4CBA-8F91-85B7845E2FBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D3DF5151-7271-4CBA-8F91-85B7845E2FBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3DF5151-7271-4CBA-8F91-85B7845E2FBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,14 +61,6 @@ Global
 		{E9D1DFF6-9C2E-4954-95FD-A6F22B4D0121}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9D1DFF6-9C2E-4954-95FD-A6F22B4D0121}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9D1DFF6-9C2E-4954-95FD-A6F22B4D0121}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CDB20BC1-DC6F-46BD-9FBB-7F689E790B1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CDB20BC1-DC6F-46BD-9FBB-7F689E790B1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CDB20BC1-DC6F-46BD-9FBB-7F689E790B1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CDB20BC1-DC6F-46BD-9FBB-7F689E790B1B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15A3CC9F-9BB6-41A4-813B-40D2CAA91F27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15A3CC9F-9BB6-41A4-813B-40D2CAA91F27}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15A3CC9F-9BB6-41A4-813B-40D2CAA91F27}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15A3CC9F-9BB6-41A4-813B-40D2CAA91F27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		version = 

@@ -57,16 +57,6 @@ namespace Facebook.Unity.Canvas
             this.facebook.OnShareLinkComplete(responseJsonData);
         }
 
-        public void OnGroupCreateComplete(string responseJsonData = "")
-        {
-            this.facebook.OnGroupCreateComplete(responseJsonData);
-        }
-
-        public void OnJoinGroupComplete(string responseJsonData = "")
-        {
-            this.facebook.OnGroupJoinComplete(responseJsonData);
-        }
-
         public void OnFacebookFocus(string state)
         {
             this.facebook.OnHideUnity(state != "hide");

@@ -160,16 +160,6 @@ namespace Facebook.Unity
             FBUnityUtility.AsyncRequestStringWrapper.Request(this.GetGraphUrl(query), method, formData, callback);
         }
 
-        public abstract void GameGroupCreate(
-            string name,
-            string description,
-            string privacy,
-            FacebookDelegate<IGroupCreateResult> callback);
-
-        public abstract void GameGroupJoin(
-            string id,
-            FacebookDelegate<IGroupJoinResult> callback);
-
         public abstract void ActivateApp(string appId = null);
 
         public abstract void GetAppLink(FacebookDelegate<IAppLinkResult> callback);
@@ -211,10 +201,6 @@ namespace Facebook.Unity
         }
 
         public abstract void OnGetAppLinkComplete(ResultContainer resultContainer);
-
-        public abstract void OnGroupCreateComplete(ResultContainer resultContainer);
-
-        public abstract void OnGroupJoinComplete(ResultContainer resultContainer);
 
         public abstract void OnAppRequestsComplete(ResultContainer resultContainer);
 

@@ -31,6 +31,7 @@ namespace Facebook.Unity.Editor
         private const string SDKPath = "Assets/FacebookSDK/SDK/";
         private const string ExamplesPath = "Assets/FacebookSDK/Examples/";
         private const string PluginsPath = "Assets/FacebookSDK/Plugins/";
+        private const string PlayServicesResolverPath = "Assets/PlayServicesResolver/";
 
         public enum Target
         {
@@ -82,11 +83,16 @@ namespace Facebook.Unity.Editor
                 string[] sdkFiles = (string[])Directory.GetFiles(SDKPath, "*.*", SearchOption.AllDirectories);
                 string[] exampleFiles = (string[])Directory.GetFiles(ExamplesPath, "*.*", SearchOption.AllDirectories);
                 string[] pluginsFiles = (string[])Directory.GetFiles(PluginsPath, "*.*", SearchOption.AllDirectories);
-                string[] files = new string[facebookFiles.Length + sdkFiles.Length + exampleFiles.Length + pluginsFiles.Length];
+
+                string[] playServicesResolverFiles = (string[])Directory.GetFiles(PlayServicesResolverPath, "*.*",
+                                                                                  SearchOption.AllDirectories);
+                string[] files = new string[facebookFiles.Length + sdkFiles.Length + exampleFiles.Length +
+                                            pluginsFiles.Length + playServicesResolverFiles.Length];
                 facebookFiles.CopyTo(files, 0);
                 sdkFiles.CopyTo(files, facebookFiles.Length);
                 exampleFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length);
                 pluginsFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length + exampleFiles.Length);
+                playServicesResolverFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length + exampleFiles.Length + pluginsFiles.Length);
 
                 AssetDatabase.ExportPackage(
                     files,

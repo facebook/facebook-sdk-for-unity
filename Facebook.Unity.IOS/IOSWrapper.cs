@@ -144,24 +144,6 @@ namespace Facebook.Unity.IOS
                 previewImageUrl);
         }
 
-        public void CreateGameGroup(
-            int requestId,
-            string name,
-            string description,
-            string privacy)
-        {
-            IOSWrapper.IOSFBCreateGameGroup(
-                requestId,
-                name,
-                description,
-                privacy);
-        }
-
-        public void JoinGameGroup(int requestId, string groupId)
-        {
-            IOSWrapper.IOSFBJoinGameGroup(requestId, groupId);
-        }
-
         public void FBSettingsActivateApp(string appId)
         {
             IOSWrapper.IOSFBSettingsActivateApp(appId);
@@ -285,16 +267,6 @@ namespace Facebook.Unity.IOS
             int requestId,
             string appLinkUrl,
             string previewImageUrl);
-
-        [DllImport("__Internal")]
-        private static extern void IOSFBCreateGameGroup(
-            int requestId,
-            string name,
-            string description,
-            string privacy);
-
-        [DllImport("__Internal")]
-        private static extern void IOSFBJoinGameGroup(int requestId, string groupId);
 
         [DllImport("__Internal")]
         private static extern void IOSFBSettingsActivateApp(string appId);

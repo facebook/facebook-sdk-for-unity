@@ -31,8 +31,6 @@ namespace Facebook.Unity.Canvas
         internal const string MethodAppRequests = "apprequests";
         internal const string MethodFeed = "feed";
         internal const string MethodPay = "pay";
-        internal const string MethodGameGroupCreate = "game_group_create";
-        internal const string MethodGameGroupJoin = "game_group_join";
         internal const string CancelledResponse = "{\"cancelled\":true}";
         internal const string FacebookConnectURL = "https://connect.facebook.net";
 
@@ -321,34 +319,6 @@ namespace Facebook.Unity.Canvas
                 callback);
         }
 
-        public override void GameGroupCreate(
-            string name,
-            string description,
-            string privacy,
-            FacebookDelegate<IGroupCreateResult> callback)
-        {
-            MethodArguments args = new MethodArguments();
-            args.AddString("name", name);
-            args.AddString("description", description);
-            args.AddString("privacy", privacy);
-            args.AddString("display", "async");
-            var call = new CanvasUIMethodCall<IGroupCreateResult>(this, MethodGameGroupCreate, Constants.OnGroupCreateCompleteMethodName);
-            call.Callback = callback;
-            call.Call(args);
-        }
-
-        public override void GameGroupJoin(
-            string id,
-            FacebookDelegate<IGroupJoinResult> callback)
-        {
-            MethodArguments args = new MethodArguments();
-            args.AddString("id", id);
-            args.AddString("display", "async");
-            var call = new CanvasUIMethodCall<IGroupJoinResult>(this, MethodGameGroupJoin, Constants.OnGroupJoinCompleteMethodName);
-            call.Callback = callback;
-            call.Call(args);
-        }
-
         public override void GetAppLink(FacebookDelegate<IAppLinkResult> callback)
         {
             var result = new Dictionary<string, object>()
@@ -439,18 +409,6 @@ namespace Facebook.Unity.Canvas
         public override void OnShareLinkComplete(ResultContainer resultContainer)
         {
             var result = new ShareResult(resultContainer);
-            CallbackManager.OnFacebookResponse(result);
-        }
-
-        public override void OnGroupCreateComplete(ResultContainer resultContainer)
-        {
-            var result = new GroupCreateResult(resultContainer);
-            CallbackManager.OnFacebookResponse(result);
-        }
-
-        public override void OnGroupJoinComplete(ResultContainer resultContainer)
-        {
-            var result = new GroupJoinResult(resultContainer);
             CallbackManager.OnFacebookResponse(result);
         }
 

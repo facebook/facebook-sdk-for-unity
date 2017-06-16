@@ -45,7 +45,11 @@ namespace Facebook.Unity.Tests.Mobile
                 { Constants.ExtrasKey, mockExtras },
             };
 
-            FB.GetAppLink((r) => (result = r));
+            FB.GetAppLink(
+                delegate(IAppLinkResult r)
+                {
+                    result = r;
+                });
             Assert.IsNotNull(result);
             Assert.AreEqual(mockRef, result.Ref);
             Assert.AreEqual(mockTargetUrl, result.TargetUrl);
@@ -68,7 +72,11 @@ namespace Facebook.Unity.Tests.Mobile
                 { Constants.UrlKey, mockUrl },
             };
 
-            FB.GetAppLink((r) => (result = r));
+            FB.GetAppLink(
+                delegate(IAppLinkResult r)
+                {
+                    result = r;
+                });
             Assert.IsNotNull(result);
             Assert.AreEqual(mockRef, result.Ref);
             Assert.AreEqual(mockTargetUrl, result.TargetUrl);
@@ -87,7 +95,11 @@ namespace Facebook.Unity.Tests.Mobile
                 { Constants.UrlKey, mockUrl },
             };
 
-            FB.GetAppLink((r) => (result = r));
+            FB.GetAppLink(
+                delegate(IAppLinkResult r)
+                {
+                    result = r;
+                });
             Assert.IsNotNull(result);
             Assert.AreEqual(mockUrl, result.Url);
         }

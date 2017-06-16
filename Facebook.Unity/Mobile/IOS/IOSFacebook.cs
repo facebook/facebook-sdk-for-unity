@@ -228,22 +228,6 @@ namespace Facebook.Unity.Mobile.IOS
                 mediaSource);
         }
 
-        public override void GameGroupCreate(
-            string name,
-            string description,
-            string privacy,
-            FacebookDelegate<IGroupCreateResult> callback)
-        {
-            this.iosWrapper.CreateGameGroup(this.AddCallback(callback), name, description, privacy);
-        }
-
-        public override void GameGroupJoin(
-            string id,
-            FacebookDelegate<IGroupJoinResult> callback)
-        {
-            this.iosWrapper.JoinGameGroup(System.Convert.ToInt32(CallbackManager.AddFacebookDelegate(callback)), id);
-        }
-
         public override void AppEventsLogEvent(
             string logEvent,
             float? valueToSum,

@@ -22,7 +22,7 @@ namespace Facebook.Unity
 {
     using System;
     using System.Collections.Generic;
-    using Facebook.Unity.Arcade;
+    using Facebook.Unity.Gameroom;
     using Facebook.Unity.Canvas;
     using Facebook.Unity.Editor;
     using Facebook.Unity.Mobile;
@@ -294,12 +294,12 @@ namespace Facebook.Unity
                             };
                             ComponentFactory.GetComponent<AndroidFacebookLoader>();
                             break;
-                        case FacebookUnityPlatform.Arcade:
+                        case FacebookUnityPlatform.Gameroom:
                             FB.OnDLLLoadedDelegate = delegate
                             {
-                                ((ArcadeFacebook)FB.facebook).Init(appId, onHideUnity, onInitComplete);
+                                ((GameroomFacebook)FB.facebook).Init(appId, onHideUnity, onInitComplete);
                             };
-                            ComponentFactory.GetComponent<ArcadeFacebookLoader>();
+                            ComponentFactory.GetComponent<GameroomFacebookLoader>();
                             break;
                         default:
                             throw new NotSupportedException("The facebook sdk does not support this platform");
@@ -620,39 +620,6 @@ namespace Facebook.Unity
         }
 
         /// <summary>
-        /// Opens a dialog to create a new game group.
-        /// </summary>
-        /// <param name="name">The name of the group you wish to create.</param>
-        /// <param name="description">A short description of the group's purpose.</param>
-        /// <param name="privacy">
-        /// The privacy of the group.
-        /// OPEN groups' content is visible to anyone
-        /// CLOSED groups can be found by anyone but their content is only visible to members
-        /// SECRET groups can only be found by their members.
-        /// </param>
-        /// <param name="callback">The callback to use upon completion.</param>
-        public static void GameGroupCreate(
-            string name,
-            string description,
-            string privacy = "CLOSED",
-            FacebookDelegate<IGroupCreateResult> callback = null)
-        {
-            FacebookImpl.GameGroupCreate(name, description, privacy, callback);
-        }
-
-        /// <summary>
-        /// Opens a dialog to join a game group.
-        /// </summary>
-        /// <param name="id">The group ID of the group to which you'd like to add the user.</param>
-        /// <param name="callback">The callback to use upon completion.</param>
-        public static void GameGroupJoin(
-            string id,
-            FacebookDelegate<IGroupJoinResult> callback = null)
-        {
-            FacebookImpl.GameGroupJoin(id, callback);
-        }
-
-        /// <summary>
         /// Logs an app event.
         /// </summary>
         /// <param name="logEvent">The name of the event to log.</param>
@@ -968,6 +935,35 @@ namespace Facebook.Unity
                     var androidFacebook = FacebookImpl as AndroidFacebook;
                     return (androidFacebook != null) ? androidFacebook.KeyHash : string.Empty;
                 }
+            }
+        }
+
+        public sealed class Gameroom
+        {
+            private static IGameroomFacebook GameroomFacebookImpl
+            {
+                get
+                {
+                    IGameroomFacebook impl = FacebookImpl as IGameroomFacebook;
+                    if (impl == null)
+                    {
+                        throw new InvalidOperationException("Attempt to call Gameroom interface on non Windows platform");
+                    }
+
+                    return impl;
+                }
+            }
+
+            public static void PayPremium(
+                FacebookDelegate<IPayResult> callback = null)
+            {
+                Gameroom.GameroomFacebookImpl.PayPremium(callback);
+            }
+
+            public static void HasLicense(
+                FacebookDelegate<IHasLicenseResult> callback = null)
+            {
+                Gameroom.GameroomFacebookImpl.HasLicense(callback);
             }
         }
 

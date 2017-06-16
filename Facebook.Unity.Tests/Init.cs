@@ -30,7 +30,11 @@ namespace Facebook.Unity.Tests
         public void BasicInit()
         {
             bool initComplete = false;
-            this.CallInit(() => (initComplete = true));
+            this.CallInit(
+                delegate
+                {
+                    initComplete = true;
+                });
             Assert.IsTrue(initComplete);
         }
 
@@ -41,7 +45,11 @@ namespace Facebook.Unity.Tests
             AccessToken.CurrentAccessToken = null;
             bool initComplete = false;
 
-            this.CallInit(() => (initComplete = true));
+            this.CallInit(
+                delegate
+                {
+                    initComplete = true;
+                });
             Assert.IsTrue(initComplete);
 
             AccessToken token = AccessToken.CurrentAccessToken;

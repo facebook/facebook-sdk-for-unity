@@ -41,6 +41,9 @@
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Google.VersionHandler">
+      <HintPath>..\UnitySDK\Assets\PlayServicesResolver\Editor\Google.VersionHandler.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FacebookBuild.cs" />
@@ -54,6 +57,7 @@
     <Compile Include="iOS\PListDict.cs" />
     <Compile Include="iOS\PListParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="android\AndroidSupportLibraryResolver.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

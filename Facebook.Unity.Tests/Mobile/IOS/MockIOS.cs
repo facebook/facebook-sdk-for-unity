@@ -137,24 +137,6 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             this.MobileFacebook.OnAppInviteComplete(new ResultContainer(result));
         }
 
-        public void CreateGameGroup(
-            int requestId,
-            string name,
-            string description,
-            string privacy)
-        {
-            this.LogMethodCall();
-            var result = MockResults.GetGroupCreateResult(requestId, this.ResultExtras);
-            this.Facebook.OnGroupCreateComplete(new ResultContainer(result));
-        }
-
-        public void JoinGameGroup(int requestId, string groupId)
-        {
-            this.LogMethodCall();
-            var result = this.GetResultDictionary(requestId);
-            this.Facebook.OnGroupJoinComplete(new ResultContainer(result));
-        }
-
         public void FBSettingsActivateApp(string appId)
         {
             this.LogMethodCall();

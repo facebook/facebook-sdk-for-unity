@@ -35,7 +35,6 @@ namespace Facebook.Unity.Editor
         private bool showAndroidUtils = false;
         private bool showIOSSettings = false;
         private bool showAppLinksSettings = false;
-        private bool showFacebookUploadBuildSettings = false;
         private bool showAboutSection = false;
 
         private GUIContent appNameLabel = new GUIContent(
@@ -61,10 +60,6 @@ namespace Facebook.Unity.Editor
         private GUIContent packageNameLabel = new GUIContent("Package Name [?]", "aka: the bundle identifier");
         private GUIContent classNameLabel = new GUIContent("Class Name [?]", "aka: the activity name");
         private GUIContent debugAndroidKeyLabel = new GUIContent("Debug Android Key Hash [?]", "Copy this key to the Facebook Settings in order to test a Facebook Android app");
-
-        private GUIContent uploadAccessTokenLabel = new GUIContent(
-            "Upload Access Token [?]",
-            "Use this to upload build for Facebook platform");
 
         private GUIContent sdkVersion = new GUIContent("SDK Version [?]", "This Unity Facebook SDK version.  If you have problems or compliments please include this so we know exactly what version to look out for.");
 
@@ -304,7 +299,7 @@ namespace Facebook.Unity.Editor
 
                 EditorGUILayout.LabelField(
                     "Copy and Paste these into your \"Native Android App\" Settings on developers.facebook.com/apps");
-                this.SelectableLabelField(this.packageNameLabel, PlayerSettings.bundleIdentifier);
+                this.SelectableLabelField(this.packageNameLabel, Utility.GetApplicationIdentifier());
                 this.SelectableLabelField(this.classNameLabel, ManifestMod.DeepLinkingActivityName);
                 this.SelectableLabelField(this.debugAndroidKeyLabel, FacebookAndroidUtil.DebugKeyHash);
                 if (GUILayout.Button("Regenerate Android Manifest"))
@@ -359,23 +354,6 @@ namespace Facebook.Unity.Editor
                     EditorGUILayout.EndHorizontal();
                 }
             }
-        }
-
-        private void UploadBuildSettingsGUI()
-        {
-            this.showFacebookUploadBuildSettings = EditorGUILayout.Foldout(
-                this.showFacebookUploadBuildSettings,
-                "Upload Facebook Build Settings");
-
-            if (this.showFacebookUploadBuildSettings)
-            {
-                EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField(this.uploadAccessTokenLabel, GUILayout.Width(135), GUILayout.Height(16));
-                FacebookSettings.UploadAccessToken = EditorGUILayout.TextField(FacebookSettings.UploadAccessToken);
-                EditorGUILayout.EndHorizontal();
-            }
-
-            EditorGUILayout.Space();
         }
 
         private void AboutGUI()

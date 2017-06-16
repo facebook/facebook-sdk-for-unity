@@ -8,7 +8,8 @@
     <RootNamespace>Facebook.Unity.Android.StrippingHack</RootNamespace>
     <AssemblyName>Facebook.Unity.Android</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <ReleaseVersion></ReleaseVersion>
+    <ReleaseVersion>
+    </ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

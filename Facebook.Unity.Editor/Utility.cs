@@ -23,9 +23,14 @@ namespace Facebook.Unity.Editor
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
+    using UnityEditor;
 
     public static class Utility
     {
+        private static string BundleIdentifier = "bundleIdentifier";
+        private static string ApplicationIdentifier = "applicationIdentifier";
+
         public static T Pop<T>(this IList<T> list)
         {
             if (!list.Any())
@@ -53,6 +58,21 @@ namespace Facebook.Unity.Editor
 
             value = default(T);
             return false;
+        }
+
+        public static string GetApplicationIdentifier()
+        {
+            Type playerSettingType = typeof(PlayerSettings);
+            PropertyInfo info = playerSettingType.GetProperty(ApplicationIdentifier)
+                                                ?? playerSettingType.GetProperty(BundleIdentifier);
+            if (info != null) {
+                string applicationIdentifier = (string)info.GetValue(playerSettingType, null);
+                if (applicationIdentifier is string) {
+                    return applicationIdentifier;
+                }
+            }
+
+            return null;
         }
     }
 }

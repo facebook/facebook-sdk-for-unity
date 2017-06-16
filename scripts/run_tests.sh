@@ -27,7 +27,7 @@ $SCRIPTS_DIR/build.sh || die "Build failed"
 
 which mono &>/dev/null || die "mono command not found. Please install mono."
 
-NSUBSTITUTE_CONSOLE="$PROJECT_ROOT/packages/NSubstitute.1.10.0.0/lib"
+NSUBSTITUTE_CONSOLE="$PROJECT_ROOT/packages/NSubstitute.2.0.3/lib"
 NUNIT_CONSOLE="/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/4.5/nunit-console.exe"
 TEST_DLL="$PROJECT_ROOT/Facebook.Unity.Tests/bin/Release/Facebook.Unity.Tests.dll"
 

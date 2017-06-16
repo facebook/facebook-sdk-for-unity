@@ -224,32 +224,6 @@ namespace Facebook.Unity.Mobile.Android
             call.Call(args);
         }
 
-        public override void GameGroupCreate(
-            string name,
-            string description,
-            string privacy,
-            FacebookDelegate<IGroupCreateResult> callback)
-        {
-            MethodArguments args = new MethodArguments();
-            args.AddString("name", name);
-            args.AddString("description", description);
-            args.AddString("privacy", privacy);
-            var gameGroupCreate = new JavaMethodCall<IGroupCreateResult>(this, "GameGroupCreate");
-            gameGroupCreate.Callback = callback;
-            gameGroupCreate.Call(args);
-        }
-
-        public override void GameGroupJoin(
-            string id,
-            FacebookDelegate<IGroupJoinResult> callback)
-        {
-            MethodArguments args = new MethodArguments();
-            args.AddString("id", id);
-            var groupJoinCall = new JavaMethodCall<IGroupJoinResult>(this, "GameGroupJoin");
-            groupJoinCall.Callback = callback;
-            groupJoinCall.Call(args);
-        }
-
         public override void GetAppLink(
             FacebookDelegate<IAppLinkResult> callback)
         {

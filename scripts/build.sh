@@ -54,17 +54,15 @@ if [ "$localSettings" = true ]; then
   fi
 fi
 
-CSPROJ_ERROR="To generate csproj files open this project in unity at least once"
-
 PROJECT_SLN=$PROJECT_ROOT/Facebook.sln
 UNITY_CSPROJ=$UNITY_PACKAGE_ROOT/Assembly-CSharp.csproj
 
 ANDROID_ROOT=$PROJECT_ROOT/Facebook.Unity.Android
 ANDROID_DLL=$ANDROID_ROOT/bin/Release/Facebook.Unity.Android.dll
 
-ARCADE_ROOT=$PROJECT_ROOT/Facebook.Unity.Arcade
-ARCADE_DLL=$ARCADE_ROOT/bin/Release/Facebook.Unity.Arcade.dll
-ARCADE_NAMED_PIPE_DLL=$ARCADE_ROOT/bin/Release/FacebookNamedPipeClient.dll
+GAMEROOM_ROOT=$PROJECT_ROOT/Facebook.Unity.Gameroom
+GAMEROOM_DLL=$GAMEROOM_ROOT/bin/Release/Facebook.Unity.Gameroom.dll
+GAMEROOM_NAMED_PIPE_DLL=$GAMEROOM_ROOT/bin/Release/FacebookNamedPipeClient.dll
 
 EDITOR_ROOT=$PROJECT_ROOT/Facebook.Unity.Editor
 EDITOR_DLL=$EDITOR_ROOT/bin/Release/Facebook.Unity.Editor.dll
@@ -90,10 +88,12 @@ TEST_ROOT=$PROJECT_ROOT/Facebook.Unity.Tests
 sed -i "" -e "s/[0-9]\.[0-9]\.[0-9]/$UNITY_SDK_BUILD_VERSION/g" "$PROJECT_ROOT/Facebook.Unity/FacebookSdkVersion.cs" || die "Failed to update the version"
 sed -i "" -e "s/AssemblyVersion(\"[0-9]\.[0-9]\.[0-9]\")/AssemblyVersion(\"$UNITY_SDK_BUILD_VERSION\")/g" \
 "$PROJECT_ROOT/Facebook.Unity/Properties/AssemblyInfo.cs" \
-"$PROJECT_ROOT/Facebook.Unity.Arcade/Properties/AssemblyInfo.cs" \
+"$PROJECT_ROOT/Facebook.Unity.Gameroom/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Editor/Properties/AssemblyInfo.cs" \
-"$PROJECT_ROOT/Facebook.Unity.iOS/Properties/AssemblyInfo.cs" \
+"$PROJECT_ROOT/Facebook.Unity.IOS/Properties/AssemblyInfo.cs" \
+"$PROJECT_ROOT/Facebook.Unity.IOS.StrippingHack/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Android/Properties/AssemblyInfo.cs" \
+"$PROJECT_ROOT/Facebook.Unity.Android.StrippingHack/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Settings/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Tests/Properties/AssemblyInfo.cs" || die "Failed to update the DLL versions"
 
@@ -117,11 +117,11 @@ fi
 cp $ANDROID_DLL $UNITY_ANDROID_PLUGIN || die "Failed to copy Android DLL"
 cp $IOS_STRIPPING_HACK_DLL $UNITY_ANDROID_PLUGIN || die "Failed to copy ios hack DLL"
 
-if [ ! -d "$UNITY_ARCADE_PLUGIN" ]; then
-  mkdir -p $UNITY_ARCADE_PLUGIN || die "Failed to create Arcade plugins folder"
+if [ ! -d "$UNITY_GAMEROOM_PLUGIN" ]; then
+  mkdir -p $UNITY_GAMEROOM_PLUGIN || die "Failed to create Gameroom plugins folder"
 fi
-cp $ARCADE_DLL $UNITY_ARCADE_PLUGIN || die "Failed to copy Arcade DLL"
-cp $ARCADE_NAMED_PIPE_DLL $UNITY_ARCADE_PLUGIN || die "Failed to copy FacebookNamedPipeClient DLL"
+cp $GAMEROOM_DLL $UNITY_GAMEROOM_PLUGIN || die "Failed to copy Gameroom DLL"
+cp $GAMEROOM_NAMED_PIPE_DLL $UNITY_GAMEROOM_PLUGIN || die "Failed to copy FacebookNamedPipeClient DLL"
 
 if [ ! -d "$UNITY_EDITOR_PLUGIN" ]; then
   mkdir -p $UNITY_EDITOR_PLUGIN || die "Failed to create Editor plugins folder"
@@ -142,5 +142,5 @@ cp $SETTINGS_DLL $UNITY_SETTINGS_PLUGIN || die "Failed to copy Settings DLL"
 ###############################################################################
 # BUILD EXAMPLE
 ###############################################################################
-validate_file_exists $UNITY_PACKAGE_ROOT/Assembly-CSharp.csproj $CSPROJERROR
+validate_file_exists $UNITY_PACKAGE_ROOT/Assembly-CSharp.csproj "To generate csproj files open this project in unity at least once"
 xbuild /p:Configuration=$BUILD_TYPE $UNITY_CSPROJ || die "Failed to build SDK DLL"

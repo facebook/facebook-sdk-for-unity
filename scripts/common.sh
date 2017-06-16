@@ -24,10 +24,11 @@ SCRIPTS_DIR="$PROJECT_ROOT/scripts"
 
 CORE_ROOT=$PROJECT_ROOT/Facebook.Unity
 
+UNITY_PATH="/Applications/Unity/Unity.app/Contents/MacOS/Unity"
 UNITY_PACKAGE_ROOT=$PROJECT_ROOT/UnitySDK
 UNITY_PACKAGE_PLUGIN=$UNITY_PACKAGE_ROOT/Assets/FacebookSDK/Plugins/
 UNITY_ANDROID_PLUGIN=$UNITY_PACKAGE_PLUGIN/Android/
-UNITY_ARCADE_PLUGIN=$UNITY_PACKAGE_PLUGIN/Arcade/
+UNITY_GAMEROOM_PLUGIN=$UNITY_PACKAGE_PLUGIN/Gameroom/
 UNITY_EDITOR_PLUGIN=$UNITY_PACKAGE_PLUGIN/Editor/
 UNITY_IOS_PLUGIN=$UNITY_PACKAGE_PLUGIN/iOS/
 UNITY_SETTINGS_PLUGIN=$UNITY_PACKAGE_PLUGIN/Settings/
@@ -51,6 +52,12 @@ SDK_VERSION_SHORT=$(echo $SDK_VERSION | sed 's/\.0$//')
 
 OUT="$PROJECT_ROOT/out"
 MAVEN_BASE_URL='http://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=%s&a=%s&p=%s&v=%s'
+FACEBOOK_BASE_URL='https://origincache.facebook.com/developers/resources/?id=%s-%s-unity.zip'
+UNITY_JAR_RESOLVER_NAME='unity-jar-resolver'
+UNITY_JAR_RESOLVER_PACKAGE_NAME='play-services-resolver'
+UNITY_JAR_RESOLVER_BASE_URL="https://github.com/googlesamples/$UNITY_JAR_RESOLVER_NAME/archive"
+UNITY_JAR_RESOLVER_VERSION='1.2.12'
+UNITY_JAR_RESOLVER_URL="$UNITY_JAR_RESOLVER_BASE_URL/v$UNITY_JAR_RESOLVER_VERSION.zip"
 
 function die() {
   echo ""
@@ -76,6 +83,42 @@ function downloadFromMaven() {
 
   OUTPUT_PATH=$5
   curl -L "$MAVEN_DOWNLOAD_URL" -o "$OUTPUT_PATH" || die "Failed download $MAVEN_DOWNLOAD_URL"
+}
+
+function downloadFromFacebook() {
+  ARTIFACT_ID=$1
+  VERSION=$2
+  OUTPUT_PATH=$3
+
+  FACEBOOK_DOWNLOAD_URL=$(printf "$FACEBOOK_BASE_URL" "$ARTIFACT_ID" "$VERSION")
+  PACKAGE_ZIP="package.zip"
+  ARTIFACT_NAME=$(printf "%s-%s" "$ARTIFACT_ID" "$VERSION")
+  FACEBOOK_AAR="$ARTIFACT_NAME/facebook/$ARTIFACT_NAME.aar"
+
+  pushd $PROJECT_ROOT > /dev/null
+  curl -L "$FACEBOOK_DOWNLOAD_URL" > $PACKAGE_ZIP
+  unzip $PACKAGE_ZIP || die "Failed to unzip $FACEBOOK_DOWNLOAD_URL"
+  cp $FACEBOOK_AAR $OUTPUT_PATH || die "Failed to move $FACEBOOK_AAR to $OUTPUT_PATH"
+  rm $PACKAGE_ZIP
+  rm -rf $ARTIFACT_NAME
+}
+
+function downloadUnityJarResolverFromGithub() {
+  UNITY_JAR_RESOLVER_ZIP="$UNITY_JAR_RESOLVER_NAME.zip"
+
+  pushd $PROJECT_ROOT > /dev/null
+  info "Downloading and unzipping unity-jar-resolver..."
+  curl -L "$UNITY_JAR_RESOLVER_URL" > $UNITY_JAR_RESOLVER_ZIP || die "Failed to download $UNITY_JAR_RESOLVER_URL"
+  unzip $UNITY_JAR_RESOLVER_ZIP || die "Failed to unzip $UNITY_JAR_RESOLVER_ZIP"
+  info "Importing unity-jar-resolver to UnitySDK project..."
+  UNITY_JAR_RESOLVER_PACKAGE_VERSION="$UNITY_JAR_RESOLVER_VERSION.0"
+  $UNITY_PATH -quit -batchmode -logFile -projectPath="$PROJECT_ROOT/UnitySDK" \
+   -importPackage "$PROJECT_ROOT/$UNITY_JAR_RESOLVER_NAME-$UNITY_JAR_RESOLVER_VERSION/$UNITY_JAR_RESOLVER_PACKAGE_NAME-$UNITY_JAR_RESOLVER_PACKAGE_VERSION.unitypackage" \
+   || die "Failed to import $PROJECT_ROOT/$UNITY_JAR_RESOLVER_NAME-$UNITY_JAR_RESOLVER_VERSION/$UNITY_JAR_RESOLVER_PACKAGE_NAME-$UNITY_JAR_RESOLVER_PACKAGE_VERSION.unitypackage"
+  info "Cleaning up..."
+  rm $UNITY_JAR_RESOLVER_ZIP
+  rm -rf $UNITY_JAR_RESOLVER_NAME-$UNITY_JAR_RESOLVER_VERSION
+  popd > /dev/null
 }
 
 function validate_file_exists() {

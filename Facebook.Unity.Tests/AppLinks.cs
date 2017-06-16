@@ -28,7 +28,11 @@ namespace Facebook.Unity.Tests
         public void TestGetAppLink()
         {
             IAppLinkResult result = null;
-            FB.GetAppLink((r) => (result = r));
+            FB.GetAppLink(
+                delegate(IAppLinkResult r)
+                {
+                    result = r;
+                });
             Assert.IsNotNull(result);
         }
     }

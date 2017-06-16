@@ -146,29 +146,9 @@ namespace Facebook.Unity.Editor
                 this.CallbackManager.AddFacebookDelegate(callback));
         }
 
-        public override void GameGroupCreate(
-            string name,
-            string description,
-            string privacy,
-            FacebookDelegate<IGroupCreateResult> callback)
-        {
-            this.editorWrapper.ShowGameGroupCreateMockDialog(
-                this.OnGroupCreateComplete,
-                this.CallbackManager.AddFacebookDelegate(callback));
-        }
-
-        public override void GameGroupJoin(
-            string id,
-            FacebookDelegate<IGroupJoinResult> callback)
-        {
-            this.editorWrapper.ShowGameGroupJoinMockDialog(
-                this.OnGroupJoinComplete,
-                this.CallbackManager.AddFacebookDelegate(callback));
-        }
-
         public override void ActivateApp(string appId)
         {
-            FacebookLogger.Info("This only needs to be called for iOS or Android.");
+            FacebookLogger.Log("Pew! Pretending to send this off.  Doesn't actually work in the editor");
         }
 
         public override void GetAppLink(FacebookDelegate<IAppLinkResult> callback)
@@ -304,18 +284,6 @@ namespace Facebook.Unity.Editor
         public override void OnGetAppLinkComplete(ResultContainer resultContainer)
         {
             var result = new AppLinkResult(resultContainer);
-            CallbackManager.OnFacebookResponse(result);
-        }
-
-        public override void OnGroupCreateComplete(ResultContainer resultContainer)
-        {
-            var result = new GroupCreateResult(resultContainer);
-            CallbackManager.OnFacebookResponse(result);
-        }
-
-        public override void OnGroupJoinComplete(ResultContainer resultContainer)
-        {
-            var result = new GroupJoinResult(resultContainer);
             CallbackManager.OnFacebookResponse(result);
         }
 

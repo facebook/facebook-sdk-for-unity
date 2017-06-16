@@ -69,13 +69,6 @@
     <Compile Include="Canvas\ICanvasFacebookResultHandler.cs" />
     <Compile Include="Canvas\ICanvasJSWrapper.cs" />
     <Compile Include="Canvas\JsBridge.cs" />
-    <Compile Include="Arcade\ArcadeFacebook.cs" />
-    <Compile Include="Arcade\ArcadeFacebookGameObject.cs" />
-    <Compile Include="Arcade\ArcadeFacebookLoader.cs" />
-    <Compile Include="Arcade\IArcadeFacebook.cs" />
-    <Compile Include="Arcade\IArcadeFacebookImplementation.cs" />
-    <Compile Include="Arcade\IArcadeFacebookResultHandler.cs" />
-    <Compile Include="Arcade\IArcadeWrapper.cs" />
     <Compile Include="Mobile\IMobileFacebook.cs" />
     <Compile Include="Mobile\IMobileFacebookCallbackHandler.cs" />
     <Compile Include="Mobile\IMobileFacebookImplementation.cs" />
@@ -138,6 +131,15 @@
     <Compile Include="Utils\IFacebookScheduler.cs" />
     <Compile Include="Utils\IFacebookSchedulerFactory.cs" />
     <Compile Include="Utils\FacebookSchedulerFactory.cs" />
+    <Compile Include="Results\IHasLicenseResult.cs" />
+    <Compile Include="Results\HasLicenseResult.cs" />
+    <Compile Include="Gameroom\GameroomFacebook.cs" />
+    <Compile Include="Gameroom\GameroomFacebookGameObject.cs" />
+    <Compile Include="Gameroom\GameroomFacebookLoader.cs" />
+    <Compile Include="Gameroom\IGameroomFacebook.cs" />
+    <Compile Include="Gameroom\IGameroomFacebookImplementation.cs" />
+    <Compile Include="Gameroom\IGameroomFacebookResultHandler.cs" />
+    <Compile Include="Gameroom\IGameroomWrapper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

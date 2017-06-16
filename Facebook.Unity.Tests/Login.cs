@@ -43,7 +43,12 @@ namespace Facebook.Unity.Tests
         public void BasicLoginWithReadTest()
         {
             ILoginResult result = null;
-            FB.LogInWithReadPermissions(null, (r) => (result = r));
+            FB.LogInWithReadPermissions(
+                null,
+                delegate(ILoginResult r)
+                {
+                    result = r;
+                });
             Login.ValidateToken(result, MockResults.DefaultPermissions);
         }
 
@@ -51,7 +56,12 @@ namespace Facebook.Unity.Tests
         public void BasicLoginWithReadPermissionsTest()
         {
             ILoginResult result = null;
-            FB.LogInWithReadPermissions(this.ReadPermissions, (r) => (result = r));
+            FB.LogInWithReadPermissions(
+                this.ReadPermissions,
+                delegate(ILoginResult r)
+                {
+                    result = r;
+                });
             Login.ValidateToken(result, this.ReadPermissions);
         }
 
@@ -59,7 +69,12 @@ namespace Facebook.Unity.Tests
         public void BasicLoginWithPublishTest()
         {
             ILoginResult result = null;
-            FB.LogInWithPublishPermissions(this.PublishPermissions, (r) => (result = r));
+            FB.LogInWithPublishPermissions(
+                this.PublishPermissions,
+                delegate(ILoginResult r)
+                {
+                    result = r;
+                });
             Login.ValidateToken(result, this.PublishPermissions);
         }
 

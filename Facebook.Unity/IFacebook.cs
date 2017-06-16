@@ -88,16 +88,6 @@ namespace Facebook.Unity
             string mediaSource,
             FacebookDelegate<IShareResult> callback);
 
-        void GameGroupCreate(
-            string name,
-            string description,
-            string privacy,
-            FacebookDelegate<IGroupCreateResult> callback);
-
-        void GameGroupJoin(
-            string id,
-            FacebookDelegate<IGroupJoinResult> callback);
-
         void API(
             string query,
             HttpMethod method,

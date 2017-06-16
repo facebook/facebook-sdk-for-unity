@@ -40,7 +40,13 @@ namespace Facebook.Unity.Tests
                 { AppRequestResult.ToKey, string.Join(",", toList) },
             };
 
-            FB.AppRequest("Test message", callback: (r) => (result = r));
+            FB.AppRequest(
+                "Test message",
+                callback:
+                    delegate(IAppRequestResult r)
+                    {
+                        result = r;
+                    });
             Assert.IsNotNull(result);
             Assert.AreEqual(result.RequestID, mockRequestId);
             Assert.IsTrue(new HashSet<string>(toList).SetEquals(result.To));

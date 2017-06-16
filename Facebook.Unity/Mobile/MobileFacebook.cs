@@ -76,18 +76,6 @@ namespace Facebook.Unity.Mobile
             CallbackManager.OnFacebookResponse(result);
         }
 
-        public override void OnGroupCreateComplete(ResultContainer resultContainer)
-        {
-            var result = new GroupCreateResult(resultContainer);
-            CallbackManager.OnFacebookResponse(result);
-        }
-
-        public override void OnGroupJoinComplete(ResultContainer resultContainer)
-        {
-            var result = new GroupJoinResult(resultContainer);
-            CallbackManager.OnFacebookResponse(result);
-        }
-
         public override void OnAppRequestsComplete(ResultContainer resultContainer)
         {
             var result = new AppRequestResult(resultContainer);

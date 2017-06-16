@@ -23,10 +23,12 @@ namespace Facebook.Unity.Tests
     using System;
     using Facebook.Unity.Canvas;
     using Facebook.Unity.Editor;
+    using Facebook.Unity.Gameroom;
     using Facebook.Unity.Mobile.Android;
     using Facebook.Unity.Mobile.IOS;
     using Facebook.Unity.Tests.Canvas;
     using Facebook.Unity.Tests.Editor;
+    using Facebook.Unity.Tests.Gameroom;
     using Facebook.Unity.Tests.Mobile.Android;
     using Facebook.Unity.Tests.Mobile.IOS;
     using NSubstitute;
@@ -56,6 +58,15 @@ namespace Facebook.Unity.Tests
                 var mockWrapper = new MockIOS();
                 Constants.CurrentPlatform = FacebookUnityPlatform.IOS;
                 var facebook = new IOSFacebook(mockWrapper, callbackManager);
+                this.Mock = mockWrapper;
+                this.Mock.Facebook = facebook;
+                FB.FacebookImpl = facebook;
+            }
+            else if (Attribute.GetCustomAttribute(type, typeof(GameroomTestAttribute)) != null)
+            {
+                var mockWrapper = new MockGameroom();
+                Constants.CurrentPlatform = FacebookUnityPlatform.Gameroom;
+                var facebook = new GameroomFacebook(mockWrapper, callbackManager);
                 this.Mock = mockWrapper;
                 this.Mock.Facebook = facebook;
                 FB.FacebookImpl = facebook;

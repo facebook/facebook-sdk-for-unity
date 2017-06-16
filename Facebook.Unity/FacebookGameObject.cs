@@ -77,16 +77,6 @@ namespace Facebook.Unity
             this.Facebook.OnGetAppLinkComplete(new ResultContainer(message));
         }
 
-        public void OnGroupCreateComplete(string message)
-        {
-            this.Facebook.OnGroupCreateComplete(new ResultContainer(message));
-        }
-
-        public void OnGroupJoinComplete(string message)
-        {
-            this.Facebook.OnGroupJoinComplete(new ResultContainer(message));
-        }
-
         public void OnAppRequestsComplete(string message)
         {
             this.Facebook.OnAppRequestsComplete(new ResultContainer(message));

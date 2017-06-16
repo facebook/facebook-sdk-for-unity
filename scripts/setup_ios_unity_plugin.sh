@@ -56,7 +56,7 @@ else
 fi
 
 for FRAMEWORK in FBSDKCoreKit.framework FBSDKLoginKit.framework FBSDKShareKit.framework Bolts.framework; do
-    cp -r -f "$sdkFolder/$FRAMEWORK" "$UNITY_PLUGIN_FACEBOOK" || die "failed to copy $FRAMEWORK"
+    cp -r -f "$sdkFolder/$FRAMEWORK" "$UNITY_PLUGIN_FACEBOOK" || die "failed to copy $FRAMEWORK, build the iOS SDK before running this script"
 done
 
 cd $PROJECT_ROOT

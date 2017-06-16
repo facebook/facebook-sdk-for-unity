@@ -95,16 +95,6 @@ namespace Facebook.Unity.Tests.Mobile.Android
                 callback = this.Facebook.OnShareLinkComplete;
                 result = MockResults.GetGenericResult(callbackID, this.ResultExtras);
             }
-            else if (methodName == "GameGroupCreate")
-            {
-                callback = this.Facebook.OnGroupCreateComplete;
-                result = MockResults.GetGroupCreateResult(callbackID, this.ResultExtras);
-            }
-            else if (methodName == "GameGroupJoin")
-            {
-                callback = this.Facebook.OnGroupJoinComplete;
-                result = MockResults.GetGenericResult(callbackID, this.ResultExtras);
-            }
             else if (methodName == "LoginWithPublishPermissions" || methodName == "LoginWithReadPermissions")
             {
                 callback = this.Facebook.OnLoginComplete;

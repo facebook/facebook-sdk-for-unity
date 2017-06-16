@@ -201,7 +201,7 @@ namespace Facebook.Unity
                 int expiredTimeSeconds;
                 if (int.TryParse(expirationStr, out expiredTimeSeconds) && expiredTimeSeconds > 0)
                 {
-                    if (Constants.IsArcade)
+                    if (Constants.IsGameroom)
                     {
                         expiration = DateTime.UtcNow.AddSeconds(expiredTimeSeconds);
                     }

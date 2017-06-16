@@ -70,17 +70,7 @@ namespace Facebook.Unity.Tests.Canvas
                 var callbackMetod = (string)args[2];
                 var callbackID = int.Parse((string)args[1]);
 
-                if (callbackMetod == Constants.OnGroupCreateCompleteMethodName)
-                {
-                    result = MockResults.GetGroupCreateResult(callbackID, this.ResultExtras);
-                    callback = this.Facebook.OnGroupCreateComplete;
-                }
-                else if (callbackMetod == Constants.OnGroupJoinCompleteMethodName)
-                {
-                    result = MockResults.GetGenericResult(callbackID, this.ResultExtras);
-                    callback = this.Facebook.OnGroupJoinComplete;
-                }
-                else if (callbackMetod == Constants.OnAppRequestsCompleteMethodName)
+                if (callbackMetod == Constants.OnAppRequestsCompleteMethodName)
                 {
                     result = MockResults.GetGenericResult(callbackID, this.ResultExtras);
                     callback = this.Facebook.OnAppRequestsComplete;

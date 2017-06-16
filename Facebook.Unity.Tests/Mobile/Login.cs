@@ -35,7 +35,12 @@ namespace Facebook.Unity.Tests.Mobile
                 { LoginResult.ExpirationTimestampKey, "9223372036854775" },
             };
 
-            FB.LogInWithReadPermissions(this.ReadPermissions, (r) => (result = r));
+            FB.LogInWithReadPermissions(
+                this.ReadPermissions,
+                delegate(ILoginResult r)
+                {
+                    result = r;
+                });
             Assert.IsNotNull(result);
             Assert.IsNotNull(AccessToken.CurrentAccessToken);
             Assert.AreEqual(DateTime.MaxValue, AccessToken.CurrentAccessToken.ExpirationTime);
@@ -50,7 +55,12 @@ namespace Facebook.Unity.Tests.Mobile
                 { LoginResult.ExpirationTimestampKey, "0" },
             };
 
-            FB.LogInWithReadPermissions(this.ReadPermissions, (r) => (result = r));
+            FB.LogInWithReadPermissions(
+                this.ReadPermissions,
+                delegate(ILoginResult r)
+                {
+                    result = r;
+                });
             Assert.IsNotNull(result);
             Assert.IsNotNull(AccessToken.CurrentAccessToken);
             Assert.AreEqual(DateTime.MaxValue, AccessToken.CurrentAccessToken.ExpirationTime);

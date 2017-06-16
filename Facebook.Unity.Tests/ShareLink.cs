@@ -40,10 +40,13 @@ namespace Facebook.Unity.Tests
 
             FB.ShareLink(
                 new Uri("http://www.test.com/"),
-                 "test title",
-                 "test description",
-                 new Uri("http://www.photo.com/"),
-                 (r) => (result = r));
+                "test title",
+                "test description",
+                new Uri("http://www.photo.com/"),
+                delegate(IShareResult r)
+                {
+                    result = r;
+                });
             Assert.IsNotNull(result);
             Assert.AreEqual(extras[ShareResult.PostIDKey], result.PostId);
         }

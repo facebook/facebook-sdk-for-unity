@@ -60,8 +60,6 @@ namespace Facebook.Unity.Settings
         private string iosURLSuffix = string.Empty;
         [SerializeField]
         private List<UrlSchemes> appLinkSchemes = new List<UrlSchemes>() { new UrlSchemes() };
-        [SerializeField]
-        private string uploadAccessToken = string.Empty;
 
         public delegate void OnChangeCallback();
 
@@ -338,27 +336,6 @@ namespace Facebook.Unity.Settings
                 if (Instance.appLinkSchemes != value)
                 {
                     Instance.appLinkSchemes = value;
-                    SettingsChanged();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the upload access token.
-        /// </summary>
-        /// <value>The access token to upload build to Facebook hosting.</value>
-        public static string UploadAccessToken
-        {
-            get
-            {
-                return Instance.uploadAccessToken;
-            }
-
-            set
-            {
-                if (Instance.uploadAccessToken != value)
-                {
-                    Instance.uploadAccessToken = value;
                     SettingsChanged();
                 }
             }

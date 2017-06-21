@@ -52,15 +52,15 @@ window.FBUnity = {
                 FBUnity.onInit();
             }
         }
-
-        // once jssdk is loaded, init
-        window.fbAsyncInit = on_fb_sdk_loaded;
-
+        
         if (document.getElementById(id)) {
-            //already loaded
-            on_fb_sdk_loaded();
+           //already loaded
+           //need add timeout for make unity some work
+           setTimeout(on_fb_sdk_loaded, 250);
         }
         else {
+            // once jssdk is loaded, init
+            window.fbAsyncInit = on_fb_sdk_loaded;
             //load sdk
             js = document.createElement('script'); js.id = id; js.async = true;
             js.src = connectFacebookUrl + '/' + locale + '/sdk' + (debug ? '/debug' : '') + '.js';

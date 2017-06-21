@@ -27,7 +27,7 @@ namespace Facebook.Unity.Canvas
         // a raw string.
         private const string JSCode = @"
 window.FBUnity = {
-    init: function(connectFacebookUrl, locale, debug, initParams, status) {
+   init: function(connectFacebookUrl, locale, debug, initParams, status) {
         // make element for js sdk
         if(!document.getElementById('fb-root')) {
             var fbroot = document.createElement('div');
@@ -38,12 +38,9 @@ window.FBUnity = {
 
         // load js sdk
         var js, id = 'facebook-jssdk', ref = document.getElementsByTagName('script')[0];
-        if (document.getElementById(id)) {return;}
-        js = document.createElement('script'); js.id = id; js.async = true;
-        js.src = connectFacebookUrl + '/' + locale + '/sdk' + (debug ? '/debug' : '') + '.js';
-        ref.parentNode.insertBefore(js, ref);
-        // once jssdk is loaded, init
-        window.fbAsyncInit = function () {
+        
+        function on_fb_sdk_loaded()
+        {
             initParams = JSON.parse(initParams);
             initParams.hideFlashCallback = FBUnity.onHideUnity;
             FB.init(initParams);
@@ -54,7 +51,21 @@ window.FBUnity = {
             } else {
                 FBUnity.onInit();
             }
-        };
+        }
+
+        // once jssdk is loaded, init
+        window.fbAsyncInit = on_fb_sdk_loaded;
+
+        if (document.getElementById(id)) {
+            //already loaded
+            on_fb_sdk_loaded();
+        }
+        else {
+            //load sdk
+            js = document.createElement('script'); js.id = id; js.async = true;
+            js.src = connectFacebookUrl + '/' + locale + '/sdk' + (debug ? '/debug' : '') + '.js';
+            ref.parentNode.insertBefore(js, ref);
+        }
     },
 
     sendMessage: function(method, param) {

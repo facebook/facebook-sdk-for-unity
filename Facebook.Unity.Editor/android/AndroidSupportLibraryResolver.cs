@@ -104,7 +104,6 @@ namespace Facebook.Unity.Editor
             String packageName,
             String version)
         {
-            Debug.LogWarning("App - " + packageName + ":" + version);
             Google.VersionHandler.InvokeInstanceMethod(
                 svcSupport,
                 "DependOn",

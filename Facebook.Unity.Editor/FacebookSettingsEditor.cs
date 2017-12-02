@@ -281,7 +281,7 @@ namespace Facebook.Unity.Editor
                             msg = "You don't have the Android SDK setup!  Go to " + (Application.platform == RuntimePlatform.OSXEditor ? "Unity" : "Edit") + "->Preferences... and set your Android SDK Location under External Tools";
                             break;
                         case FacebookAndroidUtil.ErrorNoKeystore:
-                            msg = "Your android debug keystore file is missing! You can create new one by creating and building empty Android project in Ecplise.";
+                            msg = "Your android debug keystore file is missing! You can create new one by creating and building empty Android project in Eclipse.";
                             break;
                         case FacebookAndroidUtil.ErrorNoKeytool:
                             msg = "Keytool not found. Make sure that Java is installed, and that Java tools are in your path.";

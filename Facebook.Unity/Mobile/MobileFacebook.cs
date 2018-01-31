@@ -64,6 +64,8 @@ namespace Facebook.Unity.Mobile
         public abstract void RefreshCurrentAccessToken(
             FacebookDelegate<IAccessTokenRefreshResult> callback);
 
+        public abstract bool IsImplicitPurchaseLoggingEnabled();
+
         public override void OnLoginComplete(ResultContainer resultContainer)
         {
             var result = new LoginResult(resultContainer);

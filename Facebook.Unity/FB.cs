@@ -917,6 +917,14 @@ namespace Facebook.Unity
             {
                 Mobile.MobileFacebookImpl.RefreshCurrentAccessToken(callback);
             }
+
+            /// <summary>
+            /// Returns the setting for Automatic Purchase Logging
+            /// </summary>
+            public static bool IsImplicitPurchaseLoggingEnabled()
+            {
+                return Mobile.MobileFacebookImpl.IsImplicitPurchaseLoggingEnabled();
+            }
         }
 
         /// <summary>

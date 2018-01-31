@@ -126,7 +126,6 @@
     <Compile Include="Utils\FBUnityUtility.cs" />
     <Compile Include="Utils\AsyncRequestStringWrapper.cs" />
     <Compile Include="Utils\IAsyncRequestStringWrapper.cs" />
-    <Compile Include="Canvas\CanvasConstants.cs" />
     <Compile Include="Utils\FacebookScheduler.cs" />
     <Compile Include="Utils\IFacebookScheduler.cs" />
     <Compile Include="Utils\IFacebookSchedulerFactory.cs" />
@@ -140,6 +139,7 @@
     <Compile Include="Gameroom\IGameroomFacebookImplementation.cs" />
     <Compile Include="Gameroom\IGameroomFacebookResultHandler.cs" />
     <Compile Include="Gameroom\IGameroomWrapper.cs" />
+    <Compile Include="Utils\CodelessIAPAutoLog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

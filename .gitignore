@@ -94,3 +94,12 @@ ads/Assets/AudienceNetwork/Editor/iOS.meta
 ads/Assets/AudienceNetwork/Plugins/Android/libs/ads-release.aar.meta
 ads/Assets/AudienceNetwork/Plugins/iOS/libs/FBAudienceNetwork.framework/*.h.meta
 ads/Assets/AudienceNetwork/Plugins/iOS/libs/FBAudienceNetwork.framework/Headers/*.h.meta
+
+# Buck
+/buck-out
+/.buckconfig.local
+/.buckd
+/.buckjavaargs.local
+/.bucklogging.local.properties
+.fakebuckversion
+/.nobuckcheck

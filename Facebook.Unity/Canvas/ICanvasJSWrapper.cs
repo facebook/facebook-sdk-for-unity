@@ -24,10 +24,6 @@ namespace Facebook.Unity.Canvas
     {
         string GetSDKVersion();
 
-        void ExternalCall(string functionName, params object[] args);
-
         void DisableFullScreen();
-
-        void ExternalEval(string script);
     }
 }

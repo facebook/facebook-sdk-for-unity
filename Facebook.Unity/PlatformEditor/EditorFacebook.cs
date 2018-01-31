@@ -175,6 +175,11 @@ namespace Facebook.Unity.Editor
             FacebookLogger.Log("Pew! Pretending to send this off.  Doesn't actually work in the editor");
         }
 
+        public bool IsImplicitPurchaseLoggingEnabled()
+        {
+            return true;
+        }
+
         public void AppInvite(
             Uri appLinkUrl,
             Uri previewImageUrl,

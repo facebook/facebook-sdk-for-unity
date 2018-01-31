@@ -258,6 +258,11 @@ namespace Facebook.Unity.Mobile.Android
             logPurchaseCall.Call(args);
         }
 
+        public override bool IsImplicitPurchaseLoggingEnabled()
+        {
+            return this.androidWrapper.CallStatic<bool>("IsImplicitPurchaseLoggingEnabled");
+        }
+
         public override void ActivateApp(string appId)
         {
             // Activate app is logged automatically on android.

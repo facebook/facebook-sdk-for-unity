@@ -55,9 +55,19 @@ MAVEN_BASE_URL='http://repository.sonatype.org/service/local/artifact/maven/redi
 FACEBOOK_BASE_URL='https://origincache.facebook.com/developers/resources/?id=%s-%s-unity.zip'
 UNITY_JAR_RESOLVER_NAME='unity-jar-resolver'
 UNITY_JAR_RESOLVER_PACKAGE_NAME='play-services-resolver'
-UNITY_JAR_RESOLVER_BASE_URL="https://github.com/googlesamples/$UNITY_JAR_RESOLVER_NAME/archive"
-UNITY_JAR_RESOLVER_VERSION='1.2.12'
-UNITY_JAR_RESOLVER_URL="$UNITY_JAR_RESOLVER_BASE_URL/v$UNITY_JAR_RESOLVER_VERSION.zip"
+UNITY_JAR_RESOLVER_BASE_URL="https://github.com/googlesamples/$UNITY_JAR_RESOLVER_NAME/raw/master/"
+UNITY_JAR_RESOLVER_VERSION='1.2.61.0'
+UNITY_JAR_RESOLVER_URL="$UNITY_JAR_RESOLVER_BASE_URL$UNITY_JAR_RESOLVER_PACKAGE_NAME-$UNITY_JAR_RESOLVER_VERSION.unitypackage"
+
+FB_SDK_MODULES=(
+  'facebook-applinks'
+  'facebook-common'
+  'facebook-core'
+  'facebook-login'
+  'facebook-messenger'
+  'facebook-places'
+  'facebook-share'
+)
 
 function die() {
   echo ""
@@ -91,33 +101,42 @@ function downloadFromFacebook() {
   OUTPUT_PATH=$3
 
   FACEBOOK_DOWNLOAD_URL=$(printf "$FACEBOOK_BASE_URL" "$ARTIFACT_ID" "$VERSION")
-  PACKAGE_ZIP="package.zip"
+  PACKAGE_ZIP="package-$ARTIFACT_ID-$VERSION.zip"
   ARTIFACT_NAME=$(printf "%s-%s" "$ARTIFACT_ID" "$VERSION")
-  FACEBOOK_AAR="$ARTIFACT_NAME/facebook/$ARTIFACT_NAME.aar"
+  FACEBOOK_AAR="$ARTIFACT_NAME/%s/%s.aar"
 
-  pushd $PROJECT_ROOT > /dev/null
-  curl -L "$FACEBOOK_DOWNLOAD_URL" > $PACKAGE_ZIP
+  if [ ! -f "$PACKAGE_ZIP" ]; then
+    pushd $PROJECT_ROOT > /dev/null
+    curl -L "$FACEBOOK_DOWNLOAD_URL" > $PACKAGE_ZIP
+  else
+    info "$PACKAGE_ZIP already exists. Skipping download"
+  fi
+
+  rm "${OUTPUT_PATH}facebook-"*
   unzip $PACKAGE_ZIP || die "Failed to unzip $FACEBOOK_DOWNLOAD_URL"
-  cp $FACEBOOK_AAR $OUTPUT_PATH || die "Failed to move $FACEBOOK_AAR to $OUTPUT_PATH"
+  for MODULE in "${FB_SDK_MODULES[@]}"
+    do
+      FACEBOOK_AAR_FILE=$(printf "$FACEBOOK_AAR" "$MODULE" "$MODULE")
+      cp $FACEBOOK_AAR_FILE "$OUTPUT_PATH" || die "Failed to move $FACEBOOK_AAR_FILE to $OUTPUT_PATH"
+    done
   rm $PACKAGE_ZIP
   rm -rf $ARTIFACT_NAME
 }
 
 function downloadUnityJarResolverFromGithub() {
-  UNITY_JAR_RESOLVER_ZIP="$UNITY_JAR_RESOLVER_NAME.zip"
+  UNITY_JAR_RESOLVER_PACKAGE="$UNITY_JAR_RESOLVER_PACKAGE_NAME-$UNITY_JAR_RESOLVER_VERSION.unitypackage"
 
   pushd $PROJECT_ROOT > /dev/null
-  info "Downloading and unzipping unity-jar-resolver..."
-  curl -L "$UNITY_JAR_RESOLVER_URL" > $UNITY_JAR_RESOLVER_ZIP || die "Failed to download $UNITY_JAR_RESOLVER_URL"
-  unzip $UNITY_JAR_RESOLVER_ZIP || die "Failed to unzip $UNITY_JAR_RESOLVER_ZIP"
+  info "Downloading unity-jar-resolver..."
+  curl -L "$UNITY_JAR_RESOLVER_URL" > $UNITY_JAR_RESOLVER_PACKAGE || die "Failed to download $UNITY_JAR_RESOLVER_URL"
   info "Importing unity-jar-resolver to UnitySDK project..."
-  UNITY_JAR_RESOLVER_PACKAGE_VERSION="$UNITY_JAR_RESOLVER_VERSION.0"
+
+  UNITY_PACKAGE_PATH="$PROJECT_ROOT/$UNITY_JAR_RESOLVER_PACKAGE"
+
   $UNITY_PATH -quit -batchmode -logFile -projectPath="$PROJECT_ROOT/UnitySDK" \
-   -importPackage "$PROJECT_ROOT/$UNITY_JAR_RESOLVER_NAME-$UNITY_JAR_RESOLVER_VERSION/$UNITY_JAR_RESOLVER_PACKAGE_NAME-$UNITY_JAR_RESOLVER_PACKAGE_VERSION.unitypackage" \
-   || die "Failed to import $PROJECT_ROOT/$UNITY_JAR_RESOLVER_NAME-$UNITY_JAR_RESOLVER_VERSION/$UNITY_JAR_RESOLVER_PACKAGE_NAME-$UNITY_JAR_RESOLVER_PACKAGE_VERSION.unitypackage"
+   -importPackage "$UNITY_PACKAGE_PATH" || die "Failed to import $UNITY_PACKAGE_PATH"
   info "Cleaning up..."
-  rm $UNITY_JAR_RESOLVER_ZIP
-  rm -rf $UNITY_JAR_RESOLVER_NAME-$UNITY_JAR_RESOLVER_VERSION
+  rm $UNITY_PACKAGE_PATH
   popd > /dev/null
 }
 

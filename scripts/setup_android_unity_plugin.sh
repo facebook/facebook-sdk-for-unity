@@ -45,6 +45,7 @@ FB_ANDROID_SDK_WRAPPER="$FB_WRAPPER_PATH/build/outputs/aar/$FB_ANDROID_SDK_WRAPP
 
 FB_SDK_AAR_NAME="$FB_ANDROID_SDK_ARTIFACT_ID-$FB_ANDROID_SDK_VERSION.$FB_ANDROID_SDK_PACKAGING"
 FB_SDK_AAR_PATH="$FB_WRAPPER_LIB_PATH/$FB_SDK_AAR_NAME"
+FB_SDK_AAR_PATH_FOLDER="$FB_WRAPPER_LIB_PATH/"
 
 BOLTS_SDK_JAR_NAME="$BOLTS_ARTIFACT_ID-$BOLTS_VERSION.jar"
 BOLTS_JAR_PATH="$FB_WRAPPER_LIB_PATH/$BOLTS_SDK_JAR_NAME"
@@ -101,11 +102,7 @@ if [ "$localBuild" = true ]; then
   cp $FB_ANDROID_SDK_AAR $FB_SDK_AAR_PATH || die "Failed to copy sdk to wrapper libs folder"
 else
   info "Step 2.2 - Download $FB_SDK_AAR_NAME"
-  if [ ! -f "$FB_SDK_AAR_PATH" ]; then
-    downloadFromFacebook $FB_ANDROID_SDK_ARTIFACT_ID $FB_ANDROID_SDK_VERSION "$FB_SDK_AAR_PATH" || die "failed to download sdk from maven"
-  else
-    info "$FB_SDK_AAR_NAME already exists. Skipping download"
-  fi
+  downloadFromFacebook $FB_ANDROID_SDK_ARTIFACT_ID $FB_ANDROID_SDK_VERSION "$FB_SDK_AAR_PATH_FOLDER" || die "failed to download sdk from maven"
 fi
 
 info "Step 3 - Build android wrapper"
@@ -127,7 +124,7 @@ fi
 rm -r -f $UNITY_PLUGIN_FACEBOOK/*.jar
 rm -r -f $UNITY_PLUGIN_FACEBOOK/*.aar
 # Copy aars
-cp $FB_SDK_AAR_PATH $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy fb sdk to unity plugin folders'
+cp "${FB_SDK_AAR_PATH_FOLDER}facebook-"* $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy fb sdk to unity plugin folders'
 cp $FB_ANDROID_SDK_WRAPPER  $UNITY_PLUGIN_FACEBOOK || die 'Failed to copy wrapper to unity plugin folder'
 # Rename wrapper to include sdk version
 mv $UNITY_PLUGIN_FACEBOOK/$FB_ANDROID_SDK_WRAPPER_NAME "$UNITY_PLUGIN_FACEBOOK/facebook-android-wrapper-$SDK_VERSION.aar"

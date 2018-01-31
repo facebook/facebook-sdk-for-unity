@@ -29,16 +29,6 @@ namespace Facebook.Unity.Canvas
             return Constants.GraphApiVersion;
         }
 
-        public void ExternalCall(string functionName, params object[] args)
-        {
-            Application.ExternalCall(functionName, args);
-        }
-
-        public void ExternalEval(string script)
-        {
-            Application.ExternalEval(script);
-        }
-
         public void DisableFullScreen()
         {
             if (Screen.fullScreen)

@@ -25,6 +25,7 @@ namespace Facebook.Unity.Canvas
     using System.Globalization;
     using System.IO;
     using System.Reflection;
+    using System.Runtime.InteropServices;
 
     internal sealed class CanvasFacebook : FacebookBase, ICanvasFacebookImplementation
     {
@@ -34,14 +35,36 @@ namespace Facebook.Unity.Canvas
         internal const string CancelledResponse = "{\"cancelled\":true}";
         internal const string FacebookConnectURL = "https://connect.facebook.net";
 
-        // The source code for our js sdk binding.
-        private const string JSSDKBindingFileName = "Facebook.Unity.Canvas.Resources.JSSDKBindings.js";
         private const string AuthResponseKey = "authResponse";
 
         private string appId;
         private string appLinkUrl;
         private ICanvasJSWrapper canvasJSWrapper;
         private HideUnityDelegate onHideUnityDelegate;
+
+        [DllImport("__Internal")]
+        private static extern void init(string connectFacebookUrl, string locale, int debug, string initParams, int status);
+
+        [DllImport("__Internal")]
+        private static extern void login(IEnumerable<string> scope, string callback_id);
+
+        [DllImport("__Internal")]
+        private static extern void logout();
+
+        [DllImport("__Internal")]
+        private static extern void activateApp();
+
+        [DllImport("__Internal")]
+        private static extern void logAppEvent(string eventName, float? valueToSum, string parameters);
+
+        [DllImport("__Internal")]
+        private static extern void logPurchase(float purchaseAmount, string currency, string parameters);
+
+        [DllImport("__Internal")]
+        private static extern void ui(string x, string uid, string callbackMethodName);
+
+        [DllImport("__Internal")]
+        private static extern void initScreenPosition();
 
         public CanvasFacebook()
             : this(new CanvasJSWrapper(), new CallbackManager())
@@ -117,7 +140,7 @@ namespace Facebook.Unity.Canvas
         {
             base.Init(onInitComplete);
 
-            this.canvasJSWrapper.ExternalEval(CanvasConstants.JSSDKBindings);
+            initScreenPosition();
             this.appId = appId;
             this.onHideUnityDelegate = hideUnityDelegate;
 
@@ -133,13 +156,12 @@ namespace Facebook.Unity.Canvas
             parameters.AddString("version", FB.GraphApiVersion);
 
             // use 1/0 for booleans, otherwise you'll get strings "True"/"False"
-            this.canvasJSWrapper.ExternalCall(
-                "FBUnity.init",
-                FacebookConnectURL,
-                javascriptSDKLocale,
-                loadDebugJSSDK ? 1 : 0,
-                parameters.ToJsonString(),
-                status ? 1 : 0);
+            init(
+              FacebookConnectURL,
+              javascriptSDKLocale,
+              loadDebugJSSDK ? 1 : 0,
+              parameters.ToJsonString(),
+              status ? 1 : 0);
         }
 
         public override void LogInWithPublishPermissions(
@@ -147,7 +169,7 @@ namespace Facebook.Unity.Canvas
             FacebookDelegate<ILoginResult> callback)
         {
             this.canvasJSWrapper.DisableFullScreen();
-            this.canvasJSWrapper.ExternalCall("FBUnity.login", permissions, CallbackManager.AddFacebookDelegate(callback));
+            login(permissions, CallbackManager.AddFacebookDelegate(callback));
         }
 
         public override void LogInWithReadPermissions(
@@ -155,13 +177,13 @@ namespace Facebook.Unity.Canvas
             FacebookDelegate<ILoginResult> callback)
         {
             this.canvasJSWrapper.DisableFullScreen();
-            this.canvasJSWrapper.ExternalCall("FBUnity.login", permissions, CallbackManager.AddFacebookDelegate(callback));
+            login(permissions, CallbackManager.AddFacebookDelegate(callback));
         }
 
         public override void LogOut()
         {
             base.LogOut();
-            this.canvasJSWrapper.ExternalCall("FBUnity.logout");
+            logout();
         }
 
         public override void AppRequest(
@@ -205,7 +227,7 @@ namespace Facebook.Unity.Canvas
 
         public override void ActivateApp(string appId)
         {
-            this.canvasJSWrapper.ExternalCall("FBUnity.activateApp");
+            activateApp();
         }
 
         public override void ShareLink(
@@ -336,21 +358,19 @@ namespace Facebook.Unity.Canvas
             float? valueToSum,
             Dictionary<string, object> parameters)
         {
-            this.canvasJSWrapper.ExternalCall(
-                "FBUnity.logAppEvent",
+            logAppEvent(
                 logEvent,
                 valueToSum,
                 MiniJSON.Json.Serialize(parameters));
         }
 
         public override void AppEventsLogPurchase(
-            float logPurchase,
+            float purchaseAmount,
             string currency,
             Dictionary<string, object> parameters)
         {
-            this.canvasJSWrapper.ExternalCall(
-                "FBUnity.logPurchase",
-                logPurchase,
+            logPurchase(
+                purchaseAmount,
                 currency,
                 MiniJSON.Json.Serialize(parameters));
         }
@@ -574,7 +594,7 @@ namespace Facebook.Unity.Canvas
                 clonedArgs.AddString("app_id", this.canvasImpl.appId);
                 clonedArgs.AddString("method", method);
                 var uniqueId = this.canvasImpl.CallbackManager.AddFacebookDelegate(callback);
-                this.canvasImpl.canvasJSWrapper.ExternalCall("FBUnity.ui", clonedArgs.ToJsonString(), uniqueId, this.callbackMethod);
+                ui(clonedArgs.ToJsonString (), uniqueId, this.callbackMethod);
             }
         }
     }

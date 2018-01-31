@@ -42,6 +42,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import com.facebook.*;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.appevents.internal.ActivityLifecycleTracker;
+import com.facebook.appevents.internal.AutomaticAnalyticsLogger;
 import com.facebook.applinks.AppLinkData;
 import com.facebook.internal.BundleJSONConverter;
 import com.facebook.internal.Utility;
@@ -246,6 +247,11 @@ public class FB {
     }
 
     @UnityCallable
+    public static boolean IsImplicitPurchaseLoggingEnabled() {
+      return AutomaticAnalyticsLogger.isImplicitPurchaseLoggingEnabled();
+    }
+
+    @UnityCallable
     public static void SetShareDialogMode(String mode) {
         Log.v(TAG, "SetShareDialogMode(" + mode + ")");
         if (mode.equalsIgnoreCase("NATIVE")) {
@@ -356,16 +362,6 @@ public class FB {
                 unityMessage.sendError(e.getMessage());
             }
         });
-
-        AppLinkData.fetchDeferredAppLinkData(
-                getUnityActivity(),
-                new AppLinkData.CompletionHandler() {
-                    @Override
-                    public void onDeferredAppLinkDataFetched(AppLinkData appLinkData) {
-                        FB.addAppLinkToMessage(unityMessage, appLinkData);
-                        unityMessage.send();
-                    }
-                });
     }
 
     /**

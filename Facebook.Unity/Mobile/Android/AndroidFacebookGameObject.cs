@@ -21,12 +21,33 @@
 namespace Facebook.Unity.Mobile.Android
 {
     using UnityEngine;
+    using UnityEngine.SceneManagement;
 
     internal class AndroidFacebookGameObject : MobileFacebookGameObject
     {
         protected override void OnAwake()
         {
             AndroidJNIHelper.debug = Debug.isDebugBuild;
+            CodelessIAPAutoLog.addListenerToIAPButtons(this);
+        }
+
+        void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            CodelessIAPAutoLog.addListenerToIAPButtons(this);
+        }
+
+        void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        public void onPurchaseCompleteHandler(System.Object data) {
+            CodelessIAPAutoLog.handlePurchaseCompleted(data);
         }
     }
 }

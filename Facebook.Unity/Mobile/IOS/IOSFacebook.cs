@@ -253,6 +253,11 @@ namespace Facebook.Unity.Mobile.IOS
             this.iosWrapper.LogPurchaseAppEvent(logPurchase, currency, dict.NumEntries, dict.Keys, dict.Values);
         }
 
+        public override bool IsImplicitPurchaseLoggingEnabled()
+        {
+            return false;
+        }
+
         public override void ActivateApp(string appId)
         {
             // Activate app is logged automatically on ios.

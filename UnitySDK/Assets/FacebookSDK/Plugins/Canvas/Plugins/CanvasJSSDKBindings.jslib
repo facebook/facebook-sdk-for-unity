@@ -18,15 +18,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity.Canvas
-{
-    internal static class CanvasConstants
-    {
-        // Normally we would embed this into the dll but embedded
-        // resources don't work in unity so for now leave this as
-        // a raw string.
-        private const string JSCode = @"
-window.FBUnity = {
+var FBUnity = {
     init: function(connectFacebookUrl, locale, debug, initParams, status) {
         // make element for js sdk
         if(!document.getElementById('fb-root')) {
@@ -55,6 +47,20 @@ window.FBUnity = {
                 FBUnity.onInit();
             }
         };
+    },
+
+    initScreenPosition: function() {
+        if (!screenPosition) {
+            var body = document.getElementsByTagName('body')[0];
+            var screenPosition = {omo : body.onmouseover || function(){}, iframeX: 0, iframeY: 0};
+            body.onmouseover = function(e) {
+                // Distance from top of screen to top of client area
+                screenPosition.iframeX = e.screenX - e.clientX;
+                screenPosition.iframeY = e.screenY - e.clientY;
+
+                screenPosition.omo(e);
+            }
+        }  
     },
 
     sendMessage: function(method, param) {
@@ -204,26 +210,6 @@ window.FBUnity = {
         FBUnity.sendMessage('OnFacebookFocus', 'show');
       }
     }
-};    
+};
 
-if(!screenPosition) {
-    var body = document.getElementsByTagName('body')[0];
-    var screenPosition = {omo : body.onmouseover || function(){}, iframeX: 0, iframeY: 0};
-    body.onmouseover = function(e) {
-        // Distance from top of screen to top of client area
-        screenPosition.iframeX = e.screenX - e.clientX;
-        screenPosition.iframeY = e.screenY - e.clientY;
-
-        screenPosition.omo(e);
-    }
-}";
-
-        internal static string JSSDKBindings
-        {
-            get
-            {
-                return JSCode;
-            }
-        }
-    }
-}
+mergeInto(LibraryManager.library, FBUnity);

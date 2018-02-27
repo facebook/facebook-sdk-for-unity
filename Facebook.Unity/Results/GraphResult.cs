@@ -20,6 +20,7 @@
 
 namespace Facebook.Unity
 {
+    using System;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -49,8 +50,18 @@ namespace Facebook.Unity
             {
                 return;
             }
+            object serailizedResult = null;
+            try
+            {
+                serailizedResult = MiniJSON.Json.Deserialize(this.RawResult);
+            }
+            catch(OverflowException ex)
+            {
+                // Make the result follow the typical contract of containing an error message if it failed.
+                this.Error = ex.ToString();
+                serailizedResult = null;
+            }
 
-            object serailizedResult = MiniJSON.Json.Deserialize(this.RawResult);
             var jsonObject = serailizedResult as IDictionary<string, object>;
             if (jsonObject != null)
             {

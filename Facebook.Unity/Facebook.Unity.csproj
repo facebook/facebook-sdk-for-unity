@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <UnityDllPath Condition=" '$(UnityDllPath)' == '' ">\Applications\Unity\Unity.app\Contents\Managed</UnityDllPath> 
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3DFF6C0C-BB04-405D-A23F-95999630E7F8}</ProjectGuid>
@@ -10,6 +11,8 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <ReleaseVersion>
     </ReleaseVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,7 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="UnityEngine">
-      <HintPath>\Applications\Unity\Unity.app\Contents\Managed\UnityEngine.dll</HintPath>
+      <HintPath>"${UnityDllPath}\UnityEngine.dll"</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -145,6 +148,12 @@
   <ItemGroup>
     <Folder Include="Plugins\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Facebook.Unity.Settings\Facebook.Unity.Settings.csproj">
+      <Project>{BA9BAAC5-5D12-460A-A8B3-428CC1F1CCC6}</Project>
+      <Name>Facebook.Unity.Settings</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
       <Properties>
@@ -154,10 +163,4 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
-  <ItemGroup>
-    <ProjectReference Include="..\Facebook.Unity.Settings\Facebook.Unity.Settings.csproj">
-      <Project>{BA9BAAC5-5D12-460A-A8B3-428CC1F1CCC6}</Project>
-      <Name>Facebook.Unity.Settings</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>

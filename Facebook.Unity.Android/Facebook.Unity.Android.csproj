@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <UnityDllPath Condition=" '$(UnityDllPath)' == '' ">\Applications\Unity\Unity.app\Contents\Managed</UnityDllPath> 
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D3DF5151-7271-4CBA-8F91-85B7845E2FBD}</ProjectGuid>
@@ -32,7 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="UnityEngine">
-      <HintPath>\Applications\Unity\Unity.app\Contents\Managed\UnityEngine.dll</HintPath>
+      <HintPath>${UnityDllPath}\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

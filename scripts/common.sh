@@ -24,7 +24,13 @@ SCRIPTS_DIR="$PROJECT_ROOT/scripts"
 
 CORE_ROOT=$PROJECT_ROOT/Facebook.Unity
 
-UNITY_PATH="/Applications/Unity/Unity.app/Contents/MacOS/Unity"
+if [ -z ${UNITY_PATH+x} ];
+  then UNITY_PATH="/Applications/Unity/Unity.app/Contents/MacOS/Unity";
+fi
+if [  -z ${UNITY_DLL_PATH+x} ];
+  then UNITY_DLL_PATH="/Applications/Unity/Unity.app/Contents/Managed";
+fi
+UNITYDLLPATH=$UNITY_DLL_PATH
 UNITY_PACKAGE_ROOT=$PROJECT_ROOT/UnitySDK
 UNITY_PACKAGE_PLUGIN=$UNITY_PACKAGE_ROOT/Assets/FacebookSDK/Plugins/
 UNITY_ANDROID_PLUGIN=$UNITY_PACKAGE_PLUGIN/Android/
@@ -132,6 +138,8 @@ function downloadUnityJarResolverFromGithub() {
   info "Importing unity-jar-resolver to UnitySDK project..."
 
   UNITY_PACKAGE_PATH="$PROJECT_ROOT/$UNITY_JAR_RESOLVER_PACKAGE"
+
+echo "emmet: $UNITY_PACKAGE_PATH"
 
   $UNITY_PATH -quit -batchmode -logFile -projectPath="$PROJECT_ROOT/UnitySDK" \
    -importPackage "$UNITY_PACKAGE_PATH" || die "Failed to import $UNITY_PACKAGE_PATH"

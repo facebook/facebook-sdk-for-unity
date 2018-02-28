@@ -41,6 +41,10 @@ BUILDING THE SDK
 ./scripts/package_sdk.sh
 ```
 
+NOTE: if you have installed Unity at a non-standard path run the following:
+export UNITY_PATH="/Applications/<ex. Unity2017.2.1p2>/Unity.app/Contents/MacOS/Unity"
+export UNITY_DLL_PATH="\Applications\<ex. Unity2017.2.1p2>\Unity.app\Contents\Managed"
+
 LICENSE
 -------
 Except as otherwise noted, the Facebook SDK for Unity is licensed under the Facebook Platform License (https://github.com/facebook/facebook-sdk-for-unity/blob/master/LICENSE.txt).

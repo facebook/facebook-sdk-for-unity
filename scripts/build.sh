@@ -70,6 +70,9 @@ EDITOR_DLL=$EDITOR_ROOT/bin/Release/Facebook.Unity.Editor.dll
 IOS_ROOT=$PROJECT_ROOT/Facebook.Unity.IOS
 IOS_DLL=$IOS_ROOT/bin/Release/Facebook.Unity.IOS.dll
 
+CANVAS_ROOT=$PROJECT_ROOT/Facebook.Unity.Canvas
+CANVAS_DLL=$CANVAS_ROOT/bin/Release/Facebook.Unity.Canvas.dll
+
 SETTINGS_ROOT=$PROJECT_ROOT/Facebook.Unity.Settings
 SETTINGS_DLL=$SETTINGS_ROOT/bin/Release/Facebook.Unity.Settings.dll
 
@@ -77,6 +80,8 @@ IOS_STRIPPING_HACK_ROOT=$PROJECT_ROOT/Facebook.Unity.IOS.StrippingHack
 IOS_STRIPPING_HACK_DLL=$IOS_STRIPPING_HACK_ROOT/bin/Release/Facebook.Unity.IOS.dll
 ANDROID_STRIPPING_HACK_ROOT=$PROJECT_ROOT/Facebook.Unity.Android.StrippingHack
 ANDROID_STRIPPING_HACK_DLL=$ANDROID_STRIPPING_HACK_ROOT/bin/Release/Facebook.Unity.Android.dll
+CANVAS_STRIPPING_HACK_ROOT=$PROJECT_ROOT/Facebook.Unity.Canvas.StrippingHack
+CANVAS_STRIPPING_HACK_DLL=$CANVAS_STRIPPING_HACK_ROOT/bin/Release/Facebook.Unity.Canvas.dll
 
 CORE_DLL=$CORE_ROOT/bin/Release/Facebook.Unity.dll
 
@@ -94,6 +99,8 @@ sed -i "" -e "s/AssemblyVersion(\"[0-9]\.[0-9]\.[0-9]\")/AssemblyVersion(\"$UNIT
 "$PROJECT_ROOT/Facebook.Unity.IOS.StrippingHack/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Android/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Android.StrippingHack/Properties/AssemblyInfo.cs" \
+"$PROJECT_ROOT/Facebook.Unity.Canvas/Properties/AssemblyInfo.cs" \
+"$PROJECT_ROOT/Facebook.Unity.Canvas.StrippingHack/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Settings/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Tests/Properties/AssemblyInfo.cs" || die "Failed to update the DLL versions"
 
@@ -116,6 +123,7 @@ if [ ! -d "$UNITY_ANDROID_PLUGIN" ]; then
 fi
 cp $ANDROID_DLL $UNITY_ANDROID_PLUGIN || die "Failed to copy Android DLL"
 cp $IOS_STRIPPING_HACK_DLL $UNITY_ANDROID_PLUGIN || die "Failed to copy ios hack DLL"
+cp $CANVAS_STRIPPING_HACK_DLL $UNITY_ANDROID_PLUGIN || die "Failed to copy canvas hack DLL"
 
 if [ ! -d "$UNITY_GAMEROOM_PLUGIN" ]; then
   mkdir -p $UNITY_GAMEROOM_PLUGIN || die "Failed to create Gameroom plugins folder"
@@ -133,6 +141,14 @@ if [ ! -d "$UNITY_IOS_PLUGIN" ]; then
 fi
 cp $IOS_DLL $UNITY_IOS_PLUGIN || die "Failed to copy IOS DLL"
 cp $ANDROID_STRIPPING_HACK_DLL $UNITY_IOS_PLUGIN || die "Failed to copy android hack DLL"
+cp $CANVAS_STRIPPING_HACK_DLL $UNITY_IOS_PLUGIN || die "Failed to copy canvas hack DLL"
+
+if [ ! -d "$UNITY_CANVAS_PLUGIN" ]; then
+  mkdir -p $UNITY_CANVAS_PLUGIN || die "Failed to create Canvas plugins folder"
+fi
+cp $CANVAS_DLL $UNITY_CANVAS_PLUGIN || die "Failed to copy Canvas DLL"
+cp $ANDROID_STRIPPING_HACK_DLL $UNITY_CANVAS_PLUGIN || die "Failed to copy android hack DLL"
+cp $IOS_STRIPPING_HACK_DLL $UNITY_CANVAS_PLUGIN || die "Failed to copy ios hack DLL"
 
 if [ ! -d "$UNITY_SETTINGS_PLUGIN" ]; then
   mkdir -p $UNITY_SETTINGS_PLUGIN || die "Failed to create Settings plugins folder"

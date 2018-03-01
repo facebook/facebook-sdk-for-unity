@@ -23,7 +23,7 @@ namespace Facebook.Unity.Tests
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using Facebook.Unity.Canvas;
+    using Facebook.Unity.Canvas.Webgl;
     using Facebook.Unity.Gameroom;
     using Facebook.Unity.Mobile;
 

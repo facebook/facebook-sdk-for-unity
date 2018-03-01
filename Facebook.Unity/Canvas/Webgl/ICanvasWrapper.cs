@@ -18,13 +18,26 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
+namespace Facebook.Unity.Canvas.Webgl
+{
+    using System.Collections.Generic;
 
-[assembly: AssemblyVersion("7.11.0")]
-[assembly: InternalsVisibleTo("Assembly-CSharp")]
-[assembly: InternalsVisibleTo("Facebook.Unity.Android")]
-[assembly: InternalsVisibleTo("Facebook.Unity.Gameroom")]
-[assembly: InternalsVisibleTo("Facebook.Unity.IOS")]
-[assembly: InternalsVisibleTo("Facebook.Unity.Canvas")]
-[assembly: InternalsVisibleTo("Facebook.Unity.Tests")]
+    internal interface ICanvasWrapper
+    {
+        void Init(string connectFacebookUrl, string locale, int debug, string initParams, int status);
+
+        void Login(IEnumerable<string> scope, string callback_id);
+
+        void LogOut();
+
+        void ActivateApp();
+
+        void LogAppEvent(string eventName, float? valueToSum, string parameters);
+
+        void LogPurchase(float purchaseAmount, string currency, string parameters);
+
+        void UI(string x, string uid, string callbackMethodName);
+
+        void InitScreenPosition();
+    }
+}

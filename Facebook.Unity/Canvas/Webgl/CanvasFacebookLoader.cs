@@ -18,12 +18,22 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity.Canvas
+namespace Facebook.Unity.Canvas.Webgl
 {
-    internal interface ICanvasJSWrapper
+    internal class CanvasFacebookLoader : FB.CompiledFacebookLoader
     {
-        string GetSDKVersion();
+        protected override FacebookGameObject FBGameObject
+        {
+            get
+            {
+                CanvasFacebookGameObject canvasFB = ComponentFactory.GetComponent<CanvasFacebookGameObject>();
+                if (canvasFB.Facebook == null)
+                {
+                    canvasFB.Facebook = new CanvasFacebook();
+                }
 
-        void DisableFullScreen();
+                return canvasFB;
+            }
+        }
     }
 }

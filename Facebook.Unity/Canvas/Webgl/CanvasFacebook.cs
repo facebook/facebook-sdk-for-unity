@@ -18,7 +18,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity.Canvas
+namespace Facebook.Unity.Canvas.Webgl
 {
     using System;
     using System.Collections.Generic;
@@ -39,41 +39,21 @@ namespace Facebook.Unity.Canvas
 
         private string appId;
         private string appLinkUrl;
+        private ICanvasWrapper wrapper;
         private ICanvasJSWrapper canvasJSWrapper;
         private HideUnityDelegate onHideUnityDelegate;
 
-        [DllImport("__Internal")]
-        private static extern void init(string connectFacebookUrl, string locale, int debug, string initParams, int status);
 
-        [DllImport("__Internal")]
-        private static extern void login(IEnumerable<string> scope, string callback_id);
-
-        [DllImport("__Internal")]
-        private static extern void logout();
-
-        [DllImport("__Internal")]
-        private static extern void activateApp();
-
-        [DllImport("__Internal")]
-        private static extern void logAppEvent(string eventName, float? valueToSum, string parameters);
-
-        [DllImport("__Internal")]
-        private static extern void logPurchase(float purchaseAmount, string currency, string parameters);
-
-        [DllImport("__Internal")]
-        private static extern void ui(string x, string uid, string callbackMethodName);
-
-        [DllImport("__Internal")]
-        private static extern void initScreenPosition();
 
         public CanvasFacebook()
-            : this(new CanvasJSWrapper(), new CallbackManager())
+            : this(GetCanvasWrapper(), new CanvasJSWrapper(), new CallbackManager())
         {
         }
 
-        public CanvasFacebook(ICanvasJSWrapper canvasJSWrapper, CallbackManager callbackManager)
+        public CanvasFacebook(ICanvasWrapper wrapper, ICanvasJSWrapper canvasJSWrapper, CallbackManager callbackManager)
             : base(callbackManager)
         {
+            this.wrapper = wrapper;
             this.canvasJSWrapper = canvasJSWrapper;
         }
 
@@ -140,7 +120,7 @@ namespace Facebook.Unity.Canvas
         {
             base.Init(onInitComplete);
 
-            initScreenPosition();
+            wrapper.InitScreenPosition();
             this.appId = appId;
             this.onHideUnityDelegate = hideUnityDelegate;
 
@@ -156,7 +136,7 @@ namespace Facebook.Unity.Canvas
             parameters.AddString("version", FB.GraphApiVersion);
 
             // use 1/0 for booleans, otherwise you'll get strings "True"/"False"
-            init(
+            wrapper.Init(
               FacebookConnectURL,
               javascriptSDKLocale,
               loadDebugJSSDK ? 1 : 0,
@@ -169,7 +149,7 @@ namespace Facebook.Unity.Canvas
             FacebookDelegate<ILoginResult> callback)
         {
             this.canvasJSWrapper.DisableFullScreen();
-            login(permissions, CallbackManager.AddFacebookDelegate(callback));
+            wrapper.Login(permissions, CallbackManager.AddFacebookDelegate(callback));
         }
 
         public override void LogInWithReadPermissions(
@@ -177,13 +157,13 @@ namespace Facebook.Unity.Canvas
             FacebookDelegate<ILoginResult> callback)
         {
             this.canvasJSWrapper.DisableFullScreen();
-            login(permissions, CallbackManager.AddFacebookDelegate(callback));
+            wrapper.Login(permissions, CallbackManager.AddFacebookDelegate(callback));
         }
 
         public override void LogOut()
         {
             base.LogOut();
-            logout();
+            wrapper.LogOut();
         }
 
         public override void AppRequest(
@@ -227,7 +207,7 @@ namespace Facebook.Unity.Canvas
 
         public override void ActivateApp(string appId)
         {
-            activateApp();
+            wrapper.ActivateApp();
         }
 
         public override void ShareLink(
@@ -358,7 +338,7 @@ namespace Facebook.Unity.Canvas
             float? valueToSum,
             Dictionary<string, object> parameters)
         {
-            logAppEvent(
+            wrapper.LogAppEvent(
                 logEvent,
                 valueToSum,
                 MiniJSON.Json.Serialize(parameters));
@@ -369,7 +349,7 @@ namespace Facebook.Unity.Canvas
             string currency,
             Dictionary<string, object> parameters)
         {
-            logPurchase(
+            wrapper.LogPurchase(
                 purchaseAmount,
                 currency,
                 MiniJSON.Json.Serialize(parameters));
@@ -443,6 +423,14 @@ namespace Facebook.Unity.Canvas
             {
                 this.onHideUnityDelegate(isGameShown);
             }
+        }
+
+        private static ICanvasWrapper GetCanvasWrapper()
+        {
+            Assembly assembly = Assembly.Load("Facebook.Unity.Canvas");
+            Type type = assembly.GetType("Facebook.Unity.Canvas.CanvasWrapper");
+            ICanvasWrapper canvasWrapper = (ICanvasWrapper)Activator.CreateInstance(type);
+            return canvasWrapper;
         }
 
         private static void FormatAuthResponse(ResultContainer result, Utilities.Callback<ResultContainer> callback)
@@ -594,7 +582,7 @@ namespace Facebook.Unity.Canvas
                 clonedArgs.AddString("app_id", this.canvasImpl.appId);
                 clonedArgs.AddString("method", method);
                 var uniqueId = this.canvasImpl.CallbackManager.AddFacebookDelegate(callback);
-                ui(clonedArgs.ToJsonString (), uniqueId, this.callbackMethod);
+                this.canvasImpl.wrapper.UI(clonedArgs.ToJsonString (), uniqueId, this.callbackMethod);
             }
         }
     }

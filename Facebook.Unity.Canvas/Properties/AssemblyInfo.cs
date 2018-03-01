@@ -18,9 +18,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity.Canvas
-{
-    internal interface ICanvasFacebook : IPayFacebook, IFacebook
-    {
-    }
-}
+using System.Reflection;
+using System.Runtime.CompilerServices;
+
+[assembly: AssemblyVersion("7.11.0")]

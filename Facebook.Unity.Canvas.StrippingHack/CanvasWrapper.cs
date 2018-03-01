@@ -20,21 +20,7 @@
 
 namespace Facebook.Unity.Canvas
 {
-    using UnityEngine;
-
-    internal class CanvasJSWrapper : ICanvasJSWrapper
+    public class CanvasWrapper
     {
-        public string GetSDKVersion()
-        {
-            return Constants.GraphApiVersion;
-        }
-
-        public void DisableFullScreen()
-        {
-            if (Screen.fullScreen)
-            {
-                Screen.fullScreen = false;
-            }
-        }
     }
 }

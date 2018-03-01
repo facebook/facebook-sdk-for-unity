@@ -18,19 +18,9 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity.Canvas
+namespace Facebook.Unity.Canvas.Webgl
 {
-    internal interface ICanvasFacebookCallbackHandler : IFacebookCallbackHandler
+    internal interface ICanvasFacebook : IPayFacebook, IFacebook
     {
-        void OnPayComplete(string message);
-
-        // Called when the JSSDK event authResponseChange is fired when a user logins in
-        // Using something such as a login button from the JSSDK.
-        void OnFacebookAuthResponseChange(string message);
-
-        // Used for deeplinking
-        void OnUrlResponse(string message);
-
-        void OnHideUnity(bool hide);
     }
 }

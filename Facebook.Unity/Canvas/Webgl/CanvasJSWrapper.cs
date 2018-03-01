@@ -18,13 +18,23 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
+namespace Facebook.Unity.Canvas.Webgl
+{
+    using UnityEngine;
 
-[assembly: AssemblyVersion("7.11.0")]
-[assembly: InternalsVisibleTo("Assembly-CSharp")]
-[assembly: InternalsVisibleTo("Facebook.Unity.Android")]
-[assembly: InternalsVisibleTo("Facebook.Unity.Gameroom")]
-[assembly: InternalsVisibleTo("Facebook.Unity.IOS")]
-[assembly: InternalsVisibleTo("Facebook.Unity.Canvas")]
-[assembly: InternalsVisibleTo("Facebook.Unity.Tests")]
+    internal class CanvasJSWrapper : ICanvasJSWrapper
+    {
+        public string GetSDKVersion()
+        {
+            return Constants.GraphApiVersion;
+        }
+
+        public void DisableFullScreen()
+        {
+            if (Screen.fullScreen)
+            {
+                Screen.fullScreen = false;
+            }
+        }
+    }
+}

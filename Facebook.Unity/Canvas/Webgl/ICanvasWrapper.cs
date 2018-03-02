@@ -26,7 +26,7 @@ namespace Facebook.Unity.Canvas.Webgl
     {
         void Init(string connectFacebookUrl, string locale, int debug, string initParams, int status);
 
-        void Login(IEnumerable<string> scope, string callback_id);
+        void Login(string scope, string callback_id);
 
         void LogOut();
 

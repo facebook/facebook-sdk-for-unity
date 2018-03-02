@@ -49,7 +49,7 @@ namespace Facebook.Unity.Tests.Canvas
             // noop
         }
         
-        public void Login(IEnumerable<string> scope, string callback_id)
+        public void Login(string scope, string callback_id)
         {
             // noop
         }

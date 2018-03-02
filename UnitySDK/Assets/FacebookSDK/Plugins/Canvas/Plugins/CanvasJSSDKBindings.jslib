@@ -18,9 +18,129 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-var FBUnity = {
+var FBUnityImpl = {
+    $FBUnity: {
+        sendMessage: function(method, param) {
+            SendMessage('FacebookJsBridge', method, param);
+        },
+
+        loginCallback: function(callback_id, response) {
+            response = {'callback_id': callback_id, 'response': response};
+            FBUnity.sendMessage('OnLoginComplete', JSON.stringify(response));
+        },
+        
+        onInitWithStatus: function() {
+            var timeoutHandler = setTimeout(function() { requestFailed(); }, 3000);
+
+            function requestFailed() {
+                FBUnity.onInit();
+            }
+
+            // try to get the login status right after init'ing
+            FB.getLoginStatus(function(response) {
+                clearTimeout(timeoutHandler);
+                FBUnity.onInit(response);
+            });
+        },
+
+        onInit: function(response) {
+            var jsonResponse = '';
+            if(response && response.authResponse) {
+                jsonResponse = JSON.stringify(response);
+            }
+            
+            FBUnity.sendMessage('OnInitComplete', jsonResponse);
+            FB.Event.subscribe('auth.authResponseChange', function(r){ FBUnity.onAuthResponseChange(r) });
+
+            FBUnity.logLoadingTime(response);
+        },
+
+        logLoadingTime: function(response) {
+            FB.Canvas.setDoneLoading(
+              function (result) {
+                // send implicitly event to log the time from the canvas pages load to facebook init being called.
+                FBUnity.logAppEvent('fb_canvas_time_till_init_complete', result.time_delta_ms / 1000, null);
+              }
+            );
+        },
+
+
+        onAuthResponseChange: function(response) {
+            FBUnity.sendMessage('OnFacebookAuthResponseChange', response ? JSON.stringify(response) : '');
+        },
+
+        apiCallback: function(query, response) {
+            response = {'query': query, 'response': response};
+            FBUnity.sendMessage('OnFacebookAPIResponse', JSON.stringify(response));
+        },
+
+        api: function(query) {
+            FB.api(query, FBUnity.apiCallback.bind(null , query));
+        },
+
+        uiCallback: function(uid, callbackMethodName, response) {
+            response = {'callback_id': uid, 'response': response};
+            FBUnity.sendMessage(callbackMethodName, JSON.stringify(response));
+        },
+
+        hideUnity: function(direction) {
+            direction = direction || 'hide';
+            //TODO support this for webgl
+            var unityDiv = jQuery(u.getUnity());
+
+            if(direction == 'hide') {
+                FBUnity.sendMessage('OnFacebookFocus', 'hide');
+            } else /*show*/ {
+                FBUnity.sendMessage('OnFacebookFocus', 'show');
+
+                if (FBUnity.showScreenshotBackground.savedBackground) {
+                    /*
+                    if(fbShowScreenshotBackground.savedBackground == 'sentinel') {
+                        jQuery('body').css('background', null);
+                    } else {
+                        jQuery('body').css('background', fbShowScreenshotBackground.savedBackground);
+                    }
+                    */
+                }
+
+                hideUnity.savedCSS = FBUnity.showScreenshotBackground.savedBackground = null;
+            }
+        },
+        
+        showScreenshotBackground: function(pngbytes) /*and hide unity*/ {
+            // window.screenxX and window.screenY = browser position
+            // window.screen.height and window.screen.width = screen size
+            // findPos, above, locates the iframe within the browser
+            /*
+            if (!fbShowScreenshotBackground.savedBackground)
+                fbShowScreenshotBackground.savedBackground = jQuery('body').css('background') || 'sentinel';
+
+            jQuery('body').css('background-image', 'url(data:image/png;base64,'+pngbytes+')');
+            jQuery('body').css(
+                'background-position',
+                -(screenPosition.iframeX)+'px '+
+                -(screenPosition.iframeY)+'px'
+            );
+            jQuery('body').css('background-size', '100%');
+            jquery('body').css('background-repeat', 'no-repeat');
+            // TODO: Zoom detection
+            */
+        },
+        
+        onHideUnity: function(info) {
+          if(info.state == 'opened') {
+            FBUnity.sendMessage('OnFacebookFocus', 'hide');
+          } else {
+            FBUnity.sendMessage('OnFacebookFocus', 'show');
+          }
+        }
+    },
+
     init: function(connectFacebookUrl, locale, debug, initParams, status) {
         // make element for js sdk
+        connectFacebookUrl = Pointer_stringify(connectFacebookUrl);
+        locale = Pointer_stringify(locale);
+        initParams = Pointer_stringify(initParams);
         if(!document.getElementById('fb-root')) {
             var fbroot = document.createElement('div');
             fbroot.id = 'fb-root';
@@ -62,82 +182,25 @@ var FBUnity = {
             }
         }  
     },
-
-    sendMessage: function(method, param) {
-        SendMessage('FacebookJsBridge', method, param);
-    },
     
     login: function(scope, callback_id) {
+        scope = Pointer_stringify(scope);
+        scope = scope.split(',');
+        callback_id = Pointer_stringify(callback_id);
         FB.login(FBUnity.loginCallback.bind(null, callback_id), scope ? {scope: scope, auth_type: 'rerequest', return_scopes: true} : {return_scopes: true});
-    },
-    
-    loginCallback: function(callback_id, response) {
-        response = {'callback_id': callback_id, 'response': response};
-        FBUnity.sendMessage('OnLoginComplete', JSON.stringify(response));
-    },
-    
-    onInitWithStatus: function() {
-        var timeoutHandler = setTimeout(function() { requestFailed(); }, 3000);
-
-        function requestFailed() {
-            FBUnity.onInit();
-        }
-
-        // try to get the login status right after init'ing
-        FB.getLoginStatus(function(response) {
-            clearTimeout(timeoutHandler);
-            FBUnity.onInit(response);
-        });
-    },
-
-    onInit: function(response) {
-        var jsonResponse = '';
-        if(response && response.authResponse) {
-            jsonResponse = JSON.stringify(response);
-        }
-        
-        FBUnity.sendMessage('OnInitComplete', jsonResponse);
-        FB.Event.subscribe('auth.authResponseChange', function(r){ FBUnity.onAuthResponseChange(r) });
-
-        FBUnity.logLoadingTime(response);
-    },
-
-    logLoadingTime: function(response) {
-        FB.Canvas.setDoneLoading(
-          function (result) {
-            // send implicitly event to log the time from the canvas pages load to facebook init being called.
-            FBUnity.logAppEvent('fb_canvas_time_till_init_complete', result.time_delta_ms / 1000, null);
-          }
-        );
-    },
-
-    onAuthResponseChange: function(response) {
-        FBUnity.sendMessage('OnFacebookAuthResponseChange', response ? JSON.stringify(response) : '');
-    },
-
-    apiCallback: function(query, response) {
-        response = {'query': query, 'response': response};
-        FBUnity.sendMessage('OnFacebookAPIResponse', JSON.stringify(response));
-    },
-
-    api: function(query) {
-        FB.api(query, FBUnity.apiCallback.bind(null , query));
-    },
-
-    activateApp: function() {
-        FB.AppEvents.activateApp();
-    },
-
-    uiCallback: function(uid, callbackMethodName, response) {
-        response = {'callback_id': uid, 'response': response};
-        FBUnity.sendMessage(callbackMethodName, JSON.stringify(response));
     },
 
     logout: function() {
         FB.logout();
     },
 
+    activateApp: function() {
+        FB.AppEvents.activateApp();
+    },
+
     logAppEvent: function(eventName, valueToSum, parameters) {
+        eventName = Pointer_stringify(eventName);
+        parameters = Pointer_stringify(parameters);
         FB.AppEvents.logEvent(
             eventName,
             valueToSum,
@@ -146,6 +209,8 @@ var FBUnity = {
     },
 
     logPurchase: function(purchaseAmount, currency, parameters) {
+        currency = Pointer_stringify(currency);
+        parameters = Pointer_stringify(parameters);
         FB.AppEvents.logPurchase(
             purchaseAmount,
             currency,
@@ -154,62 +219,13 @@ var FBUnity = {
     },
 
     ui: function(x, uid, callbackMethodName) {
+        x = Pointer_stringify(x);
+        uid = Pointer_stringify(uid);
+        callbackMethodName = Pointer_stringify(callbackMethodName);
         x = JSON.parse(x);
         FB.ui(x, FBUnity.uiCallback.bind(null, uid, callbackMethodName));
-    },
-
-    
-    hideUnity: function(direction) {
-        direction = direction || 'hide';
-        //TODO support this for webgl
-        var unityDiv = jQuery(u.getUnity());
-
-        if(direction == 'hide') {
-            FBUnity.sendMessage('OnFacebookFocus', 'hide');
-        } else /*show*/ {
-            FBUnity.sendMessage('OnFacebookFocus', 'show');
-
-            if (FBUnity.showScreenshotBackground.savedBackground) {
-                /*
-                if(fbShowScreenshotBackground.savedBackground == 'sentinel') {
-                    jQuery('body').css('background', null);
-                } else {
-                    jQuery('body').css('background', fbShowScreenshotBackground.savedBackground);
-                }
-                */
-            }
-
-            hideUnity.savedCSS = FBUnity.showScreenshotBackground.savedBackground = null;
-        }
-    },
-    
-    showScreenshotBackground: function(pngbytes) /*and hide unity*/ {
-        // window.screenxX and window.screenY = browser position
-        // window.screen.height and window.screen.width = screen size
-        // findPos, above, locates the iframe within the browser
-        /*
-        if (!fbShowScreenshotBackground.savedBackground)
-            fbShowScreenshotBackground.savedBackground = jQuery('body').css('background') || 'sentinel';
-
-        jQuery('body').css('background-image', 'url(data:image/png;base64,'+pngbytes+')');
-        jQuery('body').css(
-            'background-position',
-            -(screenPosition.iframeX)+'px '+
-            -(screenPosition.iframeY)+'px'
-        );
-        jQuery('body').css('background-size', '100%');
-        jquery('body').css('background-repeat', 'no-repeat');
-        // TODO: Zoom detection
-        */
-    },
-    
-    onHideUnity: function(info) {
-      if(info.state == 'opened') {
-        FBUnity.sendMessage('OnFacebookFocus', 'hide');
-      } else {
-        FBUnity.sendMessage('OnFacebookFocus', 'show');
-      }
     }
 };
 
-mergeInto(LibraryManager.library, FBUnity);
+autoAddDeps(FBUnityImpl, '$FBUnity');
+mergeInto(LibraryManager.library, FBUnityImpl);

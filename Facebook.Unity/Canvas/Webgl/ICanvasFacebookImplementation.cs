@@ -18,13 +18,9 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-
-[assembly: AssemblyVersion("7.11.0")]
-[assembly: InternalsVisibleTo("Assembly-CSharp")]
-[assembly: InternalsVisibleTo("Facebook.Unity.Android")]
-[assembly: InternalsVisibleTo("Facebook.Unity.Gameroom")]
-[assembly: InternalsVisibleTo("Facebook.Unity.IOS")]
-[assembly: InternalsVisibleTo("Facebook.Unity.Canvas")]
-[assembly: InternalsVisibleTo("Facebook.Unity.Tests")]
+namespace Facebook.Unity.Canvas.Webgl
+{
+    internal interface ICanvasFacebookImplementation : ICanvasFacebook, ICanvasFacebookResultHandler
+    {
+    }
+}

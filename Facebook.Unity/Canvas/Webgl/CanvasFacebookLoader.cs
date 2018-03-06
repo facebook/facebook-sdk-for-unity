@@ -18,19 +18,22 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity.Canvas
+namespace Facebook.Unity.Canvas.Webgl
 {
-    internal interface ICanvasFacebookCallbackHandler : IFacebookCallbackHandler
+    internal class CanvasFacebookLoader : FB.CompiledFacebookLoader
     {
-        void OnPayComplete(string message);
+        protected override FacebookGameObject FBGameObject
+        {
+            get
+            {
+                CanvasFacebookGameObject canvasFB = ComponentFactory.GetComponent<CanvasFacebookGameObject>();
+                if (canvasFB.Facebook == null)
+                {
+                    canvasFB.Facebook = new CanvasFacebook();
+                }
 
-        // Called when the JSSDK event authResponseChange is fired when a user logins in
-        // Using something such as a login button from the JSSDK.
-        void OnFacebookAuthResponseChange(string message);
-
-        // Used for deeplinking
-        void OnUrlResponse(string message);
-
-        void OnHideUnity(bool hide);
+                return canvasFB;
+            }
+        }
     }
 }

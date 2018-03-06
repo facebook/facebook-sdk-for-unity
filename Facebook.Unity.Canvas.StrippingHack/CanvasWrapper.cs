@@ -20,20 +20,7 @@
 
 namespace Facebook.Unity.Canvas
 {
-    internal class CanvasFacebookLoader : FB.CompiledFacebookLoader
+    public class CanvasWrapper
     {
-        protected override FacebookGameObject FBGameObject
-        {
-            get
-            {
-                CanvasFacebookGameObject canvasFB = ComponentFactory.GetComponent<CanvasFacebookGameObject>();
-                if (canvasFB.Facebook == null)
-                {
-                    canvasFB.Facebook = new CanvasFacebook();
-                }
-
-                return canvasFB;
-            }
-        }
     }
 }

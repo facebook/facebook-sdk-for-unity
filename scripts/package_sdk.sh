@@ -22,7 +22,9 @@
 
 . $(dirname $0)/common.sh
 
-UNITY_PATH="/Applications/Unity/Unity.app/Contents/MacOS/Unity"
+if [ -z ${UNITY_PATH+x} ];
+  then UNITY_PATH="/Applications/Unity/Unity.app/Contents/MacOS/Unity";
+fi
 $UNITY_PATH -batchmode -nographics -projectPath $UNITY_PACKAGE_ROOT -executeMethod FacebookConsoleEndpoint.ExportPackage -quit \
 || die "Failed to export package. Make sure the Facebook.Unity project is not open in Unity"
 

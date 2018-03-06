@@ -21,7 +21,7 @@
 namespace Facebook.Unity.Tests
 {
     using System;
-    using Facebook.Unity.Canvas;
+    using Facebook.Unity.Canvas.Webgl;
     using Facebook.Unity.Editor;
     using Facebook.Unity.Gameroom;
     using Facebook.Unity.Mobile.Android;
@@ -75,7 +75,7 @@ namespace Facebook.Unity.Tests
             {
                 var mockWrapper = new MockCanvas();
                 Constants.CurrentPlatform = FacebookUnityPlatform.WebGL;
-                var facebook = new CanvasFacebook(mockWrapper, callbackManager);
+                var facebook = new CanvasFacebook(mockWrapper, mockWrapper, callbackManager);
                 this.Mock = mockWrapper;
                 this.Mock.Facebook = facebook;
                 FB.FacebookImpl = facebook;

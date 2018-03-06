@@ -18,70 +18,76 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity.Tests.Canvas
+namespace Facebook.Unity.Canvas
 {
-    using System;
+    using System.Runtime.InteropServices;
     using System.Collections.Generic;
     using Facebook.Unity.Canvas.Webgl;
 
-    internal class MockCanvas : MockWrapper, ICanvasJSWrapper, ICanvasWrapper
+    internal class CanvasWrapper : ICanvasWrapper
     {
-        public string IntegrationMethodJs
-        {
-            get
-            {
-                return "alert(\"MockCanvasTest\");";
-            }
-        }
-
-        public string GetSDKVersion()
-        {
-            return "1.0.0";
-        }
-
-        public void DisableFullScreen()
-        {
-            // noop
-        }
-
         public void Init(string connectFacebookUrl, string locale, int debug, string initParams, int status)
         {
-            // noop
+            CanvasWrapper.init(connectFacebookUrl, locale, debug, initParams, status);
         }
-        
-        public void Login(string scope, string callback_id)
+
+        public void Login(string scopes, string callback_id)
         {
-            // noop
+            CanvasWrapper.login(scopes, callback_id);
         }
 
         public void LogOut()
         {
-            // noop
+            CanvasWrapper.logout();
         }
 
         public void ActivateApp()
         {
-            // noop
+            CanvasWrapper.activateApp();
         }
 
         public void LogAppEvent(string eventName, float? valueToSum, string parameters)
         {
-            // noop
+            CanvasWrapper.logAppEvent(eventName, valueToSum, parameters);
         }
 
         public void LogPurchase(float purchaseAmount, string currency, string parameters)
         {
-            // noop
+            CanvasWrapper.logPurchase(purchaseAmount, currency, parameters);
         }
 
         public void UI(string x, string uid, string callbackMethodName)
         {
-            // noop
+            CanvasWrapper.ui(x, uid, callbackMethodName);
         }
 
         public void InitScreenPosition()
         {
-            // noop
+            CanvasWrapper.initScreenPosition();
         }
+
+        [DllImport("__Internal")]
+        private static extern void init(string connectFacebookUrl, string locale, int debug, string initParams, int status);
+
+        [DllImport("__Internal")]
+        private static extern void login(string scope, string callback_id);
+
+        [DllImport("__Internal")]
+        private static extern void logout();
+
+        [DllImport("__Internal")]
+        private static extern void activateApp();
+
+        [DllImport("__Internal")]
+        private static extern void logAppEvent(string eventName, float? valueToSum, string parameters);
+
+        [DllImport("__Internal")]
+        private static extern void logPurchase(float purchaseAmount, string currency, string parameters);
+
+        [DllImport("__Internal")]
+        private static extern void ui(string x, string uid, string callbackMethodName);
+
+        [DllImport("__Internal")]
+        private static extern void initScreenPosition();
     }
 }

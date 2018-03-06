@@ -22,7 +22,7 @@ namespace Facebook.Unity.Editor
 {
     using System;
     using System.Collections.Generic;
-    using Facebook.Unity.Canvas;
+    using Facebook.Unity.Canvas.Webgl;
     using Facebook.Unity.Editor.Dialogs;
     using Facebook.Unity.Mobile;
 

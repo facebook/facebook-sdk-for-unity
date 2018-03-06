@@ -20,7 +20,7 @@
 
 namespace Facebook.Unity.Tests.Canvas
 {
-    using Facebook.Unity.Canvas;
+    using Facebook.Unity.Canvas.Webgl;
     using NUnit.Framework;
 
     [CanvasTest]

@@ -18,12 +18,19 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity.Canvas
+namespace Facebook.Unity.Canvas.Webgl
 {
-    internal interface ICanvasJSWrapper
+    internal interface ICanvasFacebookCallbackHandler : IFacebookCallbackHandler
     {
-        string GetSDKVersion();
+        void OnPayComplete(string message);
 
-        void DisableFullScreen();
+        // Called when the JSSDK event authResponseChange is fired when a user logins in
+        // Using something such as a login button from the JSSDK.
+        void OnFacebookAuthResponseChange(string message);
+
+        // Used for deeplinking
+        void OnUrlResponse(string message);
+
+        void OnHideUnity(bool hide);
     }
 }

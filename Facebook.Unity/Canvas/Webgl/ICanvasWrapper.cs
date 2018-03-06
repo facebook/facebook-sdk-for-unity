@@ -18,23 +18,26 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity.Canvas
+namespace Facebook.Unity.Canvas.Webgl
 {
-    using UnityEngine;
+    using System.Collections.Generic;
 
-    internal class CanvasJSWrapper : ICanvasJSWrapper
+    internal interface ICanvasWrapper
     {
-        public string GetSDKVersion()
-        {
-            return Constants.GraphApiVersion;
-        }
+        void Init(string connectFacebookUrl, string locale, int debug, string initParams, int status);
 
-        public void DisableFullScreen()
-        {
-            if (Screen.fullScreen)
-            {
-                Screen.fullScreen = false;
-            }
-        }
+        void Login(string scope, string callback_id);
+
+        void LogOut();
+
+        void ActivateApp();
+
+        void LogAppEvent(string eventName, float? valueToSum, string parameters);
+
+        void LogPurchase(float purchaseAmount, string currency, string parameters);
+
+        void UI(string x, string uid, string callbackMethodName);
+
+        void InitScreenPosition();
     }
 }

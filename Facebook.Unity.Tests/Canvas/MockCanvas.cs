@@ -43,5 +43,37 @@ namespace Facebook.Unity.Tests.Canvas
         {
             // noop
         }
+
+        public void Init(string connectFacebookUrl, string locale, int debug, string initParams, int status) {
+            // noop
+        }
+
+        public void Login(IEnumerable<string> scope, string callback_id) {
+            // noop
+        }
+
+        public void Logout() {
+            // noop
+        }
+
+        public void ActivateApp() {
+            // noop
+        }
+
+        public void LogAppEvent(string eventName, float? valueToSum, string parameters) {
+            // noop
+        }
+
+        public void LogPurchase(float purchaseAmount, string currency, string parameters) {
+            // noop
+        }
+
+        public void Ui(string x, string uid, string callbackMethodName) {
+            // noop
+        }
+
+        public void InitScreenPosition() {
+            // noop
+        }
     }
 }

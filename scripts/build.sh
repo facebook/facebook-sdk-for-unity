@@ -85,9 +85,10 @@ TEST_ROOT=$PROJECT_ROOT/Facebook.Unity.Tests
 ###############################################################################
 # UPDATE BUILD VERSION
 ###############################################################################
-sed -i "" -e "s/[0-9]\.[0-9]\.[0-9]/$UNITY_SDK_BUILD_VERSION/g" "$PROJECT_ROOT/Facebook.Unity/FacebookSdkVersion.cs" || die "Failed to update the version"
-sed -i "" -e "s/AssemblyVersion(\"[0-9]\.[0-9]\.[0-9]\")/AssemblyVersion(\"$UNITY_SDK_BUILD_VERSION\")/g" \
+sed -i "" -e "s/[0-9]\.[0-9][0-9]\.[0-9]/$UNITY_SDK_BUILD_VERSION/g" "$PROJECT_ROOT/Facebook.Unity/FacebookSdkVersion.cs" || die "Failed to update the version"
+sed -i "" -e "s/AssemblyVersion(\"[0-9]\.[0-9][0-9]\.[0-9]\")/AssemblyVersion(\"$UNITY_SDK_BUILD_VERSION\")/g" \
 "$PROJECT_ROOT/Facebook.Unity/Properties/AssemblyInfo.cs" \
+"$PROJECT_ROOT/Facebook.Unity.Canvas/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Gameroom/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Editor/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.IOS/Properties/AssemblyInfo.cs" \

@@ -18,23 +18,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity.Canvas
-{
-    using UnityEngine;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
-    internal class CanvasJSWrapper : ICanvasJSWrapper
-    {
-        public string GetSDKVersion()
-        {
-            return Constants.GraphApiVersion;
-        }
-
-        public void DisableFullScreen()
-        {
-            if (Screen.fullScreen)
-            {
-                Screen.fullScreen = false;
-            }
-        }
-    }
-}
+[assembly: AssemblyVersion("7.11.1")]

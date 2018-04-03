@@ -24,7 +24,7 @@ namespace Facebook.Unity
     using System.Globalization;
     using UnityEngine;
 
-    internal static class Constants
+    public static class Constants
     {
         // Callback keys
         public const string CallbackIdKey = "callback_id";

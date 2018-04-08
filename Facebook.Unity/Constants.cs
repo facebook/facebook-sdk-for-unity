@@ -44,7 +44,7 @@ namespace Facebook.Unity
         public const string OnGroupJoinCompleteMethodName = "OnJoinGroupComplete";
 
         // Graph API
-        public const string GraphApiVersion = "v2.6";
+        public const string GraphApiVersion = "v2.12";
         public const string GraphUrlFormat = "https://graph.{0}/{1}/";
 
         // Permission Strings

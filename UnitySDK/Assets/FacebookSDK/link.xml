@@ -5,4 +5,7 @@
   <assembly fullname="Facebook.Unity.IOS" ignoreIfMissing="1">
     <type fullname="Facebook.Unity.IOS.*" preserve="all"/>
   </assembly>
+  <assembly fullname="Facebook.Unity.Canvas" ignoreIfMissing="1">
+    <type fullname="Facebook.Unity.Canvas.*" preserve="all"/>
+  </assembly>
 </linker>

@@ -226,16 +226,12 @@ var FBUnityLib = {
     },
 
     login: function(scope, callback_id) {
-        //TODO: Not sure if this works ('cause fb user is automatically logged in on unity facebook webgl games and on our game the fb user can't log out inside the webgl game).
-
-        //i hope the scope is an array of pointers
-        var scopeStringArray = [];
-        for(var i=0;i<scope.length;i++)
-            scopeStringArray[i] = Pointer_stringify(scope[i]);
+        var scopeString = Pointer_stringify(scope);
+        var scopeArray = JSON.parse(scopeString);
 
         var callback_idString = Pointer_stringify(callback_id);
 
-        FBUnity.login(scopeStringArray, callback_idString);
+        FBUnity.login(scopeArray, callback_idString);
     },
 
     activateApp: function() {
@@ -251,6 +247,13 @@ var FBUnityLib = {
         var parametersString = Pointer_stringify(parameters);
 
         FBUnity.logAppEvent(eventNameString, valueToSum, parametersString);
+    },
+
+    logAppEventWithoutValue: function(eventName, parameters) {
+        var eventNameString = Pointer_stringify(eventName);
+        var parametersString = Pointer_stringify(parameters);
+
+        FBUnity.logAppEvent(eventNameString, null, parametersString);
     },
 
     logPurchase: function(purchaseAmount, currency, parameters) {

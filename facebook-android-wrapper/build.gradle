@@ -11,13 +11,16 @@ allprojects {
 buildscript {
     repositories {
         mavenCentral()
+        maven {
+          url "https://maven.google.com"
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.3'
     }
 }
 
-def fbSdkVersion = project.hasProperty("sdkVersion") ? sdkVersion : '4.28.0'
+def fbSdkVersion = project.hasProperty("sdkVersion") ? sdkVersion : '4.33.0'
 
 repositories {
     // If we are doing a local build use our local dir
@@ -27,6 +30,9 @@ repositories {
         }
     } else {
       mavenCentral()
+      maven {
+        url "https://maven.google.com"
+      }
     }
 }
 
@@ -45,7 +51,7 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion '23.0.1'
 
     defaultConfig {

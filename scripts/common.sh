@@ -52,11 +52,11 @@ SDK_VERSION_SHORT=$(echo $SDK_VERSION | sed 's/\.0$//')
 
 OUT="$PROJECT_ROOT/out"
 MAVEN_BASE_URL='http://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=%s&a=%s&p=%s&v=%s'
-FACEBOOK_BASE_URL='https://origincache.facebook.com/developers/resources/?id=%s-%s-unity.zip'
+FACEBOOK_BASE_URL='https://origincache.facebook.com/developers/resources/?id=%s-%s.zip'
 UNITY_JAR_RESOLVER_NAME='unity-jar-resolver'
 UNITY_JAR_RESOLVER_PACKAGE_NAME='play-services-resolver'
 UNITY_JAR_RESOLVER_BASE_URL="https://github.com/googlesamples/$UNITY_JAR_RESOLVER_NAME/raw/master/"
-UNITY_JAR_RESOLVER_VERSION='1.2.61.0'
+UNITY_JAR_RESOLVER_VERSION='1.2.69.0'
 UNITY_JAR_RESOLVER_URL="$UNITY_JAR_RESOLVER_BASE_URL$UNITY_JAR_RESOLVER_PACKAGE_NAME-$UNITY_JAR_RESOLVER_VERSION.unitypackage"
 
 FB_SDK_MODULES=(

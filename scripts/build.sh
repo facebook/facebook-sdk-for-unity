@@ -67,6 +67,9 @@ GAMEROOM_NAMED_PIPE_DLL=$GAMEROOM_ROOT/bin/Release/FacebookNamedPipeClient.dll
 EDITOR_ROOT=$PROJECT_ROOT/Facebook.Unity.Editor
 EDITOR_DLL=$EDITOR_ROOT/bin/Release/Facebook.Unity.Editor.dll
 
+CANVAS_ROOT=$PROJECT_ROOT/Facebook.Unity.Canvas
+CANVAS_DLL=$CANVAS_ROOT/bin/Release/Facebook.Unity.Canvas.dll
+
 IOS_ROOT=$PROJECT_ROOT/Facebook.Unity.IOS
 IOS_DLL=$IOS_ROOT/bin/Release/Facebook.Unity.IOS.dll
 
@@ -128,6 +131,11 @@ if [ ! -d "$UNITY_EDITOR_PLUGIN" ]; then
   mkdir -p $UNITY_EDITOR_PLUGIN || die "Failed to create Editor plugins folder"
 fi
 cp $EDITOR_DLL $UNITY_EDITOR_PLUGIN || die "Failed to copy Editor DLL"
+
+if [ ! -d "$UNITY_CANVAS_PLUGIN" ]; then
+  mkdir -p $UNITY_CANVAS_PLUGIN || die "Failed to create Canvas plugins folder"
+fi
+cp $CANVAS_DLL $UNITY_CANVAS_PLUGIN || die "Failed to copy Canvas DLL"
 
 if [ ! -d "$UNITY_IOS_PLUGIN" ]; then
   mkdir -p $UNITY_IOS_PLUGIN || die "Failed to create IOS plugins folder"

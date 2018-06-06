@@ -49,4 +49,11 @@
   <ItemGroup>
     <Folder Include="Plugins\" />
   </ItemGroup>
+  <ItemGroup>
+    <ContentWithTargetPath Include="Plugins\CanvasJSSDKBindings.jslib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>CanvasJSSDKBindings.jslib</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+
 </Project>

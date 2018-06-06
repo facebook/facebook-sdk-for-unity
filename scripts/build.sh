@@ -60,6 +60,10 @@ UNITY_CSPROJ=$UNITY_PACKAGE_ROOT/Assembly-CSharp.csproj
 ANDROID_ROOT=$PROJECT_ROOT/Facebook.Unity.Android
 ANDROID_DLL=$ANDROID_ROOT/bin/Release/Facebook.Unity.Android.dll
 
+CANVAS_ROOT=$PROJECT_ROOT/Facebook.Unity.Canvas
+CANVAS_DLL=$CANVAS_ROOT/bin/Release/Facebook.Unity.Canvas.dll
+CANVAS_JSLIB=$CANVAS_ROOT/bin/Release/CanvasJSSDKBindings.jslib
+
 GAMEROOM_ROOT=$PROJECT_ROOT/Facebook.Unity.Gameroom
 GAMEROOM_DLL=$GAMEROOM_ROOT/bin/Release/Facebook.Unity.Gameroom.dll
 GAMEROOM_NAMED_PIPE_DLL=$GAMEROOM_ROOT/bin/Release/FacebookNamedPipeClient.dll
@@ -105,12 +109,18 @@ which mono &>/dev/null || die "mono command not found. Please install mono."
 xbuild /p:Configuration=$BUILD_TYPE $PROJECT_SLN || die "Facebook.sln Build Failed"
 
 ###############################################################################
-# COPY DLLS
+# COPY PLUGINS
 ###############################################################################
 if [ ! -d "$UNITY_PACKAGE_PLUGIN" ]; then
   mkdir -p $UNITY_PACKAGE_PLUGIN || die "Failed to create core plugins folder"
 fi
 cp $CORE_DLL $UNITY_PACKAGE_PLUGIN || die "Failed to copy core DLL"
+
+if [ ! -d "$UNITY_CANVAS_PLUGIN" ]; then
+  mkdir -p $UNITY_CANVAS_PLUGIN || die "Failed to create Canvas plugins folder"
+fi
+cp $CANVAS_DLL $UNITY_CANVAS_PLUGIN || die "Failed to copy Canvas DLL"
+cp $CANVAS_JSLIB $UNITY_CANVAS_PLUGIN || die "Failed to copy Canvas JSLIB"
 
 if [ ! -d "$UNITY_ANDROID_PLUGIN" ]; then
   mkdir -p $UNITY_ANDROID_PLUGIN || die "Failed to create Android plugins folder"

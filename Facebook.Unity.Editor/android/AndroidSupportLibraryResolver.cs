@@ -92,19 +92,18 @@ namespace Facebook.Unity.Editor
                     }
                 });
 
-            AndroidSupportLibraryResolver.addSupportLibraryDepenency(svcSupport, "support-v4", "25.3.1");
-            AndroidSupportLibraryResolver.addSupportLibraryDepenency(svcSupport, "appcompat-v7", "25.3.1");
-            AndroidSupportLibraryResolver.addSupportLibraryDepenency(svcSupport, "cardview-v7", "25.3.1");
-            AndroidSupportLibraryResolver.addSupportLibraryDepenency(svcSupport, "customtabs", "25.3.1");
+            AndroidSupportLibraryResolver.addSupportLibraryDependency(svcSupport, "support-v4", "25.3.1");
+            AndroidSupportLibraryResolver.addSupportLibraryDependency(svcSupport, "appcompat-v7", "25.3.1");
+            AndroidSupportLibraryResolver.addSupportLibraryDependency(svcSupport, "cardview-v7", "25.3.1");
+            AndroidSupportLibraryResolver.addSupportLibraryDependency(svcSupport, "customtabs", "25.3.1");
 
         }
 
-        public static void addSupportLibraryDepenency(
+        public static void addSupportLibraryDependency(
             object svcSupport,
             String packageName,
             String version)
         {
-            Debug.LogWarning("App - " + packageName + ":" + version);
             Google.VersionHandler.InvokeInstanceMethod(
                 svcSupport,
                 "DependOn",

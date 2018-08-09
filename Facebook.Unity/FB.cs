@@ -41,6 +41,7 @@ namespace Facebook.Unity
         private static bool isInitCalled = false;
         private static string facebookDomain = "facebook.com";
         private static string graphApiVersion = Constants.GraphApiVersion;
+        private static bool isImplicitPurchaseLoggingEnabled = true;
 
         private delegate void OnDLLLoaded();
 
@@ -921,9 +922,16 @@ namespace Facebook.Unity
             /// <summary>
             /// Returns the setting for Automatic Purchase Logging
             /// </summary>
-            public static bool IsImplicitPurchaseLoggingEnabled()
+            public static bool IsImplicitPurchaseLoggingEnabled
             {
-                return Mobile.MobileFacebookImpl.IsImplicitPurchaseLoggingEnabled();
+                get
+                {
+                    return isImplicitPurchaseLoggingEnabled && Mobile.MobileFacebookImpl.IsImplicitPurchaseLoggingEnabled();
+                }
+                set
+                {
+                    isImplicitPurchaseLoggingEnabled = value;    
+                }
             }
         }
 

@@ -30,7 +30,7 @@ namespace Facebook.Unity
     {
         internal static void handlePurchaseCompleted(System.Object data) {
             try {
-                if (!FB.Mobile.IsImplicitPurchaseLoggingEnabled()) {
+                if (!FB.Mobile.IsImplicitPurchaseLoggingEnabled) {
                     return;
                 }
                 object metadata =  CodelessIAPAutoLog.GetProperty(data, "metadata");

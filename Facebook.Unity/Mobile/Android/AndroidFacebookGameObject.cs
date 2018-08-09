@@ -28,26 +28,43 @@ namespace Facebook.Unity.Mobile.Android
         protected override void OnAwake()
         {
             AndroidJNIHelper.debug = Debug.isDebugBuild;
-            CodelessIAPAutoLog.addListenerToIAPButtons(this);
+
+            if (FB.Mobile.IsImplicitPurchaseLoggingEnabled)
+            {
+                CodelessIAPAutoLog.addListenerToIAPButtons(this);
+            }
         }
 
         void OnEnable()
         {
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            if (FB.Mobile.IsImplicitPurchaseLoggingEnabled)
+            {
+                SceneManager.sceneLoaded += OnSceneLoaded;
+            }
         }
 
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            CodelessIAPAutoLog.addListenerToIAPButtons(this);
+            if (FB.Mobile.IsImplicitPurchaseLoggingEnabled)
+            {
+                CodelessIAPAutoLog.addListenerToIAPButtons(this);
+            }
         }
 
         void OnDisable()
         {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
+            if (FB.Mobile.IsImplicitPurchaseLoggingEnabled)
+            {
+                SceneManager.sceneLoaded -= OnSceneLoaded;
+            }
         }
 
         public void onPurchaseCompleteHandler(System.Object data) {
-            CodelessIAPAutoLog.handlePurchaseCompleted(data);
+
+            if (FB.implicitLoggingEnabled)
+            {
+                CodelessIAPAutoLog.handlePurchaseCompleted(data);
+            }
         }
     }
 }

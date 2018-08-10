@@ -61,7 +61,7 @@ namespace Facebook.Unity.Mobile.Android
 
         public void onPurchaseCompleteHandler(System.Object data) {
 
-            if (FB.implicitLoggingEnabled)
+            if (FB.Mobile.IsImplicitPurchaseLoggingEnabled)
             {
                 CodelessIAPAutoLog.handlePurchaseCompleted(data);
             }

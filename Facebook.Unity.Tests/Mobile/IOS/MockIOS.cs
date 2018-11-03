@@ -167,6 +167,11 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             this.LogMethodCall();
         }
 
+        public void FBAutoLogAppEventsEnabled(bool autoLogAppEventsEnabled)
+        {
+            this.LogMethodCall();
+        }
+
         public void GetAppLink(int requestId)
         {
             var result = MockResults.GetGenericResult(requestId, this.ResultExtras);

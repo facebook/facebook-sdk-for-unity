@@ -66,6 +66,8 @@ namespace Facebook.Unity.Mobile
 
         public abstract bool IsImplicitPurchaseLoggingEnabled();
 
+        public abstract void SetAutoLogAppEventsEnabled (bool autoLogAppEventsEnabled);
+
         public override void OnLoginComplete(ResultContainer resultContainer)
         {
             var result = new LoginResult(resultContainer);

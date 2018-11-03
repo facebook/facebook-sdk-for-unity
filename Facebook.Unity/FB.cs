@@ -925,6 +925,10 @@ namespace Facebook.Unity
             {
                 return Mobile.MobileFacebookImpl.IsImplicitPurchaseLoggingEnabled();
             }
+
+            public static void SetAutoLogAppEventsEnabled (bool autoLogAppEventsEnabled){
+                Mobile.MobileFacebookImpl.SetAutoLogAppEventsEnabled(autoLogAppEventsEnabled);
+            }
         }
 
         /// <summary>

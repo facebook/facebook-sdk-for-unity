@@ -95,6 +95,8 @@ namespace Facebook.Unity.Mobile.IOS
 
         void FBAppEventsSetLimitEventUsage(bool limitEventUsage);
 
+        void FBAutoLogAppEventsEnabled (bool autoLogAppEventsEnabled);
+
         void GetAppLink(int requestId);
 
         void RefreshCurrentAccessToken(int requestId);

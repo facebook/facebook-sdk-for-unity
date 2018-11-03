@@ -38,5 +38,7 @@ namespace Facebook.Unity.Mobile
             FacebookDelegate<IAccessTokenRefreshResult> callback);
 
         bool IsImplicitPurchaseLoggingEnabled();
+
+        void SetAutoLogAppEventsEnabled(bool autoLogAppEventsEnabled);
     }
 }

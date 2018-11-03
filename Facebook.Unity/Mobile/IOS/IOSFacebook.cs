@@ -69,6 +69,11 @@ namespace Facebook.Unity.Mobile.IOS
             }
         }
 
+        public override void SetAutoLogAppEventsEnabled(bool autoLogAppEventsEnabled)
+        {
+            this.iosWrapper.FBAutoLogAppEventsEnabled(autoLogAppEventsEnabled);
+        }
+
         public override string SDKName
         {
             get

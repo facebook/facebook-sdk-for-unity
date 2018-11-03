@@ -35,6 +35,7 @@ namespace Facebook.Unity.Editor
         private const string FacebookCFBundleURLName = "facebook-unity-sdk";
         private const string FacebookAppIDKey = "FacebookAppID";
         private const string FacebookAppIDPrefix = "fb";
+        private const string AutoLogAppEventsEnabled = "FacebookAutoLogAppEventsEnabled";
 
         private static readonly IList<object> FacebookLSApplicationQueriesSchemes = new List<object>()
         {
@@ -71,6 +72,9 @@ namespace Facebook.Unity.Editor
         {
             // Set the facbook app ID
             this.XMLDict[PListParser.FacebookAppIDKey] = appID;
+
+            // Set the Auto Log AppEvents Enabled
+            this.XMLDict[PListParser.AutoLogAppEventsEnabled] = false;
 
             // Set the requried schemas for this app
             SetCFBundleURLSchemes(this.XMLDict, appID, urlSuffix, appLinkSchemes);

@@ -41,6 +41,7 @@ namespace Facebook.Unity.Editor
         public const string UnityGameGroupJoinActivityName = "com.facebook.unity.FBUnityJoinGameGroupActivity";
         public const string UnityAppInviteDialogActivityName = "com.facebook.unity.AppInviteDialogActivity";
         public const string ApplicationIdMetaDataName = "com.facebook.sdk.ApplicationId";
+        public const string AutoLogAppEventsEnabled = "com.facebook.sdk.AutoLogAppEventsEnabled";
         public const string FacebookContentProviderName = "com.facebook.FacebookContentProvider";
         public const string FacebookContentProviderAuthFormat = "com.facebook.app.FacebookContentProvider{0}";
         public const string FacebookActivityName = "com.facebook.FacebookActivity";
@@ -160,6 +161,13 @@ namespace Facebook.Unity.Editor
             appIdElement.SetAttribute("name", ns, ApplicationIdMetaDataName);
             appIdElement.SetAttribute("value", ns, "fb" + appId);
             ManifestMod.SetOrReplaceXmlElement(dict, appIdElement);
+
+            // disable AutoLogAppEventsEnabled
+            // <meta-data android:name="com.facebook.sdk.AutoLogAppEventsEnabled" android:value="false"/>
+            XmlElement autoLogAppEventsEnabledElement = doc.CreateElement("meta-data");
+            autoLogAppEventsEnabledElement.SetAttribute("name", ns, AutoLogAppEventsEnabled);
+            autoLogAppEventsEnabledElement.SetAttribute("value", ns, "false");
+            ManifestMod.SetOrReplaceXmlElement(dict, autoLogAppEventsEnabledElement);
 
             // Add the facebook content provider
             // <provider

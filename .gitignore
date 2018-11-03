@@ -95,6 +95,9 @@ ads/Assets/AudienceNetwork/Plugins/Android/libs/ads-release.aar.meta
 ads/Assets/AudienceNetwork/Plugins/iOS/libs/FBAudienceNetwork.framework/*.h.meta
 ads/Assets/AudienceNetwork/Plugins/iOS/libs/FBAudienceNetwork.framework/Headers/*.h.meta
 
+# Visual Studio
+ads/.vs/
+
 # Buck
 /buck-out
 /.buckconfig.local

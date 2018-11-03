@@ -76,7 +76,9 @@ static FBUnityInterface *_instance = [FBUnityInterface sharedInstance];
 
 - (void)didBecomeActive:(NSNotification *)notification
 {
-  [FBSDKAppEvents activateApp];
+  if ([[FBSDKSettings autoLogAppEventsEnabled] boolValue]) {
+    [FBSDKAppEvents activateApp];
+  }
 }
 
 - (void)onOpenURL:(NSNotification *)notification
@@ -488,6 +490,11 @@ extern "C" {
   void IOSFBAppEventsSetLimitEventUsage(BOOL limitEventUsage)
   {
     [FBSDKSettings setLimitEventAndDataUsage:limitEventUsage];
+  }
+
+  void IOSFBAutoLogAppEventsEnabled(BOOL autoLogAppEventsEnabledID)
+  {  	
+    [FBSDKSettings setAutoLogAppEventsEnabled:[NSNumber numberWithBool:autoLogAppEventsEnabledID]];
   }
 
   char* IOSFBSdkVersion()

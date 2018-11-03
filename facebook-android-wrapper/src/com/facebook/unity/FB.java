@@ -96,7 +96,9 @@ public class FB {
                     unityMessage.put("key_hash", FB.getKeyHash());
                 }
 
-                FB.ActivateApp(appID);
+                if (FacebookSdk.getAutoLogAppEventsEnabled()) {
+                    FB.ActivateApp(appID);
+                }
 
                 unityMessage.send();
             }

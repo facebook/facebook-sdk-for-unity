@@ -20,7 +20,7 @@ buildscript {
     }
 }
 
-def fbSdkVersion = project.hasProperty("sdkVersion") ? sdkVersion : '4.33.0'
+def fbSdkVersion = project.hasProperty("sdkVersion") ? sdkVersion : '4.38.1'
 
 repositories {
     // If we are doing a local build use our local dir

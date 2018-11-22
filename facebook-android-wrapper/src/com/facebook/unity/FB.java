@@ -214,6 +214,12 @@ public class FB {
     }
 
     @UnityCallable
+    public static void SetAutoLogAppEventsEnabled(String params_str) {
+        Log.v(TAG, "SetAutoLogAppEventsEnabled(" + params_str + ")");
+        FacebookSdk.setAutoLogAppEventsEnabled(Boolean.valueOf(params_str));
+    }
+
+    @UnityCallable
     public static void LogAppEvent(String params_str) {
         Log.v(TAG, "LogAppEvent(" + params_str + ")");
         UnityParams unity_params = UnityParams.parse(params_str);

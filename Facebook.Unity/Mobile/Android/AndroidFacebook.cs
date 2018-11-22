@@ -63,7 +63,7 @@ namespace Facebook.Unity.Mobile.Android
 
         public override void SetAutoLogAppEventsEnabled(bool autoLogAppEventsEnabled)
         {
-            this.CallFB("setAutoLogAppEventsEnabled", autoLogAppEventsEnabled.ToString());
+            this.CallFB("SetAutoLogAppEventsEnabled", autoLogAppEventsEnabled.ToString());
         }
 
         public override string SDKName

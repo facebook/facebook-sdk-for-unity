@@ -162,11 +162,11 @@ namespace Facebook.Unity.Editor
             appIdElement.SetAttribute("value", ns, "fb" + appId);
             ManifestMod.SetOrReplaceXmlElement(dict, appIdElement);
 
-            // disable AutoLogAppEventsEnabled
-            // <meta-data android:name="com.facebook.sdk.AutoLogAppEventsEnabled" android:value="false"/>
+            // enable AutoLogAppEventsEnabled by default
+            // <meta-data android:name="com.facebook.sdk.AutoLogAppEventsEnabled" android:value="true"/>
             XmlElement autoLogAppEventsEnabledElement = doc.CreateElement("meta-data");
             autoLogAppEventsEnabledElement.SetAttribute("name", ns, AutoLogAppEventsEnabled);
-            autoLogAppEventsEnabledElement.SetAttribute("value", ns, "false");
+            autoLogAppEventsEnabledElement.SetAttribute("value", ns, "true");
             ManifestMod.SetOrReplaceXmlElement(dict, autoLogAppEventsEnabledElement);
 
             // Add the facebook content provider

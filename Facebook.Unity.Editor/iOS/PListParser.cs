@@ -74,7 +74,7 @@ namespace Facebook.Unity.Editor
             this.XMLDict[PListParser.FacebookAppIDKey] = appID;
 
             // Set the Auto Log AppEvents Enabled
-            this.XMLDict[PListParser.AutoLogAppEventsEnabled] = false;
+            this.XMLDict[PListParser.AutoLogAppEventsEnabled] = true;
 
             // Set the requried schemas for this app
             SetCFBundleURLSchemes(this.XMLDict, appID, urlSuffix, appLinkSchemes);

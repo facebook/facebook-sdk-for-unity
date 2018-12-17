@@ -42,6 +42,7 @@ namespace Facebook.Unity.Editor
         public const string UnityAppInviteDialogActivityName = "com.facebook.unity.AppInviteDialogActivity";
         public const string ApplicationIdMetaDataName = "com.facebook.sdk.ApplicationId";
         public const string AutoLogAppEventsEnabled = "com.facebook.sdk.AutoLogAppEventsEnabled";
+        public const string AdvertiserIDCollectionEnabled = "com.facebook.sdk.AdvertiserIDCollectionEnabled";
         public const string FacebookContentProviderName = "com.facebook.FacebookContentProvider";
         public const string FacebookContentProviderAuthFormat = "com.facebook.app.FacebookContentProvider{0}";
         public const string FacebookActivityName = "com.facebook.FacebookActivity";
@@ -164,10 +165,19 @@ namespace Facebook.Unity.Editor
 
             // enable AutoLogAppEventsEnabled by default
             // <meta-data android:name="com.facebook.sdk.AutoLogAppEventsEnabled" android:value="true"/>
+            string autoLogAppEventsEnabled = FacebookSettings.AutoLogAppEventsEnabled.ToString().ToLower();
             XmlElement autoLogAppEventsEnabledElement = doc.CreateElement("meta-data");
             autoLogAppEventsEnabledElement.SetAttribute("name", ns, AutoLogAppEventsEnabled);
-            autoLogAppEventsEnabledElement.SetAttribute("value", ns, "true");
+            autoLogAppEventsEnabledElement.SetAttribute("value", ns, autoLogAppEventsEnabled);
             ManifestMod.SetOrReplaceXmlElement(dict, autoLogAppEventsEnabledElement);
+
+            // enable AdvertiserIDCollectionEnabled by default
+            // <meta-data android:name="com.facebook.sdk.AdvertiserIDCollectionEnabled" android:value="true"/>
+            string advertiserIDCollectionEnabled = FacebookSettings.AdvertiserIDCollectionEnabled.ToString().ToLower();
+            XmlElement advertiserIDCollectionEnabledElement = doc.CreateElement("meta-data");
+            advertiserIDCollectionEnabledElement.SetAttribute("name", ns, AdvertiserIDCollectionEnabled);
+            advertiserIDCollectionEnabledElement.SetAttribute("value", ns, advertiserIDCollectionEnabled);
+            ManifestMod.SetOrReplaceXmlElement(dict, advertiserIDCollectionEnabledElement);
 
             // Add the facebook content provider
             // <provider

@@ -185,6 +185,16 @@ namespace Facebook.Unity.Editor
             return;
         }
 
+        public void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled)
+        {
+            return;
+        }
+
+        public void SetPushNotificationsDeviceTokenString(string token)
+        {
+            return;
+        }
+
         public void AppInvite(
             Uri appLinkUrl,
             Uri previewImageUrl,

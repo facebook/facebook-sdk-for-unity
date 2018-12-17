@@ -38,6 +38,8 @@ namespace Facebook.Unity.Mobile.IOS
 
         void LogOut();
 
+        void SetPushNotificationsDeviceTokenString(string token);
+
         void SetShareDialogMode(int mode);
 
         void ShareLink(
@@ -96,6 +98,8 @@ namespace Facebook.Unity.Mobile.IOS
         void FBAppEventsSetLimitEventUsage(bool limitEventUsage);
 
         void FBAutoLogAppEventsEnabled (bool autoLogAppEventsEnabled);
+
+        void FBAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabledID);
 
         void GetAppLink(int requestId);
 

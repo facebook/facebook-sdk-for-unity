@@ -34,6 +34,7 @@ namespace Facebook.Unity.Editor
         private bool showFacebookInitSettings = false;
         private bool showAndroidUtils = false;
         private bool showIOSSettings = false;
+        private bool showAppEventsSettings = false;
         private bool showAppLinksSettings = false;
         private bool showAboutSection = false;
 
@@ -60,6 +61,9 @@ namespace Facebook.Unity.Editor
         private GUIContent packageNameLabel = new GUIContent("Package Name [?]", "aka: the bundle identifier");
         private GUIContent classNameLabel = new GUIContent("Class Name [?]", "aka: the activity name");
         private GUIContent debugAndroidKeyLabel = new GUIContent("Debug Android Key Hash [?]", "Copy this key to the Facebook Settings in order to test a Facebook Android app");
+
+        private GUIContent autoLogAppEventsLabel = new GUIContent("Auto Logging App Events [?]", "If true, automatically log app install, app launch and in-app purchase events to Facebook. https://developers.facebook.com/docs/app-events/");
+        private GUIContent advertiserIDCollectionLabel = new GUIContent("AdvertiserID Collection [?]", "If true, attempts to collect user's AdvertiserID. https://developers.facebook.com/docs/app-ads/targeting/mobile-advertiser-ids/");
 
         private GUIContent sdkVersion = new GUIContent("SDK Version [?]", "This Unity Facebook SDK version.  If you have problems or compliments please include this so we know exactly what version to look out for.");
 
@@ -141,6 +145,8 @@ namespace Facebook.Unity.Editor
             this.AndroidUtilGUI();
             EditorGUILayout.Separator();
             this.IOSUtilGUI();
+            EditorGUILayout.Separator();
+            this.AppEventsSettingsGUI();
             EditorGUILayout.Separator();
             this.AppLinksUtilGUI();
             EditorGUILayout.Separator();
@@ -306,6 +312,18 @@ namespace Facebook.Unity.Editor
                 {
                     ManifestMod.GenerateManifest();
                 }
+            }
+
+            EditorGUILayout.Space();
+        }
+
+        private void AppEventsSettingsGUI()
+        {
+            this.showAppEventsSettings = EditorGUILayout.Foldout(this.showAppEventsSettings, "App Events Settings");
+            if (this.showAppEventsSettings)
+            {
+                FacebookSettings.AutoLogAppEventsEnabled = EditorGUILayout.Toggle(this.autoLogAppEventsLabel, FacebookSettings.AutoLogAppEventsEnabled);
+                FacebookSettings.AdvertiserIDCollectionEnabled = EditorGUILayout.Toggle(this.advertiserIDCollectionLabel, FacebookSettings.AdvertiserIDCollectionEnabled);
             }
 
             EditorGUILayout.Space();

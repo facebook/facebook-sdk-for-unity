@@ -74,6 +74,16 @@ namespace Facebook.Unity.Mobile.IOS
             this.iosWrapper.FBAutoLogAppEventsEnabled(autoLogAppEventsEnabled);
         }
 
+        public override void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled)
+        {
+            this.iosWrapper.FBAdvertiserIDCollectionEnabled(advertiserIDCollectionEnabled);
+        }
+
+        public override void SetPushNotificationsDeviceTokenString(string token)
+        {
+            this.iosWrapper.SetPushNotificationsDeviceTokenString(token);
+        }
+
         public override string SDKName
         {
             get

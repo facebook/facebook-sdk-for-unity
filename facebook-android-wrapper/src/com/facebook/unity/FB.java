@@ -268,6 +268,20 @@ public class FB {
     }
 
     @UnityCallable
+    public static void SetAutoLogAppEventsEnabled(String autoLogAppEventsEnabled) {
+        Log.v(TAG, "SetAutoLogAppEventsEnabled(" + autoLogAppEventsEnabled + ")");
+        FacebookSdk.setAutoLogAppEventsEnabled(
+            Boolean.valueOf(autoLogAppEventsEnabled));
+    }
+
+    @UnityCallable
+    public static void SetAdvertiserIDCollectionEnabled(String advertiserIDCollectionEnabled) {
+        Log.v(TAG, "SetAdvertiserIDCollectionEnabled(" + advertiserIDCollectionEnabled + ")");
+        FacebookSdk.setAdvertiserIDCollectionEnabled(
+            Boolean.valueOf(advertiserIDCollectionEnabled));
+    }
+
+    @UnityCallable
     public static String GetSdkVersion() {
         return FacebookSdk.getSdkVersion();
     }

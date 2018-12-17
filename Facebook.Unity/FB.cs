@@ -926,8 +926,31 @@ namespace Facebook.Unity
                 return Mobile.MobileFacebookImpl.IsImplicitPurchaseLoggingEnabled();
             }
 
-            public static void SetAutoLogAppEventsEnabled (bool autoLogAppEventsEnabled){
+            /// <summary>
+            /// Sets the setting for Automatic App Events Logging.
+            /// </summary>
+            /// <param name="autoLogAppEventsEnabled">The setting for Automatic App Events Logging</param>
+            public static void SetAutoLogAppEventsEnabled(bool autoLogAppEventsEnabled)
+            {
                 Mobile.MobileFacebookImpl.SetAutoLogAppEventsEnabled(autoLogAppEventsEnabled);
+            }
+
+            /// <summary>
+            /// Sets the setting for Advertiser ID collection.
+            /// </summary>
+            /// <param name="advertiserIDCollectionEnabled">The setting for Advertiser ID collection</param>
+            public static void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled)
+            {
+                Mobile.MobileFacebookImpl.SetAdvertiserIDCollectionEnabled(advertiserIDCollectionEnabled);
+            }
+
+            /// <summary>
+            /// Sets device token in the purpose of uninstall tracking.
+            /// </summary>
+            /// <param name="token">The device token from APNs</param>
+            public static void SetPushNotificationsDeviceTokenString(string token)
+            {
+                Mobile.MobileFacebookImpl.SetPushNotificationsDeviceTokenString(token);
             }
         }
 

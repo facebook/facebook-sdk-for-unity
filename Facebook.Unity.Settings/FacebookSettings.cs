@@ -62,6 +62,11 @@ namespace Facebook.Unity.Settings
         private List<UrlSchemes> appLinkSchemes = new List<UrlSchemes>() { new UrlSchemes() };
         [SerializeField]
         private string uploadAccessToken = string.Empty;
+        // App Events Settings
+        [SerializeField]
+        private bool autoLogAppEventsEnabled = true;
+        [SerializeField]
+        private bool advertiserIDCollectionEnabled = true;
 
         public delegate void OnChangeCallback();
 
@@ -364,6 +369,49 @@ namespace Facebook.Unity.Settings
             }
           }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether App Events can be automatically logged.
+        /// </summary>
+        /// <value><c>true</c> if auto logging; otherwise, <c>false</c>.</value>
+        public static bool AutoLogAppEventsEnabled
+        {
+            get
+            {
+                return Instance.autoLogAppEventsEnabled;
+            }
+
+            set
+            {
+                if (Instance.autoLogAppEventsEnabled != value)
+                {
+                    Instance.autoLogAppEventsEnabled = value;
+                    SettingsChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether advertiserID can be collected.
+        /// </summary>
+        /// <value><c>true</c> if advertiserID can be collected; otherwise, <c>false</c>.</value>
+        public static bool AdvertiserIDCollectionEnabled
+        {
+            get
+            {
+                return Instance.advertiserIDCollectionEnabled;
+            }
+
+            set
+            {
+                if (Instance.advertiserIDCollectionEnabled != value)
+                {
+                    Instance.advertiserIDCollectionEnabled = value;
+                    SettingsChanged();
+                }
+            }
+        }
+
 
         public static FacebookSettings Instance
         {

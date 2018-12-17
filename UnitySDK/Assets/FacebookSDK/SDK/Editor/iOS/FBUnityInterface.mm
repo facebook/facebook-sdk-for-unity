@@ -382,6 +382,11 @@ extern "C" {
     [[FBUnityInterface sharedInstance] logOut];
   }
 
+  void IOSFBSetPushNotificationsDeviceTokenString(const char *token)
+  {
+    [FBSDKAppEvents setPushNotificationsDeviceTokenString:[FBUnityUtility stringFromCString:token]];
+  }
+
   void IOSFBSetShareDialogMode(int mode)
   {
     [FBUnityInterface sharedInstance].shareDialogMode = static_cast<ShareDialogMode>(mode);
@@ -493,9 +498,14 @@ extern "C" {
   }
 
   void IOSFBAutoLogAppEventsEnabled(BOOL autoLogAppEventsEnabledID)
-  {  	
+  {
     [FBSDKSettings setAutoLogAppEventsEnabled:[NSNumber numberWithBool:autoLogAppEventsEnabledID]];
   }
+
+  void IOSFBAdvertiserIDCollectionEnabled(BOOL advertiserIDCollectionEnabledID)
+  {
+    [FBSDKSettings setAdvertiserIDCollectionEnabled:[NSNumber numberWithBool:advertiserIDCollectionEnabledID]];
+  } 
 
   char* IOSFBSdkVersion()
   {

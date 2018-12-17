@@ -25,6 +25,7 @@ namespace Facebook.Unity.Editor
     using System.Text;
     using System.Xml;
     using System.Xml.Linq;
+    using Facebook.Unity.Settings;
 
     internal class PListParser
     {
@@ -36,6 +37,7 @@ namespace Facebook.Unity.Editor
         private const string FacebookAppIDKey = "FacebookAppID";
         private const string FacebookAppIDPrefix = "fb";
         private const string AutoLogAppEventsEnabled = "FacebookAutoLogAppEventsEnabled";
+        private const string AdvertiserIDCollectionEnabled = "FacebookAdvertiserIDCollectionEnabled";
 
         private static readonly IList<object> FacebookLSApplicationQueriesSchemes = new List<object>()
         {
@@ -74,7 +76,10 @@ namespace Facebook.Unity.Editor
             this.XMLDict[PListParser.FacebookAppIDKey] = appID;
 
             // Set the Auto Log AppEvents Enabled
-            this.XMLDict[PListParser.AutoLogAppEventsEnabled] = true;
+            this.XMLDict[PListParser.AutoLogAppEventsEnabled] = FacebookSettings.AutoLogAppEventsEnabled;
+
+            // Set the AdvertiserID Collection Enabled
+            this.XMLDict[PListParser.AdvertiserIDCollectionEnabled] = FacebookSettings.AdvertiserIDCollectionEnabled;
 
             // Set the requried schemas for this app
             SetCFBundleURLSchemes(this.XMLDict, appID, urlSuffix, appLinkSchemes);

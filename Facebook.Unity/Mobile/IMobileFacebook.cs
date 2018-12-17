@@ -39,6 +39,10 @@ namespace Facebook.Unity.Mobile
 
         bool IsImplicitPurchaseLoggingEnabled();
 
+        void SetPushNotificationsDeviceTokenString(string token);
+
         void SetAutoLogAppEventsEnabled(bool autoLogAppEventsEnabled);
+
+        void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled);
     }
 }

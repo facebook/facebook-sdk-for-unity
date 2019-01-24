@@ -84,10 +84,19 @@ static FBUnityInterface *_instance = [FBUnityInterface sharedInstance];
 - (void)onOpenURL:(NSNotification *)notification
 {
   NSURL *url = notification.userInfo[@"url"];
-  BOOL isHandledByFBSDK = [[FBSDKApplicationDelegate sharedInstance] application:[UIApplication sharedApplication]
-                                                                         openURL:url
-                                                               sourceApplication:notification.userInfo[@"sourceApplication"]
-                                                                      annotation:notification.userInfo[@"annotation"]];
+  BOOL isHandledByFBSDK = YES;
+  if ([UIDevice currentDevice].systemVersion.doubleValue >= 9.0) {
+    NSDictionary<UIApplicationOpenURLOptionsKey,id> *options = notification.userInfo[@"options"];
+    isHandledByFBSDK = [[FBSDKApplicationDelegate sharedInstance] application:[UIApplication sharedApplication]
+                                                                      openURL:url
+                                                            sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+                                                                   annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
+  } else {
+    isHandledByFBSDK = [[FBSDKApplicationDelegate sharedInstance] application:[UIApplication sharedApplication]
+                                                                      openURL:url
+                                                            sourceApplication:notification.userInfo[@"sourceApplication"]
+                                                                   annotation:notification.userInfo[@"annotation"]];
+  }
   if (!isHandledByFBSDK) {
     [FBUnityInterface sharedInstance].openURLString = [url absoluteString];
   }

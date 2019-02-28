@@ -28,9 +28,6 @@ namespace Facebook.Unity.Editor
 
     internal class EditorFacebook : FacebookBase, IMobileFacebookImplementation, ICanvasFacebookImplementation
     {
-        private const string WarningMessage = "You are using the facebook SDK in the Unity Editor. " +
-            "Behavior may not be the same as when used on iOS, Android, or Web.";
-
         private const string AccessTokenKey = "com.facebook.unity.editor.accesstoken";
 
         private IEditorWrapper editorWrapper;
@@ -74,9 +71,6 @@ namespace Facebook.Unity.Editor
 
         public override void Init(InitDelegate onInitComplete)
         {
-            // Warn that editor behavior will not match supported platforms
-            FacebookLogger.Warn(WarningMessage);
-
             base.Init(onInitComplete);
             this.editorWrapper.Init();
         }

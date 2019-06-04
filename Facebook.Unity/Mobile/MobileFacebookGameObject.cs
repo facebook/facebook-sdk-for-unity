@@ -30,11 +30,6 @@ namespace Facebook.Unity.Mobile
             }
         }
 
-        public void OnAppInviteComplete(string message)
-        {
-            this.MobileFacebook.OnAppInviteComplete(new ResultContainer(message));
-        }
-
         public void OnFetchDeferredAppLinkComplete(string message)
         {
             this.MobileFacebook.OnFetchDeferredAppLinkComplete(new ResultContainer(message));

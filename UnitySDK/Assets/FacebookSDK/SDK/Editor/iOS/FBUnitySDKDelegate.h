@@ -35,8 +35,7 @@ extern NSString *const FBUnityMessageName_OnRefreshCurrentAccessTokenComplete;
  */
 @interface FBUnitySDKDelegate : NSObject<
   FBSDKGameRequestDialogDelegate,
-  FBSDKSharingDelegate,
-  FBSDKAppInviteDialogDelegate>
+  FBSDKSharingDelegate>
 
 /*
  @abstract returns a self retaining instance that is released once it receives a

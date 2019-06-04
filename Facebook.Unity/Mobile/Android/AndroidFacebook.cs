@@ -23,6 +23,7 @@ namespace Facebook.Unity.Mobile.Android
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Globalization;
     using System.Reflection;
 
     internal sealed class AndroidFacebook : MobileFacebook
@@ -32,6 +33,7 @@ namespace Facebook.Unity.Mobile.Android
         // This class holds all the of the wrapper methods that we call into
         private bool limitEventUsage;
         private IAndroidWrapper androidWrapper;
+        private string userID;
 
         public AndroidFacebook() : this(GetAndroidWrapper(), new CallbackManager())
         {
@@ -42,6 +44,7 @@ namespace Facebook.Unity.Mobile.Android
         {
             this.KeyHash = string.Empty;
             this.androidWrapper = androidWrapper;
+            this.userID = this.androidWrapper.CallStatic<string>("GetUserID");
         }
 
         // key Hash used for Android SDK
@@ -59,6 +62,30 @@ namespace Facebook.Unity.Mobile.Android
                 this.limitEventUsage = value;
                 this.CallFB("SetLimitEventUsage", value.ToString());
             }
+        }
+
+        public override string UserID
+        {
+            get
+            {
+                return userID;
+            }
+
+            set
+            {
+                this.userID = value;
+                this.CallFB("SetUserID", value);
+            }
+        }
+
+        public override void UpdateUserProperties(Dictionary<string, string> parameters)
+        {
+            var args = new MethodArguments();
+            foreach (KeyValuePair<string, string> entry in parameters)
+            {
+                args.AddString(entry.Key, entry.Value);
+            }
+            this.CallFB("UpdateUserProperties", args.ToJsonString());
         }
 
         public override void SetAutoLogAppEventsEnabled(bool autoLogAppEventsEnabled)
@@ -186,19 +213,6 @@ namespace Facebook.Unity.Mobile.Android
             appRequestCall.Call(args);
         }
 
-        public override void AppInvite(
-            Uri appLinkUrl,
-            Uri previewImageUrl,
-            FacebookDelegate<IAppInviteResult> callback)
-        {
-            MethodArguments args = new MethodArguments();
-            args.AddUri("appLinkUrl", appLinkUrl);
-            args.AddUri("previewImageUrl", previewImageUrl);
-            var appInviteCall = new JavaMethodCall<IAppInviteResult>(this, "AppInvite");
-            appInviteCall.Callback = callback;
-            appInviteCall.Call(args);
-        }
-
         public override void ShareLink(
             Uri contentURL,
             string contentTitle,
@@ -247,6 +261,11 @@ namespace Facebook.Unity.Mobile.Android
             getAppLink.Call();
         }
 
+        public void ClearAppLink()
+        {
+          this.CallFB("ClearAppLink", null);
+        }
+
         public override void AppEventsLogEvent(
             string logEvent,
             float? valueToSum,
@@ -254,7 +273,7 @@ namespace Facebook.Unity.Mobile.Android
         {
             MethodArguments args = new MethodArguments();
             args.AddString("logEvent", logEvent);
-            args.AddNullablePrimitive("valueToSum", valueToSum);
+            args.AddString("valueToSum", valueToSum?.ToString(CultureInfo.InvariantCulture));
             args.AddDictionary("parameters", parameters);
             var appEventcall = new JavaMethodCall<IResult>(this, "LogAppEvent");
             appEventcall.Call(args);
@@ -266,7 +285,7 @@ namespace Facebook.Unity.Mobile.Android
             Dictionary<string, object> parameters)
         {
             MethodArguments args = new MethodArguments();
-            args.AddPrimative("logPurchase", logPurchase);
+            args.AddString("logPurchase", logPurchase.ToString(CultureInfo.InvariantCulture));
             args.AddString("currency", currency);
             args.AddDictionary("parameters", parameters);
             var logPurchaseCall = new JavaMethodCall<IResult>(this, "LogAppEvent");
@@ -280,7 +299,7 @@ namespace Facebook.Unity.Mobile.Android
 
         public override void ActivateApp(string appId)
         {
-            // Activate app is logged automatically on android.
+            this.CallFB("ActivateApp", null);
         }
 
         public override void FetchDeferredAppLink(

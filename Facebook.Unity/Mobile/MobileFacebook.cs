@@ -53,10 +53,9 @@ namespace Facebook.Unity.Mobile
             }
         }
 
-        public abstract void AppInvite(
-            Uri appLinkUrl,
-            Uri previewImageUrl,
-            FacebookDelegate<IAppInviteResult> callback);
+        public abstract string UserID { get; set; }
+
+        public abstract void UpdateUserProperties(Dictionary<string, string> parameters);
 
         public abstract void FetchDeferredAppLink(
             FacebookDelegate<IAppLinkResult> callback);
@@ -87,12 +86,6 @@ namespace Facebook.Unity.Mobile
         public override void OnAppRequestsComplete(ResultContainer resultContainer)
         {
             var result = new AppRequestResult(resultContainer);
-            CallbackManager.OnFacebookResponse(result);
-        }
-
-        public void OnAppInviteComplete(ResultContainer resultContainer)
-        {
-            var result = new AppInviteResult(resultContainer);
             CallbackManager.OnFacebookResponse(result);
         }
 

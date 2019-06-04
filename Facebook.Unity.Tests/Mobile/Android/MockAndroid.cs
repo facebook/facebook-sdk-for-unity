@@ -70,11 +70,6 @@ namespace Facebook.Unity.Tests.Mobile.Android
                 callback = this.MobileFacebook.OnInitComplete;
                 result = MockResults.GetGenericResult(0, this.ResultExtras);
             }
-            else if (methodName == "AppInvite")
-            {
-                callback = this.MobileFacebook.OnAppInviteComplete;
-                result = MockResults.GetGenericResult(callbackID, this.ResultExtras);
-            }
             else if (methodName == "GetAppLink")
             {
                 callback = this.Facebook.OnGetAppLinkComplete;

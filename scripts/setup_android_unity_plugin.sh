@@ -55,7 +55,7 @@ BOLTS_APPLINKS_SDK_JAR_NAME="$BOLTS_APPLINKS_ARTIFACT_ID-$BOLTS_VERSION.jar"
 BOLTS_APPLINKS_JAR_PATH="$FB_WRAPPER_LIB_PATH/$BOLTS_APPLINKS_SDK_JAR_NAME"
 
 # Local build only properties
-FB_ANDROID_SDK_AAR="$FB_ANDROID_SDK_PATH/facebook/build/outputs/aar/facebook-release.aar"
+FB_ANDROID_SDK_AAR="facebook/build/outputs/aar/facebook-release.aar"
 
 info "Step 1 - Cleaning wrapper libs folder"
 if [ ! -d "$FB_WRAPPER_LIB_PATH" ]; then
@@ -98,11 +98,24 @@ if [ "$localBuild" = true ]; then
   pushd $FB_ANDROID_SDK_PATH
   ./gradlew :facebook:assemble || die "Failed to build facebook sdk"
   popd
-  info "Step 2.2.1 - Copy FB_ANDROID_SDK_PATH to lib folder"
-  cp $FB_ANDROID_SDK_AAR $FB_SDK_AAR_PATH || die "Failed to copy sdk to wrapper libs folder"
+  info "Step 2.2.1 - Copy $FB_ANDROID_SDK_PATH to lib folder"
+  cp "$FB_ANDROID_SDK_PATH/$FB_ANDROID_SDK_AAR" $FB_SDK_AAR_PATH || die "Failed to copy sdk to wrapper libs folder"
 else
-  info "Step 2.2 - Download $FB_SDK_AAR_NAME"
-  downloadFromFacebook $FB_ANDROID_SDK_ARTIFACT_ID $FB_ANDROID_SDK_VERSION "$FB_SDK_AAR_PATH_FOLDER" || die "failed to download sdk from maven"
+  rm -rf tempAndroidBuild
+  mkdir tempAndroidBuild
+  pushd tempAndroidBuild
+  info "Step 2.2.0 - Download android sdk at tempAndroidBuild"
+
+  for MODULE in "${FB_SDK_MODULES[@]}"
+    do
+      FACEBOOK_AAR_FILE=$(printf "%s-%s.aar" "$MODULE" "$FB_ANDROID_SDK_VERSION")
+      MODULE_MAVEN_URL=$(printf "http://central.maven.org/maven2/com/facebook/android/%s/%s/%s" "$MODULE" "$FB_ANDROID_SDK_VERSION" "$FACEBOOK_AAR_FILE")
+      curl -L "$MODULE_MAVEN_URL" -o "$FACEBOOK_AAR_FILE"
+      cp $FACEBOOK_AAR_FILE "$FB_WRAPPER_LIB_PATH/$MODULE.aar" || die "Failed to copy $FACEBOOK_AAR_FILE to wrapper libs folder"
+    done
+  popd
+
+  rm -rf tempAndroidBuild
 fi
 
 info "Step 3 - Build android wrapper"

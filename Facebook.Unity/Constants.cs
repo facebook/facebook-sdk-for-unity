@@ -54,6 +54,24 @@ namespace Facebook.Unity
         public const string PublishActionsPermission = "publish_actions";
         public const string PublishPagesPermission = "publish_pages";
 
+        // Event Bindings
+        public const string EventBindingKeysClassName = "class_name";
+        public const string EventBindingKeysIndex = "index";
+        public const string EventBindingKeysPath = "path";
+        public const string EventBindingKeysEventName = "event_name";
+        public const string EventBindingKeysEventType = "event_type";
+        public const string EventBindingKeysAppVersion = "app_version";
+        public const string EventBindingKeysText = "text";
+        public const string EventBindingKeysHint = "hint";
+        public const string EventBindingKeysDescription = "description";
+        public const string EventBindingKeysTag = "tag";
+        public const string EventBindingKeysSection = "section";
+        public const string EventBindingKeysRow = "row";
+        public const string EventBindingKeysMatchBitmask = "match_bitmask";
+
+        public const int MaxPathDepth = 35;
+
+
         // The current platform. We save this in a variable to allow for
         // mocking during testing
         private static FacebookUnityPlatform? currentPlatform;

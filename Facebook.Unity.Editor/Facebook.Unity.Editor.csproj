@@ -58,6 +58,17 @@
     <Compile Include="iOS\PListParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="android\AndroidSupportLibraryResolver.cs" />
+    <Compile Include="iOS\PBXCapabilityType.cs" />
+    <Compile Include="iOS\PBXPath.cs" />
+    <Compile Include="iOS\PBXProject.cs" />
+    <Compile Include="iOS\PBXProjectData.cs" />
+    <Compile Include="iOS\PBX\Elements.cs" />
+    <Compile Include="iOS\PBX\Lexer.cs" />
+    <Compile Include="iOS\PBX\Objects.cs" />
+    <Compile Include="iOS\PBX\Parser.cs" />
+    <Compile Include="iOS\PBX\Sections.cs" />
+    <Compile Include="iOS\PBX\Serializer.cs" />
+    <Compile Include="iOS\PBX\Utils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -75,5 +86,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="iOS\PBX\" />
   </ItemGroup>
 </Project>

@@ -74,14 +74,6 @@ namespace Facebook.Unity.Tests.Editor
             callback(new ResultContainer(result));
         }
 
-        public void ShowAppInviteMockDialog(
-            Utilities.Callback<ResultContainer> callback,
-            string callbackId)
-        {
-            var result = MockResults.GetGenericResult(int.Parse(callbackId), this.ResultExtras);
-            callback(new ResultContainer(result));
-        }
-
         public void ShowPayMockDialog(
             Utilities.Callback<ResultContainer> callback,
             string callbackId)

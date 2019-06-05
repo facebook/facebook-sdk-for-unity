@@ -96,14 +96,12 @@
     <Compile Include="PlatformEditor\MockDialogs\MockShareDialog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\AccessTokenRefreshResult.cs" />
-    <Compile Include="Results\AppInviteResult.cs" />
     <Compile Include="Results\AppLinkResult.cs" />
     <Compile Include="Results\AppReqeustResult.cs" />
     <Compile Include="Results\GraphResult.cs" />
     <Compile Include="Results\GroupCreateResult.cs" />
     <Compile Include="Results\GroupJoinResult.cs" />
     <Compile Include="Results\IAccessTokenRefreshResult.cs" />
-    <Compile Include="Results\IAppInviteResult.cs" />
     <Compile Include="Results\IAppLinkResult.cs" />
     <Compile Include="Results\IAppRequestResult.cs" />
     <Compile Include="Results\IGraphResult.cs" />
@@ -142,16 +140,23 @@
     <Compile Include="Gameroom\IGameroomFacebookResultHandler.cs" />
     <Compile Include="Gameroom\IGameroomWrapper.cs" />
     <Compile Include="Utils\CodelessIAPAutoLog.cs" />
+    <Compile Include="Codeless\CodelessCrawler.cs" />
+    <Compile Include="Codeless\CodelessUIInteractEvent.cs" />
+    <Compile Include="Codeless\FBSDKViewHiearchy.cs" />
+    <Compile Include="Codeless\FBSDKCodelessPathComponent.cs" />
+    <Compile Include="Codeless\FBSDKEventBinding.cs" />
+    <Compile Include="Codeless\FBSDKEventBindingManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Plugins\" />
+    <Folder Include="Codeless\" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
       <Properties>
         <Policies>
-          <TextStylePolicy FileWidth="120" inheritsSet="VisualStudio" inheritsScope="text/plain" scope="text/plain" />
+          <TextStylePolicy FileWidth="120" TabWidth="4" IndentWidth="4" RemoveTrailingWhitespace="True" NoTabsAfterNonTabs="False" EolMarker="Native" TabsToSpaces="True" scope="text/plain" />
         </Policies>
       </Properties>
     </MonoDevelop>

@@ -22,6 +22,7 @@ namespace Facebook.Unity
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using Facebook.Unity.Gameroom;
     using Facebook.Unity.Canvas;
     using Facebook.Unity.Editor;
@@ -248,6 +249,8 @@ namespace Facebook.Unity
                     };
 
                     ComponentFactory.GetComponent<EditorFacebookLoader>();
+                    ComponentFactory.GetComponent<CodelessCrawler>();
+                    ComponentFactory.GetComponent<CodelessUIInteractEvent>();
                 }
                 else
                 {
@@ -283,6 +286,8 @@ namespace Facebook.Unity
                                     onInitComplete);
                             };
                             ComponentFactory.GetComponent<IOSFacebookLoader>();
+                            ComponentFactory.GetComponent<CodelessCrawler>();
+                            ComponentFactory.GetComponent<CodelessUIInteractEvent>();
                             break;
                         case FacebookUnityPlatform.Android:
                             FB.OnDLLLoadedDelegate = delegate
@@ -293,6 +298,8 @@ namespace Facebook.Unity
                                     onInitComplete);
                             };
                             ComponentFactory.GetComponent<AndroidFacebookLoader>();
+                            ComponentFactory.GetComponent<CodelessCrawler>();
+                            ComponentFactory.GetComponent<CodelessUIInteractEvent>();
                             break;
                         case FacebookUnityPlatform.Gameroom:
                             FB.OnDLLLoadedDelegate = delegate
@@ -592,8 +599,9 @@ namespace Facebook.Unity
         /// <summary>
         /// Sends an app activation event to Facebook when your app is activated.
         ///
-        /// On iOS and Android this event is logged automatically. You may still
-        /// need to call this event if you are running on web.
+        /// On iOS and Android, this event is logged automatically if you turn on
+        /// AutoLogAppEventsEnabled flag. You may still need to call this event if
+        /// you are running on web.
         ///
         /// On iOS the activate event is fired when the app becomes active
         /// On Android the activate event is fired during FB.Init
@@ -620,6 +628,23 @@ namespace Facebook.Unity
         }
 
         /// <summary>
+        /// Clear app link.
+        ///
+        /// Clear app link when app link has been handled, only works for
+        /// Android, this function will do nothing in other platforms.
+        /// </summary>
+        public static void ClearAppLink()
+        {
+          #if UNITY_ANDROID
+          var androidFacebook = FacebookImpl as AndroidFacebook;
+          if (androidFacebook != null)
+          {
+            androidFacebook.ClearAppLink();
+          }
+          #endif
+        }
+
+        /// <summary>
         /// Logs an app event.
         /// </summary>
         /// <param name="logEvent">The name of the event to log.</param>
@@ -631,6 +656,23 @@ namespace Facebook.Unity
             Dictionary<string, object> parameters = null)
         {
             FacebookImpl.AppEventsLogEvent(logEvent, valueToSum, parameters);
+        }
+
+        /// <summary>
+        /// Logs the purchase.
+        /// </summary>
+        /// <param name="logPurchase">The amount of currency the user spent.</param>
+        /// <param name="currency">The 3-letter ISO currency code.</param>
+        /// <param name="parameters">
+        /// Any parameters needed to describe the event.
+        /// Elements included in this dictionary can't be null.
+        /// </param>
+        public static void LogPurchase(
+            decimal logPurchase,
+            string currency = null,
+            Dictionary<string, object> parameters = null)
+        {
+            FB.LogPurchase(float.Parse(logPurchase.ToString()), currency, parameters);
         }
 
         /// <summary>
@@ -861,6 +903,28 @@ namespace Facebook.Unity
                 }
             }
 
+            /// <summary>
+            /// Gets or sets the user ID.
+            /// </summary>
+            /// <value>The user ID.</value>
+            public static string UserID
+            {
+                get
+                {
+                    return Mobile.MobileFacebookImpl.UserID;
+                }
+
+                set
+                {
+                    Mobile.MobileFacebookImpl.UserID = value;
+                }
+            }
+
+            public static void UpdateUserProperties(Dictionary<string, string> parameters)
+            {
+                Mobile.MobileFacebookImpl.UpdateUserProperties(parameters);
+            }
+
             private static IMobileFacebook MobileFacebookImpl
             {
                 get
@@ -873,23 +937,6 @@ namespace Facebook.Unity
 
                     return impl;
                 }
-            }
-
-            /// <summary>
-            /// Show the app invite dialog.
-            /// </summary>
-            /// <param name="appLinkUrl">
-            /// App Link for what should be opened when the recipient clicks on the
-            /// install/play button on the app invite page.
-            /// </param>
-            /// <param name="previewImageUrl">A url to an image to be used in the invite.</param>
-            /// <param name="callback">A callback for when the dialog completes.</param>
-            public static void AppInvite(
-                Uri appLinkUrl,
-                Uri previewImageUrl = null,
-                FacebookDelegate<IAppInviteResult> callback = null)
-            {
-                MobileFacebookImpl.AppInvite(appLinkUrl, previewImageUrl, callback);
             }
 
             /// <summary>

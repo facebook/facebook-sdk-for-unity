@@ -48,15 +48,18 @@ else
       echo "${RED}Error: 'FB_IOS_RESOURCE_NAME' not defined in $PROPS_PATH ${NC}"
       exit 1
     fi
-    packageName="facebook-ios-sdk-$FB_IOS_SDK_VERSION"
-    curl -L "https://origincache.facebook.com/developers/resources/?id=$FB_IOS_RESOURCE_NAME" -o "$packageName.zip"
 
-    unzip -q "$packageName.zip" -d $packageName
-    sdkFolder="$PROJECT_ROOT/tempIosBuild/$packageName"
+    for FB_IOS_KIT in FBSDKCoreKit FBSDKLoginKit FBSDKShareKit; do
+      curl -L "https://github.com/facebook/facebook-objc-sdk/releases/download/v$FB_IOS_SDK_VERSION/$FB_IOS_KIT.zip" -o "$FB_IOS_KIT.zip" || die "failed to download $FB_IOS_KIT.zip"
+      unzip -q "$FB_IOS_KIT.zip"
+      mv "$FB_IOS_KIT/iOS/$FB_IOS_KIT.framework" ./
+    done
+    sdkFolder="$PROJECT_ROOT/tempIosBuild"
 fi
 
-for FRAMEWORK in FBSDKCoreKit.framework FBSDKLoginKit.framework FBSDKShareKit.framework Bolts.framework; do
+for FRAMEWORK in FBSDKCoreKit.framework FBSDKLoginKit.framework FBSDKShareKit.framework; do
     cp -r -f "$sdkFolder/$FRAMEWORK" "$UNITY_PLUGIN_FACEBOOK" || die "failed to copy $FRAMEWORK, build the iOS SDK before running this script"
+    info "$sdkFolder/$FRAMEWORK $UNITY_PLUGIN_FACEBOOK"
 done
 
 cd $PROJECT_ROOT

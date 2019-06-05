@@ -20,16 +20,15 @@
 
 namespace Facebook.Unity.Mobile
 {
-    using System;
+    using System.Collections.Generic;
 
     internal interface IMobileFacebook : IFacebook
     {
         ShareDialogMode ShareDialogMode { get; set; }
 
-        void AppInvite(
-            Uri appLinkUrl,
-            Uri previewImageUrl,
-            FacebookDelegate<IAppInviteResult> callback);
+        string UserID { get; set; }
+
+        void UpdateUserProperties(Dictionary<string, string> parameters);
 
         void FetchDeferredAppLink(
             FacebookDelegate<IAppLinkResult> callback);

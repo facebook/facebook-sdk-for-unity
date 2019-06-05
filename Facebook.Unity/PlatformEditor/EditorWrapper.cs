@@ -67,13 +67,6 @@ namespace Facebook.Unity.Editor
             this.ShowEmptyMockDialog(callback, callbackId, "Mock Game Group Join");
         }
 
-        public void ShowAppInviteMockDialog(
-            Utilities.Callback<ResultContainer> callback,
-            string callbackId)
-        {
-            this.ShowEmptyMockDialog(callback, callbackId, "Mock App Invite");
-        }
-
         public void ShowPayMockDialog(
             Utilities.Callback<ResultContainer> callback,
             string callbackId)

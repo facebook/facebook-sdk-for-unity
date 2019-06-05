@@ -57,6 +57,7 @@ public class FB {
     // i.e. the game object that receives this message
     static final String FB_UNITY_OBJECT = "UnityFacebookSDKPlugin";
     private static Intent intent;
+    private static Intent clearedIntent;
     private static AppEventsLogger appEventsLogger;
     private static AtomicBoolean activateAppCalled = new AtomicBoolean();
     static ShareDialog.Mode ShareDialogMode = ShareDialog.Mode.AUTOMATIC;
@@ -202,6 +203,25 @@ public class FB {
         getUnityActivity().startActivity(intent);
     }
 
+    @UnityCallable
+    public static void SetUserID(String params_str) {
+        Log.v(TAG, "SetUserID(" + params_str + ")");
+        AppEventsLogger.setUserID(params_str);
+    }
+
+    @UnityCallable
+    public static String GetUserID() {
+        return AppEventsLogger.getUserID();
+    }
+
+    @UnityCallable
+    public static void UpdateUserProperties(String params_str) {
+      Log.v(TAG, "UpdateUserProperties(" + params_str + ")");
+      final UnityParams unityParams = UnityParams.parse(params_str);
+      final Bundle params = unityParams.getStringParams();
+      AppEventsLogger.updateUserProperties(params, null);
+    }
+
     public static void SetIntent(Intent intent) {
         FB.intent = intent;
     }
@@ -293,16 +313,6 @@ public class FB {
     }
 
     @UnityCallable
-    public static void AppInvite(String paramsStr) {
-        Log.v(TAG, "AppInvite(" + paramsStr + ")");
-        Intent intent = new Intent(getUnityActivity(), AppInviteDialogActivity.class);
-        UnityParams unityParams = UnityParams.parse(paramsStr);
-        Bundle params = unityParams.getStringParams();
-        intent.putExtra(AppInviteDialogActivity.DIALOG_PARAMS, params);
-        getUnityActivity().startActivity(intent);
-    }
-
-    @UnityCallable
     public static void FetchDeferredAppLinkData(String paramsStr) {
         FB.LogMethodCall("FetchDeferredAppLinkData", paramsStr);
 
@@ -339,6 +349,13 @@ public class FB {
             return;
         }
 
+        // If the app link has been used already
+        if (intent == clearedIntent) {
+            unityMessage.put("did_complete", true);
+            unityMessage.send();
+            return;
+        }
+
         // Check to see if we have any app link data on the intent
         AppLinkData appLinkData = AppLinkData.createFromAlApplinkData(intent);
         if (appLinkData != null) {
@@ -354,6 +371,12 @@ public class FB {
         }
 
         unityMessage.send();
+    }
+
+    @UnityCallable
+    public static void ClearAppLink() {
+        Log.v(TAG, "ClearAppLink");
+        clearedIntent = intent;
     }
 
     @UnityCallable
@@ -411,6 +434,11 @@ public class FB {
         } catch (NoSuchAlgorithmException e) {
         }
         return "";
+    }
+
+    @UnityCallable
+    public static void ActivateApp() {
+        AppEventsLogger.activateApp(getUnityActivity());
     }
 
     private static void ActivateApp(String appId) {

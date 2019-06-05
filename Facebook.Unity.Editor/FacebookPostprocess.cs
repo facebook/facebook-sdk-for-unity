@@ -45,6 +45,7 @@ namespace Facebook.Unity.Editor
                 FixupFiles.FixSimulator(path);
                 FixupFiles.AddVersionDefine(path);
                 FixupFiles.FixColdStart(path);
+                FixupFiles.AddBuildFlag(path);
             }
 
             if (target == BuildTarget.Android)

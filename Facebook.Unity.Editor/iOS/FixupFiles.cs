@@ -24,6 +24,7 @@ namespace Facebook.Unity.Editor
     using System.IO;
     using System.Text.RegularExpressions;
     using UnityEngine;
+    using Facebook.Unity.Editor.iOS.Xcode;
 
     public class FixupFiles
     {
@@ -90,6 +91,17 @@ namespace Facebook.Unity.Editor
                 "$1YES$2");
 
             Save(fullPath, data);
+        }
+
+        public static void AddBuildFlag(string path)
+        {
+            string projPath = Path.Combine(path, Path.Combine("Unity-iPhone.xcodeproj", "project.pbxproj"));
+            PBXProject proj = new PBXProject();
+            proj.ReadFromString(File.ReadAllText(projPath));
+            string targetGUID = proj.TargetGuidByName("Unity-iPhone");
+            string corekitPath = Path.Combine(path, "Frameworks/FacebookSDK/Plugins/iOS/FBSDKCoreKit.framework/FBSDKCoreKit");
+            proj.AddBuildProperty(targetGUID, "OTHER_LDFLAGS", "-force_load " + corekitPath);
+            File.WriteAllText(projPath, proj.WriteToString());
         }
 
         protected static string Load(string fullPath)

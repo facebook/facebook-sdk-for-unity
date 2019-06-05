@@ -68,7 +68,6 @@ namespace Facebook.Unity
                 CallbackManager.TryCallCallback<IGroupCreateResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IGroupJoinResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IPayResult>(callback, result) ||
-                CallbackManager.TryCallCallback<IAppInviteResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IAppLinkResult>(callback, result) ||
                 CallbackManager.TryCallCallback<ILoginResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IAccessTokenRefreshResult>(callback, result) ||

@@ -30,6 +30,7 @@ namespace Facebook.Unity.Mobile.IOS
         private const string CancelledResponse = "{\"cancelled\":true}";
         private bool limitEventUsage;
         private IIOSWrapper iosWrapper;
+        private string userID;
 
         public IOSFacebook()
             : this(GetIOSWrapper(), new CallbackManager())
@@ -40,6 +41,7 @@ namespace Facebook.Unity.Mobile.IOS
             : base(callbackManager)
         {
             this.iosWrapper = iosWrapper;
+            this.userID = this.iosWrapper.FBGetUserID();
         }
 
         public enum FBInsightsFlushBehavior
@@ -98,6 +100,26 @@ namespace Facebook.Unity.Mobile.IOS
             {
                 return this.iosWrapper.FBSdkVersion();
             }
+        }
+
+        public override string UserID
+        {
+            get
+            {
+                return this.userID;
+            }
+
+            set
+            {
+                this.userID = value;
+                this.iosWrapper.FBSetUserID(value);
+            }
+        }
+
+        public override void UpdateUserProperties(Dictionary<string, string> parameters)
+        {
+            NativeDict dict = MarshallDict(parameters);
+            this.iosWrapper.UpdateUserProperties(dict.NumEntries, dict.Keys, dict.Values);
         }
 
         public void Init(
@@ -182,29 +204,6 @@ namespace Facebook.Unity.Mobile.IOS
                 title);
         }
 
-        public override void AppInvite(
-            Uri appLinkUrl,
-            Uri previewImageUrl,
-            FacebookDelegate<IAppInviteResult> callback)
-        {
-            string appLinkUrlStr = string.Empty;
-            string previewImageUrlStr = string.Empty;
-            if (appLinkUrl != null && !string.IsNullOrEmpty(appLinkUrl.AbsoluteUri))
-            {
-                appLinkUrlStr = appLinkUrl.AbsoluteUri;
-            }
-
-            if (previewImageUrl != null && !string.IsNullOrEmpty(previewImageUrl.AbsoluteUri))
-            {
-                previewImageUrlStr = previewImageUrl.AbsoluteUri;
-            }
-
-            this.iosWrapper.AppInvite(
-                this.AddCallback(callback),
-                appLinkUrlStr,
-                previewImageUrlStr);
-        }
-
         public override void ShareLink(
             Uri contentURL,
             string contentTitle,
@@ -275,7 +274,7 @@ namespace Facebook.Unity.Mobile.IOS
 
         public override void ActivateApp(string appId)
         {
-            // Activate app is logged automatically on ios.
+            this.iosWrapper.FBAppEventsActivateApp();
         }
 
         public override void FetchDeferredAppLink(FacebookDelegate<IAppLinkResult> callback)
@@ -312,7 +311,7 @@ namespace Facebook.Unity.Mobile.IOS
         private static NativeDict MarshallDict(Dictionary<string, object> dict)
         {
             NativeDict res = new NativeDict();
-            
+
             if (dict != null && dict.Count > 0)
             {
                 res.Keys = new string[dict.Count];
@@ -325,14 +324,14 @@ namespace Facebook.Unity.Mobile.IOS
                     res.NumEntries++;
                 }
             }
-            
+
             return res;
         }
-        
+
         private static NativeDict MarshallDict(Dictionary<string, string> dict)
         {
             NativeDict res = new NativeDict();
-            
+
             if (dict != null && dict.Count > 0)
             {
                 res.Keys = new string[dict.Count];
@@ -345,10 +344,10 @@ namespace Facebook.Unity.Mobile.IOS
                     res.NumEntries++;
                 }
             }
-            
+
             return res;
         }
-        
+
         private int AddCallback<T>(FacebookDelegate<T> callback) where T : IResult
         {
             string asyncId = this.CallbackManager.AddFacebookDelegate(callback);

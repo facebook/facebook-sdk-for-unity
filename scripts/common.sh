@@ -68,7 +68,6 @@ FB_SDK_MODULES=(
   'facebook-messenger'
   'facebook-places'
   'facebook-share'
-  'facebook-marketing'
 )
 
 function die() {

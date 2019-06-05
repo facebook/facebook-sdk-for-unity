@@ -50,6 +50,20 @@ static char* FBUnityMakeStringCopy (const char* string)
                  requestId:requestId];
 }
 
++ (void) triggerUploadViewHierarchy
+{
+  [self sendMessageToUnity:@"CaptureViewHierarchy"
+                  userData:nil
+                 requestId:0];
+}
+
++ (void) triggerUpdateBindings:(NSString *)json
+{
+    [self sendMessageToUnity:@"OnReceiveMapping"
+                    message:json
+                   requestId:0];
+}
+
 + (void)sendErrorToUnity:(NSString *)unityMessage
                    error:(NSError *)error
                requestId:(int)requestId
@@ -99,6 +113,14 @@ static char* FBUnityMakeStringCopy (const char* string)
 
   const char *cString = [jsonString UTF8String];
   UnitySendMessage(FB_OBJECT_NAME, [unityMessage cStringUsingEncoding:NSASCIIStringEncoding], FBUnityMakeStringCopy(cString));
+}
+
++ (void)sendMessageToUnity:(NSString *)unityMessage
+                   message:(NSString *)message
+                 requestId:(int)requestId
+{
+    const char *cString = [message UTF8String];
+    UnitySendMessage(FB_OBJECT_NAME, [unityMessage cStringUsingEncoding:NSASCIIStringEncoding], FBUnityMakeStringCopy(cString));
 }
 
 + (NSString *)stringFromCString:(const char *)string {

@@ -162,7 +162,7 @@ namespace Facebook.Unity.Settings
         {
             get
             {
-                return AppIds[SelectedAppIndex];
+                return AppIds[SelectedAppIndex].Trim();
             }
         }
 
@@ -174,7 +174,7 @@ namespace Facebook.Unity.Settings
         {
             get
             {
-                return ClientTokens[SelectedAppIndex];
+                return ClientTokens[SelectedAppIndex].Trim();
             }
         }
 

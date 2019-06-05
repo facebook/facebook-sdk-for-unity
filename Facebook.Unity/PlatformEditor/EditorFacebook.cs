@@ -64,6 +64,13 @@ namespace Facebook.Unity.Editor
             }
         }
 
+        public string UserID { get; set; }
+
+        public void UpdateUserProperties(Dictionary<string, string> parameters)
+        {
+            return;
+        }
+
         private static IFacebookCallbackHandler EditorGameObject
         {
             get
@@ -195,16 +202,6 @@ namespace Facebook.Unity.Editor
             return;
         }
 
-        public void AppInvite(
-            Uri appLinkUrl,
-            Uri previewImageUrl,
-            FacebookDelegate<IAppInviteResult> callback)
-        {
-            this.editorWrapper.ShowAppInviteMockDialog(
-                this.OnAppInviteComplete,
-                this.CallbackManager.AddFacebookDelegate(callback));
-        }
-
         public void FetchDeferredAppLink(
             FacebookDelegate<IAppLinkResult> callback)
         {
@@ -316,12 +313,6 @@ namespace Facebook.Unity.Editor
         public override void OnShareLinkComplete(ResultContainer resultContainer)
         {
             var result = new ShareResult(resultContainer);
-            CallbackManager.OnFacebookResponse(result);
-        }
-
-        public void OnAppInviteComplete(ResultContainer resultContainer)
-        {
-            var result = new AppInviteResult(resultContainer);
             CallbackManager.OnFacebookResponse(result);
         }
 

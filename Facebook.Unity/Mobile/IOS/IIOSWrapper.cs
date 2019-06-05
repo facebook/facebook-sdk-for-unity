@@ -20,6 +20,8 @@
 
 namespace Facebook.Unity.Mobile.IOS
 {
+    using System.Collections.Generic;
+
     internal interface IIOSWrapper
     {
         void Init(
@@ -74,12 +76,7 @@ namespace Facebook.Unity.Mobile.IOS
             string data = "",
             string title = "");
 
-        void AppInvite(
-            int requestId,
-            string appLinkUrl,
-            string previewImageUrl);
-
-        void FBSettingsActivateApp(string appId);
+        void FBAppEventsActivateApp();
 
         void LogAppEvent(
             string logEvent,
@@ -106,6 +103,15 @@ namespace Facebook.Unity.Mobile.IOS
         void RefreshCurrentAccessToken(int requestId);
 
         string FBSdkVersion();
+
+        void FBSetUserID(string userID);
+
+        string FBGetUserID();
+
+        void UpdateUserProperties(
+            int numParams,
+            string[] paramKeys,
+            string[] paramVals);
 
         void FetchDeferredAppLink(int requestId);
     }

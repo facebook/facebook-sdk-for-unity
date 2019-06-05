@@ -43,7 +43,7 @@ namespace Facebook.Unity.Editor
             "For your own use and organization.\n(ex. 'dev', 'qa', 'prod')");
 
         private GUIContent appIdLabel = new GUIContent(
-            "App Id [?]:",
+            "Facebook App Id [?]:",
             "Facebook App Ids can be found at https://developers.facebook.com/apps");
 
         private GUIContent clientTokenLabel = new GUIContent(

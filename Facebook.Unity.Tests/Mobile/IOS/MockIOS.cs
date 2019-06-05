@@ -132,17 +132,7 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             this.Facebook.OnAppRequestsComplete(new ResultContainer(result));
         }
 
-        public void AppInvite(
-            int requestId,
-            string appLinkUrl,
-            string previewImageUrl)
-        {
-            this.LogMethodCall();
-            var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
-            this.MobileFacebook.OnAppInviteComplete(new ResultContainer(result));
-        }
-
-        public void FBSettingsActivateApp(string appId)
+        public void FBAppEventsActivateApp()
         {
             this.LogMethodCall();
         }
@@ -216,6 +206,22 @@ namespace Facebook.Unity.Tests.Mobile.IOS
                 scope,
             this.ResultExtras);
             this.Facebook.OnLoginComplete(new ResultContainer(result));
+        }
+
+        public void FBSetUserID(string userID)
+        {
+            this.LogMethodCall();
+        }
+
+        public string FBGetUserID()
+        {
+            this.LogMethodCall();
+            return "1234";
+        }
+
+        public void UpdateUserProperties(int numParams, string[] paramKeys, string[] paramVals)
+        {
+            this.LogMethodCall();
         }
     }
 }

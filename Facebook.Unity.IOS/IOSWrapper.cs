@@ -20,6 +20,7 @@
 
 namespace Facebook.Unity.IOS
 {
+    using System.Collections.Generic;
     using System.Runtime.InteropServices;
     using Facebook.Unity.Mobile.IOS;
 
@@ -138,20 +139,9 @@ namespace Facebook.Unity.IOS
                 title);
         }
 
-        public void AppInvite(
-            int requestId,
-            string appLinkUrl,
-            string previewImageUrl)
+        public void FBAppEventsActivateApp()
         {
-            IOSWrapper.IOSFBAppInvite(
-                requestId,
-                appLinkUrl,
-                previewImageUrl);
-        }
-
-        public void FBSettingsActivateApp(string appId)
-        {
-            IOSWrapper.IOSFBSettingsActivateApp(appId);
+            IOSWrapper.IOSFBAppEventsActivateApp();
         }
 
         public void LogAppEvent(
@@ -207,6 +197,24 @@ namespace Facebook.Unity.IOS
         public string FBSdkVersion()
         {
             return IOSWrapper.IOSFBSdkVersion();
+        }
+
+        public void FBSetUserID(string userID)
+        {
+            IOSWrapper.IOSFBSetUserID(userID);
+        }
+
+        public string FBGetUserID()
+        {
+            return IOSWrapper.IOSFBGetUserID();
+        }
+
+        public void UpdateUserProperties(
+            int numParams,
+            string[] paramKeys,
+            string[] paramVals)
+        {
+            IOSWrapper.IOSFBUpdateUserProperties(numParams, paramKeys, paramVals);
         }
 
         public void FetchDeferredAppLink(int requestId)
@@ -281,13 +289,7 @@ namespace Facebook.Unity.IOS
             string title = "");
 
         [DllImport("__Internal")]
-        private static extern void IOSFBAppInvite(
-            int requestId,
-            string appLinkUrl,
-            string previewImageUrl);
-
-        [DllImport("__Internal")]
-        private static extern void IOSFBSettingsActivateApp(string appId);
+        private static extern void IOSFBAppEventsActivateApp();
 
         [DllImport("__Internal")]
         private static extern void IOSFBAppEventsLogEvent(
@@ -325,5 +327,17 @@ namespace Facebook.Unity.IOS
 
         [DllImport("__Internal")]
         private static extern void IOSFBRefreshCurrentAccessToken(int requestID);
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBSetUserID(string userID);
+
+        [DllImport("__Internal")]
+        private static extern string IOSFBGetUserID();
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBUpdateUserProperties(
+            int numParams,
+            string[] paramKeys,
+            string[] paramVals);
     }
 }

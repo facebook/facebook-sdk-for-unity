@@ -41,10 +41,6 @@ namespace Facebook.Unity.Editor
             Utilities.Callback<ResultContainer> callback,
             string callbackId);
 
-        void ShowAppInviteMockDialog(
-            Utilities.Callback<ResultContainer> callback,
-            string callbackId);
-
         void ShowPayMockDialog(
             Utilities.Callback<ResultContainer> callback,
             string callbackId);

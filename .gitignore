@@ -26,6 +26,9 @@ proguard/
 *.iws
 .idea/
 
+# Visual Studio project files
+.vs/
+
 # Gradle
 .gradle
 build
@@ -103,6 +106,17 @@ ads/.vs/
 /.buckconfig.local
 /.buckd
 /.buckjavaargs.local
+/.buckversion.local
 /.bucklogging.local.properties
 .fakebuckversion
 /.nobuckcheck
+
+# Unity SDK
+ProjectSettings/
+Library/
+Temp/
+play-services-resolver.unitypackage
+UnitySDK/Assets/FacebookSDK/Plugins/
+UnitySDK/Logs
+UnitySDK/Packages
+UnitySDK/UnityPackageManager/

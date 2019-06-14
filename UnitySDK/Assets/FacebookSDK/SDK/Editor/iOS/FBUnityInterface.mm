@@ -469,12 +469,12 @@ extern "C" {
 
   void IOSFBAutoLogAppEventsEnabled(BOOL autoLogAppEventsEnabledID)
   {
-    [FBSDKSettings setAutoLogAppEventsEnabled:[NSNumber numberWithBool:autoLogAppEventsEnabledID]];
+    [FBSDKSettings setAutoLogAppEventsEnabled:autoLogAppEventsEnabledID];
   }
 
   void IOSFBAdvertiserIDCollectionEnabled(BOOL advertiserIDCollectionEnabledID)
   {
-    [FBSDKSettings setAdvertiserIDCollectionEnabled:[NSNumber numberWithBool:advertiserIDCollectionEnabledID]];
+    [FBSDKSettings setAdvertiserIDCollectionEnabled:advertiserIDCollectionEnabledID];
   }
 
   char* IOSFBSdkVersion()

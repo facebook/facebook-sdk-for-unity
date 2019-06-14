@@ -70,11 +70,14 @@ namespace Facebook.Unity
         {
             if (Input.GetMouseButtonDown (0) || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began)) {
                 try {
-                    if (EventSystem.current.IsPointerOverGameObject () || EventSystem.current.IsPointerOverGameObject (Input.touches [0].fingerId)) {
+                    if (EventSystem.current.IsPointerOverGameObject () ||
+                        (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject (Input.touches [0].fingerId))
+                        ) {
                         if (null != EventSystem.current.currentSelectedGameObject) {
                             string name = EventSystem.current.currentSelectedGameObject.name;
                             GameObject go = EventSystem.current.currentSelectedGameObject;
-                            if (null != go.GetComponent<UnityEngine.UI.Button> ()) {
+                            if (null != go.GetComponent<UnityEngine.UI.Button> () &&
+                                null != eventBindingManager) {
 
                                 var eventBindings = eventBindingManager.eventBindings;
                                 FBSDKEventBinding matchedBinding = null;
@@ -102,9 +105,7 @@ namespace Facebook.Unity
         public void OnReceiveMapping (string message)
         {
             var dict = MiniJSON.Json.Deserialize(message) as List<System.Object>;
-            Console.WriteLine(dict.GetType());
             this.eventBindingManager = new FBSDKEventBindingManager(dict);
-            Console.WriteLine(eventBindingManager);
         }
 
     }

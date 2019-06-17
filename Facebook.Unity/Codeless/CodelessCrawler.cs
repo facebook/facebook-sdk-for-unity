@@ -32,8 +32,10 @@ namespace Facebook.Unity
 {
     public class CodelessCrawler : MonoBehaviour
     {
+        #if UNITY_IOS
         [DllImport ("__Internal")]
         private static extern void IOSFBSendViewHierarchy (string tree);
+        #endif
 
         private static bool isGeneratingSnapshot = false;
 
@@ -95,7 +97,9 @@ namespace Facebook.Unity
 
         private static void SendIos (string json)
         {
+            #if UNITY_IOS
             CodelessCrawler.IOSFBSendViewHierarchy (json);
+            #endif
         }
 
         private static string GenBase64Screenshot ()

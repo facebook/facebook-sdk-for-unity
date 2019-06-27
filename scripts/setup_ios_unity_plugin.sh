@@ -32,35 +32,5 @@ UNITY_PLUGIN_FACEBOOK="$UNITY_PACKAGE_ROOT/Assets/FacebookSDK/Plugins/iOS"
 mkdir -p "$UNITY_PLUGIN_FACEBOOK"
 rm -rf "$UNITY_PLUGIN_FACEBOOK/*.framework"
 
-if [[ $* == *--local* ]]; then
-    info "Local build selected"
-    if [ -z "$FB_IOS_SDK_PATH" ]; then
-        die "Please set the FB_IOS_SDK_PATH variable in $LOCAL_PROPS"
-    fi
-    sdkFolder="$FB_IOS_SDK_PATH"
-else
-    if [ -z "$FB_IOS_SDK_VERSION" ]; then
-      echo "${RED}Error: 'FB_IOS_SDK_VERSION' not defined in $PROPS_PATH ${NC}"
-      exit 1
-    fi
-
-    if [ -z "$FB_IOS_RESOURCE_NAME" ]; then
-      echo "${RED}Error: 'FB_IOS_RESOURCE_NAME' not defined in $PROPS_PATH ${NC}"
-      exit 1
-    fi
-
-    for FB_IOS_KIT in FBSDKCoreKit FBSDKLoginKit FBSDKShareKit; do
-      curl -L "https://github.com/facebook/facebook-objc-sdk/releases/download/v$FB_IOS_SDK_VERSION/$FB_IOS_KIT.zip" -o "$FB_IOS_KIT.zip" || die "failed to download $FB_IOS_KIT.zip"
-      unzip -q "$FB_IOS_KIT.zip"
-      mv "$FB_IOS_KIT/iOS/$FB_IOS_KIT.framework" ./
-    done
-    sdkFolder="$PROJECT_ROOT/tempIosBuild"
-fi
-
-for FRAMEWORK in FBSDKCoreKit.framework FBSDKLoginKit.framework FBSDKShareKit.framework; do
-    cp -r -f "$sdkFolder/$FRAMEWORK" "$UNITY_PLUGIN_FACEBOOK" || die "failed to copy $FRAMEWORK, build the iOS SDK before running this script"
-    info "$sdkFolder/$FRAMEWORK $UNITY_PLUGIN_FACEBOOK"
-done
-
 cd $PROJECT_ROOT
 rm -r -f tempIosBuild

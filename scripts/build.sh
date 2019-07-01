@@ -106,7 +106,7 @@ sed -i "" -e "s/AssemblyVersion(\"[0-9]\.[0-9][0-9]\.[0-9]\")/AssemblyVersion(\"
 # BUILD SDK
 ###############################################################################
 which mono &>/dev/null || die "mono command not found. Please install mono."
-xbuild /p:Configuration=$BUILD_TYPE $PROJECT_SLN || die "Facebook.sln Build Failed"
+msbuild /p:Configuration=$BUILD_TYPE $PROJECT_SLN || die "Facebook.sln Build Failed"
 
 ###############################################################################
 # COPY PLUGINS
@@ -154,4 +154,4 @@ cp $SETTINGS_DLL $UNITY_SETTINGS_PLUGIN || die "Failed to copy Settings DLL"
 # BUILD EXAMPLE
 ###############################################################################
 validate_file_exists $UNITY_PACKAGE_ROOT/Assembly-CSharp.csproj "To generate csproj files open this project in unity at least once"
-xbuild /p:Configuration=$BUILD_TYPE $UNITY_CSPROJ || die "Failed to build SDK DLL"
+msbuild /p:Configuration=$BUILD_TYPE $UNITY_CSPROJ || die "Failed to build SDK DLL"

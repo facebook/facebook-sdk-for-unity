@@ -99,7 +99,7 @@ namespace Facebook.Unity.Editor
             PBXProject proj = new PBXProject();
             proj.ReadFromString(File.ReadAllText(projPath));
             string targetGUID = proj.TargetGuidByName("Unity-iPhone");
-            proj.AddBuildProperty(targetGUID, "OTHER_LDFLAGS", "-all_load");
+            proj.AddBuildProperty(targetGUID, "OTHER_LDFLAGS", "-ObjC");
             File.WriteAllText(projPath, proj.WriteToString());
         }
 

@@ -8,7 +8,6 @@
         <androidPackage spec="com.facebook.android:facebook-share:[5,6)" />
     </androidPackages>
     <iosPods>
-        <iosPod name="Bolts" version="~> 1.7" />
         <iosPod name="FBSDKCoreKit" version="~> 5.2" />
         <iosPod name="FBSDKLoginKit" version="~> 5.2" />
         <iosPod name="FBSDKShareKit" version="~> 5.2" />

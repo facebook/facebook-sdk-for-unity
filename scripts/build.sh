@@ -44,11 +44,11 @@ while [ $# -gt 0 ]; do
 done
 
 # Load settings
-source $PROJECT_ROOT/scripts/build.properties
+source "$PROJECT_ROOT/scripts/build.properties"
 LOCAL_PROPS=$PROJECT_ROOT/scripts/local.properties
 if [ "$localSettings" = true ]; then
   if [ -f "$LOCAL_PROPS" ]; then
-    source $LOCAL_PROPS
+    source "$LOCAL_PROPS"
   else
     echo "No properties file found at $LOCAL_PROPS"
   fi
@@ -84,8 +84,6 @@ ANDROID_STRIPPING_HACK_DLL=$ANDROID_STRIPPING_HACK_ROOT/bin/Release/Facebook.Uni
 
 CORE_DLL=$CORE_ROOT/bin/Release/Facebook.Unity.dll
 
-TEST_ROOT=$PROJECT_ROOT/Facebook.Unity.Tests
-
 ###############################################################################
 # UPDATE BUILD VERSION
 ###############################################################################
@@ -105,53 +103,53 @@ sed -i "" -e "s/AssemblyVersion(\"[0-9]\.[0-9][0-9]\.[0-9]\")/AssemblyVersion(\"
 ###############################################################################
 # BUILD SDK
 ###############################################################################
-which mono &>/dev/null || die "mono command not found. Please install mono."
-msbuild /p:Configuration=$BUILD_TYPE $PROJECT_SLN || die "Facebook.sln Build Failed"
+command -v mono &>/dev/null || die "mono command not found. Please install mono."
+msbuild /p:Configuration=$BUILD_TYPE "$PROJECT_SLN" || die "Facebook.sln Build Failed"
 
 ###############################################################################
 # COPY PLUGINS
 ###############################################################################
 if [ ! -d "$UNITY_PACKAGE_PLUGIN" ]; then
-  mkdir -p $UNITY_PACKAGE_PLUGIN || die "Failed to create core plugins folder"
+  mkdir -p "$UNITY_PACKAGE_PLUGIN" || die "Failed to create core plugins folder"
 fi
-cp $CORE_DLL $UNITY_PACKAGE_PLUGIN || die "Failed to copy core DLL"
+cp "$CORE_DLL" "$UNITY_PACKAGE_PLUGIN" || die "Failed to copy core DLL"
 
 if [ ! -d "$UNITY_CANVAS_PLUGIN" ]; then
-  mkdir -p $UNITY_CANVAS_PLUGIN || die "Failed to create Canvas plugins folder"
+  mkdir -p "$UNITY_CANVAS_PLUGIN" || die "Failed to create Canvas plugins folder"
 fi
-cp $CANVAS_DLL $UNITY_CANVAS_PLUGIN || die "Failed to copy Canvas DLL"
-cp $CANVAS_JSLIB $UNITY_CANVAS_PLUGIN || die "Failed to copy Canvas JSLIB"
+cp "$CANVAS_DLL" "$UNITY_CANVAS_PLUGIN" || die "Failed to copy Canvas DLL"
+cp "$CANVAS_JSLIB" "$UNITY_CANVAS_PLUGIN" || die "Failed to copy Canvas JSLIB"
 
 if [ ! -d "$UNITY_ANDROID_PLUGIN" ]; then
-  mkdir -p $UNITY_ANDROID_PLUGIN || die "Failed to create Android plugins folder"
+  mkdir -p "$UNITY_ANDROID_PLUGIN" || die "Failed to create Android plugins folder"
 fi
-cp $ANDROID_DLL $UNITY_ANDROID_PLUGIN || die "Failed to copy Android DLL"
-cp $IOS_STRIPPING_HACK_DLL $UNITY_ANDROID_PLUGIN || die "Failed to copy ios hack DLL"
+cp "$ANDROID_DLL" "$UNITY_ANDROID_PLUGIN" || die "Failed to copy Android DLL"
+cp "$IOS_STRIPPING_HACK_DLL" "$UNITY_ANDROID_PLUGIN" || die "Failed to copy ios hack DLL"
 
 if [ ! -d "$UNITY_GAMEROOM_PLUGIN" ]; then
-  mkdir -p $UNITY_GAMEROOM_PLUGIN || die "Failed to create Gameroom plugins folder"
+  mkdir -p "$UNITY_GAMEROOM_PLUGIN" || die "Failed to create Gameroom plugins folder"
 fi
-cp $GAMEROOM_DLL $UNITY_GAMEROOM_PLUGIN || die "Failed to copy Gameroom DLL"
-cp $GAMEROOM_NAMED_PIPE_DLL $UNITY_GAMEROOM_PLUGIN || die "Failed to copy FacebookNamedPipeClient DLL"
+cp "$GAMEROOM_DLL" "$UNITY_GAMEROOM_PLUGIN" || die "Failed to copy Gameroom DLL"
+cp "$GAMEROOM_NAMED_PIPE_DLL" "$UNITY_GAMEROOM_PLUGIN" || die "Failed to copy FacebookNamedPipeClient DLL"
 
 if [ ! -d "$UNITY_EDITOR_PLUGIN" ]; then
-  mkdir -p $UNITY_EDITOR_PLUGIN || die "Failed to create Editor plugins folder"
+  mkdir -p "$UNITY_EDITOR_PLUGIN" || die "Failed to create Editor plugins folder"
 fi
-cp $EDITOR_DLL $UNITY_EDITOR_PLUGIN || die "Failed to copy Editor DLL"
+cp "$EDITOR_DLL" "$UNITY_EDITOR_PLUGIN" || die "Failed to copy Editor DLL"
 
 if [ ! -d "$UNITY_IOS_PLUGIN" ]; then
-  mkdir -p $UNITY_IOS_PLUGIN || die "Failed to create IOS plugins folder"
+  mkdir -p "$UNITY_IOS_PLUGIN" || die "Failed to create IOS plugins folder"
 fi
-cp $IOS_DLL $UNITY_IOS_PLUGIN || die "Failed to copy IOS DLL"
-cp $ANDROID_STRIPPING_HACK_DLL $UNITY_IOS_PLUGIN || die "Failed to copy android hack DLL"
+cp "$IOS_DLL" "$UNITY_IOS_PLUGIN" || die "Failed to copy IOS DLL"
+cp "$ANDROID_STRIPPING_HACK_DLL" "$UNITY_IOS_PLUGIN" || die "Failed to copy android hack DLL"
 
 if [ ! -d "$UNITY_SETTINGS_PLUGIN" ]; then
-  mkdir -p $UNITY_SETTINGS_PLUGIN || die "Failed to create Settings plugins folder"
+  mkdir -p "$UNITY_SETTINGS_PLUGIN" || die "Failed to create Settings plugins folder"
 fi
-cp $SETTINGS_DLL $UNITY_SETTINGS_PLUGIN || die "Failed to copy Settings DLL"
+cp "$SETTINGS_DLL" "$UNITY_SETTINGS_PLUGIN" || die "Failed to copy Settings DLL"
 
 ###############################################################################
 # BUILD EXAMPLE
 ###############################################################################
-validate_file_exists $UNITY_PACKAGE_ROOT/Assembly-CSharp.csproj "To generate csproj files open this project in unity at least once"
-msbuild /p:Configuration=$BUILD_TYPE $UNITY_CSPROJ || die "Failed to build SDK DLL"
+validate_file_exists "$UNITY_PACKAGE_ROOT/Assembly-CSharp.csproj" "To generate csproj files open this project in unity at least once"
+msbuild /p:Configuration=$BUILD_TYPE "$UNITY_CSPROJ" || die "Failed to build SDK DLL"

@@ -21,16 +21,15 @@
 
 cd $(dirname $0)/..
 PROJECT_ROOT=$(pwd)
-PROPS_PATH="$PROJECT_ROOT/scripts/build.properties"
-source $PROPS_PATH
+source "$PROJECT_ROOT/scripts/build.properties"
 
 rm -rf tempIosBuild
 mkdir tempIosBuild
-cd tempIosBuild
+cd tempIosBuild || die "Directory tempIosBuild not found"
 
 UNITY_PLUGIN_FACEBOOK="$UNITY_PACKAGE_ROOT/Assets/FacebookSDK/Plugins/iOS"
 mkdir -p "$UNITY_PLUGIN_FACEBOOK"
 rm -rf "$UNITY_PLUGIN_FACEBOOK/*.framework"
 
-cd $PROJECT_ROOT
-rm -r -f tempIosBuild
+cd "$PROJECT_ROOT" || die "$PROJECT_ROOT not found"
+rm -rf tempIosBuild

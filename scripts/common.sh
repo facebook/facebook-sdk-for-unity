@@ -60,16 +60,6 @@ UNITY_JAR_RESOLVER_BASE_URL="https://github.com/googlesamples/$UNITY_JAR_RESOLVE
 UNITY_JAR_RESOLVER_VERSION='1.2.95'
 UNITY_JAR_RESOLVER_ZIP_URL="$UNITY_JAR_RESOLVER_BASE_URL$UNITY_JAR_RESOLVER_VERSION.zip"
 
-FB_SDK_MODULES=(
-  'facebook-applinks'
-  'facebook-common'
-  'facebook-core'
-  'facebook-login'
-  'facebook-messenger'
-  'facebook-places'
-  'facebook-share'
-)
-
 function die() {
   echo ""
   echo "${RED}FATAL: $* ${NC}" >&2
@@ -83,45 +73,6 @@ function progress_message() {
 
 function info() {
   echo "${CYAN}$* ${NC}" >&2
-}
-
-function downloadFromMaven() {
-  GROUP_ID=$1
-  ARTIFACT_ID=$2
-  PACKAGING=$3
-  VERSION=$4
-  MAVEN_DOWNLOAD_URL=$(printf "$MAVEN_BASE_URL" "$GROUP_ID" "$ARTIFACT_ID" "$PACKAGING" "$VERSION")
-
-  OUTPUT_PATH=$5
-  curl -L "$MAVEN_DOWNLOAD_URL" -o "$OUTPUT_PATH" || die "Failed download $MAVEN_DOWNLOAD_URL"
-}
-
-function downloadFromFacebook() {
-  ARTIFACT_ID=$1
-  VERSION=$2
-  OUTPUT_PATH=$3
-
-  FACEBOOK_DOWNLOAD_URL=$(printf "$FACEBOOK_BASE_URL" "$ARTIFACT_ID" "$VERSION")
-  PACKAGE_ZIP="package-$ARTIFACT_ID-$VERSION.zip"
-  ARTIFACT_NAME=$(printf "%s-%s" "$ARTIFACT_ID" "$VERSION")
-  FACEBOOK_AAR="$ARTIFACT_NAME/%s/%s.aar"
-
-  if [ ! -f "$PACKAGE_ZIP" ]; then
-    pushd $PROJECT_ROOT > /dev/null
-    curl -L "$FACEBOOK_DOWNLOAD_URL" > $PACKAGE_ZIP
-  else
-    info "$PACKAGE_ZIP already exists. Skipping download"
-  fi
-
-  rm "${OUTPUT_PATH}facebook-"*
-  unzip $PACKAGE_ZIP || die "Failed to unzip $FACEBOOK_DOWNLOAD_URL"
-  for MODULE in "${FB_SDK_MODULES[@]}"
-    do
-      FACEBOOK_AAR_FILE=$(printf "$FACEBOOK_AAR" "$MODULE" "$MODULE")
-      cp $FACEBOOK_AAR_FILE "$OUTPUT_PATH" || die "Failed to move $FACEBOOK_AAR_FILE to $OUTPUT_PATH"
-    done
-  rm $PACKAGE_ZIP
-  rm -rf $ARTIFACT_NAME
 }
 
 function downloadUnityJarResolverFromGithub() {
@@ -140,14 +91,14 @@ function downloadUnityJarResolverFromGithub() {
   $UNITY_PATH -quit -batchmode -logFile -projectPath="$PROJECT_ROOT/UnitySDK" \
    -importPackage "$UNITY_PACKAGE_PATH" || die "Failed to import $UNITY_PACKAGE_PATH"
   info "Cleaning up..."
-  rm $UNITY_PACKAGE_PATH
+  rm "$UNITY_PACKAGE_PATH"
   popd > /dev/null
 }
 
 function validate_file_exists() {
   if [ ! -f "$1" ]; then
     echo "${RED}FATAL: File not found $1 ${NC}" >&2
-    die $2
+    die "$2"
   fi
 }
 
@@ -156,6 +107,6 @@ function validate_any_file_exists() {
 
   if [[ $FILE_COUNT -eq 0 ]]; then
     echo "${RED}FATAL: File not found $2 ${NC}" >&2
-    die $3
+    die "$3"
   fi
 }

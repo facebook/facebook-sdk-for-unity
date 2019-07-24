@@ -17,11 +17,13 @@
 # COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 # IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 
-. $(dirname $0)/common.sh
+# shellcheck disable=SC2039
 
-cd $(dirname $0)/..
+. "$(dirname "$0")/common.sh"
+
+cd "$(dirname "$0")/.." || die "$(dirname "$0")/.. not found"
 PROJECT_ROOT=$(pwd)
-source "$PROJECT_ROOT/scripts/build.properties"
+. "$PROJECT_ROOT/scripts/build.properties"
 
 rm -rf tempIosBuild
 mkdir tempIosBuild

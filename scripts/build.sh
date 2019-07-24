@@ -20,7 +20,9 @@
 # This file performs the custom build logic to setup the Plugins
 # in the unity project
 
-. $(dirname $0)/common.sh
+# shellcheck disable=SC2039
+
+. "$(dirname "$0")/common.sh"
 
 BUILD_TYPE="Release"
 localSettings=false
@@ -103,7 +105,7 @@ sed -i "" -e "s/AssemblyVersion(\"[0-9]\.[0-9][0-9]\.[0-9]\")/AssemblyVersion(\"
 ###############################################################################
 # BUILD SDK
 ###############################################################################
-command -v mono &>/dev/null || die "mono command not found. Please install mono."
+command -v mono >/dev/null 2>&1 || die "mono command not found. Please install mono."
 msbuild /p:Configuration=$BUILD_TYPE "$PROJECT_SLN" || die "Facebook.sln Build Failed"
 
 ###############################################################################

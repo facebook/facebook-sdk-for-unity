@@ -17,24 +17,24 @@
 # COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 # IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 
+# shellcheck disable=SC2039
+
 cd "$( dirname "${BASH_SOURCE[0]}" )/.."
 PROJECT_ROOT=$(pwd)
 
-SCRIPTS_DIR="$PROJECT_ROOT/scripts"
+export SCRIPTS_DIR="$PROJECT_ROOT/scripts"
 
 CORE_ROOT=$PROJECT_ROOT/Facebook.Unity
 
 UNITY_PATH="/Applications/Unity/Unity.app/Contents/MacOS/Unity"
 UNITY_PACKAGE_ROOT=$PROJECT_ROOT/UnitySDK
 UNITY_PACKAGE_PLUGIN=$UNITY_PACKAGE_ROOT/Assets/FacebookSDK/Plugins/
-UNITY_ANDROID_PLUGIN=$UNITY_PACKAGE_PLUGIN/Android/
-UNITY_CANVAS_PLUGIN=$UNITY_PACKAGE_PLUGIN/Canvas/
-UNITY_GAMEROOM_PLUGIN=$UNITY_PACKAGE_PLUGIN/Gameroom/
-UNITY_EDITOR_PLUGIN=$UNITY_PACKAGE_PLUGIN/Editor/
-UNITY_IOS_PLUGIN=$UNITY_PACKAGE_PLUGIN/iOS/
-UNITY_SETTINGS_PLUGIN=$UNITY_PACKAGE_PLUGIN/Settings/
-
-SCRIPTS_DIR="$PROJECT_ROOT/scripts"
+export UNITY_ANDROID_PLUGIN=$UNITY_PACKAGE_PLUGIN/Android/
+export UNITY_CANVAS_PLUGIN=$UNITY_PACKAGE_PLUGIN/Canvas/
+export UNITY_GAMEROOM_PLUGIN=$UNITY_PACKAGE_PLUGIN/Gameroom/
+export UNITY_EDITOR_PLUGIN=$UNITY_PACKAGE_PLUGIN/Editor/
+export UNITY_IOS_PLUGIN=$UNITY_PACKAGE_PLUGIN/iOS/
+export UNITY_SETTINGS_PLUGIN=$UNITY_PACKAGE_PLUGIN/Settings/
 
 RED='\033[0;31m'
 NC='\033[0m'
@@ -42,40 +42,38 @@ CYAN='\033[0;36m'
 
 # Extract the SDK version from FacebookSdkVersion.java
 SDK_VERSION_RAW=$(sed -n 's/.*"\(.*\)\";/\1/p' "$CORE_ROOT/FacebookSdkVersion.cs")
-SDK_VERSION_MAJOR=$(echo $SDK_VERSION_RAW | awk -F'.' '{print $1}')
+SDK_VERSION_MAJOR=$(echo "$SDK_VERSION_RAW" | awk -F'.' '{print $1}')
 SDK_VERSION_MAJOR=${SDK_VERSION_MAJOR:-0}
-SDK_VERSION_MINOR=$(echo $SDK_VERSION_RAW | awk -F'.' '{print $2}')
+SDK_VERSION_MINOR=$(echo "$SDK_VERSION_RAW" | awk -F'.' '{print $2}')
 SDK_VERSION_MINOR=${SDK_VERSION_MINOR:-0}
-SDK_VERSION_REVISION=$(echo $SDK_VERSION_RAW | awk -F'.' '{print $3}')
+SDK_VERSION_REVISION=$(echo "$SDK_VERSION_RAW" | awk -F'.' '{print $3}')
 SDK_VERSION_REVISION=${SDK_VERSION_REVISION:-0}
-SDK_VERSION=$SDK_VERSION_MAJOR.$SDK_VERSION_MINOR.$SDK_VERSION_REVISION
-SDK_VERSION_SHORT=$(echo $SDK_VERSION | sed 's/\.0$//')
+export SDK_VERSION=$SDK_VERSION_MAJOR.$SDK_VERSION_MINOR.$SDK_VERSION_REVISION
 
-OUT="$PROJECT_ROOT/out"
-MAVEN_BASE_URL='http://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=%s&a=%s&p=%s&v=%s'
-FACEBOOK_BASE_URL='https://origincache.facebook.com/developers/resources/?id=%s-%s.zip'
 UNITY_JAR_RESOLVER_NAME='unity-jar-resolver'
 UNITY_JAR_RESOLVER_PACKAGE_NAME='play-services-resolver'
 UNITY_JAR_RESOLVER_BASE_URL="https://github.com/googlesamples/$UNITY_JAR_RESOLVER_NAME/archive/v"
 UNITY_JAR_RESOLVER_VERSION='1.2.95'
 UNITY_JAR_RESOLVER_ZIP_URL="$UNITY_JAR_RESOLVER_BASE_URL$UNITY_JAR_RESOLVER_VERSION.zip"
 
-function die() {
+export OUT="$PROJECT_ROOT/out"
+
+die() {
   echo ""
   echo "${RED}FATAL: $* ${NC}" >&2
   exit 1
 }
 
 # Echoes a progress message to stderr
-function progress_message() {
+progress_message() {
     echo "$@" >&2
 }
 
-function info() {
+info() {
   echo "${CYAN}$* ${NC}" >&2
 }
 
-function downloadUnityJarResolverFromGithub() {
+downloadUnityJarResolverFromGithub() {
   UNITY_JAR_RESOLVER_PACKAGE="$UNITY_JAR_RESOLVER_PACKAGE_NAME.unitypackage"
 
   pushd $PROJECT_ROOT > /dev/null
@@ -95,14 +93,14 @@ function downloadUnityJarResolverFromGithub() {
   popd > /dev/null
 }
 
-function validate_file_exists() {
+validate_file_exists() {
   if [ ! -f "$1" ]; then
     echo "${RED}FATAL: File not found $1 ${NC}" >&2
     die "$2"
   fi
 }
 
-function validate_any_file_exists() {
+validate_any_file_exists() {
   FILE_COUNT=$(find "$1" -name "$2" | wc -l)
 
   if [[ $FILE_COUNT -eq 0 ]]; then

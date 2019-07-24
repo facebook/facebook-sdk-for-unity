@@ -17,6 +17,8 @@
 # COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 # IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 
+# shellcheck disable=SC2039
+
 . $(dirname $0)/common.sh
 
 source "$PROJECT_ROOT/scripts/build.properties"
@@ -37,7 +39,7 @@ fi
 # Copy the required libs
 UNITY_PLUGIN_FACEBOOK="$UNITY_PACKAGE_ROOT/Assets/FacebookSDK/Plugins/Android/libs/"
 
-FB_WRAPPER_PATH=$PROJECT_ROOT/facebook-android-wrapper
+FB_WRAPPER_PATH="$PROJECT_ROOT/facebook-android-wrapper"
 FB_ANDROID_SDK_WRAPPER_NAME="facebook-android-wrapper-release.aar"
 FB_ANDROID_SDK_WRAPPER="$FB_WRAPPER_PATH/build/outputs/aar/$FB_ANDROID_SDK_WRAPPER_NAME"
 
@@ -56,7 +58,7 @@ else
 fi
 popd
 
-info "Step 4 - Copy libs to unity plugin folder"
+info "Step 3 - Copy libs to unity plugin folder"
 if [ ! -d "$UNITY_PLUGIN_FACEBOOK" ]; then
   mkdir -p "$UNITY_PLUGIN_FACEBOOK" || die "Failed to make unity plugin lib folder"
 fi

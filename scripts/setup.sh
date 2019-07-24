@@ -20,9 +20,11 @@
 # This file performs the custom build logic to setup the Plugins
 # in the unity project
 
-. $(dirname $0)/common.sh
+# shellcheck disable=SC2039
 
-command -v nuget &>/dev/null || die "nuget command not found. Please install nuget."
+. "$(dirname "$0")/common.sh"
+
+command -v nuget >/dev/null 2>&1 || die "nuget command not found. Please install nuget."
 echo "checking packages..."
 nuget restore "$PROJECT_ROOT"
 echo "checking packages done."

@@ -20,12 +20,12 @@
 # This file performs the custom build logic to setup the Plugins
 # in the unity project
 
-. $(dirname $0)/common.sh
+. "$(dirname "$0")/common.sh"
 
 # Run build script to ensure that test DLL is built
 "$SCRIPTS_DIR/build.sh" || die "Build failed"
 
-command -v mono &>/dev/null || die "mono command not found. Please install mono."
+command -v mono >/dev/null 2>&1 || die "mono command not found. Please install mono."
 
 NSUBSTITUTE_CONSOLE="$PROJECT_ROOT/packages/NSubstitute.2.0.3/lib"
 NUNIT_CONSOLE="$PROJECT_ROOT/packages/NUnit.ConsoleRunner.3.10.0/tools/nunit3-console.exe"

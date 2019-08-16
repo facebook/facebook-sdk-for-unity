@@ -20,7 +20,7 @@
 
 namespace Facebook.Unity
 {
-    internal interface IFacebookLogger
+    public interface IFacebookLogger
     {
         void Log(string msg);
 

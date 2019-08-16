@@ -22,14 +22,14 @@ namespace Facebook.Unity
 {
     using UnityEngine;
 
-    internal static class FacebookLogger
+    public static class FacebookLogger
     {
         static FacebookLogger()
         {
             FacebookLogger.Instance = new DebugLogger();
         }
 
-        internal static IFacebookLogger Instance { private get; set; }
+        public static IFacebookLogger Instance { private get; set; }
 
         public static void Log(string msg)
         {

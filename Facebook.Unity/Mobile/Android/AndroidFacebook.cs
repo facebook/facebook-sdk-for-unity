@@ -163,6 +163,7 @@ namespace Facebook.Unity.Mobile.Android
 
         public override void LogOut()
         {
+            base.LogOut();
             var logoutCall = new JavaMethodCall<IResult>(this, "Logout");
             logoutCall.Call();
         }

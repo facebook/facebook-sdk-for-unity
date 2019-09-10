@@ -38,95 +38,98 @@ public class FBUnityGameRequestActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle params = getIntent().getBundleExtra(GAME_REQUEST_PARAMS);
-
-        final UnityMessage response = new UnityMessage("OnAppRequestsComplete");
-        if (params.containsKey(Constants.CALLBACK_ID_KEY)) {
-            response.put(Constants.CALLBACK_ID_KEY, params.getString(Constants.CALLBACK_ID_KEY));
+        if (savedInstanceState == null) {
+          showDialog();
         }
+    }
 
-        GameRequestContent.Builder contentBuilder = new GameRequestContent.Builder();
-        if (params.containsKey("message")) {
-            contentBuilder.setMessage(params.getString("message"));
-        }
+    private void showDialog() {
+      final Bundle params = getIntent().getBundleExtra(GAME_REQUEST_PARAMS);
+      final UnityMessage response = new UnityMessage("OnAppRequestsComplete");
 
-        if (params.containsKey("action_type")) {
-            String actionTypeStr = params.getString("action_type");
-            try {
-                GameRequestContent.ActionType type =
-                        GameRequestContent.ActionType.valueOf(actionTypeStr);
-                contentBuilder.setActionType(type);
-            } catch (IllegalArgumentException exception) {
-                response.sendError("Unknown action type: " + actionTypeStr);
-                finish();
-                return;
-            }
-        }
+      if (params.containsKey(Constants.CALLBACK_ID_KEY)) {
+          response.put(Constants.CALLBACK_ID_KEY, params.getString(Constants.CALLBACK_ID_KEY));
+      }
 
-        if(params.containsKey("object_id")) {
-            contentBuilder.setObjectId(params.getString("object_id"));
+      GameRequestContent.Builder contentBuilder = new GameRequestContent.Builder();
+      if (params.containsKey("message")) {
+          contentBuilder.setMessage(params.getString("message"));
+      }
 
-        }
+      if (params.containsKey("action_type")) {
+          String actionTypeStr = params.getString("action_type");
+          try {
+              GameRequestContent.ActionType type =
+                      GameRequestContent.ActionType.valueOf(actionTypeStr);
+              contentBuilder.setActionType(type);
+          } catch (IllegalArgumentException exception) {
+              response.sendError("Unknown action type: " + actionTypeStr);
+              finish();
+              return;
+          }
+      }
 
-        if (params.containsKey("to")) {
-            String toStr = params.getString("to");
-            contentBuilder.setRecipients(Arrays.asList(toStr.split(",")));
-        }
+      if(params.containsKey("object_id")) {
+          contentBuilder.setObjectId(params.getString("object_id"));
 
-        if (params.containsKey("filters")) {
-            String filtersStr = params.getString("filters").toUpperCase(Locale.ROOT);
-            try {
-                GameRequestContent.Filters filters = GameRequestContent.Filters.valueOf(filtersStr);
-                contentBuilder.setFilters(filters);
-            } catch (IllegalArgumentException exception) {
-                response.sendError("Unsupported filter type: " + filtersStr);
-                finish();
-                return;
-            }
-        }
+      }
 
-        if (params.containsKey("data")) {
-            contentBuilder.setData(params.getString("data"));
-        }
+      if (params.containsKey("to")) {
+          String toStr = params.getString("to");
+          contentBuilder.setRecipients(Arrays.asList(toStr.split(",")));
+      }
 
-        if (params.containsKey("title")) {
-            contentBuilder.setTitle(params.getString("title"));
-        }
+      if (params.containsKey("filters")) {
+          String filtersStr = params.getString("filters").toUpperCase(Locale.ROOT);
+          try {
+              GameRequestContent.Filters filters = GameRequestContent.Filters.valueOf(filtersStr);
+              contentBuilder.setFilters(filters);
+          } catch (IllegalArgumentException exception) {
+              response.sendError("Unsupported filter type: " + filtersStr);
+              finish();
+              return;
+          }
+      }
 
-        final GameRequestContent content = contentBuilder.build();
+      if (params.containsKey("data")) {
+          contentBuilder.setData(params.getString("data"));
+      }
 
+      if (params.containsKey("title")) {
+          contentBuilder.setTitle(params.getString("title"));
+      }
 
-        GameRequestDialog requestDialog = new GameRequestDialog(this);
-        requestDialog.registerCallback(
-                mCallbackManager,
-                new FacebookCallback<GameRequestDialog.Result>() {
-                    @Override
-                    public void onSuccess(GameRequestDialog.Result result) {
-                        response.put("request", result.getRequestId());
-                        response.put("to", TextUtils.join(",",result.getRequestRecipients()));
-                        response.send();
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        response.putCancelled();
-                        response.send();
-                    }
-
-                    @Override
-                    public void onError(FacebookException e) {
-                        response.sendError(e.getMessage());
-                    }
-                });
-
-        try {
-            requestDialog.show(content);
-        } catch (IllegalArgumentException exception) {
-            response.sendError("Unexpected exception encountered: " + exception.toString());
-            finish();
-            return;
-        }
+      final GameRequestContent content = contentBuilder.build();
 
 
+      GameRequestDialog requestDialog = new GameRequestDialog(this);
+      requestDialog.registerCallback(
+              mCallbackManager,
+              new FacebookCallback<GameRequestDialog.Result>() {
+                  @Override
+                  public void onSuccess(GameRequestDialog.Result result) {
+                      response.put("request", result.getRequestId());
+                      response.put("to", TextUtils.join(",",result.getRequestRecipients()));
+                      response.send();
+                  }
+
+                  @Override
+                  public void onCancel() {
+                      response.putCancelled();
+                      response.send();
+                  }
+
+                  @Override
+                  public void onError(FacebookException e) {
+                      response.sendError(e.getMessage());
+                  }
+              });
+
+      try {
+          requestDialog.show(content);
+      } catch (IllegalArgumentException exception) {
+          response.sendError("Unexpected exception encountered: " + exception.toString());
+          finish();
+      }
     }
 }

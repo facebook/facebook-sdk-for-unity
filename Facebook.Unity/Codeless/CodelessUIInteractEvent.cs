@@ -96,8 +96,9 @@ namespace Facebook.Unity
                             }
                         }
                     }
-                } catch (Exception ex) {
-                    Debug.Log (ex);
+                }
+                catch (Exception) {
+                    return;
                 }
             }
         }

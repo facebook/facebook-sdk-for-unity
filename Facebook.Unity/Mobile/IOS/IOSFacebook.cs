@@ -41,7 +41,6 @@ namespace Facebook.Unity.Mobile.IOS
             : base(callbackManager)
         {
             this.iosWrapper = iosWrapper;
-            this.userID = this.iosWrapper.FBGetUserID();
         }
 
         public enum FBInsightsFlushBehavior
@@ -136,6 +135,7 @@ namespace Facebook.Unity.Mobile.IOS
                 frictionlessRequests,
                 iosURLSuffix,
                 Constants.UnitySDKUserAgentSuffixLegacy);
+            this.userID = this.iosWrapper.FBGetUserID();
         }
 
         public override void LogInWithReadPermissions(

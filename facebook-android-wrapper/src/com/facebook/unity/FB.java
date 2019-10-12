@@ -211,6 +211,9 @@ public class FB {
 
     @UnityCallable
     public static String GetUserID() {
+        if (!FacebookSdk.isInitialized()) {
+            return null;
+        }
         return AppEventsLogger.getUserID();
     }
 

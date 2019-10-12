@@ -44,7 +44,6 @@ namespace Facebook.Unity.Mobile.Android
         {
             this.KeyHash = string.Empty;
             this.androidWrapper = androidWrapper;
-            this.userID = this.androidWrapper.CallStatic<string>("GetUserID");
         }
 
         // key Hash used for Android SDK
@@ -137,6 +136,7 @@ namespace Facebook.Unity.Mobile.Android
             args.AddString("appId", appId);
             var initCall = new JavaMethodCall<IResult>(this, "Init");
             initCall.Call(args);
+            this.userID = this.androidWrapper.CallStatic<string>("GetUserID");
         }
 
         public override void LogInWithReadPermissions(

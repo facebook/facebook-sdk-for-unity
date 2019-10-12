@@ -29,7 +29,9 @@ namespace Facebook.Unity.Tests
     {
         public void VerifyUserAgent(string expected)
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             var mock = new DynamicMock(typeof(IAndroidWrapper));
+#pragma warning restore CS0618 // Type or member is obsolete
             mock.ExpectAndReturn("CallStatic", "1.0.0", "GetSdkVersion");
             Assert.AreEqual(
                 string.Format(

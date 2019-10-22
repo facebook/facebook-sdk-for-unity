@@ -34,6 +34,11 @@ namespace Facebook.Unity.Tests.Mobile.Android
                 object result = "1.0.0";
                 return (T)result;
             }
+            else if (methodName == "GetUserID")
+            {
+                object result = "userid";
+                return (T)result;
+            }
 
             throw new NotImplementedException();
         }

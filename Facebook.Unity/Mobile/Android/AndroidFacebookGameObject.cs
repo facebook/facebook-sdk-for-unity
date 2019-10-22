@@ -20,14 +20,12 @@
 
 namespace Facebook.Unity.Mobile.Android
 {
-    using UnityEngine;
     using UnityEngine.SceneManagement;
 
     internal class AndroidFacebookGameObject : MobileFacebookGameObject
     {
         protected override void OnAwake()
         {
-            AndroidJNIHelper.debug = Debug.isDebugBuild;
             CodelessIAPAutoLog.addListenerToIAPButtons(this);
         }
 

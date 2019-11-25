@@ -426,7 +426,12 @@ public class FB {
             PackageInfo info = activity.getPackageManager().getPackageInfo(
                     activity.getPackageName(),
                     PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures){
+            // SM-T113 devices running Android OS 4.4.4 / API-19 will sometimes return null
+            Signature[] signatures = info.signatures;
+            if (signatures == null) {
+                return "";
+            }
+            for (Signature signature : signatures){
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
                 String keyHash = Base64.encodeToString(md.digest(), Base64.DEFAULT);

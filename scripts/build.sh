@@ -126,7 +126,6 @@ if [ ! -d "$UNITY_ANDROID_PLUGIN" ]; then
   mkdir -p "$UNITY_ANDROID_PLUGIN" || die "Failed to create Android plugins folder"
 fi
 cp "$ANDROID_DLL" "$UNITY_ANDROID_PLUGIN" || die "Failed to copy Android DLL"
-cp "$IOS_STRIPPING_HACK_DLL" "$UNITY_ANDROID_PLUGIN" || die "Failed to copy ios hack DLL"
 
 if [ ! -d "$UNITY_GAMEROOM_PLUGIN" ]; then
   mkdir -p "$UNITY_GAMEROOM_PLUGIN" || die "Failed to create Gameroom plugins folder"
@@ -143,7 +142,6 @@ if [ ! -d "$UNITY_IOS_PLUGIN" ]; then
   mkdir -p "$UNITY_IOS_PLUGIN" || die "Failed to create IOS plugins folder"
 fi
 cp "$IOS_DLL" "$UNITY_IOS_PLUGIN" || die "Failed to copy IOS DLL"
-cp "$ANDROID_STRIPPING_HACK_DLL" "$UNITY_IOS_PLUGIN" || die "Failed to copy android hack DLL"
 
 if [ ! -d "$UNITY_SETTINGS_PLUGIN" ]; then
   mkdir -p "$UNITY_SETTINGS_PLUGIN" || die "Failed to create Settings plugins folder"

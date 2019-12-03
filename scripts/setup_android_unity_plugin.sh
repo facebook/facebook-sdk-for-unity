@@ -65,6 +65,7 @@ fi
 # clean the unity lib folder
 rm -rf "$UNITY_PLUGIN_FACEBOOK/*.jar"
 rm -rf "$UNITY_PLUGIN_FACEBOOK/*.aar"
+rm -rf "$UNITY_PLUGIN_FACEBOOK/*.meta"
 # Copy aars
 cp "$FB_ANDROID_SDK_WRAPPER" "$UNITY_PLUGIN_FACEBOOK" || die 'Failed to copy wrapper to unity plugin folder'
 # Rename wrapper to include sdk version

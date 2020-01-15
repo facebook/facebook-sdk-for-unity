@@ -53,8 +53,8 @@ if [ "$localBuild" = true ]; then
   ./gradlew clean -PlocalRepo=libs -PsdkVersion="$FB_ANDROID_SDK_VERSION" || die "Failed to perform gradle clean"
   ./gradlew assemble -PlocalRepo=libs -PsdkVersion="$FB_ANDROID_SDK_VERSION" || die "Failed to build facebook android wrapper"
 else
-  ./gradlew clean -PsdkVersion="$FB_ANDROID_SDK_VERSION" || die "Failed to perform gradle clean"
-  ./gradlew assemble -PsdkVersion="$FB_ANDROID_SDK_VERSION" || die "Failed to build facebook android wrapper"
+  ./gradlew clean || die "Failed to perform gradle clean"
+  ./gradlew assemble || die "Failed to build facebook android wrapper"
 fi
 popd
 
@@ -65,6 +65,7 @@ fi
 # clean the unity lib folder
 rm -rf "$UNITY_PLUGIN_FACEBOOK/*.jar"
 rm -rf "$UNITY_PLUGIN_FACEBOOK/*.aar"
+rm -rf "$UNITY_PLUGIN_FACEBOOK/*.meta"
 # Copy aars
 cp "$FB_ANDROID_SDK_WRAPPER" "$UNITY_PLUGIN_FACEBOOK" || die 'Failed to copy wrapper to unity plugin folder'
 # Rename wrapper to include sdk version

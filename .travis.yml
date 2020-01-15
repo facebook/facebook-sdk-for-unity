@@ -1,0 +1,25 @@
+language: csharp
+solution: Facebook.sln
+os: osx
+env:
+  global:
+  - ANDROID_HOME='/usr/local/share/android-sdk'
+  - JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
+mono:
+- 5.0.1
+install:
+- nuget restore Facebook.sln
+- sh scripts/travis/install.sh
+- sh scripts/setup.sh
+
+stages:
+  - name: test
+    if: '! tag =~ /^sdk-version-([0-9]{1}|[1-9][0-9]+)\.([0-9]{1}|[1-9][0-9]+)\.([0-9]{1}|[1-9][0-9]+)($|[-+][0-9A-Za-z+.-]+$)/'
+  - name: release
+    if: tag =~ /^sdk-version-([0-9]{1}|[1-9][0-9]+)\.([0-9]{1}|[1-9][0-9]+)\.([0-9]{1}|[1-9][0-9]+)($|[-+][0-9A-Za-z+.-]+$)/
+
+jobs:
+  include:
+    - stage: test
+      name: Unity Tests
+      script: sh scripts/run_tests.sh

@@ -99,7 +99,9 @@ namespace Facebook.Unity.Editor
             PBXProject proj = new PBXProject();
             proj.ReadFromString(File.ReadAllText(projPath));
             string targetGUID = proj.TargetGuidByName("Unity-iPhone");
+            proj.AddBuildProperty(targetGUID, "GCC_PREPROCESSOR_DEFINITIONS", " $(inherited) FBSDKCOCOAPODS=1");
             proj.AddBuildProperty(targetGUID, "OTHER_LDFLAGS", "-ObjC");
+            proj.AddFrameworkToProject(targetGUID, "Accelerate.framework", true);
             File.WriteAllText(projPath, proj.WriteToString());
         }
 

@@ -93,7 +93,8 @@ namespace Facebook.Unity.Tests
                 "1",
                 DateTime.UtcNow.AddDays(1),
                 new List<string>(), 
-                null);
+                null,
+                "facebook");
             Assert.IsTrue(FB.IsLoggedIn);
         }
 
@@ -105,7 +106,8 @@ namespace Facebook.Unity.Tests
                 "1",
                 DateTime.UtcNow.AddDays(-1),
                 new List<string>(), 
-                null);
+                null,
+                "facebook");
             Assert.IsFalse(FB.IsLoggedIn);
         }
 

@@ -42,7 +42,8 @@ namespace Facebook.Unity
             string userId,
             DateTime expirationTime,
             IEnumerable<string> permissions,
-            DateTime? lastRefresh)
+            DateTime? lastRefresh,
+            string graphDomain)
         {
             if (string.IsNullOrEmpty(tokenString))
             {
@@ -69,6 +70,7 @@ namespace Facebook.Unity
             this.Permissions = permissions;
             this.UserId = userId;
             this.LastRefresh = lastRefresh;
+            this.GraphDomain = graphDomain;
         }
 
         /// <summary>
@@ -107,6 +109,12 @@ namespace Facebook.Unity
         /// <value>The last refresh.</value>
         public DateTime? LastRefresh { get; private set; }
 
+
+        /// <summary>
+        /// Gets the domain this access token is valid for.
+        /// </summary>
+        public String GraphDomain { get; private set; }
+
         /// <summary>
         /// Returns a <see cref="System.String"/> that represents the current <see cref="Facebook.Unity.AccessToken"/>.
         /// </summary>
@@ -122,6 +130,7 @@ namespace Facebook.Unity
                     { "Permissions", this.Permissions.ToCommaSeparateList() },
                     { "UserId", this.UserId.ToStringNullOk() },
                     { "LastRefresh", this.LastRefresh.ToStringNullOk() },
+                    { "GraphDomain", this.GraphDomain },
                 });
         }
 
@@ -136,6 +145,8 @@ namespace Facebook.Unity
             {
                 dictionary[LoginResult.LastRefreshKey] = this.LastRefresh.Value.TotalSeconds().ToString();
             }
+            dictionary[LoginResult.GraphDomain] = this.GraphDomain;
+            
 
             return MiniJSON.Json.Serialize(dictionary);
         }

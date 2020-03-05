@@ -144,13 +144,15 @@ namespace Facebook.Unity
             DateTime expiration = Utilities.ParseExpirationDateFromResult(resultDictionary);
             ICollection<string> permissions = Utilities.ParsePermissionFromResult(resultDictionary);
             DateTime? lastRefresh = Utilities.ParseLastRefreshFromResult(resultDictionary);
+            string graphDomain = resultDictionary.GetValueOrDefault<string>(LoginResult.GraphDomain);
 
             return new AccessToken(
                 accessToken,
                 userID,
                 expiration,
                 permissions,
-                lastRefresh);
+                lastRefresh,
+                graphDomain);
         }
 
         public static string ToStringNullOk(this object obj)

@@ -29,6 +29,7 @@ namespace Facebook.Unity
         public static readonly string ExpirationTimestampKey = Constants.IsWeb ? "expiresIn" : "expiration_timestamp";
         public static readonly string PermissionsKey = Constants.IsWeb ? "grantedScopes" : "permissions";
         public static readonly string AccessTokenKey = Constants.IsWeb ? "accessToken" : Constants.AccessTokenKey;
+        public static readonly string GraphDomain = "graph_domain";
 
         internal LoginResult(ResultContainer resultContainer) : base(resultContainer)
         {

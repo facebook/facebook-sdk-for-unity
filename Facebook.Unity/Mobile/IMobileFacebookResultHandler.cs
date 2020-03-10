@@ -25,5 +25,7 @@ namespace Facebook.Unity.Mobile
         void OnFetchDeferredAppLinkComplete(ResultContainer resultContainer);
 
         void OnRefreshCurrentAccessTokenComplete(ResultContainer resultContainer);
+
+        void OnFriendFinderComplete(ResultContainer resultContainer);
     }
 }

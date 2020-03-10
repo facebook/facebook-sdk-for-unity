@@ -182,6 +182,14 @@ namespace Facebook.Unity.Editor
             FacebookLogger.Log("Pew! Pretending to send this off.  Doesn't actually work in the editor");
         }
 
+        public void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback)
+        {
+            this.editorWrapper.ShowMockFriendFinderDialog(
+                this.OnFriendFinderComplete,
+                "Friend Finder Dialog",
+                this.CallbackManager.AddFacebookDelegate(callback));
+        }
+
         public bool IsImplicitPurchaseLoggingEnabled()
         {
             return true;
@@ -331,6 +339,12 @@ namespace Facebook.Unity.Editor
         public void OnRefreshCurrentAccessTokenComplete(ResultContainer resultContainer)
         {
             var result = new AccessTokenRefreshResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnFriendFinderComplete(ResultContainer resultContainer)
+        {
+            var result = new GamingServicesFriendFinderResult(resultContainer);
             CallbackManager.OnFacebookResponse(result);
         }
 

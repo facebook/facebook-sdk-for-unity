@@ -49,6 +49,7 @@
     <Compile Include="ComponentFactory.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="FB.cs" />
+    <Compile Include="FBGamingServices.cs" />
     <Compile Include="FacebookBase.cs" />
     <Compile Include="FacebookGameObject.cs" />
     <Compile Include="FacebookSdkVersion.cs" />
@@ -98,12 +99,14 @@
     <Compile Include="Results\AccessTokenRefreshResult.cs" />
     <Compile Include="Results\AppLinkResult.cs" />
     <Compile Include="Results\AppReqeustResult.cs" />
+    <Compile Include="Results\GamingServicesFriendFinderResult.cs" />
     <Compile Include="Results\GraphResult.cs" />
     <Compile Include="Results\GroupCreateResult.cs" />
     <Compile Include="Results\GroupJoinResult.cs" />
     <Compile Include="Results\IAccessTokenRefreshResult.cs" />
     <Compile Include="Results\IAppLinkResult.cs" />
     <Compile Include="Results\IAppRequestResult.cs" />
+    <Compile Include="Results\IGamingServicesFriendFinderResult.cs" />
     <Compile Include="Results\IGraphResult.cs" />
     <Compile Include="Results\IGroupCreateResult.cs" />
     <Compile Include="Results\IGroupJoinResult.cs" />

@@ -112,6 +112,17 @@ namespace Facebook.Unity.Mobile
             CallbackManager.OnFacebookResponse(result);
         }
 
+        public virtual void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnFriendFinderComplete(ResultContainer resultContainer)
+        {
+            var result = new GamingServicesFriendFinderResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
         protected abstract void SetShareDialogMode(ShareDialogMode mode);
 
         private static IDictionary<string, object> DeserializeMessage(string message)

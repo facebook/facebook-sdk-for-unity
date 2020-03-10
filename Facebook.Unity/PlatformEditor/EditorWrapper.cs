@@ -85,6 +85,14 @@ namespace Facebook.Unity.Editor
             dialog.CallbackID = callbackId;
         }
 
+        public void ShowMockFriendFinderDialog(
+            Utilities.Callback<ResultContainer> callback,
+            string subTitle,
+            string callbackId)
+        {
+            this.ShowEmptyMockDialog(callback, callbackId, subTitle);
+        }
+
         private void ShowEmptyMockDialog(
             Utilities.Callback<ResultContainer> callback,
             string callbackId,

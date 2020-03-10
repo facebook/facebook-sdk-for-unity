@@ -41,6 +41,7 @@ namespace Facebook.Unity
         private static IFacebook facebook;
         private static bool isInitCalled = false;
         private static string facebookDomain = "facebook.com";
+        private static string gamingDomain = "fb.gg";
         private static string graphApiVersion = Constants.GraphApiVersion;
 
         private delegate void OnDLLLoaded();
@@ -156,6 +157,12 @@ namespace Facebook.Unity
         {
             get
             {
+                if (FB.IsLoggedIn || AccessToken.CurrentAccessToken.GraphDomain != null) {
+                    string graphDomain = AccessToken.CurrentAccessToken.GraphDomain;
+                    if (graphDomain == "gaming") {
+                        return FB.gamingDomain;
+                    }
+                } 
                 return FB.facebookDomain;
             }
 

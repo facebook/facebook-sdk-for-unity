@@ -22,6 +22,7 @@
 
 NSString *const FBUnityMessageName_OnAppRequestsComplete = @"OnAppRequestsComplete";
 NSString *const FBUnityMessageName_OnGetAppLinkComplete = @"OnGetAppLinkComplete";
+NSString *const FBUnityMessageName_OnFriendFinderComplete = @"OnFriendFinderComplete";
 NSString *const FBUnityMessageName_OnGroupCreateComplete = @"OnGroupCreateComplete";
 NSString *const FBUnityMessageName_OnGroupJoinComplete = @"OnGroupJoinComplete";
 NSString *const FBUnityMessageName_OnInitComplete = @"OnInitComplete";

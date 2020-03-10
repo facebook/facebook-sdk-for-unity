@@ -19,6 +19,7 @@
 #import <FBSDKShareKit/FBSDKShareKit.h>
 
 extern NSString *const FBUnityMessageName_OnAppRequestsComplete;
+extern NSString *const FBUnityMessageName_OnFriendFinderComplete;
 extern NSString *const FBUnityMessageName_OnGetAppLinkComplete;
 extern NSString *const FBUnityMessageName_OnGroupCreateComplete;
 extern NSString *const FBUnityMessageName_OnGroupJoinComplete;

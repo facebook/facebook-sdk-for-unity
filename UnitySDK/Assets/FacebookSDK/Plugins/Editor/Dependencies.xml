@@ -12,5 +12,6 @@
         <iosPod name="FBSDKCoreKit" version="~> 6.2" />
         <iosPod name="FBSDKLoginKit" version="~> 6.2" />
         <iosPod name="FBSDKShareKit" version="~> 6.2" />
+        <iosPod name="FBSDKGamingServicesKit" version="~> 6.2" />
     </iosPods>
 </dependencies>

@@ -37,6 +37,7 @@ namespace Facebook.Unity.Editor
         public const string UnityLoginActivityName = "com.facebook.unity.FBUnityLoginActivity";
         public const string UnityDialogsActivityName = "com.facebook.unity.FBUnityDialogsActivity";
         public const string UnityGameRequestActivityName = "com.facebook.unity.FBUnityGameRequestActivity";
+        public const string UnityGamingServicesFriendFinderActivityName = "com.facebook.unity.FBUnityGamingServicesFriendFinderActivity";
         public const string UnityGameGroupCreateActivityName = "com.facebook.unity.FBUnityCreateGameGroupActivity";
         public const string UnityGameGroupJoinActivityName = "com.facebook.unity.FBUnityJoinGameGroupActivity";
         public const string ApplicationIdMetaDataName = "com.facebook.sdk.ApplicationId";
@@ -146,6 +147,10 @@ namespace Facebook.Unity.Editor
             // add the unity dialogs activity
             XmlElement unityDialogsElement = CreateUnityOverlayElement(doc, ns, UnityDialogsActivityName);
             ManifestMod.SetOrReplaceXmlElement(dict, unityDialogsElement);
+
+            XmlElement unityGamingFriendFinderElement = CreateUnityOverlayElement(doc, ns, UnityGamingServicesFriendFinderActivityName);
+            ManifestMod.SetOrReplaceXmlElement(dict, unityGamingFriendFinderElement);
+
 
             ManifestMod.AddAppLinkingActivity(doc, dict, ns, FacebookSettings.AppLinkSchemes[FacebookSettings.SelectedAppIndex].Schemes);
 

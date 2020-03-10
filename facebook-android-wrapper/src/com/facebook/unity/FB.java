@@ -443,6 +443,17 @@ public class FB {
         AppEventsLogger.activateApp(getUnityActivity());
     }
 
+    @UnityCallable
+    public static void OpenFriendFinderDialog(String params_str) {
+        Log.v(TAG, "OpenFriendFinderDialog(" + params_str + ")");
+        final UnityParams unity_params = UnityParams.parse(params_str);
+        final Bundle params = unity_params.getStringParams();
+
+        Intent intent = new Intent(getUnityActivity(), FBUnityGamingServicesFriendFinderActivity.class);
+        intent.putExtra(FBUnityGamingServicesFriendFinderActivity.DIALOG_PARAMS, params);
+        getUnityActivity().startActivity(intent);
+    }
+
     private static void ActivateApp(String appId) {
         if (!activateAppCalled.compareAndSet(false, true)) {
             Log.w(TAG, "Activite app only needs to be called once");

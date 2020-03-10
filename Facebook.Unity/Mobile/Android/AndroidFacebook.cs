@@ -322,6 +322,18 @@ namespace Facebook.Unity.Mobile.Android
             refreshCurrentAccessToken.Call();
         }
 
+        public override void OpenFriendFinderDialog(
+            FacebookDelegate<IGamingServicesFriendFinderResult> callback)
+        {
+            var openFriendFinderDialog = new JavaMethodCall<IGamingServicesFriendFinderResult>(
+                this,
+                "OpenFriendFinderDialog")
+            {
+                Callback = callback
+            };
+            openFriendFinderDialog.Call();
+        }
+
         protected override void SetShareDialogMode(ShareDialogMode mode)
         {
             this.CallFB("SetShareDialogMode", mode.ToString());

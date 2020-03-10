@@ -21,6 +21,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
+#import <FBSDKGamingServicesKit/FBSDKGamingServicesKit.h>
 #import <Foundation/NSJSONSerialization.h>
 
 #include "FBUnitySDKDelegate.h"
@@ -488,6 +489,20 @@ extern "C" {
   void IOSFBSetUserID(const char *userID)
   {
     [FBSDKAppEvents setUserID:[FBUnityUtility stringFromCString:userID]];
+  }
+
+  void IOSFBOpenGamingServicesFriendFinder(int requestId)
+  {
+    [FBSDKFriendFinderDialog
+       launchFriendFinderDialogWithCompletionHandler:^(BOOL success, NSError * _Nullable error) {
+        if (!success || error) {
+            [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnFriendFinderComplete error:error requestId:requestId];
+        } else {
+           [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnFriendFinderComplete
+                                    userData:NULL
+                                    requestId:requestId];
+        }
+      }];
   }
 
   char* IOSFBGetUserID()

@@ -139,6 +139,12 @@ namespace Facebook.Unity.IOS
                 title);
         }
 
+        public void OpenFriendFinderDialog(
+            int requestId)
+        {
+            IOSWrapper.IOSFBOpenGamingServicesFriendFinder(requestId);
+        }
+
         public void FBAppEventsActivateApp()
         {
             IOSWrapper.IOSFBAppEventsActivateApp();
@@ -330,6 +336,9 @@ namespace Facebook.Unity.IOS
 
         [DllImport("__Internal")]
         private static extern void IOSFBSetUserID(string userID);
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBOpenGamingServicesFriendFinder(int requestID);
 
         [DllImport("__Internal")]
         private static extern string IOSFBGetUserID();

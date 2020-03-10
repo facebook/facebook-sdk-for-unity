@@ -188,6 +188,12 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             this.LogMethodCall();
         }
 
+        public void OpenFriendFinderDialog(int requestId)
+        {
+            var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
+            this.MobileFacebook.OnFriendFinderComplete(new ResultContainer(result));
+        }
+
         public void RefreshCurrentAccessToken(int requestID)
         {
             var result = MockResults.GetLoginResult(

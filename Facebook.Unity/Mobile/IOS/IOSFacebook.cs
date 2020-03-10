@@ -288,6 +288,12 @@ namespace Facebook.Unity.Mobile.IOS
             this.iosWrapper.GetAppLink(System.Convert.ToInt32(CallbackManager.AddFacebookDelegate(callback)));
         }
 
+        public override void OpenFriendFinderDialog(
+            FacebookDelegate<IGamingServicesFriendFinderResult> callback)
+		{
+            this.iosWrapper.OpenFriendFinderDialog(System.Convert.ToInt32(CallbackManager.AddFacebookDelegate(callback)));
+		}
+
         public override void RefreshCurrentAccessToken(
             FacebookDelegate<IAccessTokenRefreshResult> callback)
         {

@@ -90,5 +90,14 @@ namespace Facebook.Unity.Tests.Editor
             var result = MockResults.GetGenericResult(int.Parse(callbackId), this.ResultExtras);
             callback(new ResultContainer(result));
         }
+
+        public void ShowMockFriendFinderDialog(
+            Utilities.Callback<ResultContainer> callback,
+            string subTitle,
+            string callbackId)
+        {
+            var result = MockResults.GetGenericResult(int.Parse(callbackId), this.ResultExtras);
+            callback(new ResultContainer(result));
+        }
     }
 }

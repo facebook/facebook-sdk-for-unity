@@ -49,5 +49,10 @@ namespace Facebook.Unity.Editor
             Utilities.Callback<ResultContainer> callback,
             string subTitle,
             string callbackId);
+
+        void ShowMockFriendFinderDialog(
+            Utilities.Callback<ResultContainer> callback,
+            string subTitle,
+            string callbackId);
     }
 }

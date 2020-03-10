@@ -18,32 +18,16 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity.Mobile
+namespace Facebook.Unity
 {
     using System.Collections.Generic;
 
-    internal interface IMobileFacebook : IFacebook
+    internal class GamingServicesFriendFinderResult : ResultBase, IGamingServicesFriendFinderResult
     {
-        ShareDialogMode ShareDialogMode { get; set; }
-
-        string UserID { get; set; }
-
-        void UpdateUserProperties(Dictionary<string, string> parameters);
-
-        void FetchDeferredAppLink(
-            FacebookDelegate<IAppLinkResult> callback);
-
-        void RefreshCurrentAccessToken(
-            FacebookDelegate<IAccessTokenRefreshResult> callback);
-
-        bool IsImplicitPurchaseLoggingEnabled();
-
-        void SetPushNotificationsDeviceTokenString(string token);
-
-        void SetAutoLogAppEventsEnabled(bool autoLogAppEventsEnabled);
-
-        void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled);
-
-        void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback);
+    
+        internal GamingServicesFriendFinderResult(ResultContainer resultContainer) : base(resultContainer)
+        {
+           
+        }
     }
 }

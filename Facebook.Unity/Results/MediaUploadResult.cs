@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
  *
  * You are hereby granted a non-exclusive, worldwide, royalty-free license to use,
@@ -18,39 +18,38 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity.Mobile
+namespace Facebook.Unity
 {
-    using System;
     using System.Collections.Generic;
-
-    internal interface IMobileFacebook : IFacebook
+    internal class MediaUploadResult : ResultBase, IMediaUploadResult
     {
-        ShareDialogMode ShareDialogMode { get; set; }
+        internal MediaUploadResult(ResultContainer resultContainer) : base(resultContainer)
+        {
+            if (this.ResultDictionary != null)
+            {
+                string mediaId;
+                if (this.ResultDictionary.TryGetValue("video_id", out mediaId))
+                {
+                    this.MediaId = mediaId;
+                }
+                else if (this.ResultDictionary.TryGetValue("id", out mediaId))
+                {
+                    this.MediaId = mediaId;
+                }
+            }
+        }
 
-        string UserID { get; set; }
+        public string MediaId { get; private set; }
 
-        void UpdateUserProperties(Dictionary<string, string> parameters);
-
-        void FetchDeferredAppLink(
-            FacebookDelegate<IAppLinkResult> callback);
-
-        void RefreshCurrentAccessToken(
-            FacebookDelegate<IAccessTokenRefreshResult> callback);
-
-        bool IsImplicitPurchaseLoggingEnabled();
-
-        void SetPushNotificationsDeviceTokenString(string token);
-
-        void SetAutoLogAppEventsEnabled(bool autoLogAppEventsEnabled);
-
-        void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled);
-
-        void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback);
-
-        void UploadImageToMediaLibrary(
-            string caption,
-            Uri imageUri,
-            bool shouldLaunchMediaDialog,
-            FacebookDelegate<IMediaUploadResult> callback);
+        public override string ToString()
+        {
+            return Utilities.FormatToString(
+                base.ToString(),
+                this.GetType().Name,
+                new Dictionary<string, string>()
+                {
+                    { "MediaId", this.MediaId },
+                });
+        }
     }
 }

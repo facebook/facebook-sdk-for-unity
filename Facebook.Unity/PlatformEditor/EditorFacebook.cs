@@ -182,14 +182,6 @@ namespace Facebook.Unity.Editor
             FacebookLogger.Log("Pew! Pretending to send this off.  Doesn't actually work in the editor");
         }
 
-        public void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback)
-        {
-            this.editorWrapper.ShowMockFriendFinderDialog(
-                this.OnFriendFinderComplete,
-                "Friend Finder Dialog",
-                this.CallbackManager.AddFacebookDelegate(callback));
-        }
-
         public bool IsImplicitPurchaseLoggingEnabled()
         {
             return true;
@@ -346,6 +338,32 @@ namespace Facebook.Unity.Editor
         {
             var result = new GamingServicesFriendFinderResult(resultContainer);
             CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnUploadImageToMediaLibraryComplete(ResultContainer resultContainer)
+        {
+            var result = new MediaUploadResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback)
+        {
+            this.editorWrapper.ShowMockFriendFinderDialog(
+                this.OnFriendFinderComplete,
+                "Friend Finder Dialog",
+                this.CallbackManager.AddFacebookDelegate(callback));
+        }
+
+        public void UploadImageToMediaLibrary(
+            string caption,
+            Uri imageUri,
+            bool shouldLaunchMediaDialog,
+            FacebookDelegate<IMediaUploadResult> callback)
+        {
+            var result = new Dictionary<string, object>();
+            result["id"] = "1232453";
+            result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
+            this.OnFetchDeferredAppLinkComplete(new ResultContainer(result));
         }
 
         #region Canvas Dummy Methods

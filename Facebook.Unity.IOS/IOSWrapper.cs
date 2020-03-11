@@ -223,6 +223,19 @@ namespace Facebook.Unity.IOS
             IOSWrapper.IOSFBUpdateUserProperties(numParams, paramKeys, paramVals);
         }
 
+        public void UploadImageToMediaLibrary(
+            int requestId,
+            string caption,
+            string imageUri,
+            bool shouldLaunchMediaDialog)
+        {
+            IOSWrapper.IOSFBUploadImageToMediaLibrary(
+                requestId,
+                caption,
+                imageUri,
+                shouldLaunchMediaDialog);
+        }
+
         public void FetchDeferredAppLink(int requestId)
         {
             IOSWrapper.IOSFBFetchDeferredAppLink(requestId);
@@ -339,6 +352,13 @@ namespace Facebook.Unity.IOS
 
         [DllImport("__Internal")]
         private static extern void IOSFBOpenGamingServicesFriendFinder(int requestID);
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBUploadImageToMediaLibrary(
+            int requestID,
+            string caption,
+            string imageUri,
+            bool shouldLaunchMediaDialog);
 
         [DllImport("__Internal")]
         private static extern string IOSFBGetUserID();

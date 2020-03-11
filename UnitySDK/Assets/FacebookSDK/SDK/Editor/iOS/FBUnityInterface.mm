@@ -505,6 +505,37 @@ extern "C" {
       }];
   }
 
+  void IOSFBUploadImageToMediaLibrary(int requestId,
+                                      const char *caption,
+                                      const char *imageUri,
+                                      bool shouldLaunchMediaDialog)
+  {
+    NSString *captionString = [FBUnityUtility stringFromCString:caption];
+    NSString *imageUriString = [FBUnityUtility stringFromCString:imageUri];
+    UIImage *image = [UIImage imageWithContentsOfFile:imageUriString];
+
+    FBSDKGamingImageUploaderConfiguration *config =
+    [[FBSDKGamingImageUploaderConfiguration alloc]
+      initWithImage:image
+      caption:captionString
+      shouldLaunchMediaDialog:shouldLaunchMediaDialog ? YES: NO];
+
+    [FBSDKGamingImageUploader
+      uploadImageWithConfiguration:config
+      andCompletionHandler:^(BOOL success, NSError * _Nullable error) {
+        if (!success || error) {
+          [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnUploadImageToMediaLibraryComplete
+            error:error
+            requestId:requestId];
+        } else {
+          [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnUploadImageToMediaLibraryComplete
+            userData:NULL
+            requestId:requestId];
+        }
+    }];
+
+  }
+
   char* IOSFBGetUserID()
   {
     NSString *userID = [FBSDKAppEvents userID];

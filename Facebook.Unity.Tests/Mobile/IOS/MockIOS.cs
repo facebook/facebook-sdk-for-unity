@@ -229,5 +229,15 @@ namespace Facebook.Unity.Tests.Mobile.IOS
         {
             this.LogMethodCall();
         }
+
+        public void UploadImageToMediaLibrary(
+            int requestId,
+            string caption,
+            string mediaUri,
+            bool shouldLaunchMediaDialog)
+        {
+            var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
+            this.MobileFacebook.OnUploadImageToMediaLibraryComplete(new ResultContainer(result));
+        }
     }
 }

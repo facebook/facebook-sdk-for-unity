@@ -306,6 +306,19 @@ namespace Facebook.Unity.Mobile.IOS
             this.iosWrapper.SetShareDialogMode((int)mode);
         }
 
+        public override void UploadImageToMediaLibrary(
+            string caption,
+            Uri imageUri,
+            bool shouldLaunchMediaDialog,
+            FacebookDelegate<IMediaUploadResult> callback)
+        {
+            this.iosWrapper.UploadImageToMediaLibrary(
+                System.Convert.ToInt32(CallbackManager.AddFacebookDelegate(callback)),
+                caption,
+                imageUri.AbsolutePath.ToString(),
+                shouldLaunchMediaDialog);
+        }
+
         private static IIOSWrapper GetIOSWrapper()
         {
             Assembly assembly = Assembly.Load("Facebook.Unity.IOS");

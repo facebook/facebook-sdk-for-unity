@@ -29,5 +29,7 @@ namespace Facebook.Unity.Mobile
         void OnFriendFinderComplete(string message);
 
         void OnUploadImageToMediaLibraryComplete(string message);
+
+        void OnUploadVideoToMediaLibraryComplete(string message);
     }
 }

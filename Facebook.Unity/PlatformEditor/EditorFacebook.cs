@@ -346,6 +346,12 @@ namespace Facebook.Unity.Editor
             CallbackManager.OnFacebookResponse(result);
         }
 
+        public void OnUploadVideoToMediaLibraryComplete(ResultContainer resultContainer)
+        {
+            var result = new MediaUploadResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
         public void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback)
         {
             this.editorWrapper.ShowMockFriendFinderDialog(
@@ -362,6 +368,19 @@ namespace Facebook.Unity.Editor
         {
             var result = new Dictionary<string, object>();
             result["id"] = "1232453";
+            result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
+            this.OnFetchDeferredAppLinkComplete(new ResultContainer(result));
+        }
+
+        public void UploadVideoToMediaLibrary(
+            string caption,
+            Uri imageUri,
+            FacebookDelegate<IMediaUploadResult> callback)
+        {
+            // construct a dummy ResultContainer
+            // to pretend we actually did an upload
+            var result = new Dictionary<string, object>();
+            result["video_id"] = "456789";
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
             this.OnFetchDeferredAppLinkComplete(new ResultContainer(result));
         }

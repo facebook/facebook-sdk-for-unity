@@ -64,6 +64,23 @@ namespace Facebook.Unity
             MobileFacebookImpl.UploadImageToMediaLibrary(caption, imageUri, shouldLaunchMediaDialog, callback);
         }
 
+        /// <summary>
+        /// Uploads a video to the player's Gaming Media Library
+        /// </summary>
+        /// <param name="caption">Title for this video in the Media Library</param>
+        /// <param name="videoUri">Path to the video file in the local filesystem. On Android
+        /// this can also be a content:// URI</param>
+        /// <param name="callback">A callback for when the video upload is complete.</param>
+        /// <remarks>Note that when the callback is fired, the video will still need to be
+        /// encoded before it is available in the Media Library.</remarks>
+        public static void UploadVideoToMediaLibrary(
+            string caption,
+            Uri videoUri,
+            FacebookDelegate<IMediaUploadResult> callback)
+        {
+            MobileFacebookImpl.UploadVideoToMediaLibrary(caption, videoUri, callback);
+        }
+
         private static IMobileFacebook MobileFacebookImpl
         {
             get

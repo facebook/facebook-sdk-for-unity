@@ -123,6 +123,18 @@ namespace Facebook.Unity.Mobile
             CallbackManager.OnFacebookResponse(result);
         }
 
+        public void OnUploadImageToMediaLibraryComplete(ResultContainer resultContainer)
+        {
+            var result = new MediaUploadResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnUploadVideoToMediaLibraryComplete(ResultContainer resultContainer)
+        {
+            var result = new MediaUploadResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
         public virtual void UploadImageToMediaLibrary(
             string caption,
             Uri imageUri,
@@ -132,10 +144,12 @@ namespace Facebook.Unity.Mobile
             throw new NotImplementedException();
         }
 
-        public void OnUploadImageToMediaLibraryComplete(ResultContainer resultContainer)
+        public virtual void UploadVideoToMediaLibrary(
+            string caption,
+            Uri videoUri,
+            FacebookDelegate<IMediaUploadResult> callback)
         {
-            var result = new MediaUploadResult(resultContainer);
-            CallbackManager.OnFacebookResponse(result);
+            throw new NotImplementedException();
         }
 
         protected abstract void SetShareDialogMode(ShareDialogMode mode);

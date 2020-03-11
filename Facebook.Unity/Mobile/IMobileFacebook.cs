@@ -52,5 +52,10 @@ namespace Facebook.Unity.Mobile
             Uri imageUri,
             bool shouldLaunchMediaDialog,
             FacebookDelegate<IMediaUploadResult> callback);
+
+        void UploadVideoToMediaLibrary(
+            string caption,
+            Uri videoUri,
+            FacebookDelegate<IMediaUploadResult> callback);
     }
 }

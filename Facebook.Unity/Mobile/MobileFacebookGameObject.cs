@@ -49,5 +49,10 @@ namespace Facebook.Unity.Mobile
         {
             this.MobileFacebook.OnUploadImageToMediaLibraryComplete(new ResultContainer(message));
         }
+
+        public void OnUploadVideoToMediaLibraryComplete(string message)
+        {
+            this.MobileFacebook.OnUploadVideoToMediaLibraryComplete(new ResultContainer(message));
+        }
     }
 }

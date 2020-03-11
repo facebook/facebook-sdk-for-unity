@@ -236,6 +236,17 @@ namespace Facebook.Unity.IOS
                 shouldLaunchMediaDialog);
         }
 
+        public void UploadVideoToMediaLibrary(
+            int requestId,
+            string caption,
+            string videoUri)
+        {
+            IOSWrapper.IOSFBUploadVideoToMediaLibrary(
+                requestId,
+                caption,
+                videoUri);
+        }
+
         public void FetchDeferredAppLink(int requestId)
         {
             IOSWrapper.IOSFBFetchDeferredAppLink(requestId);
@@ -359,6 +370,12 @@ namespace Facebook.Unity.IOS
             string caption,
             string imageUri,
             bool shouldLaunchMediaDialog);
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBUploadVideoToMediaLibrary(
+            int requestID,
+            string caption,
+            string videoUri);
 
         [DllImport("__Internal")]
         private static extern string IOSFBGetUserID();

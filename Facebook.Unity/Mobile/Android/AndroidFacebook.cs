@@ -353,6 +353,23 @@ namespace Facebook.Unity.Mobile.Android
             uploadImageToMediaLibrary.Call(args);
         }
 
+        public override void UploadVideoToMediaLibrary(
+            string caption,
+            Uri videoUri,
+            FacebookDelegate<IMediaUploadResult> callback)
+        {
+            MethodArguments args = new MethodArguments();
+            args.AddString("caption", caption);
+            args.AddUri("videoUri", videoUri);
+            var uploadImageToMediaLibrary = new JavaMethodCall<IMediaUploadResult>(
+                this,
+                "UploadVideoToMediaLibrary")
+            {
+                Callback = callback
+            };
+            uploadImageToMediaLibrary.Call(args);
+        }
+
         protected override void SetShareDialogMode(ShareDialogMode mode)
         {
             this.CallFB("SetShareDialogMode", mode.ToString());

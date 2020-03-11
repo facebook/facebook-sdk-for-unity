@@ -20,6 +20,7 @@
 
 package com.facebook.unity;
 
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.*;
 import java.security.MessageDigest;
@@ -29,6 +30,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,6 +49,7 @@ import com.facebook.internal.BundleJSONConverter;
 import com.facebook.internal.Utility;
 import com.facebook.internal.InternalSettings;
 import com.facebook.login.LoginManager;
+import com.facebook.gamingservices.GamingImageUploader;
 import com.facebook.share.widget.ShareDialog;
 
 import org.json.JSONException;
@@ -452,6 +455,53 @@ public class FB {
         Intent intent = new Intent(getUnityActivity(), FBUnityGamingServicesFriendFinderActivity.class);
         intent.putExtra(FBUnityGamingServicesFriendFinderActivity.DIALOG_PARAMS, params);
         getUnityActivity().startActivity(intent);
+    }
+
+    @UnityCallable
+    public static void UploadImageToMediaLibrary(String params_str) {
+        Log.v(TAG, "UploadImageToMediaLibrary(" + params_str + ")");
+        UnityParams unityParams = UnityParams.parse(params_str);
+        String caption = unityParams.getString("caption");
+        Uri imageUri = Uri.parse(unityParams.getString("imageUri"));
+        // As a convenience, convert the URI to file:// if it has no Scheme.
+        // this is so that Unity code can pass just the path to the local
+        // file.
+        if (imageUri.getScheme() == null) {
+            imageUri = imageUri.buildUpon().scheme("file").build();
+        }
+        boolean shouldLaunchMediaDialog = Boolean.parseBoolean(unityParams.getString("shouldLaunchMediaDialog"));
+
+        final UnityMessage unityMessage = new UnityMessage("OnUploadImageToMediaLibraryComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+
+        GamingImageUploader imageUploader = new GamingImageUploader(getUnityActivity());
+        try {
+            imageUploader.uploadToMediaLibrary(
+                caption,
+                imageUri,
+                shouldLaunchMediaDialog,
+                new GraphRequest.Callback() {
+                    @Override
+                    public void onCompleted(GraphResponse response) {
+                        if (response.getError() != null) {
+                            unityMessage.sendError(response.getError().toString());
+                        } else {
+                            String id = response.getJSONObject().optString("id", null);
+                            if (id == null) {
+                                unityMessage.sendError("Response did not contain ImageID");
+                            } else {
+                                unityMessage.put("id", id);
+                                unityMessage.send();
+                            }
+                        }
+                    }
+                }
+            );
+        } catch (FileNotFoundException e) {
+            unityMessage.sendError(e.toString());
+        }
     }
 
     private static void ActivateApp(String appId) {

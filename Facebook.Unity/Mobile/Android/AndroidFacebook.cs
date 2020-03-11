@@ -334,6 +334,25 @@ namespace Facebook.Unity.Mobile.Android
             openFriendFinderDialog.Call();
         }
 
+        public override void UploadImageToMediaLibrary(
+            string caption,
+            Uri imageUri,
+            bool shouldLaunchMediaDialog,
+            FacebookDelegate<IMediaUploadResult> callback)
+        {
+            MethodArguments args = new MethodArguments();
+            args.AddString("caption", caption);
+            args.AddUri("imageUri", imageUri);
+            args.AddString("shouldLaunchMediaDialog", shouldLaunchMediaDialog.ToString());
+            var uploadImageToMediaLibrary = new JavaMethodCall<IMediaUploadResult>(
+                this,
+                "UploadImageToMediaLibrary")
+            {
+                Callback = callback
+            };
+            uploadImageToMediaLibrary.Call(args);
+        }
+
         protected override void SetShareDialogMode(ShareDialogMode mode)
         {
             this.CallFB("SetShareDialogMode", mode.ToString());

@@ -50,6 +50,7 @@ import com.facebook.internal.Utility;
 import com.facebook.internal.InternalSettings;
 import com.facebook.login.LoginManager;
 import com.facebook.gamingservices.GamingImageUploader;
+import com.facebook.gamingservices.GamingVideoUploader;
 import com.facebook.share.widget.ShareDialog;
 
 import org.json.JSONException;
@@ -496,6 +497,55 @@ public class FB {
                                 unityMessage.send();
                             }
                         }
+                    }
+                }
+            );
+        } catch (FileNotFoundException e) {
+            unityMessage.sendError(e.toString());
+        }
+    }
+
+    @UnityCallable
+    public static void UploadVideoToMediaLibrary(String params_str) {
+        Log.v(TAG, "UploadVideoToMediaLibrary(" + params_str + ")");
+        UnityParams unityParams = UnityParams.parse(params_str);
+        String caption = unityParams.getString("caption");
+        Uri videoUri = Uri.parse(unityParams.getString("videoUri"));
+        // As a convenience, convert the URI to file:// if it has no Scheme.
+        // this is so that Unity code can pass just the path to the local
+        // file.
+        if (videoUri.getScheme() == null) {
+            videoUri = videoUri.buildUpon().scheme("file").build();
+        }
+
+        final UnityMessage unityMessage = new UnityMessage("OnUploadVideoToMediaLibraryComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+
+        GamingVideoUploader videoUploader = new GamingVideoUploader(getUnityActivity());
+        try {
+            videoUploader.uploadToMediaLibrary(
+                caption,
+                videoUri,
+                new GraphRequest.OnProgressCallback() {
+                    @Override
+                    public void onCompleted(GraphResponse response) {
+                        if (response.getError() != null) {
+                            unityMessage.sendError(response.getError().toString());
+                        } else {
+                            String id = response.getJSONObject().optString("video_id", null);
+                            if (id == null) {
+                                unityMessage.sendError("Response did not contain ImageID");
+                            } else {
+                                unityMessage.put("video_id", id);
+                                unityMessage.send();
+                            }
+                        }
+                    }
+                    @Override
+                    public void onProgress(long current, long total) {
+                        
                     }
                 }
             );

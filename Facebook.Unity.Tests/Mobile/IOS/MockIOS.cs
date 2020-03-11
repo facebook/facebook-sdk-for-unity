@@ -239,5 +239,14 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
             this.MobileFacebook.OnUploadImageToMediaLibraryComplete(new ResultContainer(result));
         }
+
+        public void UploadVideoToMediaLibrary(
+            int requestId,
+            string caption,
+            string mediaUri)
+        {
+            var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
+            this.MobileFacebook.OnUploadVideoToMediaLibraryComplete(new ResultContainer(result));
+        }
     }
 }

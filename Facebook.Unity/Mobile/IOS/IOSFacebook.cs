@@ -319,6 +319,17 @@ namespace Facebook.Unity.Mobile.IOS
                 shouldLaunchMediaDialog);
         }
 
+        public override void UploadVideoToMediaLibrary(
+            string caption,
+            Uri videoUri,
+            FacebookDelegate<IMediaUploadResult> callback)
+        {
+            this.iosWrapper.UploadVideoToMediaLibrary(
+                System.Convert.ToInt32(CallbackManager.AddFacebookDelegate(callback)),
+                caption,
+                videoUri.AbsolutePath.ToString());
+        }
+
         private static IIOSWrapper GetIOSWrapper()
         {
             Assembly assembly = Assembly.Load("Facebook.Unity.IOS");

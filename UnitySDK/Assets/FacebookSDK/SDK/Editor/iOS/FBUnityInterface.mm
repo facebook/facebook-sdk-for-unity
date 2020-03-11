@@ -536,6 +536,35 @@ extern "C" {
 
   }
 
+  void IOSFBUploadVideoToMediaLibrary(int requestId,
+                                      const char *caption,
+                                      const char *videoUri)
+  {
+    NSString *captionString = [FBUnityUtility stringFromCString:caption];
+    NSString *videoUriString = [FBUnityUtility stringFromCString:videoUri];
+    NSURL *videoURL = [NSURL fileURLWithPath:videoUriString];
+
+    FBSDKGamingVideoUploaderConfiguration *config =
+    [[FBSDKGamingVideoUploaderConfiguration alloc]
+      initWithVideoURL:videoURL
+      caption:captionString];
+
+    [FBSDKGamingVideoUploader
+      uploadVideoWithConfiguration:config
+      andCompletionHandler:^(BOOL success, NSError * _Nullable error) {
+        if (!success || error) {
+          [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnUploadVideoToMediaLibraryComplete
+            error:error
+            requestId:requestId];
+        } else {
+          [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnUploadVideoToMediaLibraryComplete
+            userData:NULL
+            requestId:requestId];
+        }
+    }];
+
+  }
+
   char* IOSFBGetUserID()
   {
     NSString *userID = [FBSDKAppEvents userID];

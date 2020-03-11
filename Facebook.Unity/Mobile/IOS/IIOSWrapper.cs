@@ -121,6 +121,11 @@ namespace Facebook.Unity.Mobile.IOS
             string mediaUri,
             bool shouldLaunchMediaDialog);
 
+        void UploadVideoToMediaLibrary(
+            int requestId,
+            string caption,
+            string videoUri);
+
         void FetchDeferredAppLink(int requestId);
     }
 }

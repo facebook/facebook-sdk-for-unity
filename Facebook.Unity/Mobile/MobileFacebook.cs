@@ -123,6 +123,21 @@ namespace Facebook.Unity.Mobile
             CallbackManager.OnFacebookResponse(result);
         }
 
+        public virtual void UploadImageToMediaLibrary(
+            string caption,
+            Uri imageUri,
+            bool shouldLaunchMediaDialog,
+            FacebookDelegate<IMediaUploadResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnUploadImageToMediaLibraryComplete(ResultContainer resultContainer)
+        {
+            var result = new MediaUploadResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
         protected abstract void SetShareDialogMode(ShareDialogMode mode);
 
         private static IDictionary<string, object> DeserializeMessage(string message)

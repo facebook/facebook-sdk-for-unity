@@ -149,6 +149,8 @@
     <Compile Include="Codeless\FBSDKCodelessPathComponent.cs" />
     <Compile Include="Codeless\FBSDKEventBinding.cs" />
     <Compile Include="Codeless\FBSDKEventBindingManager.cs" />
+    <Compile Include="Results\IMediaUploadResult.cs" />
+    <Compile Include="Results\MediaUploadResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

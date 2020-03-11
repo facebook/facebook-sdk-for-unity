@@ -46,6 +46,24 @@ namespace Facebook.Unity
             MobileFacebookImpl.OpenFriendFinderDialog(callback);
         }
 
+        /// <summary>
+        /// Uploads an Image to the player's Gaming Media Library
+        /// </summary>
+        /// <param name="caption">Title for this image in the Media Library</param>
+        /// <param name="imageUri">Path to the image file in the local filesystem. On Android
+        /// this can also be a content:// URI</param>
+        /// <param name="shouldLaunchMediaDialog">If we should open the Media Dialog to allow
+        /// the player to Share this image right away.</param>
+        /// <param name="callback">A callback for when the image upload is complete.</param>
+        public static void UploadImageToMediaLibrary(
+            string caption,
+            Uri imageUri,
+            bool shouldLaunchMediaDialog,
+            FacebookDelegate<IMediaUploadResult> callback)
+        {
+            MobileFacebookImpl.UploadImageToMediaLibrary(caption, imageUri, shouldLaunchMediaDialog, callback);
+        }
+
         private static IMobileFacebook MobileFacebookImpl
         {
             get

@@ -44,5 +44,10 @@ namespace Facebook.Unity.Mobile
         {
             this.MobileFacebook.OnFriendFinderComplete(new ResultContainer(message));
         }
+
+        public void OnUploadImageToMediaLibraryComplete(string message)
+        {
+            this.MobileFacebook.OnUploadImageToMediaLibraryComplete(new ResultContainer(message));
+        }
     }
 }

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.19.0] - 2020-03-11
+
+### Added
+
+- Support for Gaming Video Uploads
+- Support for Gaming Image Uploads
+- Support for Gaming Friend Finder
+
 ## [7.18.1] - 2020-02-03
 
 ### Fixed
@@ -46,7 +54,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.18.1...HEAD
+[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.19.0...HEAD
+[7.19.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.18.1...sdk-version-7.19.0
 [7.18.1]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.18.0...sdk-version-7.18.1
 [7.18.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.17.2...sdk-version-7.18.0
 [7.17.2]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.17.1...sdk-version-7.17.2

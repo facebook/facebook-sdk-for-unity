@@ -35,51 +35,6 @@ namespace Facebook.Unity.Editor
     \s*return\ )NO(\;\n                 #   return NO;
   \})                                   # }";
 
-        public static void FixSimulator(string path)
-        {
-            string fullPath = Path.Combine(path, Path.Combine("Libraries", "RegisterMonoModules.cpp"));
-            string data = Load(fullPath);
-
-            data = Regex.Replace(data, @"\s+void\s+mono_dl_register_symbol\s+\(const\s+char\*\s+name,\s+void\s+\*addr\);", string.Empty);
-            data = Regex.Replace(data, "typedef int gboolean;", "typedef int gboolean;\n\tvoid mono_dl_register_symbol (const char* name, void *addr);");
-
-            // this only need to be done for unity 4, unity 5 declares user functions correctly
-            if (GetUnityVersionNumber() < 500)
-            {
-                data = Regex.Replace(
-                    data,
-                    @"#endif\s+//\s*!\s*\(\s*TARGET_IPHONE_SIMULATOR\s*\)\s*}\s*void RegisterAllStrippedInternalCalls\s*\(\s*\)",
-                    "}\n\nvoid RegisterAllStrippedInternalCalls()");
-                data = Regex.Replace(
-                    data,
-                    @"mono_aot_register_module\(mono_aot_module_mscorlib_info\);",
-                    "mono_aot_register_module(mono_aot_module_mscorlib_info);\n#endif // !(TARGET_IPHONE_SIMULATOR)");
-            }
-
-            Save(fullPath, data);
-        }
-
-        public static void AddVersionDefine(string path)
-        {
-            int versionNumber = GetUnityVersionNumber();
-
-            string fullPath = Path.Combine(path, Path.Combine("Libraries", "RegisterMonoModules.h"));
-            string data = Load(fullPath);
-
-            if (versionNumber >= 430)
-            {
-                data += "\n#define HAS_UNITY_VERSION_DEF 1\n";
-            }
-            else
-            {
-                data += "\n#define UNITY_VERSION ";
-                data += versionNumber;
-                data += "\n";
-            }
-
-            Save(fullPath, data);
-        }
-
         public static void FixColdStart(string path)
         {
             string fullPath = Path.Combine(path, Path.Combine("Classes", "UnityAppController.mm"));

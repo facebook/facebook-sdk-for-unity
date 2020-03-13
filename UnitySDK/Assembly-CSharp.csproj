@@ -57,8 +57,9 @@
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\GraphRequest.cs" />
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\MainMenu.cs" />
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\Pay.cs" />
+     <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver_v1.2.135.0.txt" />
+     <None Include="Assets\FacebookSDK\Plugins\Editor\Dependencies.xml" />
      <None Include="Assets\FacebookSDK\link.xml" />
-     <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver_v1.2.95.0.txt" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

@@ -59,9 +59,28 @@ namespace Facebook.Unity.Editor.Dialogs
                 return;
             }
 
+
+            // This whole module does a bunch of Graph API calls to simulate the
+            // reponse from an actual Login. It then constructs the Result Object to
+            // send over to the SDK to construct an AccessToken object.  In order to honor
+            // the correct domain while doing this, we will construct a dummy access token so
+            // that FB.API() can determine the right domain to send the request to. Once this method
+            // returns the real AccessToken object will be constructed and will replace this dummy one.
+            List<string> dummyPerms = new List<string>();
+            dummyPerms.Add("public_profile");
+            string graphDomain = this.accessToken.StartsWith("GG") ? "gaming" : "facebook";
+            AccessToken tmpAccessToken = new AccessToken(
+                this.accessToken,
+                "me",
+                DateTime.UtcNow.AddDays(60),
+                dummyPerms,
+                DateTime.UtcNow,
+                graphDomain);
+            AccessToken.CurrentAccessToken = tmpAccessToken;
+
             // Make a Graph API call to get FBID
             FB.API(
-                "/me?fields=id&access_token=" + this.accessToken,
+                "/me?fields=id",
                HttpMethod.GET,
                delegate(IGraphResult graphResult)
             {
@@ -75,7 +94,7 @@ namespace Facebook.Unity.Editor.Dialogs
 
                 // Make a Graph API call to get Permissions
                 FB.API(
-                    "/me/permissions?access_token=" + this.accessToken,
+                    "/me/permissions",
                    HttpMethod.GET,
                    delegate(IGraphResult permResult)
                 {
@@ -108,7 +127,7 @@ namespace Facebook.Unity.Editor.Dialogs
                         DateTime.UtcNow.AddDays(60),
                         grantedPerms,
                         DateTime.UtcNow,
-                        "facebook");
+                        graphDomain);
 
                     var result = (IDictionary<string, object>)MiniJSON.Json.Deserialize(newToken.ToJson());
                     result.Add("granted_permissions", grantedPerms);

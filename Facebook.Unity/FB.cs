@@ -157,7 +157,7 @@ namespace Facebook.Unity
         {
             get
             {
-                if (FB.IsLoggedIn || AccessToken.CurrentAccessToken.GraphDomain != null) {
+                if (FB.IsLoggedIn && AccessToken.CurrentAccessToken != null) {
                     string graphDomain = AccessToken.CurrentAccessToken.GraphDomain;
                     if (graphDomain == "gaming") {
                         return FB.gamingDomain;

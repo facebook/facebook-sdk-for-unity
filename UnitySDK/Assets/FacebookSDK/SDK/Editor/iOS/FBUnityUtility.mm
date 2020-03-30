@@ -205,7 +205,8 @@ static char* FBUnityMakeStringCopy (const char* string)
         token.expirationDate &&
         token.userID &&
         token.permissions &&
-        token.declinedPermissions) {
+        token.declinedPermissions &&
+        token.graphDomain) {
       NSInteger expiration = token.expirationDate.timeIntervalSince1970;
       NSInteger lastRefreshDate = token.refreshDate ? token.refreshDate.timeIntervalSince1970 : 0;
       return @{

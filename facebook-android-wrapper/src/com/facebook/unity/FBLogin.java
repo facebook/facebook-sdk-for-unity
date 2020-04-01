@@ -81,7 +81,7 @@ public class FBLogin {
                 TextUtils.join(",", token.getPermissions()));
         unityMessage.put("declined_permissions",
                 TextUtils.join(",", token.getDeclinedPermissions()));
-        unityMessage.put("graph_domain", token.getGraphDomain());
+        unityMessage.put("graph_domain", token.getGraphDomain() != null ? token.getGraphDomain() : "facebook");
 
         if (token.getLastRefresh() != null) {
             Long lastRefresh = token.getLastRefresh().getTime() / 1000;

@@ -240,38 +240,42 @@ public class FB {
     }
 
     @UnityCallable
-    public static void LogAppEvent(String params_str) {
-        Log.v(TAG, "LogAppEvent(" + params_str + ")");
-        UnityParams unity_params = UnityParams.parse(params_str);
+    public static void LogAppEvent(final String params_str) {
+        new Thread(new Runnable() {
+            public void run() {
+                Log.v(TAG, "LogAppEvent(" + params_str + ")");
+                UnityParams unity_params = UnityParams.parse(params_str);
 
-        Bundle parameters = new Bundle();
-        if (unity_params.has("parameters")) {
-            UnityParams unity_params_parameter = unity_params.getParamsObject("parameters");
-            parameters = unity_params_parameter.getStringParams();
-        }
+                Bundle parameters = new Bundle();
+                if (unity_params.has("parameters")) {
+                    UnityParams unity_params_parameter = unity_params.getParamsObject("parameters");
+                    parameters = unity_params_parameter.getStringParams();
+                }
 
-        if (unity_params.has("logPurchase")) {
-            FB.getAppEventsLogger().logPurchase(
-                    new BigDecimal(unity_params.getDouble("logPurchase")),
-                    Currency.getInstance(unity_params.getString("currency")),
-                    parameters
-            );
-        } else if (unity_params.hasString("logEvent")) {
-            if (unity_params.has("valueToSum")) {
-                FB.getAppEventsLogger().logEvent(
-                        unity_params.getString("logEvent"),
-                        unity_params.getDouble("valueToSum"),
-                        parameters
-                );
-            } else {
-                FB.getAppEventsLogger().logEvent(
-                        unity_params.getString("logEvent"),
-                        parameters
-                );
+                if (unity_params.has("logPurchase")) {
+                    FB.getAppEventsLogger().logPurchase(
+                            new BigDecimal(unity_params.getDouble("logPurchase")),
+                            Currency.getInstance(unity_params.getString("currency")),
+                            parameters
+                    );
+                } else if (unity_params.hasString("logEvent")) {
+                    if (unity_params.has("valueToSum")) {
+                        FB.getAppEventsLogger().logEvent(
+                                unity_params.getString("logEvent"),
+                                unity_params.getDouble("valueToSum"),
+                                parameters
+                        );
+                    } else {
+                        FB.getAppEventsLogger().logEvent(
+                                unity_params.getString("logEvent"),
+                                parameters
+                        );
+                    }
+                } else {
+                    Log.e(TAG, "couldn't logPurchase or logEvent params: " + params_str);
+                }
             }
-        } else {
-            Log.e(TAG, "couldn't logPurchase or logEvent params: " + params_str);
-        }
+        }).start();
     }
 
     @UnityCallable
@@ -545,7 +549,7 @@ public class FB {
                     }
                     @Override
                     public void onProgress(long current, long total) {
-                        
+
                     }
                 }
             );

@@ -245,7 +245,7 @@ isPublishPermLogin:(BOOL)isPublishPermLogin
     [feedParameters setObject:sourceStr forKey:@"source"];
   }
 
-  linkContent.feedParameters = feedParameters;
+  [linkContent addParameters:feedParameters bridgeOptions:FBSDKShareBridgeOptionsDefault];
   [self shareContentWithRequestId:requestId
                      shareContent:linkContent
                        dialogMode:FBSDKShareDialogModeFeedWeb];

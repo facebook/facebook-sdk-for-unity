@@ -556,7 +556,7 @@ public class FB {
 
     private static void ActivateApp(String appId) {
         if (!activateAppCalled.compareAndSet(false, true)) {
-            Log.w(TAG, "Activite app only needs to be called once");
+            Log.w(TAG, "Activate app only needs to be called once");
             return;
         }
         final Activity unityActivity = getUnityActivity();

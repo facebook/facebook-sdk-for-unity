@@ -522,14 +522,14 @@ extern "C" {
 
     [FBSDKGamingImageUploader
       uploadImageWithConfiguration:config
-      andCompletionHandler:^(BOOL success, NSError * _Nullable error) {
+      andResultCompletionHandler:^(BOOL success, id result, NSError * _Nullable error) {
         if (!success || error) {
           [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnUploadImageToMediaLibraryComplete
             error:error
             requestId:requestId];
         } else {
           [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnUploadImageToMediaLibraryComplete
-            userData:NULL
+            userData:@{@"id":result[@"id"]}
             requestId:requestId];
         }
     }];
@@ -551,14 +551,14 @@ extern "C" {
 
     [FBSDKGamingVideoUploader
       uploadVideoWithConfiguration:config
-      andCompletionHandler:^(BOOL success, NSError * _Nullable error) {
+      andResultCompletionHandler:^(BOOL success, id result, NSError * _Nullable error) {
         if (!success || error) {
           [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnUploadVideoToMediaLibraryComplete
             error:error
             requestId:requestId];
         } else {
           [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnUploadVideoToMediaLibraryComplete
-            userData:NULL
+            userData:@{@"id":result[@"id"]}
             requestId:requestId];
         }
     }];

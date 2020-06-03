@@ -52,6 +52,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.gamingservices.GamingImageUploader;
 import com.facebook.gamingservices.GamingVideoUploader;
 import com.facebook.share.widget.ShareDialog;
+import com.facebook.LoginStatusCallback;
 
 import org.json.JSONException;
 
@@ -134,6 +135,51 @@ public class FB {
         UnityMessage message = new UnityMessage("OnLogoutComplete");
         message.put("did_complete", true);
         message.send();
+    }
+
+    @UnityCallable
+    public static void RetrieveLoginStatus(String params_str) {
+        Log.v(TAG, "RetrieveLoginStatus(" + params_str + ")");
+
+        if (!FacebookSdk.isInitialized()) {
+            Log.w(FB.TAG, "Facebook SDK not initialized. Call init() before calling login()");
+            return;
+        }
+
+        final UnityMessage unityMessage = new UnityMessage("OnLoginStatusRetrieved");
+        unityMessage.put("key_hash", getKeyHash());
+
+        UnityParams unity_params = UnityParams.parse(params_str,
+            "couldn't parse login params: " + params_str);
+        String callbackIDString = null;
+        if (unity_params.has(Constants.CALLBACK_ID_KEY)) {
+            callbackIDString = unity_params.getString(Constants.CALLBACK_ID_KEY);
+            unityMessage.put(Constants.CALLBACK_ID_KEY, callbackIDString);
+        }
+        final String callbackID = callbackIDString;
+
+        LoginManager.getInstance().retrieveLoginStatus(
+            getUnityActivity(),
+            new LoginStatusCallback() {
+                @Override
+                public void onCompleted(final AccessToken accessToken) {
+                    FBLogin.addLoginParametersToMessage(unityMessage, accessToken, callbackID);
+                    unityMessage.send();
+                }
+
+                @Override
+                public void onFailure() {
+                    unityMessage.put("failed", true);
+                    unityMessage.send();
+                }
+
+                @Override
+                public void onError(Exception exception) {
+                    unityMessage.sendError(exception.getMessage());
+                }
+
+            }
+        );
     }
 
     @UnityCallable
@@ -545,7 +591,7 @@ public class FB {
                     }
                     @Override
                     public void onProgress(long current, long total) {
-                        
+
                     }
                 }
             );

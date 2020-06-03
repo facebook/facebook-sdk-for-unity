@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
  *
  * You are hereby granted a non-exclusive, worldwide, royalty-free license to use,
@@ -18,39 +18,18 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity.Mobile.Android
+namespace Facebook.Unity
 {
-    using UnityEngine.SceneManagement;
-
-    internal class AndroidFacebookGameObject : MobileFacebookGameObject
+    /// <summary>
+    /// The result for getting the Login Status of a user.
+    /// </summary>
+    public interface ILoginStatusResult : ILoginResult
     {
-        protected override void OnAwake()
-        {
-            CodelessIAPAutoLog.addListenerToIAPButtons(this);
-        }
-
-        void OnEnable()
-        {
-            SceneManager.sceneLoaded += OnSceneLoaded;
-        }
-
-        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            CodelessIAPAutoLog.addListenerToIAPButtons(this);
-        }
-
-        void OnDisable()
-        {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-        }
-
-        public void onPurchaseCompleteHandler(System.Object data) {
-            CodelessIAPAutoLog.handlePurchaseCompleted(data);
-        }
-
-        public void OnLoginStatusRetrieved(string message)
-        {
-            ((AndroidFacebook)this.Facebook).OnLoginStatusRetrieved(new ResultContainer(message));
-        }
+        /// <summary>
+        /// Gets a value indicating whether the access token retrieval has failed
+        /// </summary>
+        /// <value><c>true</c> if an access token could not be retrieved; otherwise,
+        /// <c>false</c>.</value>b
+        bool Failed { get; }
     }
 }

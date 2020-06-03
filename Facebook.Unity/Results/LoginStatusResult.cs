@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
  *
  * You are hereby granted a non-exclusive, worldwide, royalty-free license to use,
@@ -18,39 +18,33 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity.Mobile.Android
+namespace Facebook.Unity
 {
-    using UnityEngine.SceneManagement;
+    using System.Collections.Generic;
 
-    internal class AndroidFacebookGameObject : MobileFacebookGameObject
+    internal class LoginStatusResult : LoginResult, ILoginStatusResult
     {
-        protected override void OnAwake()
+        public static readonly string FailedKey = "failed";
+
+        internal LoginStatusResult(ResultContainer resultContainer) : base(resultContainer)
         {
-            CodelessIAPAutoLog.addListenerToIAPButtons(this);
+            if (this.ResultDictionary != null && this.ResultDictionary.ContainsKey(LoginStatusResult.FailedKey))
+            {
+                this.Failed = this.ResultDictionary.GetValueOrDefault<bool>(LoginStatusResult.FailedKey);
+            }
         }
 
-        void OnEnable()
-        {
-            SceneManager.sceneLoaded += OnSceneLoaded;
-        }
+        public bool Failed { get; private set; }
 
-        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        public override string ToString()
         {
-            CodelessIAPAutoLog.addListenerToIAPButtons(this);
-        }
-
-        void OnDisable()
-        {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-        }
-
-        public void onPurchaseCompleteHandler(System.Object data) {
-            CodelessIAPAutoLog.handlePurchaseCompleted(data);
-        }
-
-        public void OnLoginStatusRetrieved(string message)
-        {
-            ((AndroidFacebook)this.Facebook).OnLoginStatusRetrieved(new ResultContainer(message));
+            return Utilities.FormatToString(
+                base.ToString(),
+                this.GetType().Name,
+                new Dictionary<string, string>()
+                {
+                    { "Failed", this.Failed.ToString() },
+                });
         }
     }
 }

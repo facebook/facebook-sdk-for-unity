@@ -162,7 +162,7 @@ namespace Facebook.Unity
                     if (graphDomain == "gaming") {
                         return FB.gamingDomain;
                     }
-                } 
+                }
                 return FB.facebookDomain;
             }
 
@@ -1023,6 +1023,22 @@ namespace Facebook.Unity
                 {
                     var androidFacebook = FacebookImpl as AndroidFacebook;
                     return (androidFacebook != null) ? androidFacebook.KeyHash : string.Empty;
+                }
+            }
+
+            /// <summary>
+            /// Retrieves the login status for the user. This will return an access token for the app if a user
+            /// is logged into the Facebook for Android app on the same device and that user had previously
+            /// logged into the app.If an access token was retrieved then a toast will be shown telling the
+            /// user that they have been logged in.
+            /// </summary>
+            /// <param name="callback">The callback to be called when the request completes</param>
+            public static void RetrieveLoginStatus(FacebookDelegate<ILoginStatusResult> callback)
+            {
+                var androidFacebook = FacebookImpl as AndroidFacebook;
+                if (androidFacebook != null)
+                {
+                    androidFacebook.RetrieveLoginStatus(callback);
                 }
             }
         }

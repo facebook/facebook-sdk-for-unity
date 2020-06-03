@@ -168,6 +168,18 @@ namespace Facebook.Unity.Mobile.Android
             logoutCall.Call();
         }
 
+        public void RetrieveLoginStatus(FacebookDelegate<ILoginStatusResult> callback) {
+            var loginCall = new JavaMethodCall<ILoginStatusResult>(this, "RetrieveLoginStatus");
+            loginCall.Callback = callback;
+            loginCall.Call();
+        }
+
+        public void OnLoginStatusRetrieved(ResultContainer resultContainer)
+        {
+            var result = new LoginStatusResult(resultContainer);
+            this.OnAuthResponse(result);
+        }
+
         public override void AppRequest(
             string message,
             OGActionType? actionType,

@@ -112,10 +112,12 @@
     <Compile Include="Results\IGroupJoinResult.cs" />
     <Compile Include="Results\IInternalResult.cs" />
     <Compile Include="Results\ILoginResult.cs" />
+    <Compile Include="Results\ILoginStatusResult.cs" />
     <Compile Include="Results\IPayResult.cs" />
     <Compile Include="Results\IResult.cs" />
     <Compile Include="Results\IShareResult.cs" />
     <Compile Include="Results\LoginResult.cs" />
+    <Compile Include="Results\LoginStatusResult.cs" />
     <Compile Include="Results\PayResult.cs" />
     <Compile Include="Results\ResultBase.cs" />
     <Compile Include="Results\ResultContainer.cs" />

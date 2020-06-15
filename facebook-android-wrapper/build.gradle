@@ -50,17 +50,17 @@ dependencies {
         implementation 'com.android.support:customtabs:25.0.0'
         implementation 'com.parse.bolts:bolts-android:1.8.4'
     } else {
-        implementation 'com.facebook.android:facebook-android-sdk:[6.2.0, 7)'
+        implementation 'com.facebook.android:facebook-android-sdk:[7.0.1, 8)'
     }
 }
 
 android {
     compileSdkVersion 29
-    buildToolsVersion '29.0.0'
+    buildToolsVersion '29.0.3'
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 28
+        targetSdkVersion 29
     }
 
     compileOptions {

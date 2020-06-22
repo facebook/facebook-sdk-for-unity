@@ -932,6 +932,24 @@ namespace Facebook.Unity
                 Mobile.MobileFacebookImpl.UpdateUserProperties(parameters);
             }
 
+            public static void SetDataProcessingOptions(IEnumerable<string> options)
+            {
+                if (options == null)
+                {
+                    options = new string[] { };
+                }
+                Mobile.MobileFacebookImpl.SetDataProcessingOptions(options, 0, 0);
+            }
+
+            public static void SetDataProcessingOptions(IEnumerable<string> options, int country, int state)
+            {
+                if (options == null)
+                {
+                    options = new string[] { };
+                }
+                Mobile.MobileFacebookImpl.SetDataProcessingOptions(options, country, state);
+            }
+
             private static IMobileFacebook MobileFacebookImpl
             {
                 get

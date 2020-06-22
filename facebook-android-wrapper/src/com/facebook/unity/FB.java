@@ -54,7 +54,9 @@ import com.facebook.gamingservices.GamingVideoUploader;
 import com.facebook.share.widget.ShareDialog;
 import com.facebook.LoginStatusCallback;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 public class FB {
     static final String TAG = FB.class.getName();
@@ -273,6 +275,24 @@ public class FB {
       final Bundle params = unityParams.getStringParams();
       AppEventsLogger.updateUserProperties(params, null);
     }
+
+    @UnityCallable
+    public static void SetDataProcessingOptions(String params_str) {
+      Log.v(TAG, "SetDataProcessingOptions(" + params_str + ")");
+      final UnityParams unityParams = UnityParams.parse(params_str);
+      try {
+        JSONObject json = unityParams.json;
+        JSONArray array = json.getJSONArray("options");
+        int country = json.optInt("country", 0);
+        int state = json.optInt("state", 0);
+        String[] options = new String[array.length()];
+        for (int i = 0; i < array.length(); i++) {
+          options[i] = array.getString(i);
+        }
+        FacebookSdk.setDataProcessingOptions(options, country, state);
+      } catch (Exception e) {
+      }
+  }
 
     public static void SetIntent(Intent intent) {
         FB.intent = intent;

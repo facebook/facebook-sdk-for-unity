@@ -230,6 +230,11 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             this.LogMethodCall();
         }
 
+        public void SetDataProcessingOptions(string[] options, int country, int state)
+        {
+            this.LogMethodCall();
+        }
+
         public void UploadImageToMediaLibrary(
             int requestId,
             string caption,

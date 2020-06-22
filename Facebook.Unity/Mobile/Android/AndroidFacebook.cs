@@ -87,6 +87,15 @@ namespace Facebook.Unity.Mobile.Android
             this.CallFB("UpdateUserProperties", args.ToJsonString());
         }
 
+        public override void SetDataProcessingOptions(IEnumerable<string> options, int country, int state)
+        {
+            var args = new MethodArguments();
+            args.AddList<string>("options", options);
+            args.AddPrimative<int>("country", country);
+            args.AddPrimative<int>("state", state);
+            this.CallFB("SetDataProcessingOptions", args.ToJsonString());
+        }
+
         public override void SetAutoLogAppEventsEnabled(bool autoLogAppEventsEnabled)
         {
             this.CallFB("SetAutoLogAppEventsEnabled", autoLogAppEventsEnabled.ToString());

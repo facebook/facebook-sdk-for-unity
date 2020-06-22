@@ -202,6 +202,11 @@ namespace Facebook.Unity.Editor
             return;
         }
 
+        public void SetDataProcessingOptions(IEnumerable<string> options, int country, int state)
+        {
+            return;
+        }
+
         public void FetchDeferredAppLink(
             FacebookDelegate<IAppLinkResult> callback)
         {

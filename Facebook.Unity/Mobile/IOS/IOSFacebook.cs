@@ -121,6 +121,11 @@ namespace Facebook.Unity.Mobile.IOS
             this.iosWrapper.UpdateUserProperties(dict.NumEntries, dict.Keys, dict.Values);
         }
 
+        public override void SetDataProcessingOptions(IEnumerable<string> options, int country, int state)
+        {
+            this.iosWrapper.SetDataProcessingOptions(options.ToArray(), country, state);
+        }
+
         public void Init(
             string appId,
             bool frictionlessRequests,

@@ -223,6 +223,11 @@ namespace Facebook.Unity.IOS
             IOSWrapper.IOSFBUpdateUserProperties(numParams, paramKeys, paramVals);
         }
 
+        public void SetDataProcessingOptions(string[] options, int country, int state)
+        {
+            IOSWrapper.IOSFBSetDataProcessingOptions(options, options.Length, country, state);
+        }
+
         public void UploadImageToMediaLibrary(
             int requestId,
             string caption,
@@ -379,6 +384,13 @@ namespace Facebook.Unity.IOS
 
         [DllImport("__Internal")]
         private static extern string IOSFBGetUserID();
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBSetDataProcessingOptions(
+            string[] options,
+            int numOptions,
+            int country,
+            int state);
 
         [DllImport("__Internal")]
         private static extern void IOSFBUpdateUserProperties(

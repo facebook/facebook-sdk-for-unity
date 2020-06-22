@@ -108,6 +108,8 @@ namespace Facebook.Unity.Mobile.IOS
 
         string FBGetUserID();
 
+        void SetDataProcessingOptions(string[] options, int country, int state);
+
         void OpenFriendFinderDialog(int requestId);
 
         void UpdateUserProperties(

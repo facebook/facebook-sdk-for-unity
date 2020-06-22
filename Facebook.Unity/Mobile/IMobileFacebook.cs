@@ -45,6 +45,8 @@ namespace Facebook.Unity.Mobile
 
         void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled);
 
+        void SetDataProcessingOptions(IEnumerable<string> options, int country, int state);
+
         void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback);
 
         void UploadImageToMediaLibrary(

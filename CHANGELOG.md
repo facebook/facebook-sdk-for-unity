@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.21.0] - 2020-06-20
+
+## Added
+
+- Introduce DataProcessingOptions
+
+### Deprecated
+
+- Remove UserProperties API
+
 ## [7.20.0] - 2020-06-15
 
 ### Changed
@@ -77,7 +87,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.20.0...HEAD
+[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.0...HEAD
+[7.21.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.20.0...sdk-version-7.21.0
 [7.20.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.19.2...sdk-version-7.20.0
 [7.19.2]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.19.1...sdk-version-7.19.2
 [7.19.1]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.19.0...sdk-version-7.19.1

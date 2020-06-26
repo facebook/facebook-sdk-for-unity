@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.21.1] - 2020-06-25
+
+### Changed
+
+- Bump native SDK version to 7.1.1
+
 ## [7.21.0] - 2020-06-20
 
 ## Added
@@ -87,7 +93,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.0...HEAD
+[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.1...HEAD
+[7.21.1]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.0...sdk-version-7.21.1
 [7.21.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.20.0...sdk-version-7.21.0
 [7.20.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.19.2...sdk-version-7.20.0
 [7.19.2]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.19.1...sdk-version-7.19.2

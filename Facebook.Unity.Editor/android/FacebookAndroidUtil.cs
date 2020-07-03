@@ -27,67 +27,54 @@ namespace Facebook.Unity.Editor
 
     public class FacebookAndroidUtil
     {
-        public const string ErrorNoSDK = "no_android_sdk";
-        public const string ErrorNoKeystore = "no_android_keystore";
-        public const string ErrorNoKeytool = "no_java_keytool";
-        public const string ErrorNoOpenSSL = "no_openssl";
-        public const string ErrorKeytoolError = "java_keytool_error";
-
-        private static string debugKeyHash;
-        private static string setupError;
+        private static string keyHash;
 
         public static bool SetupProperly
         {
             get
             {
-                return DebugKeyHash != null;
+                return KeyHash != null;
             }
         }
 
-        public static string DebugKeyHash
+        public static string KeyHash
         {
             get
             {
-                if (debugKeyHash == null)
+                if (keyHash == null)
                 {
-                    if (!HasAndroidSDK())
+                    if (!HasAndroidSDK)
                     {
-                        setupError = ErrorNoSDK;
+                        SetupError = "You don't have the Android SDK setup!  Go to " + (Application.platform == RuntimePlatform.OSXEditor ? "Unity" : "Edit") + "->Preferences... and set your Android SDK Location under External Tools";
                         return null;
                     }
 
-                    if (!HasAndroidKeystoreFile())
+                    if (!HasAndroidKeystoreFile)
                     {
-                        setupError = ErrorNoKeystore;
+                        SetupError = "Your android keystore file is missing! You can create new one by creating and building empty Android project in Android Studio.";
                         return null;
                     }
 
                     if (!DoesCommandExist("echo \"xxx\" | openssl base64"))
                     {
-                        setupError = ErrorNoOpenSSL;
+                        SetupError = "OpenSSL not found. Make sure that OpenSSL is installed, and that it is in your path.";
                         return null;
                     }
 
                     if (!DoesCommandExist("keytool"))
                     {
-                        setupError = ErrorNoKeytool;
+                        SetupError = "Keytool not found. Make sure that Java is installed, and that Java tools are in your path.";
                         return null;
                     }
 
-                    debugKeyHash = GetKeyHash("androiddebugkey", DebugKeyStorePath, "android");
+                    keyHash = GetKeyHash();
                 }
 
-                return debugKeyHash;
+                return keyHash;
             }
         }
 
-        public static string SetupError
-        {
-            get
-            {
-                return setupError;
-            }
-        }
+        public static string SetupError { get; private set; }
 
         private static string DebugKeyStorePath
         {
@@ -99,18 +86,48 @@ namespace Facebook.Unity.Editor
             }
         }
 
-        public static bool HasAndroidSDK()
+        public static bool HasAndroidSDK
         {
-            return EditorPrefs.HasKey("AndroidSdkRoot") && System.IO.Directory.Exists(EditorPrefs.GetString("AndroidSdkRoot"));
+            get
+            {
+                return EditorPrefs.HasKey("AndroidSdkRoot") && System.IO.Directory.Exists(EditorPrefs.GetString("AndroidSdkRoot"));
+            }
         }
 
-        public static bool HasAndroidKeystoreFile()
+        private static bool UseDebugKeystore
         {
-            return System.IO.File.Exists(DebugKeyStorePath);
+            get
+            {
+                // If the keystore name or alias is empty, Unity will use the debug keystore.
+                return string.IsNullOrEmpty(PlayerSettings.Android.keystoreName) ||
+                       string.IsNullOrEmpty(PlayerSettings.Android.keyaliasName);
+            }
         }
 
-        private static string GetKeyHash(string alias, string keyStore, string password)
+        private static string KeystorePath
         {
+            get
+            {
+                return UseDebugKeystore
+                    ? DebugKeyStorePath
+                    : PlayerSettings.Android.keystoreName;
+            }
+        }
+
+        private static bool HasAndroidKeystoreFile
+        {
+            get
+            {
+                return System.IO.File.Exists(KeystorePath);
+            }
+        }
+
+        private static string GetKeyHash()
+        {
+            var alias = UseDebugKeystore ? "androiddebugkey" : PlayerSettings.Android.keyaliasName;
+            var keystorePassword = UseDebugKeystore ? "android" : PlayerSettings.Android.keystorePass;
+            var aliasPassword = UseDebugKeystore ? "android" : PlayerSettings.Android.keyaliasPass;
+
             var proc = new Process();
             var arguments = @"""keytool -storepass {0} -keypass {1} -exportcert -alias {2} -keystore {3} | openssl sha1 -binary | openssl base64""";
             if (Application.platform == RuntimePlatform.WindowsEditor)
@@ -124,7 +141,7 @@ namespace Facebook.Unity.Editor
                 arguments = @"-c " + arguments;
             }
 
-            proc.StartInfo.Arguments = string.Format(arguments, password, password, alias, keyStore);
+            proc.StartInfo.Arguments = string.Format(arguments, keystorePassword, aliasPassword, alias, KeystorePath);
             proc.StartInfo.UseShellExecute = false;
             proc.StartInfo.CreateNoWindow = true;
             proc.StartInfo.RedirectStandardOutput = true;
@@ -137,7 +154,8 @@ namespace Facebook.Unity.Editor
 
             switch (proc.ExitCode)
             {
-                case 255: setupError = ErrorKeytoolError;
+                case 255:
+                    SetupError = "Unknown error while getting Debug Android Key Hash.";
                     return null;
             }
 

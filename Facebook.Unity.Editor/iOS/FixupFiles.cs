@@ -56,6 +56,8 @@ namespace Facebook.Unity.Editor
             string targetGUID = proj.TargetGuidByName("Unity-iPhone");
             proj.AddBuildProperty(targetGUID, "GCC_PREPROCESSOR_DEFINITIONS", " $(inherited) FBSDKCOCOAPODS=1");
             proj.AddBuildProperty(targetGUID, "OTHER_LDFLAGS", "-ObjC");
+            proj.AddBuildProperty(targetGUID, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "YES");
+            proj.AddBuildProperty(targetGUID, "SWIFT_VERSION", "5.0");
             proj.AddFrameworkToProject(targetGUID, "Accelerate.framework", true);
             File.WriteAllText(projPath, proj.WriteToString());
         }

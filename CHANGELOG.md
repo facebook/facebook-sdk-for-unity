@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.21.2] - 2020-08-14
+
+### Added
+
+- Support customized Android Keystore path
+
+### Fixed
+
+- Fix iOS build issue for swift libraries
+- Deprecate old GUI.ModalWindow API
+
 ## [7.21.1] - 2020-06-25
 
 ### Changed
@@ -15,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [7.21.0] - 2020-06-20
 
-## Added
+### Added
 
 - Introduce DataProcessingOptions
 
@@ -93,7 +104,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.1...HEAD
+[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.2...HEAD
+[7.21.2]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.1...sdk-version-7.21.2
 [7.21.1]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.0...sdk-version-7.21.1
 [7.21.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.20.0...sdk-version-7.21.0
 [7.20.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.19.2...sdk-version-7.20.0

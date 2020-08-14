@@ -22,6 +22,7 @@ namespace Facebook.Unity.Editor
 {
     using System.Diagnostics;
     using System.Text;
+    using Facebook.Unity.Settings;
     using UnityEditor;
     using UnityEngine;
 
@@ -93,6 +94,10 @@ namespace Facebook.Unity.Editor
         {
             get
             {
+                if (!string.IsNullOrEmpty(FacebookSettings.AndroidKeystorePath))
+                {
+                    return FacebookSettings.AndroidKeystorePath;
+                }
                 return (Application.platform == RuntimePlatform.WindowsEditor) ?
                     System.Environment.GetEnvironmentVariable("HOMEDRIVE") + System.Environment.GetEnvironmentVariable("HOMEPATH") + @"\.android\debug.keystore" :
                     System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal) + @"/.android/debug.keystore";

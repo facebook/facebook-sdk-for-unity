@@ -57,6 +57,8 @@ namespace Facebook.Unity.Settings
         [SerializeField]
         private bool frictionlessRequests = true;
         [SerializeField]
+        private string androidKeystorePath = string.Empty;
+        [SerializeField]
         private string iosURLSuffix = string.Empty;
         [SerializeField]
         private List<UrlSchemes> appLinkSchemes = new List<UrlSchemes>() { new UrlSchemes() };
@@ -271,6 +273,27 @@ namespace Facebook.Unity.Settings
                 if (Instance.xfbml != value)
                 {
                     Instance.xfbml = value;
+                    SettingsChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the android keystore path.
+        /// </summary>
+        /// <value>The android keystore path.</value>
+        public static string AndroidKeystorePath
+        {
+            get
+            {
+                return Instance.androidKeystorePath;
+            }
+
+            set
+            {
+                if (Instance.androidKeystorePath != value)
+                {
+                    Instance.androidKeystorePath = value;
                     SettingsChanged();
                 }
             }

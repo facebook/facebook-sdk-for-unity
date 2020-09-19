@@ -36,9 +36,6 @@ build
 # vim temp files
 *.swp
 
-# Arc generated
-.phutil_module_cache
-
 # Unity3D generated meta files
 *.pidb.meta
 

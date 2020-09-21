@@ -80,6 +80,11 @@ namespace Facebook.Unity.Mobile.IOS
             this.iosWrapper.FBAdvertiserIDCollectionEnabled(advertiserIDCollectionEnabled);
         }
 
+        public override bool SetAdvertiserTrackingEnabled(bool advertiserTrackingEnabled)
+        {
+            return this.iosWrapper.FBAdvertiserTrackingEnabled(advertiserTrackingEnabled);
+        }
+
         public override void SetPushNotificationsDeviceTokenString(string token)
         {
             this.iosWrapper.SetPushNotificationsDeviceTokenString(token);

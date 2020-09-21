@@ -45,6 +45,8 @@ namespace Facebook.Unity.Mobile
 
         void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled);
 
+        bool SetAdvertiserTrackingEnabled(bool advertiserTrackingEnabled);
+
         void SetDataProcessingOptions(IEnumerable<string> options, int country, int state);
 
         void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback);

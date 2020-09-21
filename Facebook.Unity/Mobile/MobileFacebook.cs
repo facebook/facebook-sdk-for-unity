@@ -71,6 +71,8 @@ namespace Facebook.Unity.Mobile
 
         public abstract void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled);
 
+        public abstract bool SetAdvertiserTrackingEnabled(bool advertiserTrackingEnabled);
+
         public abstract void SetPushNotificationsDeviceTokenString(string token);
 
         public override void OnLoginComplete(ResultContainer resultContainer)

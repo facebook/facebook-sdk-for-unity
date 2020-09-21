@@ -197,6 +197,11 @@ namespace Facebook.Unity.Editor
             return;
         }
 
+        public bool SetAdvertiserTrackingEnabled(bool advertiserTrackingEnabled)
+        {
+            return true;
+        }
+
         public void SetPushNotificationsDeviceTokenString(string token)
         {
             return;

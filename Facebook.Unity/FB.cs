@@ -1017,6 +1017,15 @@ namespace Facebook.Unity
             }
 
             /// <summary>
+            /// Sets the setting for Advertiser Tracking Enabled.
+            /// </summary>
+            /// <param name="advertiserTrackingEnabled">The setting for Advertiser Tracking Enabled</param>
+            public static bool SetAdvertiserTrackingEnabled(bool advertiserTrackingEnabled)
+            {
+                return Mobile.MobileFacebookImpl.SetAdvertiserTrackingEnabled(advertiserTrackingEnabled);
+            }
+
+            /// <summary>
             /// Sets device token in the purpose of uninstall tracking.
             /// </summary>
             /// <param name="token">The device token from APNs</param>

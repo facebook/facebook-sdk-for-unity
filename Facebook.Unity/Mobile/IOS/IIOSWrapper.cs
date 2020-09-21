@@ -98,6 +98,8 @@ namespace Facebook.Unity.Mobile.IOS
 
         void FBAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabledID);
 
+        bool FBAdvertiserTrackingEnabled(bool advertiserTrackingEnabled);
+
         void GetAppLink(int requestId);
 
         void RefreshCurrentAccessToken(int requestId);

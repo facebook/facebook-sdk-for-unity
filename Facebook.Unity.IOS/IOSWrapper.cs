@@ -195,6 +195,11 @@ namespace Facebook.Unity.IOS
             IOSWrapper.IOSFBAdvertiserIDCollectionEnabled(advertiserIDCollectionEnabled);
         }
 
+        public bool FBAdvertiserTrackingEnabled(bool advertiserTrackingEnabled)
+        {
+            return IOSWrapper.IOSFBAdvertiserTrackingEnabled(advertiserTrackingEnabled);
+        }
+
         public void GetAppLink(int requestId)
         {
             IOSWrapper.IOSFBGetAppLink(requestId);
@@ -350,6 +355,9 @@ namespace Facebook.Unity.IOS
 
         [DllImport("__Internal")]
         private static extern void IOSFBAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabledID);
+
+        [DllImport("__Internal")]
+        private static extern bool IOSFBAdvertiserTrackingEnabled(bool advertiserTrackingEnabled);
 
         [DllImport("__Internal")]
         private static extern void IOSFBGetAppLink(int requestID);

@@ -106,6 +106,11 @@ namespace Facebook.Unity.Mobile.Android
             this.CallFB("SetAdvertiserIDCollectionEnabled", advertiserIDCollectionEnabled.ToString());
         }
 
+        public override bool SetAdvertiserTrackingEnabled(bool advertiserTrackingEnabled)
+        {
+            return false;
+        }
+
         public override void SetPushNotificationsDeviceTokenString(string token)
         {
             this.CallFB("SetPushNotificationsDeviceTokenString", token);

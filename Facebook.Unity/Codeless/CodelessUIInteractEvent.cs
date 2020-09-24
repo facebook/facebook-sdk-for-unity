@@ -39,7 +39,11 @@ namespace Facebook.Unity
             if (sceneEventSystem == null) {
                 GameObject eventSystem = new GameObject ("EventSystem");
                 eventSystem.AddComponent<EventSystem> ();
+#if ENABLE_INPUT_SYSTEM
+                eventSystem.AddComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
+#else
                 eventSystem.AddComponent<StandaloneInputModule> ();
+#endif
                 DontDestroyOnLoad (eventSystem);
             }
             switch (Constants.CurrentPlatform) {
@@ -68,10 +72,27 @@ namespace Facebook.Unity
         // Update is called once per frame
         void Update ()
         {
-            if (Input.GetMouseButtonDown (0) || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began)) {
+            bool leftMouseButtonDown;
+            bool primaryTouchDown;
+            int touchCount;
+            int primaryTouchFingerId;
+            
+#if ENABLE_INPUT_SYSTEM
+            leftMouseButtonDown = UnityEngine.InputSystem.Mouse.current.leftButton.wasPressedThisFrame;
+            primaryTouchDown = UnityEngine.InputSystem.Touchscreen.current.primaryTouch.press.wasPressedThisFrame;
+            touchCount = UnityEngine.InputSystem.Touchscreen.current.touches.Count;
+            primaryTouchFingerId = UnityEngine.InputSystem.Touchscreen.current.primaryTouch.touchId.ReadValue();
+#else 
+            leftMouseButtonDown = Input.GetMouseButtonDown (0);
+            touchCount = Input.touchCount;
+            primaryTouchDown = touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began;
+            primaryTouchId = Input.touches[0].fingerId;
+#endif
+            
+            if (leftMouseButtonDown || (primaryTouchDown)) {
                 try {
                     if (EventSystem.current.IsPointerOverGameObject () ||
-                        (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject (Input.touches [0].fingerId))
+                        (touchCount > 0 && EventSystem.current.IsPointerOverGameObject (primaryTouchFingerId))
                         ) {
                         if (null != EventSystem.current.currentSelectedGameObject) {
                             string name = EventSystem.current.currentSelectedGameObject.name;

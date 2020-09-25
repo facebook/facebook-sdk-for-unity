@@ -86,7 +86,8 @@ namespace Facebook.Unity
             leftMouseButtonDown = Input.GetMouseButtonDown (0);
             touchCount = Input.touchCount;
             primaryTouchDown = touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began;
-            primaryTouchId = Input.touches[0].fingerId;
+            primaryTouchFingerId = touchCount > 0 ? Input.touches[0].fingerId : -1; 
+            // when touchCount is 0, assumed fingerId is -1. Since it can't pass line 96, -1 won't be a problem.
 #endif
             
             if (leftMouseButtonDown || (primaryTouchDown)) {

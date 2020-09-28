@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [8.0.0] - 2020-09-27
+
+### Added
+
+- Added method `SetAdvertiserTrackingEnabled` to overwrite the `advertiser_tracking_enabled` flag
+
+### Changed
+
+- Bumped native SDK version to 8.0.0
+- Bumped Graph API version to 8.0
+
+### Fixed
+
+- Fixed lock up issue in Facebook Login
+
 ## [7.21.2] - 2020-08-14
 
 ### Added
@@ -104,7 +119,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.2...HEAD
+[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-8.0.0...HEAD
+[8.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.2...sdk-version-8.0.0
 [7.21.2]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.1...sdk-version-7.21.2
 [7.21.1]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.0...sdk-version-7.21.1
 [7.21.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.20.0...sdk-version-7.21.0

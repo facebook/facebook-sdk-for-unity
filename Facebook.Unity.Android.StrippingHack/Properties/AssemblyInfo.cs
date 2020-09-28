@@ -21,4 +21,4 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyVersion("7.21.2")]
+[assembly: AssemblyVersion("8.0.0")]

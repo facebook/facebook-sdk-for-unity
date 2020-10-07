@@ -57,6 +57,8 @@ namespace Facebook.Unity.Editor
             proj.AddBuildProperty(targetGUID, "GCC_PREPROCESSOR_DEFINITIONS", " $(inherited) FBSDKCOCOAPODS=1");
             proj.AddBuildProperty(targetGUID, "OTHER_LDFLAGS", "-ObjC");
             proj.AddBuildProperty(targetGUID, "SWIFT_VERSION", "5.0");
+            proj.AddBuildProperty(targetGUID, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "NO");
+            proj.AddBuildProperty(targetGUID, "LD_RUNPATH_SEARCH_PATHS", "@executable_path/Frameworks");
             proj.AddBuildProperty(targetGUID, "LIBRARY_SEARCH_PATHS", "$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)");
             proj.AddBuildProperty(targetGUID, "LIBRARY_SEARCH_PATHS", "$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)");
             proj.AddFrameworkToProject(targetGUID, "Accelerate.framework", true);

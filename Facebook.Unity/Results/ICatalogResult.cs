@@ -18,42 +18,19 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity.Mobile
+namespace Facebook.Unity
 {
-    internal interface IMobileFacebookCallbackHandler : IFacebookCallbackHandler
+    using System.Collections.Generic;
+
+    /// <summary>
+    /// The catalog result.
+    /// </summary>
+    public interface ICatalogResult : IResult
     {
-        void OnFetchDeferredAppLinkComplete(string message);
-
-        void OnRefreshCurrentAccessTokenComplete(string message);
-
-        void OnFriendFinderComplete(string message);
-
-        void OnUploadImageToMediaLibraryComplete(string message);
-
-        void OnUploadVideoToMediaLibraryComplete(string message);
-
-        void OnOnIAPReadyComplete(string message);
-
-        void OnGetCatalogComplete(string message);
-
-        void OnGetPurchasesComplete(string message);
-
-        void OnPurchaseComplete(string message);
-
-        void OnConsumePurchaseComplete(string message);
-
-        void OnInitCloudGameComplete(string message);
-
-        void OnScheduleAppToUserNotificationComplete(string message);
-
-        void OnLoadInterstitialAdComplete(string message);
-
-        void OnShowInterstitialAdComplete(string message);
-
-        void OnLoadRewardedVideoComplete(string message);
-
-        void OnShowRewardedVideoComplete(string message);
-
-        void OnGetPayloadComplete(string message);
+        /// <summary>
+        /// Gets a list of products available for purchase.
+        /// </summary>
+        /// <value>The list of product objects.</value>
+        IList<Product> Products { get; }
     }
 }

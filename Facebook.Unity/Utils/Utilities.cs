@@ -255,7 +255,101 @@ namespace Facebook.Unity
             return permissionList.Select(permission => permission.ToString()).ToList();
         }
 
-        private static DateTime FromTimestamp(int timestamp)
+        public static IList<Product> ParseCatalogFromResult(IDictionary<string, object> resultDictionary)
+        {
+            object catalogObject;
+            IList<Product> products = new List<Product>();
+
+            if (resultDictionary.TryGetValue("success", out catalogObject))
+            {
+                IList<object> deserializedCatalogObject = (IList<object>) MiniJSON.Json.Deserialize(catalogObject as string);
+                foreach (IDictionary<string, object> product in deserializedCatalogObject) {
+                    string title = product["title"].ToStringNullOk();
+                    string productID = product["productID"].ToStringNullOk();
+                    string description = product["description"].ToStringNullOk();
+                    string imageURI = product.ContainsKey("imageURI") ? product["imageURI"].ToStringNullOk() : "";
+                    string price = product["price"].ToStringNullOk();
+                    string priceCurrencyCode = product["priceCurrencyCode"].ToStringNullOk();
+
+                    products.Add(new Product(title, productID, description, imageURI, price, priceCurrencyCode));
+                }
+                return products;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static IList<Purchase> ParsePurchasesFromResult(IDictionary<string, object> resultDictionary)
+        {
+            object purchasesObject;
+            IList<Purchase> purchases = new List<Purchase>();
+
+            if (resultDictionary.TryGetValue("success", out purchasesObject))
+            {
+                IList<object> deserializedPurchasesObject = (IList<object>) MiniJSON.Json.Deserialize(purchasesObject as string);
+                foreach (IDictionary<string, object> purchase in (List<object>) deserializedPurchasesObject) {
+                    bool isConsumed = (bool)purchase["isConsumed"];
+                    string developerPayload = purchase.ContainsKey("developerPayload") ? purchase["developerPayload"].ToStringNullOk() : "";
+                    string paymentID = purchase["paymentID"].ToStringNullOk();
+                    string productID = purchase["productID"].ToStringNullOk();
+                    long purchaseTime = (long)purchase["purchaseTime"];
+                    string purchaseToken = purchase["purchaseToken"].ToStringNullOk();
+                    string signedRequest = purchase["signedRequest"].ToStringNullOk();
+                    purchases.Add(new Purchase(isConsumed, developerPayload, paymentID, productID, purchaseTime, purchaseToken, signedRequest));
+                }
+
+                return purchases;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static Purchase ParsePurchaseFromResult(IDictionary<string, object> resultDictionary)
+        {
+            object purchaseObject;
+            if (resultDictionary.TryGetValue("success", out purchaseObject))
+            {
+                IDictionary<string, object> deserializedPurchaseObject = (IDictionary<string, object>) MiniJSON.Json.Deserialize(purchaseObject as string);
+                bool isConsumed = (bool)deserializedPurchaseObject["isConsumed"];
+                string developerPayload = deserializedPurchaseObject.ContainsKey("developerPayload") ? deserializedPurchaseObject["developerPayload"].ToStringNullOk() : "";
+                string paymentID = deserializedPurchaseObject["paymentID"].ToStringNullOk();
+                string productID = deserializedPurchaseObject["productID"].ToStringNullOk();
+                long purchaseTime = (long)deserializedPurchaseObject["purchaseTime"];
+                string purchaseToken = deserializedPurchaseObject["purchaseToken"].ToStringNullOk();
+                string signedRequest = deserializedPurchaseObject["signedRequest"].ToStringNullOk();
+
+                return new Purchase(isConsumed, developerPayload, paymentID, productID, purchaseTime, purchaseToken, signedRequest);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static IDictionary<string, string> ParsePayloadFromResult(IDictionary<string, object> resultDictionary)
+        {
+            object payloadObject;
+            if (resultDictionary.TryGetValue("success", out payloadObject))
+            {
+                IDictionary<string, object> dict = (IDictionary<string, object>) MiniJSON.Json.Deserialize(payloadObject as string);
+                IDictionary<string, string> result = new Dictionary<string, string>();
+                foreach (KeyValuePair<string, object> kvp in dict)
+                {
+                    result.Add(kvp.Key, (string)kvp.Value);
+                }
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static DateTime FromTimestamp(int timestamp)
         {
             return new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(timestamp);
         }

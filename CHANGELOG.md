@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [8.1.0] - 2020-10-14
+
+### Fixed
+
+- Avoid adding swift standard libs
+- Fixed AndroidSdk path detection in Unity 2019 and above
+
 ## [8.0.0] - 2020-09-27
 
 ### Added
@@ -119,7 +126,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-8.0.0...HEAD
+[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-8.1.0...HEAD
+[8.1.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-8.0.0...sdk-version-8.1.0
 [8.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.2...sdk-version-8.0.0
 [7.21.2]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.1...sdk-version-7.21.2
 [7.21.1]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.0...sdk-version-7.21.1

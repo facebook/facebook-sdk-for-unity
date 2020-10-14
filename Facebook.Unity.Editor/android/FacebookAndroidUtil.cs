@@ -21,6 +21,7 @@
 namespace Facebook.Unity.Editor
 {
     using System.Diagnostics;
+    using System.IO;
     using System.Text;
     using Facebook.Unity.Settings;
     using UnityEditor;
@@ -106,12 +107,34 @@ namespace Facebook.Unity.Editor
 
         public static bool HasAndroidSDK()
         {
-            return EditorPrefs.HasKey("AndroidSdkRoot") && System.IO.Directory.Exists(EditorPrefs.GetString("AndroidSdkRoot"));
+            string sdkPath = GetAndroidSdkPath();
+            return !string.IsNullOrEmpty(sdkPath) && System.IO.Directory.Exists(sdkPath);
         }
 
         public static bool HasAndroidKeystoreFile()
         {
             return System.IO.File.Exists(DebugKeyStorePath);
+        }
+
+        public static string GetAndroidSdkPath()
+        {
+            string sdkPath = EditorPrefs.GetString("AndroidSdkRoot");
+            #if UNITY_2019_1_OR_NEWER
+            if (string.IsNullOrEmpty(sdkPath) || EditorPrefs.GetBool("SdkUseEmbedded"))
+            {
+                string androidPlayerDir = BuildPipeline.GetPlaybackEngineDirectory(BuildTarget.Android, BuildOptions.None);
+                if (!string.IsNullOrEmpty(androidPlayerDir))
+                {
+                    string androidPlayerSdkDir = Path.Combine(androidPlayerDir, "SDK");
+                    if (System.IO.Directory.Exists(androidPlayerSdkDir))
+                    {
+                        sdkPath = androidPlayerSdkDir;
+                    }
+                }
+            }
+            #endif
+
+            return sdkPath;
         }
 
         private static string GetKeyHash(string alias, string keyStore, string password)

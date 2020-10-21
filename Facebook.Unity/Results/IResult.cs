@@ -34,6 +34,15 @@ namespace Facebook.Unity
         string Error { get; }
 
         /// <summary>
+        /// Gets the error, as a Dictionary.
+        /// </summary>
+        /// <value>
+        /// The error string from the result, as a Dictionary.
+        /// If no error occured or cannot be parsed as a Dictionary, value is null.
+        /// </value>
+        IDictionary<string, string> ErrorDictionary { get; }
+
+        /// <summary>
         /// Gets the result.
         /// </summary>
         /// <value>A collection of key values pairs that are parsed from the result.</value>

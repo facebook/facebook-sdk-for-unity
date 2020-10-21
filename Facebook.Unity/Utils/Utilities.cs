@@ -330,18 +330,26 @@ namespace Facebook.Unity
             }
         }
 
-        public static IDictionary<string, string> ParsePayloadFromResult(IDictionary<string, object> resultDictionary)
-        {
-            object payloadObject;
-            if (resultDictionary.TryGetValue("success", out payloadObject))
+        public static IDictionary<string, string> ParseStringDictionaryFromString(string input) {
+            Dictionary<string, object> dict = MiniJSON.Json.Deserialize(input) as Dictionary<string, object>;
+            if (dict == null || dict.Count == 0) {
+                return null;
+            }
+            IDictionary<string, string> result = new Dictionary<string, string>();
+            foreach (KeyValuePair<string, object> kvp in dict)
             {
-                IDictionary<string, object> dict = (IDictionary<string, object>) MiniJSON.Json.Deserialize(payloadObject as string);
-                IDictionary<string, string> result = new Dictionary<string, string>();
-                foreach (KeyValuePair<string, object> kvp in dict)
-                {
-                    result.Add(kvp.Key, (string)kvp.Value);
-                }
-                return result;
+                result.Add(kvp.Key, kvp.Value != null ? kvp.Value.ToString() : "");
+            }
+            return result;
+        }
+
+        // key parameter is the key whose value is the inner dictionary that will be parsed
+        public static IDictionary<string, string> ParseInnerStringDictionary(IDictionary<string, object> resultDictionary, string key)
+        {
+            object resultObject;
+            if (resultDictionary.TryGetValue(key, out resultObject))
+            {
+                return ParseStringDictionaryFromString(resultObject as string);
             }
             else
             {

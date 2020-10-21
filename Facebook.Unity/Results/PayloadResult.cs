@@ -29,7 +29,7 @@ namespace Facebook.Unity
         {
             if (this.ResultDictionary != null && this.ResultDictionary.ContainsKey("success"))
             {
-                this.Payload = Utilities.ParsePayloadFromResult(this.ResultDictionary);
+                this.Payload = Utilities.ParseInnerStringDictionary(this.ResultDictionary, "success");
             }
         }
 

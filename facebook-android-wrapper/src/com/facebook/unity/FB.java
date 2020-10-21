@@ -890,8 +890,19 @@ public class FB {
         return (new DaemonRequest.Callback() {
             @Override
             public void onCompleted(GraphResponse response) {
-                if (response.getError() != null) {
-                    unityMessage.sendError(response.getError().toString());
+                FacebookRequestError error = response.getError();
+                if (error != null) {
+                    try {
+                        JSONObject errorJSON = new JSONObject();
+                        errorJSON.put("errorCode", error.getErrorCode());
+                        errorJSON.put("subErrorCode", error.getSubErrorCode());
+                        errorJSON.put("errorType", error.getErrorType());
+                        errorJSON.put("errorMessage", error.getErrorMessage());
+                        unityMessage.sendError(errorJSON.toString());
+                    } catch (JSONException e) {
+                        // default, will not be parseable as JSON in Unity
+                        unityMessage.sendError(error.toString());
+                    }
                 } else if (response.getJSONObject() != null) {
                     unityMessage.put("success", response.getJSONObject().toString());
                     unityMessage.send();

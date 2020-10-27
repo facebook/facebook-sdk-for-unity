@@ -29,6 +29,19 @@ namespace Facebook.Unity.Editor
 
     public static class XCodePostProcess
     {
+        [PostProcessBuildAttribute(45)]
+        private static void PostProcessBuild_iOS(BuildTarget target, string buildPath)
+        {
+            if (target == BuildTarget.iOS)
+            {
+                string podFilePath = Path.Combine(buildPath, "Podfile");
+                using (StreamWriter sw = File.AppendText(podFilePath))
+                {
+                    sw.WriteLine("use_frameworks!");
+                }
+            }
+        }
+
         [PostProcessBuild(100)]
         public static void OnPostProcessBuild(BuildTarget target, string path)
         {

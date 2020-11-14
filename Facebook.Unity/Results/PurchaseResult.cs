@@ -31,6 +31,11 @@ namespace Facebook.Unity
             {
                 this.Purchase = Utilities.ParsePurchaseFromResult(this.ResultDictionary);
             }
+
+            if (this.ErrorDictionary != null && this.ErrorDictionary["errorType"] == "USER_INPUT")
+            {
+                this.Cancelled = true;
+            }
         }
 
         public Purchase Purchase { get; private set; }

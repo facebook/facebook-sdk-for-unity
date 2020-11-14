@@ -26,6 +26,10 @@ namespace Facebook.Unity
     {
         internal InterstitialAdResult(ResultContainer resultContainer) : base(resultContainer)
         {
+            if (this.ErrorDictionary != null && this.ErrorDictionary["errorType"] == "USER_INPUT")
+            {
+                this.Cancelled = true;
+            }
         }
     }
 }

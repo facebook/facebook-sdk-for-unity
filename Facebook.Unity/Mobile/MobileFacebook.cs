@@ -212,6 +212,12 @@ namespace Facebook.Unity.Mobile
             CallbackManager.OnFacebookResponse(result);
         }
 
+        public void OnPostSessionScoreComplete(ResultContainer resultContainer)
+        {
+            var result = new SessionScoreResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
         public virtual void UploadImageToMediaLibrary(
             string caption,
             Uri imageUri,
@@ -309,6 +315,13 @@ namespace Facebook.Unity.Mobile
 
         public virtual void GetPayload(
             FacebookDelegate<IPayloadResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void PostSessionScore(
+            int score,
+            FacebookDelegate<ISessionScoreResult> callback)
         {
             throw new NotImplementedException();
         }

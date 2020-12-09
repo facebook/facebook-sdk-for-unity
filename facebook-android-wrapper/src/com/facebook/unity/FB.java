@@ -886,6 +886,35 @@ public class FB {
         );
     }
 
+    @UnityCallable
+    public static void PostSessionScore(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnPostSessionScoreComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+
+        int score;
+        try {
+            score = Integer.parseInt(unityParams.getString("score"));
+        } catch(NumberFormatException e) {
+            unityMessage.sendError(String.format("Invalid score: %s", e.getMessage()));
+            return;
+        }
+        
+        try {
+            JSONObject parameters = (new JSONObject()).put("score", score);
+            GameFeaturesLibrary.postSessionScore(
+                getUnityActivity().getApplicationContext(),
+                parameters,
+                createDaemonCallback(unityMessage)
+            );
+
+        } catch(JSONException e) {
+            unityMessage.sendError(e.getMessage());
+        }
+    }
+
     private static DaemonRequest.Callback createDaemonCallback(final UnityMessage unityMessage) {
         return (new DaemonRequest.Callback() {
             @Override

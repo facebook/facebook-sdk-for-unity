@@ -55,5 +55,7 @@ namespace Facebook.Unity.Mobile
         void OnShowRewardedVideoComplete(ResultContainer resultContainer);
 
         void OnGetPayloadComplete(ResultContainer resultContainer);
+
+        void OnPostSessionScoreComplete(ResultContainer resultContainer);
     }
 }

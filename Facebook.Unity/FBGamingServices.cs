@@ -138,6 +138,11 @@ namespace Facebook.Unity
             MobileFacebookImpl.GetPayload(callback);
         }
 
+        public static void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback)
+        {
+            MobileFacebookImpl.PostSessionScore(score, callback);
+        }
+
         private static IMobileFacebook MobileFacebookImpl
         {
             get

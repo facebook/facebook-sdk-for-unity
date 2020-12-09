@@ -175,6 +175,8 @@
     <Compile Include="Codeless\FBSDKEventBindingManager.cs" />
     <Compile Include="Results\IMediaUploadResult.cs" />
     <Compile Include="Results\MediaUploadResult.cs" />
+    <Compile Include="Results\ISessionScoreResult.cs" />
+    <Compile Include="Results\SessionScoreResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

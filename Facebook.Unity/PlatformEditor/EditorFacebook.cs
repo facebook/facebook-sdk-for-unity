@@ -434,6 +434,12 @@ namespace Facebook.Unity.Editor
             CallbackManager.OnFacebookResponse(result);
         }
 
+        public void OnPostSessionScoreComplete(ResultContainer resultContainer)
+        {
+            var result = new SessionScoreResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
         public void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback)
         {
             this.editorWrapper.ShowMockFriendFinderDialog(
@@ -554,6 +560,13 @@ namespace Facebook.Unity.Editor
         {
             var result = new Dictionary<string, object>();
             result["success"] = "{\"key\":\"test\",\"value\":\"123\"}";
+            result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
+        }
+
+        public void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback)
+        {
+            var result = new Dictionary<string, object>();
+            result["success"] = "";
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 

@@ -114,5 +114,10 @@ namespace Facebook.Unity.Mobile
         {
             this.MobileFacebook.OnGetPayloadComplete(new ResultContainer(message));
         }
+
+        public virtual void OnPostSessionScoreComplete(string message)
+        {
+            this.MobileFacebook.OnPostSessionScoreComplete(new ResultContainer(message));
+        }
     }
 }

@@ -571,6 +571,19 @@ namespace Facebook.Unity.Mobile.Android
             getPayload.Call();
         }
 
+        public override void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback)
+        {
+            MethodArguments args = new MethodArguments();
+            args.AddString("score", score.ToString());
+            var postSessionScore = new JavaMethodCall<ISessionScoreResult>(
+                this,
+                "PostSessionScore")
+            {
+                Callback = callback
+            };
+            postSessionScore.Call(args);
+        }
+
         protected override void SetShareDialogMode(ShareDialogMode mode)
         {
             this.CallFB("SetShareDialogMode", mode.ToString());

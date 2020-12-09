@@ -91,5 +91,7 @@ namespace Facebook.Unity.Mobile
         void ShowRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback);
 
         void GetPayload(FacebookDelegate<IPayloadResult> callback);
+
+        void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback);
     }
 }

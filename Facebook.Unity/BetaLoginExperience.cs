@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
  *
  * You are hereby granted a non-exclusive, worldwide, royalty-free license to use,
@@ -20,21 +20,9 @@
 
 namespace Facebook.Unity
 {
-    /// <summary>
-    /// The result of a login request.
-    /// </summary>
-    public interface ILoginResult : IResult
+    public enum BetaLoginExperience
     {
-        /// <summary>
-        /// Gets the access token.
-        /// </summary>
-        /// <value>The access token returned from login if successful else null.</value>
-        AccessToken AccessToken { get; }
-
-        /// <summary>
-        /// Gets the authentication token.
-        /// </summary>
-        /// <value>The authentication token returned from login if successful else null.</value>
-        AuthenticationToken AuthenticationToken { get; }
+        ENABLED,
+        RESTRICTED
     }
 }

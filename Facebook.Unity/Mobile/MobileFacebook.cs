@@ -59,6 +59,12 @@ namespace Facebook.Unity.Mobile
 
         public abstract void SetDataProcessingOptions(IEnumerable<string> options, int country, int state);
 
+        public abstract void LoginWithBetaLoginExperience(
+            string betaLoginExperience,
+            IEnumerable<string> permissions,
+            string nonce,
+            FacebookDelegate<ILoginResult> callback);
+
         public abstract void FetchDeferredAppLink(
             FacebookDelegate<IAppLinkResult> callback);
 

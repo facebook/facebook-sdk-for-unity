@@ -148,6 +148,15 @@ namespace Facebook.Unity.Mobile.IOS
             this.userID = this.iosWrapper.FBGetUserID();
         }
 
+        public override void LoginWithBetaLoginExperience(
+            string betaLoginExperience,
+            IEnumerable<string> permissions,
+            string nonce,
+            FacebookDelegate<ILoginResult> callback)
+        {
+            this.iosWrapper.LoginWithBetaLoginExperience(this.AddCallback(callback), permissions.ToCommaSeparateList(), betaLoginExperience, nonce);
+        }
+
         public override void LogInWithReadPermissions(
             IEnumerable<string> permissions,
             FacebookDelegate<ILoginResult> callback)

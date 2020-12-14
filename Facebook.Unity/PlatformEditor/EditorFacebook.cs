@@ -107,6 +107,18 @@ namespace Facebook.Unity.Editor
                 permissions.ToCommaSeparateList());
         }
 
+        public void LoginWithBetaLoginExperience(
+            string betaLoginExperience,
+            IEnumerable<string> permissions,
+            string nonce,
+            FacebookDelegate<ILoginResult> callback)
+        {
+            this.editorWrapper.ShowLoginMockDialog(
+                this.OnLoginComplete,
+                this.CallbackManager.AddFacebookDelegate(callback),
+                permissions.ToCommaSeparateList());
+        }
+
         public override void AppRequest(
             string message,
             OGActionType? actionType,

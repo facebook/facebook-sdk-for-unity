@@ -70,6 +70,16 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             this.LoginCommon(requestId, scope);
         }
 
+        public void LoginWithBetaLoginExperience(
+            int requestId,
+            string scope,
+            string betaLoginExperience,
+            string nonce)
+        {
+            this.LogMethodCall();
+            this.LoginCommon(requestId, scope);
+        }
+
         public void LogOut()
         {
             this.LogMethodCall();

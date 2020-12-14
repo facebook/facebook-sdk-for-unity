@@ -965,6 +965,28 @@ namespace Facebook.Unity
             }
 
             /// <summary>
+            /// Login with beta experience.
+            /// </summary>
+            /// <param name="betaLoginExperience">The option for betaLoginExperience, "enabled" or "restricted".</param>
+            /// <param name="permissions">A list of permissions.</param>
+            /// <param name="nonce">An optional nonce to use for the login attempt.</param>
+            /// <param name="callback">A callback for when the call is complete.</param>
+            public static void LoginWithBetaLoginExperience(
+                BetaLoginExperience betaLoginExperience,
+                IEnumerable<string> permissions = null,
+                string nonce = null,
+                FacebookDelegate<ILoginResult> callback = null)
+            {
+                if (betaLoginExperience == BetaLoginExperience.ENABLED)
+                {
+                    Mobile.MobileFacebookImpl.LoginWithBetaLoginExperience("enabled", permissions, nonce, callback);
+                } else
+                {
+                    Mobile.MobileFacebookImpl.LoginWithBetaLoginExperience("restricted", permissions, nonce, callback);
+                }
+            }
+
+            /// <summary>
             /// Fetchs the deferred app link data.
             /// </summary>
             /// <param name="callback">A callback for when the call is complete.</param>

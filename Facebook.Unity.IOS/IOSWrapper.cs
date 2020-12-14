@@ -39,6 +39,15 @@ namespace Facebook.Unity.IOS
                 unityUserAgentSuffix);
         }
 
+        public void LoginWithBetaLoginExperience(
+            int requestId,
+            string scope,
+            string betaLoginExperience,
+            string nonce)
+        {
+            IOSWrapper.IOSFBLoginWithBetaExperience(requestId, scope, betaLoginExperience, nonce);
+        }
+
         public void LogInWithReadPermissions(
             int requestId,
             string scope)
@@ -278,6 +287,13 @@ namespace Facebook.Unity.IOS
         private static extern void IOSFBLogInWithReadPermissions(
             int requestId,
             string scope);
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBLoginWithBetaExperience(
+            int requestId,
+            string scope,
+            string betaLoginExperience,
+            string nonce);
 
         [DllImport("__Internal")]
         private static extern void IOSFBLogInWithPublishPermissions(

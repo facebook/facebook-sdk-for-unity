@@ -38,6 +38,12 @@ namespace Facebook.Unity.Mobile.IOS
             int requestId,
             string scope);
 
+        void LoginWithBetaLoginExperience(
+            int requestId,
+            string scope,
+            string betaLoginExperience,
+            string nonce);
+
         void LogOut();
 
         void SetPushNotificationsDeviceTokenString(string token);

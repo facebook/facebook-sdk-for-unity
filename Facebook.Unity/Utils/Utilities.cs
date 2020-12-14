@@ -155,6 +155,14 @@ namespace Facebook.Unity
                 graphDomain);
         }
 
+        public static AuthenticationToken ParseAuthenticationTokenFromResult(IDictionary<string, object> resultDictionary)
+        {
+            string tokenString = resultDictionary.GetValueOrDefault<string>(LoginResult.AuthTokenString);
+            string nonce = resultDictionary.GetValueOrDefault<string>(LoginResult.AuthNonce);
+
+            return new AuthenticationToken(tokenString, nonce);
+        }
+
         public static string ToStringNullOk(this object obj)
         {
             if (obj == null)

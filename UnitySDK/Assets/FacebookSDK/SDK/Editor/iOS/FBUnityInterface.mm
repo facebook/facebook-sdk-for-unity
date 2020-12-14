@@ -149,6 +149,49 @@ isPublishPermLogin:(BOOL)isPublishPermLogin
                       handler:loginHandler];
 }
 
+- (void)loginWithBetaExperience:(int)requestId
+                          scope:(const char *)scope
+            betaLoginExperience:(const char *)betaLoginExperience
+                          nonce:(const char *)nonce
+{
+  NSString *scopeStr = [FBUnityUtility stringFromCString:scope];
+  NSArray *permissions = nil;
+  if(scope && strlen(scope) > 0) {
+    permissions = [scopeStr componentsSeparatedByString:@","];
+  }
+  
+  NSString *betaLoginExperienceStr = [FBUnityUtility stringFromCString:betaLoginExperience];
+  NSString *nonceStr = nil;
+  if (nonce) {
+    nonceStr = [FBUnityUtility stringFromCString:nonce];
+  }
+  FBSDKLoginConfiguration *config;
+  if (nonce) {
+    config = [[FBSDKLoginConfiguration alloc] initWithPermissions:permissions betaLoginExperience:([betaLoginExperienceStr isEqualToString:@"enabled"] ? FBSDKBetaLoginExperienceEnabled : FBSDKBetaLoginExperienceRestricted) nonce:nonceStr];
+  } else {
+    config = [[FBSDKLoginConfiguration alloc] initWithPermissions:permissions betaLoginExperience:([betaLoginExperienceStr isEqualToString:@"enabled"] ? FBSDKBetaLoginExperienceEnabled : FBSDKBetaLoginExperienceRestricted)];
+  }
+  
+  void (^loginHandler)(FBSDKLoginManagerLoginResult *,NSError *) = ^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+    if (error) {
+      [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnLoginComplete error:error requestId:requestId];
+      return;
+    } else if (result.isCancelled) {
+      [FBUnityUtility sendCancelToUnity:FBUnityMessageName_OnLoginComplete requestId:requestId];
+      return;
+    }
+    
+    if ([self tryCompleteLoginWithRequestId:requestId]) {
+      return;
+    } else {
+      [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnLoginComplete errorMessage:@"Unknown login error" requestId:requestId];
+    }
+  };
+  
+  FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+  [login logInFromViewController:nil configuration:config completion:loginHandler];
+}
+
 - (void)logOut
 {
   FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
@@ -289,10 +332,18 @@ isPublishPermLogin:(BOOL)isPublishPermLogin
 
 - (BOOL)tryCompleteLoginWithRequestId:(int) requestId
 {
-  NSDictionary *userData = [self getAccessTokenUserData];
+  NSMutableDictionary *userData = [[NSMutableDictionary alloc] init];
+  NSDictionary *accessTokenUserData = [self getAccessTokenUserData];
+  NSDictionary *authenticationTokenUserData = [self getAuthenticationTokenUserData];
+  if (accessTokenUserData) {
+    [userData addEntriesFromDictionary:accessTokenUserData];
+  }
+  if (authenticationTokenUserData) {
+    [userData addEntriesFromDictionary:authenticationTokenUserData];
+  }
   if (userData) {
     [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnLoginComplete
-                              userData:userData
+                              userData:[userData copy]
                              requestId:requestId];
     return YES;
   } else {
@@ -314,6 +365,19 @@ isPublishPermLogin:(BOOL)isPublishPermLogin
       // The token is missing a required value. Clear the token
       [[[FBSDKLoginManager alloc] init] logOut];
     }
+  }
+
+  return nil;
+}
+
+- (NSDictionary *)getAuthenticationTokenUserData
+{
+  FBSDKAuthenticationToken *token = [FBSDKAuthenticationToken currentAuthenticationToken];
+  if (token.tokenString && token.nonce) {
+    return @{
+      @"auth_token_string": token.tokenString,
+      @"auth_nonce": token.nonce
+    };
   }
 
   return nil;
@@ -343,6 +407,13 @@ extern "C" {
                                             urlSuffix:_urlSuffix];
     [FBSDKAppEvents setIsUnityInit:true];
     [FBSDKAppEvents sendEventBindingsToUnity];
+  }
+
+  void IOSFBLoginWithBetaExperience(int requestId, const char *scope, const char *betaLoginExperience, const char *nonce)
+  {
+    [[FBUnityInterface sharedInstance] loginWithBetaExperience:requestId scope:scope
+                                           betaLoginExperience:betaLoginExperience
+                                                         nonce:nonce];
   }
 
   void IOSFBLogInWithReadPermissions(int requestId,

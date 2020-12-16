@@ -119,5 +119,10 @@ namespace Facebook.Unity.Mobile
         {
             this.MobileFacebook.OnPostSessionScoreComplete(new ResultContainer(message));
         }
+
+        public void OnOpenAppStoreComplete(string message)
+        {
+            this.MobileFacebook.OnOpenAppStoreComplete(new ResultContainer(message));
+        }
     }
 }

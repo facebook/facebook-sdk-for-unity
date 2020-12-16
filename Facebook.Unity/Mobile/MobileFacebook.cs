@@ -221,6 +221,11 @@ namespace Facebook.Unity.Mobile
         public void OnPostSessionScoreComplete(ResultContainer resultContainer)
         {
             var result = new SessionScoreResult(resultContainer);
+        }
+
+        public void OnOpenAppStoreComplete(ResultContainer resultContainer)
+        {
+            var result = new OpenAppStoreResult(resultContainer);
             CallbackManager.OnFacebookResponse(result);
         }
 
@@ -328,6 +333,12 @@ namespace Facebook.Unity.Mobile
         public virtual void PostSessionScore(
             int score,
             FacebookDelegate<ISessionScoreResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void OpenAppStore(
+            FacebookDelegate<IOpenAppStoreResult> callback)
         {
             throw new NotImplementedException();
         }

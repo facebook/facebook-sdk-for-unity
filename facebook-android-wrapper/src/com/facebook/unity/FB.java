@@ -55,6 +55,7 @@ import com.facebook.gamingservices.cloudgaming.DaemonRequest;
 import com.facebook.gamingservices.cloudgaming.GameFeaturesLibrary;
 import com.facebook.gamingservices.cloudgaming.InAppAdLibrary;
 import com.facebook.gamingservices.cloudgaming.InAppPurchaseLibrary;
+import com.facebook.gamingservices.cloudgaming.PlayableAdsLibrary;
 import com.facebook.gamingservices.GamingImageUploader;
 import com.facebook.gamingservices.GamingVideoUploader;
 import com.facebook.share.widget.ShareDialog;
@@ -901,7 +902,7 @@ public class FB {
             unityMessage.sendError(String.format("Invalid score: %s", e.getMessage()));
             return;
         }
-        
+
         try {
             JSONObject parameters = (new JSONObject()).put("score", score);
             GameFeaturesLibrary.postSessionScore(
@@ -913,6 +914,20 @@ public class FB {
         } catch(JSONException e) {
             unityMessage.sendError(e.getMessage());
         }
+    }
+
+    public static void OpenAppStore(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnOpenAppStoreComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+
+        PlayableAdsLibrary.openAppStore(
+            getUnityActivity().getApplicationContext(),
+            new JSONObject(),
+            createDaemonCallback(unityMessage)
+        );
     }
 
     private static DaemonRequest.Callback createDaemonCallback(final UnityMessage unityMessage) {

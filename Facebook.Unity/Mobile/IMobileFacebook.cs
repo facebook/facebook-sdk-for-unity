@@ -96,5 +96,7 @@ namespace Facebook.Unity.Mobile
         void GetPayload(FacebookDelegate<IPayloadResult> callback);
 
         void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback);
+
+        void OpenAppStore(FacebookDelegate<IOpenAppStoreResult> callback);
     }
 }

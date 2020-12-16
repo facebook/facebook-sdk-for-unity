@@ -125,6 +125,7 @@
     <Compile Include="Results\IInterstitialAdResult.cs" />
     <Compile Include="Results\ILoginResult.cs" />
     <Compile Include="Results\ILoginStatusResult.cs" />
+    <Compile Include="Results\IOpenAppStoreResult.cs" />
     <Compile Include="Results\IPayloadResult.cs" />
     <Compile Include="Results\IPayResult.cs" />
     <Compile Include="Results\IPurchaseResult.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Results\IShareResult.cs" />
     <Compile Include="Results\LoginResult.cs" />
     <Compile Include="Results\LoginStatusResult.cs" />
+    <Compile Include="Results\OpenAppStoreResult.cs" />
     <Compile Include="Results\PayloadResult.cs" />
     <Compile Include="Results\PayResult.cs" />
     <Compile Include="Results\PurchaseResult.cs" />

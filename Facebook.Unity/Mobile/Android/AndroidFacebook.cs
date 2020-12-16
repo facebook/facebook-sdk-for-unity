@@ -593,6 +593,18 @@ namespace Facebook.Unity.Mobile.Android
             postSessionScore.Call(args);
         }
 
+        public override void OpenAppStore(
+            FacebookDelegate<IOpenAppStoreResult> callback)
+        {
+            var openAppStore = new JavaMethodCall<IOpenAppStoreResult>(
+                this,
+                "OpenAppStore")
+            {
+                Callback = callback
+            };
+            openAppStore.Call();
+        }
+
         protected override void SetShareDialogMode(ShareDialogMode mode)
         {
             this.CallFB("SetShareDialogMode", mode.ToString());

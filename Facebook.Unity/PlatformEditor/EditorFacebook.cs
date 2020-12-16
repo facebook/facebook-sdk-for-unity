@@ -449,6 +449,11 @@ namespace Facebook.Unity.Editor
         public void OnPostSessionScoreComplete(ResultContainer resultContainer)
         {
             var result = new SessionScoreResult(resultContainer);
+        }
+
+        public void OnOpenAppStoreComplete(ResultContainer resultContainer)
+        {
+            var result = new OpenAppStoreResult(resultContainer);
             CallbackManager.OnFacebookResponse(result);
         }
 
@@ -576,6 +581,13 @@ namespace Facebook.Unity.Editor
         }
 
         public void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback)
+        {
+            var result = new Dictionary<string, object>();
+            result["success"] = "";
+            result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
+        }
+
+        public void OpenAppStore(FacebookDelegate<IOpenAppStoreResult> callback)
         {
             var result = new Dictionary<string, object>();
             result["success"] = "";

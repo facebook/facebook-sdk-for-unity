@@ -143,6 +143,10 @@ namespace Facebook.Unity
             MobileFacebookImpl.PostSessionScore(score, callback);
         }
 
+        public static void OpenAppStore(FacebookDelegate<IOpenAppStoreResult> callback) {
+            MobileFacebookImpl.OpenAppStore(callback);
+        }
+
         private static IMobileFacebook MobileFacebookImpl
         {
             get

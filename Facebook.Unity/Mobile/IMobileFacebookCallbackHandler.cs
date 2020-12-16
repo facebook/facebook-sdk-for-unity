@@ -57,5 +57,7 @@ namespace Facebook.Unity.Mobile
         void OnGetPayloadComplete(string message);
 
         void OnPostSessionScoreComplete(string message);
+
+        void OnOpenAppStoreComplete(string message);
     }
 }

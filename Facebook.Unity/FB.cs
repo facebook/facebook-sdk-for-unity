@@ -965,24 +965,24 @@ namespace Facebook.Unity
             }
 
             /// <summary>
-            /// Login with beta experience.
+            /// Login with tracking experience.
             /// </summary>
-            /// <param name="betaLoginExperience">The option for betaLoginExperience, "enabled" or "restricted".</param>
+            /// <param name="loginTracking">The option for login tracking preference, "enabled" or "limited".</param>
             /// <param name="permissions">A list of permissions.</param>
             /// <param name="nonce">An optional nonce to use for the login attempt.</param>
             /// <param name="callback">A callback for when the call is complete.</param>
-            public static void LoginWithBetaLoginExperience(
-                BetaLoginExperience betaLoginExperience,
+            public static void LoginWithTrackingPreference(
+                LoginTracking loginTracking,
                 IEnumerable<string> permissions = null,
                 string nonce = null,
                 FacebookDelegate<ILoginResult> callback = null)
             {
-                if (betaLoginExperience == BetaLoginExperience.ENABLED)
+                if (loginTracking == LoginTracking.ENABLED)
                 {
-                    Mobile.MobileFacebookImpl.LoginWithBetaLoginExperience("enabled", permissions, nonce, callback);
+                    Mobile.MobileFacebookImpl.LoginWithTrackingPreference("enabled", permissions, nonce, callback);
                 } else
                 {
-                    Mobile.MobileFacebookImpl.LoginWithBetaLoginExperience("restricted", permissions, nonce, callback);
+                    Mobile.MobileFacebookImpl.LoginWithTrackingPreference("limited", permissions, nonce, callback);
                 }
             }
 

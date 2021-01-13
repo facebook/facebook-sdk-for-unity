@@ -31,7 +31,7 @@ namespace Facebook.Unity.Mobile
 
         void UpdateUserProperties(Dictionary<string, string> parameters);
 
-        void LoginWithBetaLoginExperience(string betaLoginExperience, IEnumerable<string> permissions, string nonce,
+        void LoginWithTrackingPreference(string tracking, IEnumerable<string> permissions, string nonce,
             FacebookDelegate<ILoginResult> callback);
 
         void FetchDeferredAppLink(

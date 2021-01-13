@@ -180,7 +180,7 @@
     <Compile Include="Results\ISessionScoreResult.cs" />
     <Compile Include="Results\SessionScoreResult.cs" />
     <Compile Include="AuthenticationToken.cs" />
-    <Compile Include="BetaLoginExperience.cs" />
+    <Compile Include="LoginTracking.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

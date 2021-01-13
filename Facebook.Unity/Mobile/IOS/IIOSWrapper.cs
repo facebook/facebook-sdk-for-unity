@@ -38,10 +38,10 @@ namespace Facebook.Unity.Mobile.IOS
             int requestId,
             string scope);
 
-        void LoginWithBetaLoginExperience(
+        void LoginWithTrackingPreference(
             int requestId,
             string scope,
-            string betaLoginExperience,
+            string tracking,
             string nonce);
 
         void LogOut();

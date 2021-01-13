@@ -20,9 +20,9 @@
 
 namespace Facebook.Unity
 {
-    public enum BetaLoginExperience
+    public enum LoginTracking
     {
         ENABLED,
-        RESTRICTED
+        LIMITED
     }
 }

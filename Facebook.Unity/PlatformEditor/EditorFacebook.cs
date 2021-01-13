@@ -107,8 +107,8 @@ namespace Facebook.Unity.Editor
                 permissions.ToCommaSeparateList());
         }
 
-        public void LoginWithBetaLoginExperience(
-            string betaLoginExperience,
+        public void LoginWithTrackingPreference(
+            string tracking,
             IEnumerable<string> permissions,
             string nonce,
             FacebookDelegate<ILoginResult> callback)

@@ -70,10 +70,10 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             this.LoginCommon(requestId, scope);
         }
 
-        public void LoginWithBetaLoginExperience(
+        public void LoginWithTrackingPreference(
             int requestId,
             string scope,
-            string betaLoginExperience,
+            string tracking,
             string nonce)
         {
             this.LogMethodCall();

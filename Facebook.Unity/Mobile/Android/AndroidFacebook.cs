@@ -153,8 +153,8 @@ namespace Facebook.Unity.Mobile.Android
             this.userID = this.androidWrapper.CallStatic<string>("GetUserID");
         }
 
-        public override void LoginWithBetaLoginExperience(
-            string betaLoginExperience,
+        public override void LoginWithTrackingPreference(
+            string tracking,
             IEnumerable<string> permissions,
             string nonce,
             FacebookDelegate<ILoginResult> callback)

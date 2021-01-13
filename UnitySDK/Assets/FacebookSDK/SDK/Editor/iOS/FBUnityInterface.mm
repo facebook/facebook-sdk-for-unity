@@ -149,10 +149,10 @@ isPublishPermLogin:(BOOL)isPublishPermLogin
                       handler:loginHandler];
 }
 
-- (void)loginWithBetaExperience:(int)requestId
-                          scope:(const char *)scope
-            betaLoginExperience:(const char *)betaLoginExperience
-                          nonce:(const char *)nonce
+- (void)loginWithTrackingPreference:(int)requestId
+                              scope:(const char *)scope
+                           tracking:(const char *)tracking
+                              nonce:(const char *)nonce
 {
   NSString *scopeStr = [FBUnityUtility stringFromCString:scope];
   NSArray *permissions = nil;
@@ -160,16 +160,16 @@ isPublishPermLogin:(BOOL)isPublishPermLogin
     permissions = [scopeStr componentsSeparatedByString:@","];
   }
   
-  NSString *betaLoginExperienceStr = [FBUnityUtility stringFromCString:betaLoginExperience];
+  NSString *trackingStr = [FBUnityUtility stringFromCString:tracking];
   NSString *nonceStr = nil;
   if (nonce) {
     nonceStr = [FBUnityUtility stringFromCString:nonce];
   }
   FBSDKLoginConfiguration *config;
   if (nonce) {
-    config = [[FBSDKLoginConfiguration alloc] initWithPermissions:permissions betaLoginExperience:([betaLoginExperienceStr isEqualToString:@"enabled"] ? FBSDKBetaLoginExperienceEnabled : FBSDKBetaLoginExperienceRestricted) nonce:nonceStr];
+    config = [[FBSDKLoginConfiguration alloc] initWithPermissions:permissions tracking:([trackingStr isEqualToString:@"enabled"] ? FBSDKLoginTrackingEnabled : FBSDKLoginTrackingLimited) nonce:nonceStr];
   } else {
-    config = [[FBSDKLoginConfiguration alloc] initWithPermissions:permissions betaLoginExperience:([betaLoginExperienceStr isEqualToString:@"enabled"] ? FBSDKBetaLoginExperienceEnabled : FBSDKBetaLoginExperienceRestricted)];
+    config = [[FBSDKLoginConfiguration alloc] initWithPermissions:permissions tracking:([trackingStr isEqualToString:@"enabled"] ? FBSDKLoginTrackingEnabled : FBSDKLoginTrackingLimited)];
   }
   
   void (^loginHandler)(FBSDKLoginManagerLoginResult *,NSError *) = ^(FBSDKLoginManagerLoginResult *result, NSError *error) {
@@ -409,11 +409,11 @@ extern "C" {
     [FBSDKAppEvents sendEventBindingsToUnity];
   }
 
-  void IOSFBLoginWithBetaExperience(int requestId, const char *scope, const char *betaLoginExperience, const char *nonce)
+  void IOSFBLoginWithTrackingPreference(int requestId, const char *scope, const char *tracking, const char *nonce)
   {
-    [[FBUnityInterface sharedInstance] loginWithBetaExperience:requestId scope:scope
-                                           betaLoginExperience:betaLoginExperience
-                                                         nonce:nonce];
+    [[FBUnityInterface sharedInstance] loginWithTrackingPreference:requestId scope:scope
+                                                          tracking:tracking
+                                                            nonce:nonce];
   }
 
   void IOSFBLogInWithReadPermissions(int requestId,

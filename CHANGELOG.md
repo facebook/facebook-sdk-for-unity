@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [9.0.0] - 2021-01-10
+
+### Added
+
+- Limited Login. See the [docs](https://developers.facebook.com/docs/facebook-login/ios/limited-login/) for a general overview and implementation details.
+
 ## [8.1.1] - 2020-10-25
 
 ### Fixed
@@ -132,7 +138,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-8.1.1...HEAD
+[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-9.0.0...HEAD
+[9.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-8.1.1...sdk-version-9.0.0
 [8.1.1]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-8.1.0...sdk-version-8.1.1
 [8.1.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-8.0.0...sdk-version-8.1.0
 [8.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.2...sdk-version-8.0.0

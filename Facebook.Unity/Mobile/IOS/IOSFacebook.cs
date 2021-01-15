@@ -177,6 +177,16 @@ namespace Facebook.Unity.Mobile.IOS
             this.iosWrapper.LogOut();
         }
 
+        public override bool LoggedIn
+        {
+            get
+            {
+                AccessToken token = AccessToken.CurrentAccessToken;
+                AuthenticationToken authenticationToken = CurrentAuthenticationToken();
+                return (token != null && token.ExpirationTime > DateTime.UtcNow) || authenticationToken != null;
+            }
+        }
+
         public override AuthenticationToken CurrentAuthenticationToken()
         {
             return this.iosWrapper.CurrentAuthenticationToken();

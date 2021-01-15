@@ -433,6 +433,72 @@ extern "C" {
     [[FBUnityInterface sharedInstance] logOut];
   }
 
+  char* IOSFBCurrentAuthenticationToken()
+  {
+    FBSDKAuthenticationToken *token = [FBSDKAuthenticationToken currentAuthenticationToken];
+    NSString *str = @"";
+    if (token.tokenString && token.nonce) {
+      try {
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@{
+          @"auth_token_string": token.tokenString,
+          @"auth_nonce": token.nonce
+        } options:NSJSONWritingPrettyPrinted error:nil];
+        if (jsonData) {
+          str = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        }
+      } catch (NSException *exception) {
+        NSLog(@"Fail to parse AuthenticationToken");
+      }
+    }
+    const char* string = [str UTF8String];
+    char* res = (char*)malloc(strlen(string) + 1);
+    strcpy(res, string);
+    return res;
+  }
+
+  char* IOSFBCurrentProfile()
+  {
+    FBSDKProfile *profile = [FBSDKProfile currentProfile];
+    NSString *str = @"";
+    NSMutableDictionary<NSString *, id> *data = [NSMutableDictionary new];
+    if (profile.userID) {
+      data[@"userID"] = profile.userID;
+    }
+    if (profile.firstName) {
+      data[@"firstName"] = profile.firstName;
+    }
+    if (profile.middleName) {
+      data[@"middleName"] = profile.middleName;
+    }
+    if (profile.lastName) {
+      data[@"lastName"] = profile.lastName;
+    }
+    if (profile.name) {
+      data[@"name"] = profile.name;
+    }
+    if (profile.email) {
+      data[@"email"] = profile.email;
+    }
+    if (profile.imageURL) {
+      data[@"imageURL"] = profile.imageURL.absoluteString;
+    }
+    if (profile.linkURL) {
+      data[@"linkURL"] = profile.linkURL.absoluteString;
+    }
+    try {
+      NSData *jsonData = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:nil];
+      if (jsonData) {
+        str = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+      }
+    } catch (NSException *exception) {
+      NSLog(@"Fail to parse Profile");
+    }
+    const char* string = [str UTF8String];
+    char* res = (char*)malloc(strlen(string) + 1);
+    strcpy(res, string);
+    return res;
+  }
+
   void IOSFBSetPushNotificationsDeviceTokenString(const char *token)
   {
     [FBSDKAppEvents setPushNotificationsDeviceTokenString:[FBUnityUtility stringFromCString:token]];

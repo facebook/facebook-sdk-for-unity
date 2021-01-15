@@ -137,5 +137,9 @@ namespace Facebook.Unity.Mobile.IOS
             string videoUri);
 
         void FetchDeferredAppLink(int requestId);
+
+        AuthenticationToken CurrentAuthenticationToken();
+
+        Profile CurrentProfile();
     }
 }

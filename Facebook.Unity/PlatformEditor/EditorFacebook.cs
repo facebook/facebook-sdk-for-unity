@@ -224,6 +224,16 @@ namespace Facebook.Unity.Editor
             return;
         }
 
+        public AuthenticationToken CurrentAuthenticationToken()
+        {
+            return null;
+        }
+
+        public Profile CurrentProfile()
+        {
+            return null;
+        }
+
         public void FetchDeferredAppLink(
             FacebookDelegate<IAppLinkResult> callback)
         {

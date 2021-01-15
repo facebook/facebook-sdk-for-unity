@@ -85,6 +85,18 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             this.LogMethodCall();
         }
 
+        public AuthenticationToken CurrentAuthenticationToken()
+        {
+            this.LogMethodCall();
+            return null;
+        }
+
+        public Profile CurrentProfile()
+        {
+            this.LogMethodCall();
+            return null;
+        }
+
         public void SetPushNotificationsDeviceTokenString(string token)
         {
             this.LogMethodCall();

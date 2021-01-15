@@ -191,6 +191,45 @@ namespace Facebook.Unity.Mobile.Android
             logoutCall.Call();
         }
 
+        public override AuthenticationToken CurrentAuthenticationToken()
+        {
+            return null;
+        }
+
+        public override Profile CurrentProfile()
+        {
+            String profileString = this.androidWrapper.CallStatic<string>("GetCurrentProfile");
+            if (profileString != null)
+            {
+                IDictionary<string, string> profile = Utilities.ParseStringDictionaryFromString(profileString);
+                string id;
+                string firstName;
+                string middleName;
+                string lastName;
+                string name;
+                string email;
+                string imageURL;
+                string linkURL;
+                profile.TryGetValue("userID", out id);
+                profile.TryGetValue("firstName", out firstName);
+                profile.TryGetValue("middleName", out middleName);
+                profile.TryGetValue("lastName", out lastName);
+                profile.TryGetValue("name", out name);
+                profile.TryGetValue("email", out email);
+                profile.TryGetValue("imageURL", out imageURL);
+                profile.TryGetValue("linkURL", out linkURL);
+                try
+                {
+                    return new Profile(id, firstName, middleName, lastName, name, email, imageURL, linkURL);
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+            return null;
+        }
+
         public void RetrieveLoginStatus(FacebookDelegate<ILoginStatusResult> callback) {
             var loginCall = new JavaMethodCall<ILoginStatusResult>(this, "RetrieveLoginStatus");
             loginCall.Callback = callback;

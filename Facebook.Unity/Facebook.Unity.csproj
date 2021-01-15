@@ -181,6 +181,7 @@
     <Compile Include="Results\SessionScoreResult.cs" />
     <Compile Include="AuthenticationToken.cs" />
     <Compile Include="LoginTracking.cs" />
+    <Compile Include="Profile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

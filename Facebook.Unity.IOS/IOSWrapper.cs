@@ -20,6 +20,7 @@
 
 namespace Facebook.Unity.IOS
 {
+    using System;
     using System.Collections.Generic;
     using System.Runtime.InteropServices;
     using Facebook.Unity.Mobile.IOS;
@@ -242,6 +243,52 @@ namespace Facebook.Unity.IOS
             IOSWrapper.IOSFBSetDataProcessingOptions(options, options.Length, country, state);
         }
 
+        public AuthenticationToken CurrentAuthenticationToken()
+        {
+            IDictionary<string, string> token = Utilities.ParseStringDictionaryFromString(IOSWrapper.IOSFBCurrentAuthenticationToken());
+            string tokenString;
+            string nonce;
+            token.TryGetValue("auth_token_string", out tokenString);
+            token.TryGetValue("auth_nonce", out nonce);
+            try
+            {
+                return new AuthenticationToken(tokenString, nonce);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public Profile CurrentProfile()
+        {
+            IDictionary<string, string> profile = Utilities.ParseStringDictionaryFromString(IOSWrapper.IOSFBCurrentProfile());
+            string userID;
+            string firstName;
+            string middleName;
+            string lastName;
+            string name;
+            string email;
+            string imageURL;
+            string linkURL;
+            profile.TryGetValue("userID", out userID);
+            profile.TryGetValue("firstName", out firstName);
+            profile.TryGetValue("middleName", out middleName);
+            profile.TryGetValue("lastName", out lastName);
+            profile.TryGetValue("name", out name);
+            profile.TryGetValue("email", out email);
+            profile.TryGetValue("imageURL", out imageURL);
+            profile.TryGetValue("linkURL", out linkURL);
+            try
+            {
+                return new Profile(userID, firstName, middleName, lastName, name, email, imageURL, linkURL);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public void UploadImageToMediaLibrary(
             int requestId,
             string caption,
@@ -421,5 +468,11 @@ namespace Facebook.Unity.IOS
             int numParams,
             string[] paramKeys,
             string[] paramVals);
+
+        [DllImport("__Internal")]
+        private static extern string IOSFBCurrentAuthenticationToken();
+
+        [DllImport("__Internal")]
+        private static extern string IOSFBCurrentProfile();
     }
 }

@@ -177,6 +177,16 @@ namespace Facebook.Unity.Mobile.IOS
             this.iosWrapper.LogOut();
         }
 
+        public override AuthenticationToken CurrentAuthenticationToken()
+        {
+            return this.iosWrapper.CurrentAuthenticationToken();
+        }
+
+        public override Profile CurrentProfile()
+        {
+            return this.iosWrapper.CurrentProfile();
+        }
+
         public override void AppRequest(
             string message,
             OGActionType? actionType,

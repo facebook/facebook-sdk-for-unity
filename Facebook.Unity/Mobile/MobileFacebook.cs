@@ -55,6 +55,10 @@ namespace Facebook.Unity.Mobile
 
         public abstract string UserID { get; set; }
 
+        public abstract AuthenticationToken CurrentAuthenticationToken();
+
+        public abstract Profile CurrentProfile();
+
         public abstract void UpdateUserProperties(Dictionary<string, string> parameters);
 
         public abstract void SetDataProcessingOptions(IEnumerable<string> options, int country, int state);

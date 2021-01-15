@@ -276,6 +276,46 @@ public class FB {
     }
 
     @UnityCallable
+    public static String GetCurrentProfile() {
+        if (!FacebookSdk.isInitialized()) {
+            return null;
+        }
+        Profile profile = Profile.getCurrentProfile();
+        try {
+            JSONObject json = new JSONObject();
+            if (profile != null) {
+                String userID = profile.getId();
+                String firstName = profile.getFirstName();
+                String middleName = profile.getMiddleName();
+                String lastName = profile.getLastName();
+                String name = profile.getName();
+                Uri linkUri = profile.getLinkUri();
+                if (userID != null) {
+                    json.put("userID", userID);
+                }
+                if (firstName != null) {
+                    json.put("firstName", firstName);
+                }
+                if (middleName != null) {
+                    json.put("middleName", middleName);
+                }
+                if (lastName != null) {
+                    json.put("lastName", lastName);
+                }
+                if (name != null) {
+                    json.put("name", name);
+                }
+                if (linkUri != null) {
+                    json.put("linkURL", linkUri.toString());
+                }
+            }
+            return json.toString();
+        } catch (Exception e) {
+        }
+        return "";
+    }
+
+    @UnityCallable
     public static void UpdateUserProperties(String params_str) {
       Log.v(TAG, "UpdateUserProperties(" + params_str + ")");
       final UnityParams unityParams = UnityParams.parse(params_str);

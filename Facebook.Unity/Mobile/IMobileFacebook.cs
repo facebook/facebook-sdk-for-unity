@@ -98,5 +98,9 @@ namespace Facebook.Unity.Mobile
         void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback);
 
         void OpenAppStore(FacebookDelegate<IOpenAppStoreResult> callback);
+
+        AuthenticationToken CurrentAuthenticationToken();
+
+        Profile CurrentProfile();
     }
 }

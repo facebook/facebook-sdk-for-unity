@@ -49,12 +49,6 @@ namespace Facebook.Unity
         }
 
         /// <summary>
-        /// Gets the current authentication token.
-        /// </summary>
-        /// <value>The current authentication token.</value>
-        public static AuthenticationToken CurrentAuthenticationToken { get; internal set; }
-
-        /// <summary>
         /// Gets the token string.
         /// </summary>
         /// <value>The token string.</value>

@@ -987,6 +987,22 @@ namespace Facebook.Unity
             }
 
             /// <summary>
+            /// Current Authentication Token.
+            /// </summary>
+            public static AuthenticationToken CurrentAuthenticationToken()
+            {
+                return Mobile.MobileFacebookImpl.CurrentAuthenticationToken();
+            }
+
+            /// <summary>
+            /// Current Profile.
+            /// </summary>
+            public static Profile CurrentProfile()
+            {
+                return Mobile.MobileFacebookImpl.CurrentProfile();
+            }
+
+            /// <summary>
             /// Fetchs the deferred app link data.
             /// </summary>
             /// <param name="callback">A callback for when the call is complete.</param>

@@ -43,6 +43,10 @@ namespace Facebook.Unity
             {
                 this.AuthenticationToken = Utilities.ParseAuthenticationTokenFromResult(this.ResultDictionary);
             }
+            if (this.AuthenticationToken != null)
+            {
+                AccessToken.CurrentAccessToken = null;
+            }
         }
 
         public AccessToken AccessToken { get; private set; }

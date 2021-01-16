@@ -245,13 +245,18 @@ namespace Facebook.Unity.IOS
 
         public AuthenticationToken CurrentAuthenticationToken()
         {
-            IDictionary<string, string> token = Utilities.ParseStringDictionaryFromString(IOSWrapper.IOSFBCurrentAuthenticationToken());
-            string tokenString;
-            string nonce;
-            token.TryGetValue("auth_token_string", out tokenString);
-            token.TryGetValue("auth_nonce", out nonce);
+            String authenticationTokenString = IOSWrapper.IOSFBCurrentAuthenticationToken();
+            if (String.IsNullOrEmpty(authenticationTokenString))
+            {
+                return null;
+            }
             try
             {
+                IDictionary<string, string> token = Utilities.ParseStringDictionaryFromString(authenticationTokenString);
+                string tokenString;
+                string nonce;
+                token.TryGetValue("auth_token_string", out tokenString);
+                token.TryGetValue("auth_nonce", out nonce);
                 return new AuthenticationToken(tokenString, nonce);
             }
             catch (Exception)
@@ -262,25 +267,30 @@ namespace Facebook.Unity.IOS
 
         public Profile CurrentProfile()
         {
-            IDictionary<string, string> profile = Utilities.ParseStringDictionaryFromString(IOSWrapper.IOSFBCurrentProfile());
-            string userID;
-            string firstName;
-            string middleName;
-            string lastName;
-            string name;
-            string email;
-            string imageURL;
-            string linkURL;
-            profile.TryGetValue("userID", out userID);
-            profile.TryGetValue("firstName", out firstName);
-            profile.TryGetValue("middleName", out middleName);
-            profile.TryGetValue("lastName", out lastName);
-            profile.TryGetValue("name", out name);
-            profile.TryGetValue("email", out email);
-            profile.TryGetValue("imageURL", out imageURL);
-            profile.TryGetValue("linkURL", out linkURL);
+            String profileString = IOSWrapper.IOSFBCurrentProfile();
+            if (String.IsNullOrEmpty(profileString))
+            {
+                return null;
+            }
             try
             {
+                IDictionary<string, string> profile = Utilities.ParseStringDictionaryFromString(profileString);
+                string userID;
+                string firstName;
+                string middleName;
+                string lastName;
+                string name;
+                string email;
+                string imageURL;
+                string linkURL;
+                profile.TryGetValue("userID", out userID);
+                profile.TryGetValue("firstName", out firstName);
+                profile.TryGetValue("middleName", out middleName);
+                profile.TryGetValue("lastName", out lastName);
+                profile.TryGetValue("name", out name);
+                profile.TryGetValue("email", out email);
+                profile.TryGetValue("imageURL", out imageURL);
+                profile.TryGetValue("linkURL", out linkURL);
                 return new Profile(userID, firstName, middleName, lastName, name, email, imageURL, linkURL);
             }
             catch (Exception)

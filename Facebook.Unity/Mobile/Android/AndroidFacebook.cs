@@ -25,6 +25,7 @@ namespace Facebook.Unity.Mobile.Android
     using System.Linq;
     using System.Globalization;
     using System.Reflection;
+    using UnityEngine;
 
     internal sealed class AndroidFacebook : MobileFacebook
     {
@@ -159,6 +160,10 @@ namespace Facebook.Unity.Mobile.Android
             string nonce,
             FacebookDelegate<ILoginResult> callback)
         {
+            if (Debug.isDebugBuild)
+            {
+                Debug.Log("This function is only implemented on iOS. Please use .LoginWithReadPermissions() or .LoginWithPublishPermissions() on other platforms.");
+            }
             return;
         }
 
@@ -199,27 +204,27 @@ namespace Facebook.Unity.Mobile.Android
         public override Profile CurrentProfile()
         {
             String profileString = this.androidWrapper.CallStatic<string>("GetCurrentProfile");
-            if (profileString != null)
+            if (!String.IsNullOrEmpty(profileString))
             {
-                IDictionary<string, string> profile = Utilities.ParseStringDictionaryFromString(profileString);
-                string id;
-                string firstName;
-                string middleName;
-                string lastName;
-                string name;
-                string email;
-                string imageURL;
-                string linkURL;
-                profile.TryGetValue("userID", out id);
-                profile.TryGetValue("firstName", out firstName);
-                profile.TryGetValue("middleName", out middleName);
-                profile.TryGetValue("lastName", out lastName);
-                profile.TryGetValue("name", out name);
-                profile.TryGetValue("email", out email);
-                profile.TryGetValue("imageURL", out imageURL);
-                profile.TryGetValue("linkURL", out linkURL);
                 try
                 {
+                    IDictionary<string, string> profile = Utilities.ParseStringDictionaryFromString(profileString);
+                    string id;
+                    string firstName;
+                    string middleName;
+                    string lastName;
+                    string name;
+                    string email;
+                    string imageURL;
+                    string linkURL;
+                    profile.TryGetValue("userID", out id);
+                    profile.TryGetValue("firstName", out firstName);
+                    profile.TryGetValue("middleName", out middleName);
+                    profile.TryGetValue("lastName", out lastName);
+                    profile.TryGetValue("name", out name);
+                    profile.TryGetValue("email", out email);
+                    profile.TryGetValue("imageURL", out imageURL);
+                    profile.TryGetValue("linkURL", out linkURL);
                     return new Profile(id, firstName, middleName, lastName, name, email, imageURL, linkURL);
                 }
                 catch (Exception)

@@ -2,16 +2,16 @@
 <dependencies>
     <androidPackages>
         <androidPackage spec="com.parse.bolts:bolts-android:1.4.0" />
-        <androidPackage spec="com.facebook.android:facebook-core:[7.1.0, 8)" />
-        <androidPackage spec="com.facebook.android:facebook-applinks:[7.1.0, 8)" />
-        <androidPackage spec="com.facebook.android:facebook-login:[7.1.0, 8)" />
-        <androidPackage spec="com.facebook.android:facebook-share:[7.1.0, 8)" />
-        <androidPackage spec="com.facebook.android:facebook-gamingservices:[7.1.0, 8)" />
+        <androidPackage spec="com.facebook.android:facebook-core:[9.0, 10)" />
+        <androidPackage spec="com.facebook.android:facebook-applinks:[9.0, 10)" />
+        <androidPackage spec="com.facebook.android:facebook-login:[9.0, 10)" />
+        <androidPackage spec="com.facebook.android:facebook-share:[9.0, 10)" />
+        <androidPackage spec="com.facebook.android:facebook-gamingservices:[9.0, 10)" />
     </androidPackages>
     <iosPods>
-        <iosPod name="FBSDKCoreKit" version="~> 7.1.1" />
-        <iosPod name="FBSDKLoginKit" version="~> 7.1.1" />
-        <iosPod name="FBSDKShareKit" version="~> 7.1.1" />
-        <iosPod name="FBSDKGamingServicesKit" version="~> 7.1.1" />
+        <iosPod name="FBSDKCoreKit" version="~> 9.0" />
+        <iosPod name="FBSDKLoginKit" version="~> 9.0" />
+        <iosPod name="FBSDKShareKit" version="~> 9.0" />
+        <iosPod name="FBSDKGamingServicesKit" version="~> 9.0" />
     </iosPods>
 </dependencies>

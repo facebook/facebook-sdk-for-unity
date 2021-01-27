@@ -48,7 +48,7 @@ namespace Facebook.Unity
             }
         }
 
-        public bool LoggedIn
+        public virtual bool LoggedIn
         {
             get
             {

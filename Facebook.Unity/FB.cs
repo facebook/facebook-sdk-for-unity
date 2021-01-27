@@ -965,6 +965,44 @@ namespace Facebook.Unity
             }
 
             /// <summary>
+            /// Login with tracking experience.
+            /// </summary>
+            /// <param name="loginTracking">The option for login tracking preference, "enabled" or "limited".</param>
+            /// <param name="permissions">A list of permissions.</param>
+            /// <param name="nonce">An optional nonce to use for the login attempt.</param>
+            /// <param name="callback">A callback for when the call is complete.</param>
+            public static void LoginWithTrackingPreference(
+                LoginTracking loginTracking,
+                IEnumerable<string> permissions = null,
+                string nonce = null,
+                FacebookDelegate<ILoginResult> callback = null)
+            {
+                if (loginTracking == LoginTracking.ENABLED)
+                {
+                    Mobile.MobileFacebookImpl.LoginWithTrackingPreference("enabled", permissions, nonce, callback);
+                } else
+                {
+                    Mobile.MobileFacebookImpl.LoginWithTrackingPreference("limited", permissions, nonce, callback);
+                }
+            }
+
+            /// <summary>
+            /// Current Authentication Token.
+            /// </summary>
+            public static AuthenticationToken CurrentAuthenticationToken()
+            {
+                return Mobile.MobileFacebookImpl.CurrentAuthenticationToken();
+            }
+
+            /// <summary>
+            /// Current Profile.
+            /// </summary>
+            public static Profile CurrentProfile()
+            {
+                return Mobile.MobileFacebookImpl.CurrentProfile();
+            }
+
+            /// <summary>
             /// Fetchs the deferred app link data.
             /// </summary>
             /// <param name="callback">A callback for when the call is complete.</param>
@@ -1014,6 +1052,15 @@ namespace Facebook.Unity
             public static void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled)
             {
                 Mobile.MobileFacebookImpl.SetAdvertiserIDCollectionEnabled(advertiserIDCollectionEnabled);
+            }
+
+            /// <summary>
+            /// Sets the setting for Advertiser Tracking Enabled.
+            /// </summary>
+            /// <param name="advertiserTrackingEnabled">The setting for Advertiser Tracking Enabled</param>
+            public static bool SetAdvertiserTrackingEnabled(bool advertiserTrackingEnabled)
+            {
+                return Mobile.MobileFacebookImpl.SetAdvertiserTrackingEnabled(advertiserTrackingEnabled);
             }
 
             /// <summary>

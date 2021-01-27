@@ -30,5 +30,11 @@ namespace Facebook.Unity
         /// </summary>
         /// <value>The access token returned from login if successful else null.</value>
         AccessToken AccessToken { get; }
+
+        /// <summary>
+        /// Gets the authentication token.
+        /// </summary>
+        /// <value>The authentication token returned from login if successful else null.</value>
+        AuthenticationToken AuthenticationToken { get; }
     }
 }

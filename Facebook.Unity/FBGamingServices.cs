@@ -81,6 +81,72 @@ namespace Facebook.Unity
             MobileFacebookImpl.UploadVideoToMediaLibrary(caption, videoUri, callback);
         }
 
+        public static void OnIAPReady(FacebookDelegate<IIAPReadyResult> callback) {
+            MobileFacebookImpl.OnIAPReady(callback);
+        }
+
+        public static void GetCatalog(FacebookDelegate<ICatalogResult> callback) {
+            MobileFacebookImpl.GetCatalog(callback);
+        }
+
+        public static void GetPurchases(FacebookDelegate<IPurchasesResult> callback) {
+            MobileFacebookImpl.GetPurchases(callback);
+        }
+
+        public static void Purchase(string productID, FacebookDelegate<IPurchaseResult> callback, string developerPayload = "") {
+            MobileFacebookImpl.Purchase(productID, callback, developerPayload);
+        }
+
+        public static void ConsumePurchase(string purchaseToken, FacebookDelegate<IConsumePurchaseResult> callback) {
+            MobileFacebookImpl.ConsumePurchase(purchaseToken, callback);
+        }
+
+        public static void InitCloudGame(
+            FacebookDelegate<IInitCloudGameResult> callback)
+        {
+            MobileFacebookImpl.InitCloudGame(callback);
+        }
+
+        public static void ScheduleAppToUserNotification(
+            string title,
+            string body,
+            Uri media,
+            int timeInterval,
+            string payload,
+            FacebookDelegate<IScheduleAppToUserNotificationResult> callback)
+        {
+            MobileFacebookImpl.ScheduleAppToUserNotification(title, body, media, timeInterval, payload, callback);
+        }
+
+        public static void LoadInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback) {
+            MobileFacebookImpl.LoadInterstitialAd(placementID, callback);
+        }
+
+        public static void ShowInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback) {
+            MobileFacebookImpl.ShowInterstitialAd(placementID, callback);
+        }
+
+        public static void LoadRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback) {
+            MobileFacebookImpl.LoadRewardedVideo(placementID, callback);
+        }
+
+        public static void ShowRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback) {
+            MobileFacebookImpl.ShowRewardedVideo(placementID, callback);
+        }
+
+        public static void GetPayload(FacebookDelegate<IPayloadResult> callback) {
+            MobileFacebookImpl.GetPayload(callback);
+        }
+
+        public static void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback)
+        {
+            MobileFacebookImpl.PostSessionScore(score, callback);
+        }
+
+        public static void OpenAppStore(FacebookDelegate<IOpenAppStoreResult> callback) {
+            MobileFacebookImpl.OpenAppStore(callback);
+        }
+
         private static IMobileFacebook MobileFacebookImpl
         {
             get

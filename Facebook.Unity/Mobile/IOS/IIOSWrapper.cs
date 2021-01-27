@@ -38,6 +38,12 @@ namespace Facebook.Unity.Mobile.IOS
             int requestId,
             string scope);
 
+        void LoginWithTrackingPreference(
+            int requestId,
+            string scope,
+            string tracking,
+            string nonce);
+
         void LogOut();
 
         void SetPushNotificationsDeviceTokenString(string token);
@@ -98,6 +104,8 @@ namespace Facebook.Unity.Mobile.IOS
 
         void FBAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabledID);
 
+        bool FBAdvertiserTrackingEnabled(bool advertiserTrackingEnabled);
+
         void GetAppLink(int requestId);
 
         void RefreshCurrentAccessToken(int requestId);
@@ -129,5 +137,9 @@ namespace Facebook.Unity.Mobile.IOS
             string videoUri);
 
         void FetchDeferredAppLink(int requestId);
+
+        AuthenticationToken CurrentAuthenticationToken();
+
+        Profile CurrentProfile();
     }
 }

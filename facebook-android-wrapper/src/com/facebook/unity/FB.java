@@ -49,6 +49,13 @@ import com.facebook.internal.BundleJSONConverter;
 import com.facebook.internal.Utility;
 import com.facebook.internal.InternalSettings;
 import com.facebook.login.LoginManager;
+import com.facebook.gamingservices.cloudgaming.AppToUserNotificationSender;
+import com.facebook.gamingservices.cloudgaming.CloudGameLoginHandler;
+import com.facebook.gamingservices.cloudgaming.DaemonRequest;
+import com.facebook.gamingservices.cloudgaming.GameFeaturesLibrary;
+import com.facebook.gamingservices.cloudgaming.InAppAdLibrary;
+import com.facebook.gamingservices.cloudgaming.InAppPurchaseLibrary;
+import com.facebook.gamingservices.cloudgaming.PlayableAdsLibrary;
 import com.facebook.gamingservices.GamingImageUploader;
 import com.facebook.gamingservices.GamingVideoUploader;
 import com.facebook.share.widget.ShareDialog;
@@ -266,6 +273,46 @@ public class FB {
             return null;
         }
         return AppEventsLogger.getUserID();
+    }
+
+    @UnityCallable
+    public static String GetCurrentProfile() {
+        if (!FacebookSdk.isInitialized()) {
+            return null;
+        }
+        Profile profile = Profile.getCurrentProfile();
+        try {
+            JSONObject json = new JSONObject();
+            if (profile != null) {
+                String userID = profile.getId();
+                String firstName = profile.getFirstName();
+                String middleName = profile.getMiddleName();
+                String lastName = profile.getLastName();
+                String name = profile.getName();
+                Uri linkUri = profile.getLinkUri();
+                if (userID != null) {
+                    json.put("userID", userID);
+                }
+                if (firstName != null) {
+                    json.put("firstName", firstName);
+                }
+                if (middleName != null) {
+                    json.put("middleName", middleName);
+                }
+                if (lastName != null) {
+                    json.put("lastName", lastName);
+                }
+                if (name != null) {
+                    json.put("name", name);
+                }
+                if (linkUri != null) {
+                    json.put("linkURL", linkUri.toString());
+                }
+            }
+            return json.toString();
+        } catch (Exception e) {
+        }
+        return "";
     }
 
     @UnityCallable
@@ -618,6 +665,339 @@ public class FB {
         } catch (FileNotFoundException e) {
             unityMessage.sendError(e.toString());
         }
+    }
+
+    @UnityCallable
+    public static void OnIAPReady(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnOnIAPReadyComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+
+        InAppPurchaseLibrary.onReady(
+            getUnityActivity().getApplicationContext(),
+            new JSONObject(),
+            createDaemonCallback(unityMessage)
+        );
+    }
+
+    @UnityCallable
+    public static void GetCatalog(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnGetCatalogComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+
+        InAppPurchaseLibrary.getCatalog(
+            getUnityActivity().getApplicationContext(),
+            new JSONObject(),
+            createDaemonCallback(unityMessage)
+        );
+    }
+
+    @UnityCallable
+    public static void GetPurchases(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnGetPurchasesComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+
+        InAppPurchaseLibrary.getPurchases(
+            getUnityActivity().getApplicationContext(),
+            new JSONObject(),
+            createDaemonCallback(unityMessage)
+        );
+    }
+
+    @UnityCallable
+    public static void Purchase(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnPurchaseComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+        String productID = unityParams.getString("productID");
+        String developerPayload = unityParams.getString("developerPayload");
+
+        try {
+            JSONObject params = new JSONObject().put(InAppPurchaseLibrary.PRODUCT_ID, productID);
+            if (!developerPayload.isEmpty()) {
+                params.put(InAppPurchaseLibrary.DEVELOPER_PAYLOAD, developerPayload);
+            }
+
+            InAppPurchaseLibrary.purchase(
+                getUnityActivity().getApplicationContext(),
+                params,
+                createDaemonCallback(unityMessage)
+            );
+        } catch(JSONException e) {
+            unityMessage.sendError(e.getMessage());
+        }
+    }
+
+    @UnityCallable
+    public static void ConsumePurchase(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnConsumePurchaseComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+        String purchaseToken = unityParams.getString("purchaseToken");
+
+        try {
+            InAppPurchaseLibrary.consumePurchase(
+                getUnityActivity().getApplicationContext(),
+                (new JSONObject()).put(InAppPurchaseLibrary.PURCHASE_TOKEN, purchaseToken),
+                createDaemonCallback(unityMessage)
+            );
+        } catch(JSONException e) {
+            unityMessage.sendError(e.getMessage());
+        }
+    }
+
+    @UnityCallable
+    public static void InitCloudGame(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnInitCloudGameComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+        try {
+            // will throw an exception if fails
+            // extending basic timeout
+            AccessToken accessToken = CloudGameLoginHandler.init(getUnityActivity().getApplicationContext(), 25);
+            UnityMessage loginUnityMessage = new UnityMessage("OnLoginComplete");
+            if (accessToken == null) {
+                unityMessage.sendError("Failed to receive access token.");
+                return;
+            }
+            FBLogin.addLoginParametersToMessage(loginUnityMessage, accessToken, null);
+            loginUnityMessage.send();
+
+            unityMessage.put("success", "");
+            unityMessage.send();
+        } catch(FacebookException e) {
+            unityMessage.sendError(e.getMessage());
+        }
+    }
+
+    @UnityCallable
+    public static void ScheduleAppToUserNotification(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnScheduleAppToUserNotificationComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+        String title = unityParams.getString("title");
+        String body = unityParams.getString("body");
+        Uri media = Uri.parse(unityParams.getString("media"));
+        // As a convenience, convert the URI to file:// if it has no Scheme.
+        // this is so that Unity code can pass just the path to the local
+        // file.
+        if (media.getScheme() == null) {
+            media = media.buildUpon().scheme("file").build();
+        }
+        int timeInterval;
+        try {
+            timeInterval = Integer.parseInt(unityParams.getString("timeInterval"));
+        } catch(NumberFormatException e) {
+            unityMessage.sendError(String.format("Invalid timeInterval: %s", e.getMessage()));
+            return;
+        }
+        String payload = unityParams.getString("payload");
+        if (payload.equals("null")) {
+            payload = null;
+        }
+
+        GraphRequest.Callback callback = new GraphRequest.Callback() {
+            @Override
+            public void onCompleted(GraphResponse response) {
+                if (response.getError() != null) {
+                    unityMessage.sendError(response.getError().toString());
+                } else {
+                    unityMessage.put("success", "");
+                    unityMessage.send();
+                }
+            }
+        };
+
+        try {
+            AppToUserNotificationSender.scheduleAppToUserNotification(
+                title, body, media, timeInterval, payload, callback);
+        } catch (FileNotFoundException e) {
+            unityMessage.sendError(String.format(e.getMessage()));
+        }
+    }
+
+    @UnityCallable
+    public static void LoadInterstitialAd(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnLoadInterstitialAdComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+        String placementID = unityParams.getString("placementID");
+
+        try {
+            InAppAdLibrary.loadInterstitialAd(
+                getUnityActivity().getApplicationContext(),
+                (new JSONObject()).put(InAppAdLibrary.PLACEMENT_ID, placementID),
+                createDaemonCallback(unityMessage)
+            );
+        } catch(JSONException e) {
+            unityMessage.sendError(e.getMessage());
+        }
+    }
+
+    @UnityCallable
+    public static void ShowInterstitialAd(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnShowInterstitialAdComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+        String placementID = unityParams.getString("placementID");
+
+        try {
+            InAppAdLibrary.showInterstitialAd(
+                getUnityActivity().getApplicationContext(),
+                (new JSONObject()).put(InAppAdLibrary.PLACEMENT_ID, placementID),
+                createDaemonCallback(unityMessage)
+            );
+        } catch(JSONException e) {
+            unityMessage.sendError(e.getMessage());
+        }
+    }
+
+    @UnityCallable
+    public static void LoadRewardedVideo(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnLoadRewardedVideoComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+        String placementID = unityParams.getString("placementID");
+
+        try {
+            InAppAdLibrary.loadRewardedVideo(
+                getUnityActivity().getApplicationContext(),
+                (new JSONObject()).put(InAppAdLibrary.PLACEMENT_ID, placementID),
+                createDaemonCallback(unityMessage)
+            );
+        } catch(JSONException e) {
+            unityMessage.sendError(e.getMessage());
+        }
+    }
+
+    @UnityCallable
+    public static void ShowRewardedVideo(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnShowRewardedVideoComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+        String placementID = unityParams.getString("placementID");
+
+        try {
+            InAppAdLibrary.showRewardedVideo(
+                getUnityActivity().getApplicationContext(),
+                (new JSONObject()).put(InAppAdLibrary.PLACEMENT_ID, placementID),
+                createDaemonCallback(unityMessage)
+            );
+        } catch(JSONException e) {
+            unityMessage.sendError(e.getMessage());
+        }
+    }
+
+    @UnityCallable
+    public static void GetPayload(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnGetPayloadComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+
+        GameFeaturesLibrary.getPayload(
+            getUnityActivity().getApplicationContext(),
+            new JSONObject(),
+            createDaemonCallback(unityMessage)
+        );
+    }
+
+    @UnityCallable
+    public static void PostSessionScore(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnPostSessionScoreComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+
+        int score;
+        try {
+            score = Integer.parseInt(unityParams.getString("score"));
+        } catch(NumberFormatException e) {
+            unityMessage.sendError(String.format("Invalid score: %s", e.getMessage()));
+            return;
+        }
+
+        try {
+            JSONObject parameters = (new JSONObject()).put("score", score);
+            GameFeaturesLibrary.postSessionScore(
+                getUnityActivity().getApplicationContext(),
+                parameters,
+                createDaemonCallback(unityMessage)
+            );
+
+        } catch(JSONException e) {
+            unityMessage.sendError(e.getMessage());
+        }
+    }
+
+    public static void OpenAppStore(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnOpenAppStoreComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+
+        PlayableAdsLibrary.openAppStore(
+            getUnityActivity().getApplicationContext(),
+            new JSONObject(),
+            createDaemonCallback(unityMessage)
+        );
+    }
+
+    private static DaemonRequest.Callback createDaemonCallback(final UnityMessage unityMessage) {
+        return (new DaemonRequest.Callback() {
+            @Override
+            public void onCompleted(GraphResponse response) {
+                FacebookRequestError error = response.getError();
+                if (error != null) {
+                    try {
+                        JSONObject errorJSON = new JSONObject();
+                        errorJSON.put("errorCode", error.getErrorCode());
+                        errorJSON.put("subErrorCode", error.getSubErrorCode());
+                        errorJSON.put("errorType", error.getErrorType());
+                        errorJSON.put("errorMessage", error.getErrorMessage());
+                        unityMessage.sendError(errorJSON.toString());
+                    } catch (JSONException e) {
+                        // default, will not be parseable as JSON in Unity
+                        unityMessage.sendError(error.toString());
+                    }
+                } else if (response.getJSONObject() != null) {
+                    unityMessage.put("success", response.getJSONObject().toString());
+                    unityMessage.send();
+                } else if (response.getJSONArray() != null) {
+                    unityMessage.put("success", response.getJSONArray().toString());
+                    unityMessage.send();
+                } else {
+                    unityMessage.sendError("invalid response");
+                }
+            }
+        });
     }
 
     private static void ActivateApp(String appId) {

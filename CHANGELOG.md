@@ -7,6 +7,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [9.0.0] - 2021-01-10
+
+### Added
+
+- Limited Login. See the [docs](https://developers.facebook.com/docs/facebook-login/ios/limited-login/) for a general overview and implementation details.
+
+## [8.1.1] - 2020-10-25
+
+### Fixed
+
+- Add use_frameworks! to Podfile
+- Avoid adding swift standard libs
+
+## [8.1.0] - 2020-10-14
+
+### Fixed
+
+- Fixed AndroidSdk path detection in Unity 2019 and above
+
+## [8.0.0] - 2020-09-27
+
+### Added
+
+- Added method `SetAdvertiserTrackingEnabled` to overwrite the `advertiser_tracking_enabled` flag
+
+### Changed
+
+- Bumped native SDK version to 8.0.0
+- Bumped Graph API version to 8.0
+
+### Fixed
+
+- Fixed lock up issue in Facebook Login
+
 ## [7.21.2] - 2020-08-14
 
 ### Added
@@ -104,7 +138,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.2...HEAD
+[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-9.0.0...HEAD
+[9.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-8.1.1...sdk-version-9.0.0
+[8.1.1]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-8.1.0...sdk-version-8.1.1
+[8.1.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-8.0.0...sdk-version-8.1.0
+[8.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.2...sdk-version-8.0.0
 [7.21.2]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.1...sdk-version-7.21.2
 [7.21.1]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.21.0...sdk-version-7.21.1
 [7.21.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-7.20.0...sdk-version-7.21.0

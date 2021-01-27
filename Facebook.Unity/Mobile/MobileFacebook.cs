@@ -55,9 +55,19 @@ namespace Facebook.Unity.Mobile
 
         public abstract string UserID { get; set; }
 
+        public abstract AuthenticationToken CurrentAuthenticationToken();
+
+        public abstract Profile CurrentProfile();
+
         public abstract void UpdateUserProperties(Dictionary<string, string> parameters);
 
         public abstract void SetDataProcessingOptions(IEnumerable<string> options, int country, int state);
+
+        public abstract void LoginWithTrackingPreference(
+            string tracking,
+            IEnumerable<string> permissions,
+            string nonce,
+            FacebookDelegate<ILoginResult> callback);
 
         public abstract void FetchDeferredAppLink(
             FacebookDelegate<IAppLinkResult> callback);
@@ -70,6 +80,8 @@ namespace Facebook.Unity.Mobile
         public abstract void SetAutoLogAppEventsEnabled (bool autoLogAppEventsEnabled);
 
         public abstract void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled);
+
+        public abstract bool SetAdvertiserTrackingEnabled(bool advertiserTrackingEnabled);
 
         public abstract void SetPushNotificationsDeviceTokenString(string token);
 
@@ -137,6 +149,90 @@ namespace Facebook.Unity.Mobile
             CallbackManager.OnFacebookResponse(result);
         }
 
+        public void OnOnIAPReadyComplete(ResultContainer resultContainer)
+        {
+            var result = new IAPReadyResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnGetCatalogComplete(ResultContainer resultContainer)
+        {
+            var result = new CatalogResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnGetPurchasesComplete(ResultContainer resultContainer)
+        {
+            var result = new PurchasesResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnPurchaseComplete(ResultContainer resultContainer)
+        {
+            var result = new PurchaseResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnConsumePurchaseComplete(ResultContainer resultContainer)
+        {
+            var result = new ConsumePurchaseResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnInitCloudGameComplete(ResultContainer resultContainer)
+        {
+            var result = new InitCloudGameResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnScheduleAppToUserNotificationComplete(ResultContainer resultContainer)
+        {
+            var result = new ScheduleAppToUserNotificationResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnLoadInterstitialAdComplete(ResultContainer resultContainer)
+        {
+            var result = new InterstitialAdResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+
+        public void OnShowInterstitialAdComplete(ResultContainer resultContainer)
+        {
+            var result = new InterstitialAdResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnLoadRewardedVideoComplete(ResultContainer resultContainer)
+        {
+            var result = new RewardedVideoResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnShowRewardedVideoComplete(ResultContainer resultContainer)
+        {
+            var result = new RewardedVideoResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnGetPayloadComplete(ResultContainer resultContainer)
+        {
+            var result = new PayloadResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnPostSessionScoreComplete(ResultContainer resultContainer)
+        {
+            var result = new SessionScoreResult(resultContainer);
+        }
+
+        public void OnOpenAppStoreComplete(ResultContainer resultContainer)
+        {
+            var result = new OpenAppStoreResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
         public virtual void UploadImageToMediaLibrary(
             string caption,
             Uri imageUri,
@@ -150,6 +246,103 @@ namespace Facebook.Unity.Mobile
             string caption,
             Uri videoUri,
             FacebookDelegate<IMediaUploadResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void OnIAPReady(
+            FacebookDelegate<IIAPReadyResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void GetCatalog(
+            FacebookDelegate<ICatalogResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void GetPurchases(
+            FacebookDelegate<IPurchasesResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void Purchase(
+            string productID,
+            FacebookDelegate<IPurchaseResult> callback,
+            string developerPayload)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void ConsumePurchase(
+            string purchaseToken,
+            FacebookDelegate<IConsumePurchaseResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void InitCloudGame(
+            FacebookDelegate<IInitCloudGameResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void ScheduleAppToUserNotification(
+            string title,
+            string body,
+            Uri media,
+            int timeInterval,
+            string payload,
+            FacebookDelegate<IScheduleAppToUserNotificationResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void LoadInterstitialAd(
+            string placementID,
+            FacebookDelegate<IInterstitialAdResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void ShowInterstitialAd(
+            string placementID,
+            FacebookDelegate<IInterstitialAdResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void LoadRewardedVideo(
+            string placementID,
+            FacebookDelegate<IRewardedVideoResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void ShowRewardedVideo(
+            string placementID,
+            FacebookDelegate<IRewardedVideoResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void GetPayload(
+            FacebookDelegate<IPayloadResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void PostSessionScore(
+            int score,
+            FacebookDelegate<ISessionScoreResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void OpenAppStore(
+            FacebookDelegate<IOpenAppStoreResult> callback)
         {
             throw new NotImplementedException();
         }

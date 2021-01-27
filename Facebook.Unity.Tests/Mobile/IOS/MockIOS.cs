@@ -70,9 +70,31 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             this.LoginCommon(requestId, scope);
         }
 
+        public void LoginWithTrackingPreference(
+            int requestId,
+            string scope,
+            string tracking,
+            string nonce)
+        {
+            this.LogMethodCall();
+            this.LoginCommon(requestId, scope);
+        }
+
         public void LogOut()
         {
             this.LogMethodCall();
+        }
+
+        public AuthenticationToken CurrentAuthenticationToken()
+        {
+            this.LogMethodCall();
+            return null;
+        }
+
+        public Profile CurrentProfile()
+        {
+            this.LogMethodCall();
+            return null;
         }
 
         public void SetPushNotificationsDeviceTokenString(string token)
@@ -165,6 +187,12 @@ namespace Facebook.Unity.Tests.Mobile.IOS
         public void FBAutoLogAppEventsEnabled(bool autoLogAppEventsEnabled)
         {
             this.LogMethodCall();
+        }
+
+        public bool FBAdvertiserTrackingEnabled(bool advertiserTrackingEnabled)
+        {
+            this.LogMethodCall();
+            return true;
         }
 
         public void FBAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled)

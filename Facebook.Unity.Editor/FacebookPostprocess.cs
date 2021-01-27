@@ -29,6 +29,26 @@ namespace Facebook.Unity.Editor
 
     public static class XCodePostProcess
     {
+        [PostProcessBuildAttribute(45)]
+        private static void PostProcessBuild_iOS(BuildTarget target, string buildPath)
+        {
+            if (target == BuildTarget.iOS)
+            {
+                string podFilePath = Path.Combine(buildPath, "Podfile");
+                string contents = File.ReadAllText(podFilePath);
+                bool isUnityIphoneInPodFile = contents.Contains("Unity-iPhone");
+                using (StreamWriter sw = File.AppendText(podFilePath))
+                {
+                    if (!isUnityIphoneInPodFile)
+                    {
+                        sw.WriteLine("target 'Unity-iPhone' do");
+                        sw.WriteLine("end");
+                    }
+                    sw.WriteLine("use_frameworks!");
+                }
+            }
+        }
+
         [PostProcessBuild(100)]
         public static void OnPostProcessBuild(BuildTarget target, string path)
         {

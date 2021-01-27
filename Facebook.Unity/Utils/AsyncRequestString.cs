@@ -18,6 +18,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#pragma warning disable 618
 namespace Facebook.Unity
 {
     using System;
@@ -173,3 +174,4 @@ namespace Facebook.Unity
         }
     }
 }
+#pragma warning restore 618

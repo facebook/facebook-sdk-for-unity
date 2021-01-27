@@ -80,6 +80,11 @@ namespace Facebook.Unity.Mobile.IOS
             this.iosWrapper.FBAdvertiserIDCollectionEnabled(advertiserIDCollectionEnabled);
         }
 
+        public override bool SetAdvertiserTrackingEnabled(bool advertiserTrackingEnabled)
+        {
+            return this.iosWrapper.FBAdvertiserTrackingEnabled(advertiserTrackingEnabled);
+        }
+
         public override void SetPushNotificationsDeviceTokenString(string token)
         {
             this.iosWrapper.SetPushNotificationsDeviceTokenString(token);
@@ -143,6 +148,15 @@ namespace Facebook.Unity.Mobile.IOS
             this.userID = this.iosWrapper.FBGetUserID();
         }
 
+        public override void LoginWithTrackingPreference(
+            string tracking,
+            IEnumerable<string> permissions,
+            string nonce,
+            FacebookDelegate<ILoginResult> callback)
+        {
+            this.iosWrapper.LoginWithTrackingPreference(this.AddCallback(callback), permissions.ToCommaSeparateList(), tracking, nonce);
+        }
+
         public override void LogInWithReadPermissions(
             IEnumerable<string> permissions,
             FacebookDelegate<ILoginResult> callback)
@@ -161,6 +175,26 @@ namespace Facebook.Unity.Mobile.IOS
         {
             base.LogOut();
             this.iosWrapper.LogOut();
+        }
+
+        public override bool LoggedIn
+        {
+            get
+            {
+                AccessToken token = AccessToken.CurrentAccessToken;
+                AuthenticationToken authenticationToken = CurrentAuthenticationToken();
+                return (token != null && token.ExpirationTime > DateTime.UtcNow) || authenticationToken != null;
+            }
+        }
+
+        public override AuthenticationToken CurrentAuthenticationToken()
+        {
+            return this.iosWrapper.CurrentAuthenticationToken();
+        }
+
+        public override Profile CurrentProfile()
+        {
+            return this.iosWrapper.CurrentProfile();
         }
 
         public override void AppRequest(

@@ -149,6 +149,49 @@ isPublishPermLogin:(BOOL)isPublishPermLogin
                       handler:loginHandler];
 }
 
+- (void)loginWithTrackingPreference:(int)requestId
+                              scope:(const char *)scope
+                           tracking:(const char *)tracking
+                              nonce:(const char *)nonce
+{
+  NSString *scopeStr = [FBUnityUtility stringFromCString:scope];
+  NSArray *permissions = nil;
+  if(scope && strlen(scope) > 0) {
+    permissions = [scopeStr componentsSeparatedByString:@","];
+  }
+  
+  NSString *trackingStr = [FBUnityUtility stringFromCString:tracking];
+  NSString *nonceStr = nil;
+  if (nonce) {
+    nonceStr = [FBUnityUtility stringFromCString:nonce];
+  }
+  FBSDKLoginConfiguration *config;
+  if (nonce) {
+    config = [[FBSDKLoginConfiguration alloc] initWithPermissions:permissions tracking:([trackingStr isEqualToString:@"enabled"] ? FBSDKLoginTrackingEnabled : FBSDKLoginTrackingLimited) nonce:nonceStr];
+  } else {
+    config = [[FBSDKLoginConfiguration alloc] initWithPermissions:permissions tracking:([trackingStr isEqualToString:@"enabled"] ? FBSDKLoginTrackingEnabled : FBSDKLoginTrackingLimited)];
+  }
+  
+  void (^loginHandler)(FBSDKLoginManagerLoginResult *,NSError *) = ^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+    if (error) {
+      [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnLoginComplete error:error requestId:requestId];
+      return;
+    } else if (result.isCancelled) {
+      [FBUnityUtility sendCancelToUnity:FBUnityMessageName_OnLoginComplete requestId:requestId];
+      return;
+    }
+    
+    if ([self tryCompleteLoginWithRequestId:requestId]) {
+      return;
+    } else {
+      [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnLoginComplete errorMessage:@"Unknown login error" requestId:requestId];
+    }
+  };
+  
+  FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+  [login logInFromViewController:nil configuration:config completion:loginHandler];
+}
+
 - (void)logOut
 {
   FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
@@ -289,10 +332,18 @@ isPublishPermLogin:(BOOL)isPublishPermLogin
 
 - (BOOL)tryCompleteLoginWithRequestId:(int) requestId
 {
-  NSDictionary *userData = [self getAccessTokenUserData];
+  NSMutableDictionary *userData = [[NSMutableDictionary alloc] init];
+  NSDictionary *accessTokenUserData = [self getAccessTokenUserData];
+  NSDictionary *authenticationTokenUserData = [self getAuthenticationTokenUserData];
+  if (accessTokenUserData) {
+    [userData addEntriesFromDictionary:accessTokenUserData];
+  }
+  if (authenticationTokenUserData) {
+    [userData addEntriesFromDictionary:authenticationTokenUserData];
+  }
   if (userData) {
     [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnLoginComplete
-                              userData:userData
+                              userData:[userData copy]
                              requestId:requestId];
     return YES;
   } else {
@@ -314,6 +365,19 @@ isPublishPermLogin:(BOOL)isPublishPermLogin
       // The token is missing a required value. Clear the token
       [[[FBSDKLoginManager alloc] init] logOut];
     }
+  }
+
+  return nil;
+}
+
+- (NSDictionary *)getAuthenticationTokenUserData
+{
+  FBSDKAuthenticationToken *token = [FBSDKAuthenticationToken currentAuthenticationToken];
+  if (token.tokenString && token.nonce) {
+    return @{
+      @"auth_token_string": token.tokenString,
+      @"auth_nonce": token.nonce
+    };
   }
 
   return nil;
@@ -345,6 +409,13 @@ extern "C" {
     [FBSDKAppEvents sendEventBindingsToUnity];
   }
 
+  void IOSFBLoginWithTrackingPreference(int requestId, const char *scope, const char *tracking, const char *nonce)
+  {
+    [[FBUnityInterface sharedInstance] loginWithTrackingPreference:requestId scope:scope
+                                                          tracking:tracking
+                                                            nonce:nonce];
+  }
+
   void IOSFBLogInWithReadPermissions(int requestId,
                                    const char *scope)
   {
@@ -360,6 +431,72 @@ extern "C" {
   void IOSFBLogOut()
   {
     [[FBUnityInterface sharedInstance] logOut];
+  }
+
+  char* IOSFBCurrentAuthenticationToken()
+  {
+    FBSDKAuthenticationToken *token = [FBSDKAuthenticationToken currentAuthenticationToken];
+    NSString *str = @"";
+    if (token.tokenString && token.nonce) {
+      try {
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@{
+          @"auth_token_string": token.tokenString,
+          @"auth_nonce": token.nonce
+        } options:NSJSONWritingPrettyPrinted error:nil];
+        if (jsonData) {
+          str = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        }
+      } catch (NSException *exception) {
+        NSLog(@"Fail to parse AuthenticationToken");
+      }
+    }
+    const char* string = [str UTF8String];
+    char* res = (char*)malloc(strlen(string) + 1);
+    strcpy(res, string);
+    return res;
+  }
+
+  char* IOSFBCurrentProfile()
+  {
+    FBSDKProfile *profile = [FBSDKProfile currentProfile];
+    NSString *str = @"";
+    NSMutableDictionary<NSString *, id> *data = [NSMutableDictionary new];
+    if (profile.userID) {
+      data[@"userID"] = profile.userID;
+    }
+    if (profile.firstName) {
+      data[@"firstName"] = profile.firstName;
+    }
+    if (profile.middleName) {
+      data[@"middleName"] = profile.middleName;
+    }
+    if (profile.lastName) {
+      data[@"lastName"] = profile.lastName;
+    }
+    if (profile.name) {
+      data[@"name"] = profile.name;
+    }
+    if (profile.email) {
+      data[@"email"] = profile.email;
+    }
+    if (profile.imageURL) {
+      data[@"imageURL"] = profile.imageURL.absoluteString;
+    }
+    if (profile.linkURL) {
+      data[@"linkURL"] = profile.linkURL.absoluteString;
+    }
+    try {
+      NSData *jsonData = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:nil];
+      if (jsonData) {
+        str = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+      }
+    } catch (NSException *exception) {
+      NSLog(@"Fail to parse Profile");
+    }
+    const char* string = [str UTF8String];
+    char* res = (char*)malloc(strlen(string) + 1);
+    strcpy(res, string);
+    return res;
   }
 
   void IOSFBSetPushNotificationsDeviceTokenString(const char *token)
@@ -476,6 +613,11 @@ extern "C" {
   void IOSFBAdvertiserIDCollectionEnabled(BOOL advertiserIDCollectionEnabledID)
   {
     [FBSDKSettings setAdvertiserIDCollectionEnabled:advertiserIDCollectionEnabledID];
+  }
+
+  BOOL IOSFBAdvertiserTrackingEnabled(BOOL advertiserTrackingEnabled)
+  {
+    return [FBSDKSettings setAdvertiserTrackingEnabled:advertiserTrackingEnabled];
   }
 
   char* IOSFBSdkVersion()

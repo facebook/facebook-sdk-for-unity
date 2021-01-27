@@ -20,6 +20,7 @@
 
 namespace Facebook.Unity.IOS
 {
+    using System;
     using System.Collections.Generic;
     using System.Runtime.InteropServices;
     using Facebook.Unity.Mobile.IOS;
@@ -37,6 +38,15 @@ namespace Facebook.Unity.IOS
                 frictionlessRequests,
                 urlSuffix,
                 unityUserAgentSuffix);
+        }
+
+        public void LoginWithTrackingPreference(
+            int requestId,
+            string scope,
+            string tracking,
+            string nonce)
+        {
+            IOSWrapper.IOSFBLoginWithTrackingPreference(requestId, scope, tracking, nonce);
         }
 
         public void LogInWithReadPermissions(
@@ -195,6 +205,11 @@ namespace Facebook.Unity.IOS
             IOSWrapper.IOSFBAdvertiserIDCollectionEnabled(advertiserIDCollectionEnabled);
         }
 
+        public bool FBAdvertiserTrackingEnabled(bool advertiserTrackingEnabled)
+        {
+            return IOSWrapper.IOSFBAdvertiserTrackingEnabled(advertiserTrackingEnabled);
+        }
+
         public void GetAppLink(int requestId)
         {
             IOSWrapper.IOSFBGetAppLink(requestId);
@@ -226,6 +241,62 @@ namespace Facebook.Unity.IOS
         public void SetDataProcessingOptions(string[] options, int country, int state)
         {
             IOSWrapper.IOSFBSetDataProcessingOptions(options, options.Length, country, state);
+        }
+
+        public AuthenticationToken CurrentAuthenticationToken()
+        {
+            String authenticationTokenString = IOSWrapper.IOSFBCurrentAuthenticationToken();
+            if (String.IsNullOrEmpty(authenticationTokenString))
+            {
+                return null;
+            }
+            try
+            {
+                IDictionary<string, string> token = Utilities.ParseStringDictionaryFromString(authenticationTokenString);
+                string tokenString;
+                string nonce;
+                token.TryGetValue("auth_token_string", out tokenString);
+                token.TryGetValue("auth_nonce", out nonce);
+                return new AuthenticationToken(tokenString, nonce);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public Profile CurrentProfile()
+        {
+            String profileString = IOSWrapper.IOSFBCurrentProfile();
+            if (String.IsNullOrEmpty(profileString))
+            {
+                return null;
+            }
+            try
+            {
+                IDictionary<string, string> profile = Utilities.ParseStringDictionaryFromString(profileString);
+                string userID;
+                string firstName;
+                string middleName;
+                string lastName;
+                string name;
+                string email;
+                string imageURL;
+                string linkURL;
+                profile.TryGetValue("userID", out userID);
+                profile.TryGetValue("firstName", out firstName);
+                profile.TryGetValue("middleName", out middleName);
+                profile.TryGetValue("lastName", out lastName);
+                profile.TryGetValue("name", out name);
+                profile.TryGetValue("email", out email);
+                profile.TryGetValue("imageURL", out imageURL);
+                profile.TryGetValue("linkURL", out linkURL);
+                return new Profile(userID, firstName, middleName, lastName, name, email, imageURL, linkURL);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public void UploadImageToMediaLibrary(
@@ -273,6 +344,13 @@ namespace Facebook.Unity.IOS
         private static extern void IOSFBLogInWithReadPermissions(
             int requestId,
             string scope);
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBLoginWithTrackingPreference(
+            int requestId,
+            string scope,
+            string tracking,
+            string nonce);
 
         [DllImport("__Internal")]
         private static extern void IOSFBLogInWithPublishPermissions(
@@ -352,6 +430,9 @@ namespace Facebook.Unity.IOS
         private static extern void IOSFBAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabledID);
 
         [DllImport("__Internal")]
+        private static extern bool IOSFBAdvertiserTrackingEnabled(bool advertiserTrackingEnabled);
+
+        [DllImport("__Internal")]
         private static extern void IOSFBGetAppLink(int requestID);
 
         [DllImport("__Internal")]
@@ -397,5 +478,11 @@ namespace Facebook.Unity.IOS
             int numParams,
             string[] paramKeys,
             string[] paramVals);
+
+        [DllImport("__Internal")]
+        private static extern string IOSFBCurrentAuthenticationToken();
+
+        [DllImport("__Internal")]
+        private static extern string IOSFBCurrentProfile();
     }
 }

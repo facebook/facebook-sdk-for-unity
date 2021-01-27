@@ -54,5 +54,75 @@ namespace Facebook.Unity.Mobile
         {
             this.MobileFacebook.OnUploadVideoToMediaLibraryComplete(new ResultContainer(message));
         }
+
+        public void OnOnIAPReadyComplete(string message)
+        {
+            this.MobileFacebook.OnOnIAPReadyComplete(new ResultContainer(message));
+        }
+
+        public void OnGetCatalogComplete(string message)
+        {
+            this.MobileFacebook.OnGetCatalogComplete(new ResultContainer(message));
+        }
+
+        public void OnGetPurchasesComplete(string message)
+        {
+            this.MobileFacebook.OnGetPurchasesComplete(new ResultContainer(message));
+        }
+
+        public void OnPurchaseComplete(string message)
+        {
+            this.MobileFacebook.OnPurchaseComplete(new ResultContainer(message));
+        }
+
+        public void OnConsumePurchaseComplete(string message)
+        {
+            this.MobileFacebook.OnConsumePurchaseComplete(new ResultContainer(message));
+        }
+
+        public void OnInitCloudGameComplete(string message)
+        {
+            this.MobileFacebook.OnInitCloudGameComplete(new ResultContainer(message));
+        }
+
+        public void OnScheduleAppToUserNotificationComplete(string message)
+        {
+            this.MobileFacebook.OnScheduleAppToUserNotificationComplete(new ResultContainer(message));
+        }
+
+        public void OnLoadInterstitialAdComplete(string message)
+        {
+            this.MobileFacebook.OnLoadInterstitialAdComplete(new ResultContainer(message));
+        }
+
+        public void OnShowInterstitialAdComplete(string message)
+        {
+            this.MobileFacebook.OnShowInterstitialAdComplete(new ResultContainer(message));
+        }
+
+        public void OnLoadRewardedVideoComplete(string message)
+        {
+            this.MobileFacebook.OnLoadRewardedVideoComplete(new ResultContainer(message));
+        }
+
+        public void OnShowRewardedVideoComplete(string message)
+        {
+            this.MobileFacebook.OnShowRewardedVideoComplete(new ResultContainer(message));
+        }
+
+        public void OnGetPayloadComplete(string message)
+        {
+            this.MobileFacebook.OnGetPayloadComplete(new ResultContainer(message));
+        }
+
+        public virtual void OnPostSessionScoreComplete(string message)
+        {
+            this.MobileFacebook.OnPostSessionScoreComplete(new ResultContainer(message));
+        }
+
+        public void OnOpenAppStoreComplete(string message)
+        {
+            this.MobileFacebook.OnOpenAppStoreComplete(new ResultContainer(message));
+        }
     }
 }

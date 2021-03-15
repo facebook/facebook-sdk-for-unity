@@ -283,6 +283,7 @@ namespace Facebook.Unity.IOS
                 string email;
                 string imageURL;
                 string linkURL;
+                string friendIDs;
                 profile.TryGetValue("userID", out userID);
                 profile.TryGetValue("firstName", out firstName);
                 profile.TryGetValue("middleName", out middleName);
@@ -291,7 +292,8 @@ namespace Facebook.Unity.IOS
                 profile.TryGetValue("email", out email);
                 profile.TryGetValue("imageURL", out imageURL);
                 profile.TryGetValue("linkURL", out linkURL);
-                return new Profile(userID, firstName, middleName, lastName, name, email, imageURL, linkURL);
+                profile.TryGetValue("friendIDs", out friendIDs);
+                return new Profile(userID, firstName, middleName, lastName, name, email, imageURL, linkURL, friendIDs?.Split(','));
             }
             catch (Exception)
             {

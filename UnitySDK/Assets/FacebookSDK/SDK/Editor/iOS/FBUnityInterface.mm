@@ -485,6 +485,9 @@ extern "C" {
     if (profile.linkURL) {
       data[@"linkURL"] = profile.linkURL.absoluteString;
     }
+    if (profile.friendIDs) {
+      data[@"friendIDs"] = [profile.friendIDs componentsJoinedByString:@","];
+    }
     try {
       NSData *jsonData = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:nil];
       if (jsonData) {

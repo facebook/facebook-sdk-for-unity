@@ -36,6 +36,7 @@ namespace Facebook.Unity
         /// <param name="email">Email.</param>
         /// <param name="imageURL">Image URL.</param>
         /// <param name="linkURL">Link URL.</param>
+        /// <param name="friendIDs">A list of identifiers for the user's friends.</param>
         internal Profile(
             string userID,
             string firstName,
@@ -44,7 +45,8 @@ namespace Facebook.Unity
             string name,
             string email,
             string imageURL,
-            string linkURL)
+            string linkURL,
+            string[] friendIDs)
         {
             this.UserID = userID;
             this.FirstName = firstName;
@@ -54,6 +56,7 @@ namespace Facebook.Unity
             this.Email = email;
             this.ImageURL = imageURL;
             this.LinkURL = linkURL;
+            this.FriendIDs = friendIDs ?? new string[] { };
         }
 
         /// <summary>
@@ -105,6 +108,12 @@ namespace Facebook.Unity
         public string LinkURL { get; private set; }
 
         /// <summary>
+        /// Gets the list of identifiers for the user's friends.
+        /// </summary>
+        /// <value>The list of identifiers for the user's friends.</value>
+        public string[] FriendIDs { get; private set; }
+
+        /// <summary>
         /// Returns a <see cref="System.String"/> that represents the current <see cref="Facebook.Unity.Profile"/>.
         /// </summary>
         /// <returns>A <see cref="System.String"/> that represents the current <see cref="Facebook.Unity.Profile"/>.</returns>
@@ -123,6 +132,7 @@ namespace Facebook.Unity
                     { "Email", this.Email },
                     { "ImageURL", this.ImageURL},
                     { "LinkURL", this.LinkURL },
+                    { "FriendIDs", String.Join(",", this.FriendIDs) },
                 });
         }
     }

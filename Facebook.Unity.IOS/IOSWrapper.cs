@@ -289,6 +289,7 @@ namespace Facebook.Unity.IOS
                 string imageURL;
                 string linkURL;
                 string friendIDs;
+                string birthday;
                 profile.TryGetValue("userID", out userID);
                 profile.TryGetValue("firstName", out firstName);
                 profile.TryGetValue("middleName", out middleName);
@@ -298,7 +299,9 @@ namespace Facebook.Unity.IOS
                 profile.TryGetValue("imageURL", out imageURL);
                 profile.TryGetValue("linkURL", out linkURL);
                 profile.TryGetValue("friendIDs", out friendIDs);
-                return new Profile(userID, firstName, middleName, lastName, name, email, imageURL, linkURL, friendIDs?.Split(','));
+                profile.TryGetValue("birthday", out birthday);
+                UserAgeRange ageRange = UserAgeRange.AgeRangeFromDictionary(profile);
+                return new Profile(userID, firstName, middleName, lastName, name, email, imageURL, linkURL, friendIDs?.Split(','), birthday, ageRange);
             }
             catch (Exception)
             {

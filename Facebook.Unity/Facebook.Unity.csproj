@@ -182,6 +182,7 @@
     <Compile Include="AuthenticationToken.cs" />
     <Compile Include="LoginTracking.cs" />
     <Compile Include="Profile.cs" />
+    <Compile Include="UserAgeRange.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

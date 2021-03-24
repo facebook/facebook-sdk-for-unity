@@ -46,7 +46,9 @@ namespace Facebook.Unity
             string email,
             string imageURL,
             string linkURL,
-            string[] friendIDs)
+            string[] friendIDs,
+            string birthday,
+            UserAgeRange ageRange)
         {
             this.UserID = userID;
             this.FirstName = firstName;
@@ -57,6 +59,14 @@ namespace Facebook.Unity
             this.ImageURL = imageURL;
             this.LinkURL = linkURL;
             this.FriendIDs = friendIDs ?? new string[] { };
+            long birthdayTimestamp = long.Parse(birthday);
+            if (birthdayTimestamp > 0)
+            {
+                this.Birthday = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                    .AddMilliseconds(birthdayTimestamp * 1000)
+                    .ToLocalTime();
+            }
+            this.AgeRange = ageRange;
         }
 
         /// <summary>
@@ -114,6 +124,18 @@ namespace Facebook.Unity
         public string[] FriendIDs { get; private set; }
 
         /// <summary>
+        /// Gets the user's birthday.
+        /// </summary>
+        /// <value>The user's birthday.</value>
+        public DateTime? Birthday { get; private set; }
+
+        /// <summary>
+        /// Gets the user's age range.
+        /// </summary>
+        /// <value>The user's age range.</value>
+        public UserAgeRange AgeRange { get; private set; }
+
+        /// <summary>
         /// Returns a <see cref="System.String"/> that represents the current <see cref="Facebook.Unity.Profile"/>.
         /// </summary>
         /// <returns>A <see cref="System.String"/> that represents the current <see cref="Facebook.Unity.Profile"/>.</returns>
@@ -133,6 +155,8 @@ namespace Facebook.Unity
                     { "ImageURL", this.ImageURL},
                     { "LinkURL", this.LinkURL },
                     { "FriendIDs", String.Join(",", this.FriendIDs) },
+                    { "Birthday", this.Birthday?.ToShortDateString()},
+                    { "AgeRange", this.AgeRange?.ToString()},
                 });
         }
     }

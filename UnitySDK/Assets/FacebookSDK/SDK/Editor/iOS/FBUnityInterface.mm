@@ -493,6 +493,17 @@ extern "C" {
     if (profile.friendIDs) {
       data[@"friendIDs"] = [profile.friendIDs componentsJoinedByString:@","];
     }
+    if (profile.birthday) {
+      data[@"birthday"] = [NSString stringWithFormat:@"%@", @((time_t)[profile.birthday timeIntervalSince1970])];
+    }
+    if (profile.ageRange) {
+      if (profile.ageRange.min) {
+        data[@"ageMin"] = profile.ageRange.min.stringValue;
+      }
+      if (profile.ageRange.max) {
+        data[@"ageMax"] = profile.ageRange.max.stringValue;
+      }
+    }
     try {
       NSData *jsonData = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:nil];
       if (jsonData) {

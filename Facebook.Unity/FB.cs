@@ -965,6 +965,14 @@ namespace Facebook.Unity
             }
 
             /// <summary>
+            /// Call this function so that Profile will be automatically updated based on the changes to the access token.
+            /// </summary> 
+            public static void EnableProfileUpdatesOnAccessTokenChange(bool enable)
+            {
+                Mobile.MobileFacebookImpl.EnableProfileUpdatesOnAccessTokenChange(enable);
+            }
+
+            /// <summary>
             /// Login with tracking experience.
             /// </summary>
             /// <param name="loginTracking">The option for login tracking preference, "enabled" or "limited".</param>

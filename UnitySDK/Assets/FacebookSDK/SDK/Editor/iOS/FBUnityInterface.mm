@@ -105,6 +105,11 @@
   [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnInitComplete userData:userData requestId:0];
 }
 
+- (void)IOSFBEnableProfileUpdatesOnAccessTokenChange:(BOOL)enable
+{
+  [FBSDKProfile enableUpdatesOnAccessTokenChange:enable];
+}
+
 - (void)logInWithPublishPermissions:(int) requestId
                              scope:(const char *)scope
 {

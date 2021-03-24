@@ -148,6 +148,11 @@ namespace Facebook.Unity.Mobile.IOS
             this.userID = this.iosWrapper.FBGetUserID();
         }
 
+        public override void EnableProfileUpdatesOnAccessTokenChange(bool enable)
+        {
+            this.iosWrapper.EnableProfileUpdatesOnAccessTokenChange(enable);
+        }
+
         public override void LoginWithTrackingPreference(
             string tracking,
             IEnumerable<string> permissions,

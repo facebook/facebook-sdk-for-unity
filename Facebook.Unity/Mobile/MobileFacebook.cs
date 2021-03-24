@@ -63,6 +63,8 @@ namespace Facebook.Unity.Mobile
 
         public abstract void SetDataProcessingOptions(IEnumerable<string> options, int country, int state);
 
+        public abstract void EnableProfileUpdatesOnAccessTokenChange(bool enable);
+
         public abstract void LoginWithTrackingPreference(
             string tracking,
             IEnumerable<string> permissions,

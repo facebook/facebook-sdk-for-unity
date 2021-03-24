@@ -54,6 +54,11 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             Facebook.OnInitComplete(resultContainer);
         }
 
+        public void EnableProfileUpdatesOnAccessTokenChange(bool enable)
+        {
+            this.LogMethodCall();
+        }
+
         public void LogInWithReadPermissions(
             int requestId,
             string scope)

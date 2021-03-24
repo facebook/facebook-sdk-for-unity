@@ -31,6 +31,8 @@ namespace Facebook.Unity.Mobile
 
         void UpdateUserProperties(Dictionary<string, string> parameters);
 
+        void EnableProfileUpdatesOnAccessTokenChange(bool enable);
+
         void LoginWithTrackingPreference(string tracking, IEnumerable<string> permissions, string nonce,
             FacebookDelegate<ILoginResult> callback);
 

@@ -30,6 +30,8 @@ namespace Facebook.Unity.Mobile.IOS
             string urlSuffix,
             string unityUserAgentSuffix);
 
+        void EnableProfileUpdatesOnAccessTokenChange(bool enable);
+
         void LogInWithReadPermissions(
             int requestId,
             string scope);

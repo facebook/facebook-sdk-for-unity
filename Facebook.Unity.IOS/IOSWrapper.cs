@@ -40,6 +40,11 @@ namespace Facebook.Unity.IOS
                 unityUserAgentSuffix);
         }
 
+        public void EnableProfileUpdatesOnAccessTokenChange(bool enable)
+        {
+            IOSWrapper.IOSFBEnableProfileUpdatesOnAccessTokenChange(enable);
+        }
+
         public void LoginWithTrackingPreference(
             int requestId,
             string scope,
@@ -341,6 +346,9 @@ namespace Facebook.Unity.IOS
             bool frictionlessRequests,
             string urlSuffix,
             string unityUserAgentSuffix);
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBEnableProfileUpdatesOnAccessTokenChange(bool enable);
 
         [DllImport("__Internal")]
         private static extern void IOSFBLogInWithReadPermissions(

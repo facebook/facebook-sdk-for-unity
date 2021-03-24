@@ -107,6 +107,11 @@ namespace Facebook.Unity.Editor
                 permissions.ToCommaSeparateList());
         }
 
+        public void EnableProfileUpdatesOnAccessTokenChange(bool enable)
+        {
+            FacebookLogger.Log("Pew! Pretending to enable Profile updates on access token change.  Doesn't actually work in the editor");
+        }
+
         public void LoginWithTrackingPreference(
             string tracking,
             IEnumerable<string> permissions,

@@ -154,6 +154,15 @@ namespace Facebook.Unity.Mobile.Android
             this.userID = this.androidWrapper.CallStatic<string>("GetUserID");
         }
 
+        public override void EnableProfileUpdatesOnAccessTokenChange(bool enable)
+        {
+            if (Debug.isDebugBuild)
+            {
+                Debug.Log("This function is only implemented on iOS.");
+            }
+            return;
+        }
+
         public override void LoginWithTrackingPreference(
             string tracking,
             IEnumerable<string> permissions,

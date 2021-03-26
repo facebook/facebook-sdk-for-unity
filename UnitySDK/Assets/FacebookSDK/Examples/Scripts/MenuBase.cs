@@ -75,6 +75,49 @@ namespace Facebook.Unity.Example
             LogView.AddLog(result.ToString());
         }
 
+        protected void HandleLimitedLoginResult(IResult result)
+        {
+            if (result == null)
+            {
+                this.LastResponse = "Null Response\n";
+                LogView.AddLog(this.LastResponse);
+                return;
+            }
+
+            this.LastResponseTexture = null;
+
+            // Some platforms return the empty string instead of null.
+            if (!string.IsNullOrEmpty(result.Error))
+            {
+                this.Status = "Error - Check log for details";
+                this.LastResponse = "Error Response:\n" + result.Error;
+            }
+            else if (result.Cancelled)
+            {
+                this.Status = "Cancelled - Check log for details";
+                this.LastResponse = "Cancelled Response:\n" + result.RawResult;
+            }
+            else if (!string.IsNullOrEmpty(result.RawResult))
+            {
+                this.Status = "Success - Check log for details";
+                this.LastResponse = "Success Response:\n" + result.RawResult;
+            }
+            else
+            {
+                this.LastResponse = "Empty Response\n";
+            }
+
+            String resultSummary = "Limited login results\n\n";
+            var profile = FB.Mobile.CurrentProfile();
+            resultSummary += "name: " + profile.Name + "\n";
+            resultSummary += "id: " + profile.UserID + "\n";
+            resultSummary += "email: " + profile.Email + "\n";
+            resultSummary += "pic URL: " + profile.ImageURL + "\n";
+            resultSummary += "friends: " + String.Join(",", profile.FriendIDs)  + "\n";
+
+            LogView.AddLog(resultSummary);
+        }
+
         protected void OnGUI()
         {
             if (this.IsHorizontalLayout())

@@ -22,20 +22,25 @@ namespace Facebook.Unity
 {
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.Networking;
 
     internal class GraphResult : ResultBase, IGraphResult
-    {
-        internal GraphResult(WWW result) : base(new ResultContainer(result.text), result.error, false)
+    {       
+        internal GraphResult(UnityWebRequestAsyncOperation result) :
+            base(new ResultContainer(result.webRequest.downloadHandler.text), result.webRequest.error, false)
         {
+            
             this.Init(this.RawResult);
 
             // The WWW object will throw an exception if accessing the texture field and
             // an error has occured.
-            if (result.error == null)
+            if (string.IsNullOrEmpty(result.webRequest.error))
             {
                 // The Graph API does not return textures directly, but a few endpoints can
                 // redirect to images when no 'redirect=false' parameter is specified. Ex: '/me/picture'
-                this.Texture = result.texture;
+                
+                this.Texture = new Texture2D(2, 2);
+                this.Texture.LoadImage(result.webRequest.downloadHandler.data);
             }
         }
 

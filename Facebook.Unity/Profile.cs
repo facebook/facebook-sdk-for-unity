@@ -59,8 +59,8 @@ namespace Facebook.Unity
             this.ImageURL = imageURL;
             this.LinkURL = linkURL;
             this.FriendIDs = friendIDs ?? new string[] { };
-            long birthdayTimestamp = long.Parse(birthday);
-            if (birthdayTimestamp > 0)
+            long birthdayTimestamp;
+            if (long.TryParse(birthday, out birthdayTimestamp))
             {
                 this.Birthday = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                     .AddMilliseconds(birthdayTimestamp * 1000)

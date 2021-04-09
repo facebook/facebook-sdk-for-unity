@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [9.1.0] - 2021-04-06
+
+### Added
+
+- Added Limited Login support for `user_friends`, `user_birthday` and `user_age_range` permissions under public beta.
+- Shared `Profile` instance will be populated with `FriendIDs`, `Birthday` and `AgeRange` fields using the claims from the AuthenticationToken. (NOTE: `FriendIDs`, `Birthday` and `AgeRange` fields are in public beta mode)
+- Added `EnableProfileUpdatesOnAccessTokenChange` as part of fixing a bug where upgrading from limited to regular login would fail to fetch the profile using the newly available access token.
+
 ## [9.0.0] - 2021-01-10
 
 ### Added
@@ -138,7 +146,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-9.0.0...HEAD
+[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-9.1.0...HEAD
+[9.1.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-9.0.0...sdk-version-9.1.0
 [9.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-8.1.1...sdk-version-9.0.0
 [8.1.1]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-8.1.0...sdk-version-8.1.1
 [8.1.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-8.0.0...sdk-version-8.1.0

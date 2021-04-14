@@ -77,6 +77,8 @@ namespace Facebook.Unity
                 CallbackManager.TryCallCallback<IRewardedVideoResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IPayloadResult>(callback, result) ||
                 CallbackManager.TryCallCallback<ISessionScoreResult>(callback, result) ||
+                CallbackManager.TryCallCallback<ITournamentResult>(callback, result) ||
+                CallbackManager.TryCallCallback<ITournamentScoreResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IGroupCreateResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IGroupJoinResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IMediaUploadResult>(callback, result) ||

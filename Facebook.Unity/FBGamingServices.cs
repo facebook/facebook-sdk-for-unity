@@ -143,6 +143,31 @@ namespace Facebook.Unity
             MobileFacebookImpl.PostSessionScore(score, callback);
         }
 
+        public static void GetTournament(FacebookDelegate<ITournamentResult> callback)
+        {
+            MobileFacebookImpl.GetTournament(callback);
+        }
+
+        public static void ShareTournament(Dictionary<string, string> data, FacebookDelegate<ITournamentResult> callback)
+        {
+            MobileFacebookImpl.ShareTournament(data, callback);
+        }
+
+        public static void CreateTournament(
+            int initialScore,
+            string title,
+            string imageBase64DataUrl,
+            Dictionary<string, string> data,
+            FacebookDelegate<ITournamentResult> callback)
+        {
+            MobileFacebookImpl.CreateTournament(initialScore, title, imageBase64DataUrl, data, callback);
+        }
+
+        public static void PostTournamentScore(int score, FacebookDelegate<ITournamentScoreResult> callback)
+        {
+            MobileFacebookImpl.PostTournamentScore(score, callback);
+        }
+
         public static void OpenAppStore(FacebookDelegate<IOpenAppStoreResult> callback) {
             MobileFacebookImpl.OpenAppStore(callback);
         }

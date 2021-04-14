@@ -183,6 +183,10 @@
     <Compile Include="LoginTracking.cs" />
     <Compile Include="Profile.cs" />
     <Compile Include="UserAgeRange.cs" />
+    <Compile Include="Results\ITournamentResult.cs" />
+    <Compile Include="Results\TournamentResult.cs" />
+    <Compile Include="Results\ITournamentScoreResult.cs" />
+    <Compile Include="Results\TournamentScoreResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

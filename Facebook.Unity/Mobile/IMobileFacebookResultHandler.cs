@@ -58,6 +58,14 @@ namespace Facebook.Unity.Mobile
 
         void OnPostSessionScoreComplete(ResultContainer resultContainer);
 
+        void OnGetTournamentComplete(ResultContainer resultContainer);
+
+        void OnShareTournamentComplete(ResultContainer resultContainer);
+
+        void OnCreateTournamentComplete(ResultContainer resultContainer);
+
+        void OnPostTournamentScoreComplete(ResultContainer resultContainer);
+
         void OnOpenAppStoreComplete(ResultContainer resultContainer);
     }
 }

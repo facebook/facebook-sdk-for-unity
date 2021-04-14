@@ -20,7 +20,7 @@
 
 namespace Facebook.Unity.Mobile
 {
-    internal abstract class MobileFacebookGameObject : FacebookGameObject, IMobileFacebookCallbackHandler
+    internal abstract class MobileFacebookGameObject : FacebookGameObject,IMobileFacebookCallbackHandler
     {
         private IMobileFacebookImplementation MobileFacebook
         {
@@ -118,6 +118,26 @@ namespace Facebook.Unity.Mobile
         public virtual void OnPostSessionScoreComplete(string message)
         {
             this.MobileFacebook.OnPostSessionScoreComplete(new ResultContainer(message));
+        }
+
+        public virtual void OnPostTournamentScoreComplete(string message)
+        {
+            this.MobileFacebook.OnPostTournamentScoreComplete(new ResultContainer(message));
+        }
+
+        public virtual void OnGetTournamentComplete(string message)
+        {
+            this.MobileFacebook.OnGetTournamentComplete(new ResultContainer(message));
+        }
+
+        public virtual void OnShareTournamentComplete(string message)
+        {
+            this.MobileFacebook.OnShareTournamentComplete(new ResultContainer(message));
+        }
+
+        public virtual void OnCreateTournamentComplete(string message)
+        {
+            this.MobileFacebook.OnCreateTournamentComplete(new ResultContainer(message));
         }
 
         public void OnOpenAppStoreComplete(string message)

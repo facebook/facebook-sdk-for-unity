@@ -651,6 +651,67 @@ namespace Facebook.Unity.Mobile.Android
             postSessionScore.Call(args);
         }
 
+        public override void PostTournamentScore(int score, FacebookDelegate<ITournamentScoreResult> callback)
+        {
+            MethodArguments args = new MethodArguments();
+            args.AddString("score", score.ToString());
+
+            var postTournamentScore = new JavaMethodCall<ITournamentScoreResult>(
+                this,
+                "PostTournamentScore")
+            {
+                Callback = callback
+            };
+            postTournamentScore.Call(args);
+        }
+
+        public override void GetTournament(FacebookDelegate<ITournamentResult> callback)
+        {
+            var getTournament = new JavaMethodCall<ITournamentResult>(
+                this,
+                "GetTournament")
+            {
+                Callback = callback
+            };
+            getTournament.Call();
+        }
+
+        public override void CreateTournament(
+            int initialScore,
+            string title,
+            string imageBase64DataUrl,
+            Dictionary<string, string> data,
+            FacebookDelegate<ITournamentResult> callback)
+        {
+            MethodArguments args = new MethodArguments();
+
+            args.AddString("initialScore", initialScore.ToString());
+            args.AddString("title", title);
+            args.AddString("imageBase64DataUrl", imageBase64DataUrl);
+            args.AddDictionary("data", data.ToDictionary( pair => pair.Key, pair => (object) pair.Value));
+            var createTournament = new JavaMethodCall<ITournamentResult>(
+                this,
+                "CreateTournament")
+            {
+                Callback = callback
+            };
+            createTournament.Call(args);
+        }
+
+        public override void ShareTournament(Dictionary<string, string> data, FacebookDelegate<ITournamentResult> callback)
+        {
+            MethodArguments args = new MethodArguments();
+            args.AddDictionary("data", data.ToDictionary(pair => pair.Key, pair => (object)pair.Value));
+
+            var shareTournament = new JavaMethodCall<ITournamentResult>(
+                this,
+                "ShareTournament")
+            {
+                Callback = callback
+            };
+            shareTournament.Call(args);
+        }
+
         public override void OpenAppStore(
             FacebookDelegate<IOpenAppStoreResult> callback)
         {

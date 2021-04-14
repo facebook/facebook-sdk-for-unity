@@ -99,6 +99,19 @@ namespace Facebook.Unity.Mobile
 
         void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback);
 
+        void PostTournamentScore(int score, FacebookDelegate<ITournamentScoreResult> callback);
+
+        void GetTournament(FacebookDelegate<ITournamentResult> callback);
+
+        void ShareTournament(Dictionary<string, string> data, FacebookDelegate<ITournamentResult> callback);
+
+        void CreateTournament(
+            int initialScore,
+            string title,
+            string imageBase64DataUrl,
+            Dictionary<string, string> data,
+            FacebookDelegate<ITournamentResult> callback);
+
         void OpenAppStore(FacebookDelegate<IOpenAppStoreResult> callback);
 
         AuthenticationToken CurrentAuthenticationToken();

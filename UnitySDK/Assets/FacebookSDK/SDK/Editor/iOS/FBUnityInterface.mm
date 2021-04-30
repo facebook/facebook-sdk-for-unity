@@ -105,11 +105,6 @@
   [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnInitComplete userData:userData requestId:0];
 }
 
-- (void)IOSFBEnableProfileUpdatesOnAccessTokenChange:(BOOL)enable
-{
-  [FBSDKProfile enableUpdatesOnAccessTokenChange:enable];
-}
-
 - (void)logInWithPublishPermissions:(int) requestId
                              scope:(const char *)scope
 {
@@ -412,6 +407,11 @@ extern "C" {
                                             urlSuffix:_urlSuffix];
     [FBSDKAppEvents setIsUnityInit:true];
     [FBSDKAppEvents sendEventBindingsToUnity];
+  }
+
+  void IOSFBEnableProfileUpdatesOnAccessTokenChange(bool enable)
+  {
+    [FBSDKProfile enableUpdatesOnAccessTokenChange:enable];
   }
 
   void IOSFBLoginWithTrackingPreference(int requestId, const char *scope, const char *tracking, const char *nonce)

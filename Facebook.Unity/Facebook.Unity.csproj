@@ -183,6 +183,7 @@
     <Compile Include="LoginTracking.cs" />
     <Compile Include="Profile.cs" />
     <Compile Include="UserAgeRange.cs" />
+    <Compile Include="FBLocation.cs" />
     <Compile Include="Results\ITournamentResult.cs" />
     <Compile Include="Results\TournamentResult.cs" />
     <Compile Include="Results\ITournamentScoreResult.cs" />

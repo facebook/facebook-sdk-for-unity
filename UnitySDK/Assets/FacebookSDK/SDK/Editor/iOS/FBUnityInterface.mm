@@ -159,7 +159,7 @@ isPublishPermLogin:(BOOL)isPublishPermLogin
   if(scope && strlen(scope) > 0) {
     permissions = [scopeStr componentsSeparatedByString:@","];
   }
-  
+
   NSString *trackingStr = [FBUnityUtility stringFromCString:tracking];
   NSString *nonceStr = nil;
   if (nonce) {
@@ -171,7 +171,7 @@ isPublishPermLogin:(BOOL)isPublishPermLogin
   } else {
     config = [[FBSDKLoginConfiguration alloc] initWithPermissions:permissions tracking:([trackingStr isEqualToString:@"enabled"] ? FBSDKLoginTrackingEnabled : FBSDKLoginTrackingLimited)];
   }
-  
+
   void (^loginHandler)(FBSDKLoginManagerLoginResult *,NSError *) = ^(FBSDKLoginManagerLoginResult *result, NSError *error) {
     if (error) {
       [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnLoginComplete error:error requestId:requestId];
@@ -180,14 +180,14 @@ isPublishPermLogin:(BOOL)isPublishPermLogin
       [FBUnityUtility sendCancelToUnity:FBUnityMessageName_OnLoginComplete requestId:requestId];
       return;
     }
-    
+
     if ([self tryCompleteLoginWithRequestId:requestId]) {
       return;
     } else {
       [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnLoginComplete errorMessage:@"Unknown login error" requestId:requestId];
     }
   };
-  
+
   FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
   [login logInFromViewController:nil configuration:config completion:loginHandler];
 }
@@ -504,6 +504,21 @@ extern "C" {
         data[@"ageMax"] = profile.ageRange.max.stringValue;
       }
     }
+
+    if (profile.hometown) {
+      data[@"hometown_id"] = profile.hometown.id;
+      data[@"hometown_name"] = profile.hometown.name;
+    }
+
+    if (profile.location) {
+      data[@"location_id"] = profile.location.id;
+      data[@"location_name"] = profile.location.name;
+    }
+
+    if (profile.gender) {
+      data[@"gender"] = profile.gender;
+    }
+
     try {
       NSData *jsonData = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:nil];
       if (jsonData) {

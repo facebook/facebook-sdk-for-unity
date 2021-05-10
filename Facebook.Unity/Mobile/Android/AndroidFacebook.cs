@@ -228,6 +228,7 @@ namespace Facebook.Unity.Mobile.Android
                     string linkURL;
                     string friendIDs;
                     string birthday;
+                    string gender;
                     profile.TryGetValue("userID", out id);
                     profile.TryGetValue("firstName", out firstName);
                     profile.TryGetValue("middleName", out middleName);
@@ -238,8 +239,26 @@ namespace Facebook.Unity.Mobile.Android
                     profile.TryGetValue("linkURL", out linkURL);
                     profile.TryGetValue("friendIDs", out friendIDs);
                     profile.TryGetValue("birthday", out birthday);
+                    profile.TryGetValue("gender", out gender);
+
                     UserAgeRange ageRange = UserAgeRange.AgeRangeFromDictionary(profile);
-                    return new Profile(userID, firstName, middleName, lastName, name, email, imageURL, linkURL, friendIDs?.Split(','), birthday, ageRange);
+                    FBLocation hometown = FBLocation.FromDictionary("hometown", profile);
+                    FBLocation location = FBLocation.FromDictionary("location", profile);
+                    return new Profile(
+                        userID,
+                        firstName,
+                        middleName,
+                        lastName,
+                        name,
+                        email,
+                        imageURL,
+                        linkURL,
+                        friendIDs?.Split(','),
+                        birthday,
+                        ageRange,
+                        hometown,
+                        location,
+                        gender);
                 }
                 catch (Exception)
                 {

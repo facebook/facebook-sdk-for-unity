@@ -37,6 +37,12 @@ namespace Facebook.Unity
         /// <param name="imageURL">Image URL.</param>
         /// <param name="linkURL">Link URL.</param>
         /// <param name="friendIDs">A list of identifiers for the user's friends.</param>
+        /// <param name="birthday">User's birthday</param>
+        /// <param name="ageRange">Age Range for the User</param>
+        /// <param name="hometown">Home Town</param>
+        /// <param name="location">Location</param>
+        /// <param name="gender">Gender</param>
+
         internal Profile(
             string userID,
             string firstName,
@@ -48,7 +54,10 @@ namespace Facebook.Unity
             string linkURL,
             string[] friendIDs,
             string birthday,
-            UserAgeRange ageRange)
+            UserAgeRange ageRange,
+            FBLocation hometown,
+            FBLocation location,
+            string gender)
         {
             this.UserID = userID;
             this.FirstName = firstName;
@@ -67,6 +76,9 @@ namespace Facebook.Unity
                     .ToLocalTime();
             }
             this.AgeRange = ageRange;
+            this.Hometown = hometown;
+            this.Location = location;
+            this.Gender = gender;
         }
 
         /// <summary>
@@ -136,6 +148,24 @@ namespace Facebook.Unity
         public UserAgeRange AgeRange { get; private set; }
 
         /// <summary>
+        /// Gets the user's hometown
+        /// </summary>
+        /// <value>The user's hometown</value>
+        public FBLocation Hometown { get; private set; }
+
+        /// <summary>
+        /// Gets the user's location
+        /// </summary>
+        /// <value>The user's location </value>
+        public FBLocation Location { get; private set; }
+
+        /// <summary>
+        /// Gets the user's gender
+        /// </summary>
+        /// <value>The user's gender</value>
+        public string Gender { get; private set; }
+
+        /// <summary>
         /// Returns a <see cref="System.String"/> that represents the current <see cref="Facebook.Unity.Profile"/>.
         /// </summary>
         /// <returns>A <see cref="System.String"/> that represents the current <see cref="Facebook.Unity.Profile"/>.</returns>
@@ -157,8 +187,10 @@ namespace Facebook.Unity
                     { "FriendIDs", String.Join(",", this.FriendIDs) },
                     { "Birthday", this.Birthday?.ToShortDateString()},
                     { "AgeRange", this.AgeRange?.ToString()},
+                    { "Hometown", this.Hometown?.ToString() },
+                    { "Location", this.Location?.ToString() },
+                    { "Gender", this.Gender },
                 });
         }
     }
 }
-

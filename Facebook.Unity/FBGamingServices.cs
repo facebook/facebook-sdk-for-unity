@@ -148,7 +148,7 @@ namespace Facebook.Unity
             MobileFacebookImpl.GetTournament(callback);
         }
 
-        public static void ShareTournament(Dictionary<string, string> data, FacebookDelegate<ITournamentResult> callback)
+        public static void ShareTournament(Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
         {
             MobileFacebookImpl.ShareTournament(data, callback);
         }
@@ -157,10 +157,12 @@ namespace Facebook.Unity
             int initialScore,
             string title,
             string imageBase64DataUrl,
+            string sortOrder,
+            string scoreFormat,
             Dictionary<string, string> data,
             FacebookDelegate<ITournamentResult> callback)
         {
-            MobileFacebookImpl.CreateTournament(initialScore, title, imageBase64DataUrl, data, callback);
+            MobileFacebookImpl.CreateTournament(initialScore, title, imageBase64DataUrl, sortOrder, scoreFormat, data, callback);
         }
 
         public static void PostTournamentScore(int score, FacebookDelegate<ITournamentScoreResult> callback)

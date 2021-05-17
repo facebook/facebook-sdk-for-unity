@@ -699,6 +699,8 @@ namespace Facebook.Unity.Mobile.Android
             int initialScore,
             string title,
             string imageBase64DataUrl,
+            string sortOrder,
+            string scoreFormat,
             Dictionary<string, string> data,
             FacebookDelegate<ITournamentResult> callback)
         {
@@ -707,6 +709,8 @@ namespace Facebook.Unity.Mobile.Android
             args.AddString("initialScore", initialScore.ToString());
             args.AddString("title", title);
             args.AddString("imageBase64DataUrl", imageBase64DataUrl);
+            args.AddString("sortOrder", sortOrder);
+            args.AddString("scoreFormat", scoreFormat);
             args.AddDictionary("data", data.ToDictionary( pair => pair.Key, pair => (object) pair.Value));
             var createTournament = new JavaMethodCall<ITournamentResult>(
                 this,
@@ -717,7 +721,7 @@ namespace Facebook.Unity.Mobile.Android
             createTournament.Call(args);
         }
 
-        public override void ShareTournament(Dictionary<string, string> data, FacebookDelegate<ITournamentResult> callback)
+        public override void ShareTournament(Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
         {
             MethodArguments args = new MethodArguments();
             args.AddDictionary("data", data.ToDictionary(pair => pair.Key, pair => (object)pair.Value));

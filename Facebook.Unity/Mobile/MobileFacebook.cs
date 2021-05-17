@@ -244,7 +244,7 @@ namespace Facebook.Unity.Mobile
 
         public void OnShareTournamentComplete(ResultContainer resultContainer)
         {
-            var result = new TournamentResult(resultContainer);
+            var result = new TournamentScoreResult(resultContainer);
             CallbackManager.OnFacebookResponse(result);
         }
 
@@ -378,7 +378,7 @@ namespace Facebook.Unity.Mobile
             throw new NotImplementedException();
         }
 
-        public virtual void ShareTournament(Dictionary<string, string> data, FacebookDelegate<ITournamentResult> callback)
+        public virtual void ShareTournament(Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
         {
             throw new NotImplementedException();
         }
@@ -387,6 +387,8 @@ namespace Facebook.Unity.Mobile
             int initialScore,
             string title,
             string imageBase64DataUrl,
+            string sortOrder,
+            string scoreFormat,
             Dictionary<string, string> data,
             FacebookDelegate<ITournamentResult> callback)
         {

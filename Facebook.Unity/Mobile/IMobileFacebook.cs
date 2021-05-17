@@ -103,12 +103,14 @@ namespace Facebook.Unity.Mobile
 
         void GetTournament(FacebookDelegate<ITournamentResult> callback);
 
-        void ShareTournament(Dictionary<string, string> data, FacebookDelegate<ITournamentResult> callback);
+        void ShareTournament(Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback);
 
         void CreateTournament(
             int initialScore,
             string title,
             string imageBase64DataUrl,
+            string sortOrder,
+            string scoreFormat,
             Dictionary<string, string> data,
             FacebookDelegate<ITournamentResult> callback);
 

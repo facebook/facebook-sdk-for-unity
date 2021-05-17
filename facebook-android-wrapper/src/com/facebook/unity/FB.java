@@ -944,10 +944,9 @@ public class FB {
         }
 
         try {
-            JSONObject parameters = (new JSONObject()).put("score", score);
             GameFeaturesLibrary.postSessionScoreAsync(
                 getUnityActivity().getApplicationContext(),
-                parameters,
+                score,
                 createDaemonCallback(unityMessage)
             );
 
@@ -973,10 +972,9 @@ public class FB {
         }
 
         try {
-            JSONObject parameters = (new JSONObject()).put("score", score);
             GameFeaturesLibrary.postTournamentScoreAsync(
                 getUnityActivity().getApplicationContext(),
-                parameters,
+                score,
                 createDaemonCallback(unityMessage)
             );
 
@@ -993,10 +991,8 @@ public class FB {
             unityMessage.put("callback_id", unityParams.getString("callback_id"));
         }
 
-        JSONObject parameters = new JSONObject();
         GameFeaturesLibrary.getTournamentAsync(
             getUnityActivity().getApplicationContext(),
-            parameters,
             createDaemonCallback(unityMessage)
         );
     }
@@ -1010,12 +1006,31 @@ public class FB {
             unityMessage.put("callback_id", unityParams.getString("callback_id"));
         }
 
-        String data = unityParams.getParamsObject("data").toString().replaceAll("\"", "");
+        int score;
         try {
-        	JSONObject parameters = (new JSONObject()).put("data", data);
+            score = Integer.parseInt(unityParams.getString("score"));
+        } catch(NumberFormatException e) {
+            unityMessage.sendError(String.format("Invalid score: %s", e.getMessage()));
+            return;
+        }
+
+        JSONObject data = new JSONObject();
+        Bundle dataBundle = unityParams.getParamsObject("data").getStringParams();
+        Set<String> keys = dataBundle.keySet();
+        for (String key : keys) {
+            try {
+                data.put(key, dataBundle.get(key));
+            } catch(JSONException e) {
+                unityMessage.sendError(String.format("Invalid data payload: %s", e.getMessage()));
+            }
+        }       
+
+
+        try {
             GameFeaturesLibrary.shareTournamentAsync(
                 getUnityActivity().getApplicationContext(),
-                parameters,
+                score,
+                data,
                 createDaemonCallback(unityMessage)
             );
 
@@ -1042,18 +1057,29 @@ public class FB {
 
         String title = unityParams.getString("title");
         String image = unityParams.getString("imageBase64DataUrl");
-        String data = unityParams.getParamsObject("data").toString().replaceAll("\"", "");
+        String sortOrder = unityParams.getString("sortOrder");
+        String scoreFormat = unityParams.getString("scoreFormat");
+
+        Bundle dataBundle = unityParams.getParamsObject("data").getStringParams();
+        JSONObject data = new JSONObject();
+        Set<String> keys = dataBundle.keySet();
+        for (String key : keys) {
+            try {
+                data.put(key, dataBundle.get(key));
+            } catch(JSONException e) {
+                unityMessage.sendError(String.format("Invalid data payload: %s", e.getMessage()));
+            }
+        }     
 
         try {
-        	JSONObject parameters = new JSONObject();
-        	parameters.put("initialScore",initialScore);
-        	parameters.put("title",title);
-        	parameters.put("image",image);
-        	parameters.put("data",data);
-
             GameFeaturesLibrary.createTournamentAsync(
                 getUnityActivity().getApplicationContext(),
-                parameters,
+                initialScore,
+                title,
+                image,
+                sortOrder,
+                scoreFormat,
+                data,
                 createDaemonCallback(unityMessage)
             );
 

@@ -107,15 +107,17 @@ namespace Facebook.Unity.Example
                 this.LastResponse = "Empty Response\n";
             }
 
-            String resultSummary = "Limited login results\n\n";
             var profile = FB.Mobile.CurrentProfile();
             resultSummary += "name: " + profile.Name + "\n";
             resultSummary += "id: " + profile.UserID + "\n";
             resultSummary += "email: " + profile.Email + "\n";
             resultSummary += "pic URL: " + profile.ImageURL + "\n";
+            resultSummary += "birthday: " + profile.Birthday + "\n";
+            resultSummary += "age range: " + profile.AgeRange + "\n";
             resultSummary += "friends: " + String.Join(",", profile.FriendIDs)  + "\n";
 
-            LogView.AddLog(resultSummary);
+            LogView.AddLog(resultSummary);*/
+            LogView.AddLog("Did login OK");
         }
 
         protected void OnGUI()
@@ -126,6 +128,7 @@ namespace Facebook.Unity.Example
                 GUILayout.BeginVertical();
             }
 
+            GUILayout.Space(Screen.safeArea.yMin + 10);
             GUILayout.Label(this.GetType().Name, this.LabelStyle);
 
             this.AddStatus();

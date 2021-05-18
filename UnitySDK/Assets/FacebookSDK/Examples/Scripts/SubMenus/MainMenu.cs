@@ -24,8 +24,19 @@ namespace Facebook.Unity.Example
     using System.Linq;
     using UnityEngine;
 
+
+
     internal sealed class MainMenu : MenuBase
     {
+
+        enum Scope {
+            PublicProfile   = 0b_0000_0001, 
+            UserFriends     = 0b_0000_0010, 
+            UserBirthday    = 0b_0000_0100, 
+            UserAgeRange    = 0b_0000_1000,
+            PublishActions  = 0b_0001_0000
+        };
+
         protected override bool ShowBackButton()
         {
             return false;
@@ -34,6 +45,7 @@ namespace Facebook.Unity.Example
         protected override void GetGui()
         {
             GUILayout.BeginVertical();
+
 
             bool enabled = GUI.enabled;
             if (this.Button("FB.Init"))
@@ -47,7 +59,7 @@ namespace Facebook.Unity.Example
             GUI.enabled = enabled && FB.IsInitialized;
             if (this.Button("Classic login"))
             {
-                this.CallFBLogin("enabled");
+                this.CallFBLogin(LoginTracking.ENABLED, Scope.PublicProfile);
                 this.Status = "Classic login called";
             }
             if (this.Button("Get publish_actions"))
@@ -61,15 +73,30 @@ namespace Facebook.Unity.Example
             
             if (this.Button("Limited login"))
             {
-                this.CallFBLogin("test");
+                this.CallFBLogin(LoginTracking.LIMITED, Scope.PublicProfile);
                 this.Status = "Limited login called";
 
             }
             if (this.Button("Limited login +friends"))
             {
-                this.CallFBLogin("test+friends");
+                this.CallFBLogin(LoginTracking.LIMITED, Scope.PublicProfile | Scope.UserFriends);
                 this.Status = "Limited login +friends called";
 
+            }
+
+            GUILayout.EndHorizontal();
+            GUILayout.BeginHorizontal();           
+
+            if (this.Button("Limited Login+bday"))
+            {
+                this.CallFBLogin(LoginTracking.LIMITED, Scope.PublicProfile | Scope.UserBirthday);
+                this.Status = "Limited login +bday called";
+            }
+
+            if (this.Button("Limited Login+agerange"))
+            {
+                this.CallFBLogin(LoginTracking.LIMITED, Scope.PublicProfile | Scope.UserAgeRange);
+                this.Status = "Limited login +agerange called";
             }
 
 
@@ -136,21 +163,32 @@ namespace Facebook.Unity.Example
             GUI.enabled = enabled;
         }
 
-        private void CallFBLogin(string enabled="enabled")
+        private void CallFBLogin(LoginTracking mode, Scope scopemask)
         {
             List<string> scopes = new List<string>();
-            scopes.Add("public_profile");
-            if(enabled=="test+friends") 
+
+            if((scopemask & Scope.PublicProfile) > 0) {
+                scopes.Add("public_profile");                
+            }
+            if((scopemask & Scope.UserFriends) > 0) 
             {
                 scopes.Add("user_friends");
             }
+            if((scopemask & Scope.UserBirthday) > 0)
+            {
+                scopes.Add("user_birthday");
+            }
+            if((scopemask & Scope.UserAgeRange) > 0)
+            {
+                scopes.Add("user_age_range");
+            }
 
 
-            if(enabled=="enabled")
+            if(mode == LoginTracking.ENABLED)
             {
                 FB.Mobile.LoginWithTrackingPreference(LoginTracking.ENABLED, scopes, "classic_nonce123", this.HandleResult);    
             }
-            else
+            else // mode == loginTracking.LIMITED
             {
                 FB.Mobile.LoginWithTrackingPreference(LoginTracking.LIMITED, scopes, "limited_nonce123", this.HandleLimitedLoginResult);
             }

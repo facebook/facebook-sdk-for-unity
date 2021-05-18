@@ -39,6 +39,7 @@ namespace Facebook.Unity.Example
         protected void OnGUI()
         {
             GUILayout.BeginVertical();
+            GUILayout.Space(Screen.safeArea.yMin + 10);
             if (this.Button("Back"))
             {
                 this.GoBack();

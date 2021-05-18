@@ -107,6 +107,7 @@ namespace Facebook.Unity.Example
                 this.LastResponse = "Empty Response\n";
             }
 
+            String resultSummary = "Limited login results\n\n";
             var profile = FB.Mobile.CurrentProfile();
             resultSummary += "name: " + profile.Name + "\n";
             resultSummary += "id: " + profile.UserID + "\n";
@@ -115,9 +116,11 @@ namespace Facebook.Unity.Example
             resultSummary += "birthday: " + profile.Birthday + "\n";
             resultSummary += "age range: " + profile.AgeRange + "\n";
             resultSummary += "friends: " + String.Join(",", profile.FriendIDs)  + "\n";
+            resultSummary += "hometown: " + profile.Hometown?.Name + "\n";
+            resultSummary += "location: " + profile.Location?.Name + "\n";
+            resultSummary += "gender: " + profile.Gender + "\n";
 
-            LogView.AddLog(resultSummary);*/
-            LogView.AddLog("Did login OK");
+            LogView.AddLog(resultSummary);
         }
 
         protected void OnGUI()

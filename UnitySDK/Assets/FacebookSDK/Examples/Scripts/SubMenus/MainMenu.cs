@@ -34,7 +34,10 @@ namespace Facebook.Unity.Example
             UserFriends     = 0b_0000_0010, 
             UserBirthday    = 0b_0000_0100, 
             UserAgeRange    = 0b_0000_1000,
-            PublishActions  = 0b_0001_0000
+            PublishActions  = 0b_0001_0000,
+            UserLocation    = 0b_0010_0000,
+            UserHometown    = 0b_0100_0000,
+            UserGender      = 0b_1000_0000,
         };
 
         protected override bool ShowBackButton()
@@ -97,6 +100,27 @@ namespace Facebook.Unity.Example
             {
                 this.CallFBLogin(LoginTracking.LIMITED, Scope.PublicProfile | Scope.UserAgeRange);
                 this.Status = "Limited login +agerange called";
+            }
+
+            GUILayout.EndHorizontal();
+            GUILayout.BeginHorizontal();
+
+            if (this.Button("Limited Login + location"))
+            {
+                this.CallFBLogin(LoginTracking.LIMITED, Scope.PublicProfile | Scope.UserLocation);
+            }
+
+            if (this.Button("Limited Login + Hometown"))
+            {
+                this.CallFBLogin(LoginTracking.LIMITED, Scope.PublicProfile | Scope.UserHometown);
+            }
+
+            GUILayout.EndHorizontal();
+            GUILayout.BeginHorizontal();
+
+            if (this.Button("Limited Login + Gender"))
+            {
+                this.CallFBLogin(LoginTracking.LIMITED, Scope.PublicProfile | Scope.UserGender);
             }
 
 
@@ -183,8 +207,23 @@ namespace Facebook.Unity.Example
                 scopes.Add("user_age_range");
             }
 
+            if ((scopemask & Scope.UserLocation) > 0)
+            {
+                scopes.Add("user_location");
+            }
 
-            if(mode == LoginTracking.ENABLED)
+            if ((scopemask & Scope.UserHometown) > 0)
+            {
+                scopes.Add("user_hometown");
+            }
+
+            if ((scopemask & Scope.UserGender) > 0)
+            {
+                scopes.Add("user_gender");
+            }
+
+
+            if (mode == LoginTracking.ENABLED)
             {
                 FB.Mobile.LoginWithTrackingPreference(LoginTracking.ENABLED, scopes, "classic_nonce123", this.HandleResult);    
             }

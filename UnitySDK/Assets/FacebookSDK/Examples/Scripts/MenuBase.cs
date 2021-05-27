@@ -115,6 +115,9 @@ namespace Facebook.Unity.Example
             resultSummary += "pic URL: " + profile.ImageURL + "\n";
             resultSummary += "birthday: " + profile.Birthday + "\n";
             resultSummary += "age range: " + profile.AgeRange + "\n";
+            resultSummary += "first name: " + profile.FirstName + "\n";
+            resultSummary += "middle name: " + profile.MiddleName + "\n";
+            resultSummary += "last name: " + profile.LastName + "\n";
             resultSummary += "friends: " + String.Join(",", profile.FriendIDs)  + "\n";
             resultSummary += "hometown: " + profile.Hometown?.Name + "\n";
             resultSummary += "location: " + profile.Location?.Name + "\n";

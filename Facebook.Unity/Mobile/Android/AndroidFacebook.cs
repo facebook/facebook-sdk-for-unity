@@ -726,7 +726,7 @@ namespace Facebook.Unity.Mobile.Android
             MethodArguments args = new MethodArguments();
             args.AddDictionary("data", data.ToDictionary(pair => pair.Key, pair => (object)pair.Value));
 
-            var shareTournament = new JavaMethodCall<ITournamentResult>(
+            var shareTournament = new JavaMethodCall<ITournamentScoreResult>(
                 this,
                 "ShareTournament")
             {

@@ -644,7 +644,7 @@ namespace Facebook.Unity.Editor
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 
-        public void ShareTournament(Dictionary<string, string> data, FacebookDelegate<ITournamentResult> callback)
+        public void ShareTournament(Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
         {
             var result = new Dictionary<string, object>();
             result["success"] = "";
@@ -655,6 +655,8 @@ namespace Facebook.Unity.Editor
             int initialScore,
             string title,
             string imageBase64DataUrl,
+            string sortOrder,
+            string scoreFormat,
             Dictionary<string, string> data,
             FacebookDelegate<ITournamentResult> callback)
         {

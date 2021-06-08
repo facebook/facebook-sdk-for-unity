@@ -771,10 +771,7 @@ extern "C" {
   void IOSFBUpdateUserProperties(int numParams,
                                  const char **paramKeys,
                                  const char **paramVals)
-  {
-    NSDictionary *params =  [FBUnityUtility dictionaryFromKeys:paramKeys values:paramVals length:numParams];
-    [FBSDKAppEvents updateUserProperties:params handler:NULL];
-  }
+  { }
 
   void IOSFBFetchDeferredAppLink(int requestId)
   {

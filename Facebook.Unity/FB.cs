@@ -927,6 +927,7 @@ namespace Facebook.Unity
                 }
             }
 
+            [ObsoleteAttribute("This method UpdateUserProperties is deprecated.", false)]
             public static void UpdateUserProperties(Dictionary<string, string> parameters)
             {
                 Mobile.MobileFacebookImpl.UpdateUserProperties(parameters);

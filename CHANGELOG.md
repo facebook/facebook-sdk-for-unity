@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [11.0.0] - 2021-06-05
+
+### Added
+
+- Added tournaments APIs for cloud game
+- Added Limited Login support for `user_hometown`, `user_location`, `user_gender` and `user_link` permissions under public beta.
+
+### Changed
+
+- Bumped native SDK version to 11.0.0
+- Bumped Graph API version to 11.0
+
+### Deprecated
+
+- Deprecated UpdateUserProperties API
+
 ## [9.2.0] - 2021-04-25
 
 ### Added
@@ -156,7 +172,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-9.2.0...HEAD
+[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-11.0.0...HEAD
+[11.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-9.2.0...sdk-version-11.0.0
 [9.2.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-9.1.0...sdk-version-9.2.0
 [9.1.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-9.0.0...sdk-version-9.1.0
 [9.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-8.1.1...sdk-version-9.0.0

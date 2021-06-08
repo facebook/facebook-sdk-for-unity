@@ -1079,6 +1079,7 @@ public class FB {
                 image,
                 sortOrder,
                 scoreFormat,
+                null, // endTime
                 data,
                 createDaemonCallback(unityMessage)
             );

@@ -72,6 +72,7 @@
     <Compile Include="Canvas\ICanvasFacebookResultHandler.cs" />
     <Compile Include="Canvas\ICanvasJSWrapper.cs" />
     <Compile Include="Canvas\JsBridge.cs" />
+    <Compile Include="CurrencyAmount.cs" />
     <Compile Include="Mobile\IMobileFacebook.cs" />
     <Compile Include="Mobile\IMobileFacebookCallbackHandler.cs" />
     <Compile Include="Mobile\IMobileFacebookImplementation.cs" />

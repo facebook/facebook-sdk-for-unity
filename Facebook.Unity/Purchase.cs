@@ -30,24 +30,33 @@ namespace Facebook.Unity
     public class Purchase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Product"/> class.
+        /// Initializes a new instance of the <see cref="Purchase"/> class.
         /// </summary>
-        /// <param name="isConsumed">Whether or not the purchase has been consumed.</param>
         /// <param name="developerPayload">A developer-specified string, provided during the purchase of the product.</param>
+        /// <param name="isConsumed">Whether or not the purchase has been consumed.</param>
+        /// <param name="paymentActionType">The current status of the purchase.</param>
         /// <param name="paymentID">The identifier for the purchase transaction.</param>
         /// <param name="productID">The product's game-specified identifier.</param>
+        /// <param name="purchasePrice">Contains the local amount and currency associated with the purchased item.</param>
         /// <param name="purchaseTime">Unix timestamp of when the purchase occurred.</param>
         /// <param name="purchaseToken">A token representing the purchase that may be used to consume the purchase.</param>
         /// <param name="signedRequest">Server-signed encoding of the purchase request.</param>
         internal Purchase(
-            bool isConsumed,
             string developerPayload,
+            bool isConsumed,
+            string paymentActionType,
             string paymentID,
             string productID,
+            IDictionary<string, object> purchasePrice,
             long purchaseTime,
             string purchaseToken,
             string signedRequest)
         {
+            if (string.IsNullOrEmpty(paymentActionType))
+            {
+                throw new ArgumentNullException("paymentActionType");
+            }
+
             if (string.IsNullOrEmpty(paymentID))
             {
                 throw new ArgumentNullException("paymentID");
@@ -76,18 +85,14 @@ namespace Facebook.Unity
             }
 
             this.DeveloperPayload = developerPayload;
+            this.PaymentActionType = paymentActionType;
             this.PaymentID = paymentID;
             this.ProductID = productID;
+            this.PurchasePrice = new CurrencyAmount(purchasePrice["currency"].ToStringNullOk(), purchasePrice["amount"].ToStringNullOk());
             this.PurchaseTime = Utilities.FromTimestamp(purchaseTimeInt);
             this.PurchaseToken = purchaseToken;
             this.SignedRequest = signedRequest;
         }
-
-        /// <summary>
-        /// Gets whether or not the purchase has been consumed.
-        /// </summary>
-        /// <value>The consumed boolean.</value>
-        public bool IsConsumed { get; private set; }
 
         /// <summary>
         /// Gets the developer payload string.
@@ -96,17 +101,34 @@ namespace Facebook.Unity
         public string DeveloperPayload { get; private set; }
 
         /// <summary>
+        /// Gets whether or not the purchase has been consumed.
+        /// </summary>
+        /// <value>The consumed boolean.</value>
+        public bool IsConsumed { get; private set; }
+
+        /// <summary>
+        /// Gets the purchase status.
+        /// </summary>
+        /// <value>The purchase status.</value>
+        public string PaymentActionType { get; private set; }
+
+        /// <summary>
         /// Gets the purchase identifier.
         /// </summary>
         /// <value>The purchase identifier.</value>
         public string PaymentID { get; private set; }
-
 
         /// <summary>
         /// Gets the product identifier.
         /// </summary>
         /// <value>The product identifier.</value>
         public string ProductID { get; private set; }
+
+        /// <summary>
+        /// Gets the amount and currency fields associated with the purchase.
+        /// </summary>
+        /// <value>The amount and currency fields associated with the purchase as a CurrencyAmount</value>
+        public CurrencyAmount PurchasePrice { get; private set; }
 
         /// <summary>
         /// Gets the purchase time.
@@ -138,10 +160,12 @@ namespace Facebook.Unity
                 this.GetType().Name,
                 new Dictionary<string, string>()
                 {
-                    { "IsConsumed", this.IsConsumed.ToStringNullOk() },
                     { "DeveloperPayload", this.DeveloperPayload.ToStringNullOk() },
+                    { "IsConsumed", this.IsConsumed.ToStringNullOk() },
+                    { "PaymentActionType", this.PaymentActionType },
                     { "PaymentID", this.PaymentID },
                     { "ProductID", this.ProductID },
+                    { "PurchasePrice", this.PurchasePrice.ToString() },
                     { "PurchaseTime", this.PurchaseTime.TotalSeconds().ToString() },
                     { "PurchaseToken", this.PurchaseToken },
                     { "SignedRequest", this.SignedRequest },

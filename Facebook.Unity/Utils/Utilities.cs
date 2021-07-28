@@ -155,6 +155,14 @@ namespace Facebook.Unity
                 graphDomain);
         }
 
+        public static AuthenticationToken ParseAuthenticationTokenFromResult(IDictionary<string, object> resultDictionary)
+        {
+            string tokenString = resultDictionary.GetValueOrDefault<string>(LoginResult.AuthTokenString);
+            string nonce = resultDictionary.GetValueOrDefault<string>(LoginResult.AuthNonce);
+
+            return new AuthenticationToken(tokenString, nonce);
+        }
+
         public static string ToStringNullOk(this object obj)
         {
             if (obj == null)
@@ -255,7 +263,108 @@ namespace Facebook.Unity
             return permissionList.Select(permission => permission.ToString()).ToList();
         }
 
-        private static DateTime FromTimestamp(int timestamp)
+        public static IList<Product> ParseCatalogFromResult(IDictionary<string, object> resultDictionary)
+        {
+            object catalogObject;
+            IList<Product> products = new List<Product>();
+
+            if (resultDictionary.TryGetValue("success", out catalogObject))
+            {
+                IList<object> deserializedCatalogObject = (IList<object>) MiniJSON.Json.Deserialize(catalogObject as string);
+                foreach (IDictionary<string, object> product in deserializedCatalogObject) {
+                    string title = product["title"].ToStringNullOk();
+                    string productID = product["productID"].ToStringNullOk();
+                    string description = product["description"].ToStringNullOk();
+                    string imageURI = product.ContainsKey("imageURI") ? product["imageURI"].ToStringNullOk() : "";
+                    string price = product["price"].ToStringNullOk();
+                    string priceCurrencyCode = product["priceCurrencyCode"].ToStringNullOk();
+
+                    products.Add(new Product(title, productID, description, imageURI, price, priceCurrencyCode));
+                }
+                return products;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static IList<Purchase> ParsePurchasesFromResult(IDictionary<string, object> resultDictionary)
+        {
+            object purchasesObject;
+            IList<Purchase> purchases = new List<Purchase>();
+
+            if (resultDictionary.TryGetValue("success", out purchasesObject))
+            {
+                IList<object> deserializedPurchasesObject = (IList<object>) MiniJSON.Json.Deserialize(purchasesObject as string);
+                foreach (IDictionary<string, object> purchase in (List<object>) deserializedPurchasesObject) {
+                    purchases.Add(ParsePurchaseFromDictionary(purchase));
+                }
+
+                return purchases;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static Purchase ParsePurchaseFromResult(IDictionary<string, object> resultDictionary)
+        {
+            object purchaseObject;
+            if (resultDictionary.TryGetValue("success", out purchaseObject))
+            {
+                IDictionary<string, object> deserializedPurchaseObject = (IDictionary<string, object>) MiniJSON.Json.Deserialize(purchaseObject as string);
+                return ParsePurchaseFromDictionary(deserializedPurchaseObject);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private static Purchase ParsePurchaseFromDictionary(IDictionary<string, object> purchase) {
+            bool isConsumed = (bool)purchase["isConsumed"];
+            string developerPayload = purchase.ContainsKey("developerPayload") ? purchase["developerPayload"].ToStringNullOk() : "";
+            string paymentActionType = purchase["paymentActionType"].ToStringNullOk();
+            string paymentID = purchase["paymentID"].ToStringNullOk();
+            string productID = purchase["productID"].ToStringNullOk();
+            IDictionary<string, object> purchasePrice = (IDictionary<string, object>) purchase["purchasePrice"];
+            long purchaseTime = (long)purchase["purchaseTime"];
+            string purchaseToken = purchase["purchaseToken"].ToStringNullOk();
+            string signedRequest = purchase["signedRequest"].ToStringNullOk();
+
+            return new Purchase(developerPayload, isConsumed, paymentActionType, paymentID, productID, purchasePrice, purchaseTime, purchaseToken, signedRequest);
+        }
+
+        public static IDictionary<string, string> ParseStringDictionaryFromString(string input) {
+            Dictionary<string, object> dict = MiniJSON.Json.Deserialize(input) as Dictionary<string, object>;
+            if (dict == null || dict.Count == 0) {
+                return null;
+            }
+            IDictionary<string, string> result = new Dictionary<string, string>();
+            foreach (KeyValuePair<string, object> kvp in dict)
+            {
+                result.Add(kvp.Key, kvp.Value != null ? kvp.Value.ToString() : "");
+            }
+            return result;
+        }
+
+        // key parameter is the key whose value is the inner dictionary that will be parsed
+        public static IDictionary<string, string> ParseInnerStringDictionary(IDictionary<string, object> resultDictionary, string key)
+        {
+            object resultObject;
+            if (resultDictionary.TryGetValue(key, out resultObject))
+            {
+                return ParseStringDictionaryFromString(resultObject as string);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static DateTime FromTimestamp(int timestamp)
         {
             return new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(timestamp);
         }

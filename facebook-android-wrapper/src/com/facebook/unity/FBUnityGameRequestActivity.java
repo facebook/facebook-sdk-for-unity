@@ -26,7 +26,7 @@ import android.text.TextUtils;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.share.model.GameRequestContent;
-import com.facebook.share.widget.GameRequestDialog;
+import com.facebook.gamingservices.GameRequestDialog;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -111,17 +111,20 @@ public class FBUnityGameRequestActivity extends BaseActivity {
                       response.put("request", result.getRequestId());
                       response.put("to", TextUtils.join(",",result.getRequestRecipients()));
                       response.send();
+                      FBUnityGameRequestActivity.this.finish();
                   }
 
                   @Override
                   public void onCancel() {
                       response.putCancelled();
                       response.send();
+                      FBUnityGameRequestActivity.this.finish();
                   }
 
                   @Override
                   public void onError(FacebookException e) {
                       response.sendError(e.getMessage());
+                      FBUnityGameRequestActivity.this.finish();
                   }
               });
 

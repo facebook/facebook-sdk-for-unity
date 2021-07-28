@@ -31,7 +31,7 @@ import com.facebook.gamingservices.FriendFinderDialog;
 public class FBUnityGamingServicesFriendFinderActivity extends BaseActivity {
     private static String TAG = FBUnityGamingServicesFriendFinderActivity.class.getName();
     public static final String DIALOG_PARAMS = "dialog_params";
-   
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,17 +52,20 @@ public class FBUnityGamingServicesFriendFinderActivity extends BaseActivity {
             public void onSuccess(FriendFinderDialog.Result result) {
                 response.put("success", true);
                 response.send();
+                FBUnityGamingServicesFriendFinderActivity.this.finish();
             }
 
             @Override
             public void onCancel() {
                 response.putCancelled();
                 response.send();
+                FBUnityGamingServicesFriendFinderActivity.this.finish();
             }
 
             @Override
             public void onError(FacebookException e) {
                 response.sendError(e.getMessage());
+                FBUnityGamingServicesFriendFinderActivity.this.finish();
             }
         });
         dialog.show();

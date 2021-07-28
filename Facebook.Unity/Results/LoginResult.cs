@@ -30,6 +30,8 @@ namespace Facebook.Unity
         public static readonly string PermissionsKey = Constants.IsWeb ? "grantedScopes" : "permissions";
         public static readonly string AccessTokenKey = Constants.IsWeb ? "accessToken" : Constants.AccessTokenKey;
         public static readonly string GraphDomain = "graph_domain";
+        public static readonly string AuthTokenString = "auth_token_string";
+        public static readonly string AuthNonce = "auth_nonce";
 
         internal LoginResult(ResultContainer resultContainer) : base(resultContainer)
         {
@@ -37,9 +39,19 @@ namespace Facebook.Unity
             {
                 this.AccessToken = Utilities.ParseAccessTokenFromResult(this.ResultDictionary);
             }
+            if (this.ResultDictionary != null && this.ResultDictionary.ContainsKey(LoginResult.AuthTokenString) && this.ResultDictionary.ContainsKey(LoginResult.AuthNonce))
+            {
+                this.AuthenticationToken = Utilities.ParseAuthenticationTokenFromResult(this.ResultDictionary);
+            }
+            if (this.AuthenticationToken != null)
+            {
+                AccessToken.CurrentAccessToken = null;
+            }
         }
 
         public AccessToken AccessToken { get; private set; }
+
+        public AuthenticationToken AuthenticationToken { get; private set; }
 
         public override string ToString()
         {
@@ -49,6 +61,7 @@ namespace Facebook.Unity
                 new Dictionary<string, string>()
                 {
                     { "AccessToken", this.AccessToken.ToStringNullOk() },
+                    { "AuthenticationToken", this.AuthenticationToken.ToStringNullOk() },
                 });
         }
     }

@@ -75,6 +75,57 @@ namespace Facebook.Unity.Example
             LogView.AddLog(result.ToString());
         }
 
+        protected void HandleLimitedLoginResult(IResult result)
+        {
+            if (result == null)
+            {
+                this.LastResponse = "Null Response\n";
+                LogView.AddLog(this.LastResponse);
+                return;
+            }
+
+            this.LastResponseTexture = null;
+
+            // Some platforms return the empty string instead of null.
+            if (!string.IsNullOrEmpty(result.Error))
+            {
+                this.Status = "Error - Check log for details";
+                this.LastResponse = "Error Response:\n" + result.Error;
+            }
+            else if (result.Cancelled)
+            {
+                this.Status = "Cancelled - Check log for details";
+                this.LastResponse = "Cancelled Response:\n" + result.RawResult;
+            }
+            else if (!string.IsNullOrEmpty(result.RawResult))
+            {
+                this.Status = "Success - Check log for details";
+                this.LastResponse = "Success Response:\n" + result.RawResult;
+            }
+            else
+            {
+                this.LastResponse = "Empty Response\n";
+            }
+
+            String resultSummary = "Limited login results\n\n";
+            var profile = FB.Mobile.CurrentProfile();
+            resultSummary += "name: " + profile.Name + "\n";
+            resultSummary += "id: " + profile.UserID + "\n";
+            resultSummary += "email: " + profile.Email + "\n";
+            resultSummary += "pic URL: " + profile.ImageURL + "\n";
+            resultSummary += "birthday: " + profile.Birthday + "\n";
+            resultSummary += "age range: " + profile.AgeRange + "\n";
+            resultSummary += "first name: " + profile.FirstName + "\n";
+            resultSummary += "middle name: " + profile.MiddleName + "\n";
+            resultSummary += "last name: " + profile.LastName + "\n";
+            resultSummary += "friends: " + String.Join(",", profile.FriendIDs)  + "\n";
+            resultSummary += "hometown: " + profile.Hometown?.Name + "\n";
+            resultSummary += "location: " + profile.Location?.Name + "\n";
+            resultSummary += "gender: " + profile.Gender + "\n";
+
+            LogView.AddLog(resultSummary);
+        }
+
         protected void OnGUI()
         {
             if (this.IsHorizontalLayout())
@@ -83,6 +134,7 @@ namespace Facebook.Unity.Example
                 GUILayout.BeginVertical();
             }
 
+            GUILayout.Space(Screen.safeArea.yMin + 10);
             GUILayout.Label(this.GetType().Name, this.LabelStyle);
 
             this.AddStatus();

@@ -30,6 +30,8 @@ namespace Facebook.Unity.Mobile.IOS
             string urlSuffix,
             string unityUserAgentSuffix);
 
+        void EnableProfileUpdatesOnAccessTokenChange(bool enable);
+
         void LogInWithReadPermissions(
             int requestId,
             string scope);
@@ -37,6 +39,12 @@ namespace Facebook.Unity.Mobile.IOS
         void LogInWithPublishPermissions(
             int requestId,
             string scope);
+
+        void LoginWithTrackingPreference(
+            int requestId,
+            string scope,
+            string tracking,
+            string nonce);
 
         void LogOut();
 
@@ -98,6 +106,8 @@ namespace Facebook.Unity.Mobile.IOS
 
         void FBAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabledID);
 
+        bool FBAdvertiserTrackingEnabled(bool advertiserTrackingEnabled);
+
         void GetAppLink(int requestId);
 
         void RefreshCurrentAccessToken(int requestId);
@@ -107,6 +117,8 @@ namespace Facebook.Unity.Mobile.IOS
         void FBSetUserID(string userID);
 
         string FBGetUserID();
+
+        void SetDataProcessingOptions(string[] options, int country, int state);
 
         void OpenFriendFinderDialog(int requestId);
 
@@ -127,5 +139,9 @@ namespace Facebook.Unity.Mobile.IOS
             string videoUri);
 
         void FetchDeferredAppLink(int requestId);
+
+        AuthenticationToken CurrentAuthenticationToken();
+
+        Profile CurrentProfile();
     }
 }

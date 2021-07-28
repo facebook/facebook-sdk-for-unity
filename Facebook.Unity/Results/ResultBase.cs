@@ -45,6 +45,8 @@ namespace Facebook.Unity
 
         public virtual string Error { get; protected set; }
 
+        public virtual IDictionary<string, string> ErrorDictionary { get; protected set; }
+
         public virtual IDictionary<string, object> ResultDictionary { get; protected set; }
 
         public virtual string RawResult { get; protected set; }
@@ -75,6 +77,7 @@ namespace Facebook.Unity
             this.Cancelled = cancelled;
             this.Error = error;
             this.CallbackId = callbackId;
+            this.ErrorDictionary = Utilities.ParseStringDictionaryFromString(error);
 
             if (this.ResultDictionary != null)
             {

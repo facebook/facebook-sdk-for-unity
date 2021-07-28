@@ -31,5 +31,41 @@ namespace Facebook.Unity.Mobile
         void OnUploadImageToMediaLibraryComplete(ResultContainer resultContainer);
 
         void OnUploadVideoToMediaLibraryComplete(ResultContainer resultContainer);
+
+        void OnOnIAPReadyComplete(ResultContainer resultContainer);
+
+        void OnGetCatalogComplete(ResultContainer resultContainer);
+
+        void OnGetPurchasesComplete(ResultContainer resultContainer);
+
+        void OnPurchaseComplete(ResultContainer resultContainer);
+
+        void OnConsumePurchaseComplete(ResultContainer resultContainer);
+
+        void OnInitCloudGameComplete(ResultContainer resultContainer);
+
+        void OnScheduleAppToUserNotificationComplete(ResultContainer resultContainer);
+
+        void OnLoadInterstitialAdComplete(ResultContainer resultContainer);
+
+        void OnShowInterstitialAdComplete(ResultContainer resultContainer);
+
+        void OnLoadRewardedVideoComplete(ResultContainer resultContainer);
+
+        void OnShowRewardedVideoComplete(ResultContainer resultContainer);
+
+        void OnGetPayloadComplete(ResultContainer resultContainer);
+
+        void OnPostSessionScoreComplete(ResultContainer resultContainer);
+
+        void OnGetTournamentComplete(ResultContainer resultContainer);
+
+        void OnShareTournamentComplete(ResultContainer resultContainer);
+
+        void OnCreateTournamentComplete(ResultContainer resultContainer);
+
+        void OnPostTournamentScoreComplete(ResultContainer resultContainer);
+
+        void OnOpenAppStoreComplete(ResultContainer resultContainer);
     }
 }

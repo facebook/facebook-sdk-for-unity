@@ -58,6 +58,7 @@ namespace Facebook.Unity.Editor
         private GUIContent xfbmlLabel = new GUIContent("Xfbml [?]", "(Web Player only If true) Facebook will immediately parse any XFBML elements on the Facebook Canvas page hosting the app");
         private GUIContent frictionlessLabel = new GUIContent("Frictionless Requests [?]", "Use frictionless app requests, as described in their own documentation.");
 
+        private GUIContent androidKeystorePathLabel = new GUIContent("Android Keystore Path [?]", "Set this field if you have a customized android keystore path");
         private GUIContent packageNameLabel = new GUIContent("Package Name [?]", "aka: the bundle identifier");
         private GUIContent classNameLabel = new GUIContent("Class Name [?]", "aka: the activity name");
         private GUIContent debugAndroidKeyLabel = new GUIContent("Debug Android Key Hash [?]", "Copy this key to the Facebook Settings in order to test a Facebook Android app");
@@ -303,6 +304,10 @@ namespace Facebook.Unity.Editor
                     EditorGUILayout.HelpBox(msg, MessageType.Warning);
                 }
 
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField(this.androidKeystorePathLabel, GUILayout.Width(180), GUILayout.Height(16));
+                FacebookSettings.AndroidKeystorePath = EditorGUILayout.TextField(FacebookSettings.AndroidKeystorePath);
+                EditorGUILayout.EndHorizontal();
                 EditorGUILayout.LabelField(
                     "Copy and Paste these into your \"Native Android App\" Settings on developers.facebook.com/apps");
                 this.SelectableLabelField(this.packageNameLabel, Utility.GetApplicationIdentifier());

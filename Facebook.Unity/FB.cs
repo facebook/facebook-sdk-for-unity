@@ -162,7 +162,7 @@ namespace Facebook.Unity
                     if (graphDomain == "gaming") {
                         return FB.gamingDomain;
                     }
-                } 
+                }
                 return FB.facebookDomain;
             }
 
@@ -927,9 +927,28 @@ namespace Facebook.Unity
                 }
             }
 
+            [ObsoleteAttribute("This method UpdateUserProperties is deprecated.", false)]
             public static void UpdateUserProperties(Dictionary<string, string> parameters)
             {
                 Mobile.MobileFacebookImpl.UpdateUserProperties(parameters);
+            }
+
+            public static void SetDataProcessingOptions(IEnumerable<string> options)
+            {
+                if (options == null)
+                {
+                    options = new string[] { };
+                }
+                Mobile.MobileFacebookImpl.SetDataProcessingOptions(options, 0, 0);
+            }
+
+            public static void SetDataProcessingOptions(IEnumerable<string> options, int country, int state)
+            {
+                if (options == null)
+                {
+                    options = new string[] { };
+                }
+                Mobile.MobileFacebookImpl.SetDataProcessingOptions(options, country, state);
             }
 
             private static IMobileFacebook MobileFacebookImpl
@@ -944,6 +963,52 @@ namespace Facebook.Unity
 
                     return impl;
                 }
+            }
+
+            /// <summary>
+            /// Call this function so that Profile will be automatically updated based on the changes to the access token.
+            /// </summary> 
+            public static void EnableProfileUpdatesOnAccessTokenChange(bool enable)
+            {
+                Mobile.MobileFacebookImpl.EnableProfileUpdatesOnAccessTokenChange(enable);
+            }
+
+            /// <summary>
+            /// Login with tracking experience.
+            /// </summary>
+            /// <param name="loginTracking">The option for login tracking preference, "enabled" or "limited".</param>
+            /// <param name="permissions">A list of permissions.</param>
+            /// <param name="nonce">An optional nonce to use for the login attempt.</param>
+            /// <param name="callback">A callback for when the call is complete.</param>
+            public static void LoginWithTrackingPreference(
+                LoginTracking loginTracking,
+                IEnumerable<string> permissions = null,
+                string nonce = null,
+                FacebookDelegate<ILoginResult> callback = null)
+            {
+                if (loginTracking == LoginTracking.ENABLED)
+                {
+                    Mobile.MobileFacebookImpl.LoginWithTrackingPreference("enabled", permissions, nonce, callback);
+                } else
+                {
+                    Mobile.MobileFacebookImpl.LoginWithTrackingPreference("limited", permissions, nonce, callback);
+                }
+            }
+
+            /// <summary>
+            /// Current Authentication Token.
+            /// </summary>
+            public static AuthenticationToken CurrentAuthenticationToken()
+            {
+                return Mobile.MobileFacebookImpl.CurrentAuthenticationToken();
+            }
+
+            /// <summary>
+            /// Current Profile.
+            /// </summary>
+            public static Profile CurrentProfile()
+            {
+                return Mobile.MobileFacebookImpl.CurrentProfile();
             }
 
             /// <summary>
@@ -999,6 +1064,15 @@ namespace Facebook.Unity
             }
 
             /// <summary>
+            /// Sets the setting for Advertiser Tracking Enabled.
+            /// </summary>
+            /// <param name="advertiserTrackingEnabled">The setting for Advertiser Tracking Enabled</param>
+            public static bool SetAdvertiserTrackingEnabled(bool advertiserTrackingEnabled)
+            {
+                return Mobile.MobileFacebookImpl.SetAdvertiserTrackingEnabled(advertiserTrackingEnabled);
+            }
+
+            /// <summary>
             /// Sets device token in the purpose of uninstall tracking.
             /// </summary>
             /// <param name="token">The device token from APNs</param>
@@ -1023,6 +1097,22 @@ namespace Facebook.Unity
                 {
                     var androidFacebook = FacebookImpl as AndroidFacebook;
                     return (androidFacebook != null) ? androidFacebook.KeyHash : string.Empty;
+                }
+            }
+
+            /// <summary>
+            /// Retrieves the login status for the user. This will return an access token for the app if a user
+            /// is logged into the Facebook for Android app on the same device and that user had previously
+            /// logged into the app.If an access token was retrieved then a toast will be shown telling the
+            /// user that they have been logged in.
+            /// </summary>
+            /// <param name="callback">The callback to be called when the request completes</param>
+            public static void RetrieveLoginStatus(FacebookDelegate<ILoginStatusResult> callback)
+            {
+                var androidFacebook = FacebookImpl as AndroidFacebook;
+                if (androidFacebook != null)
+                {
+                    androidFacebook.RetrieveLoginStatus(callback);
                 }
             }
         }

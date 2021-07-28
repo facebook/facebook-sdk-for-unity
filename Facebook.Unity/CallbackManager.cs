@@ -66,6 +66,19 @@ namespace Facebook.Unity
             if (CallbackManager.TryCallCallback<IAppRequestResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IShareResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IGamingServicesFriendFinderResult>(callback, result) ||
+                CallbackManager.TryCallCallback<IIAPReadyResult>(callback, result) ||
+                CallbackManager.TryCallCallback<ICatalogResult>(callback, result) ||
+                CallbackManager.TryCallCallback<IPurchasesResult>(callback, result) ||
+                CallbackManager.TryCallCallback<IPurchaseResult>(callback, result) ||
+                CallbackManager.TryCallCallback<IConsumePurchaseResult>(callback, result) ||
+                CallbackManager.TryCallCallback<IInitCloudGameResult>(callback, result) ||
+                CallbackManager.TryCallCallback<IScheduleAppToUserNotificationResult>(callback, result) ||
+                CallbackManager.TryCallCallback<IInterstitialAdResult>(callback, result) ||
+                CallbackManager.TryCallCallback<IRewardedVideoResult>(callback, result) ||
+                CallbackManager.TryCallCallback<IPayloadResult>(callback, result) ||
+                CallbackManager.TryCallCallback<ISessionScoreResult>(callback, result) ||
+                CallbackManager.TryCallCallback<ITournamentResult>(callback, result) ||
+                CallbackManager.TryCallCallback<ITournamentScoreResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IGroupCreateResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IGroupJoinResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IMediaUploadResult>(callback, result) ||
@@ -73,7 +86,8 @@ namespace Facebook.Unity
                 CallbackManager.TryCallCallback<IAppLinkResult>(callback, result) ||
                 CallbackManager.TryCallCallback<ILoginResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IAccessTokenRefreshResult>(callback, result) ||
-                CallbackManager.TryCallCallback<IHasLicenseResult>(callback, result))
+                CallbackManager.TryCallCallback<IHasLicenseResult>(callback, result) ||
+                CallbackManager.TryCallCallback<ILoginStatusResult>(callback, result))
             {
                 return;
             }

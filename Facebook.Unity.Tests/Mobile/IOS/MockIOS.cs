@@ -54,6 +54,11 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             Facebook.OnInitComplete(resultContainer);
         }
 
+        public void EnableProfileUpdatesOnAccessTokenChange(bool enable)
+        {
+            this.LogMethodCall();
+        }
+
         public void LogInWithReadPermissions(
             int requestId,
             string scope)
@@ -70,9 +75,31 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             this.LoginCommon(requestId, scope);
         }
 
+        public void LoginWithTrackingPreference(
+            int requestId,
+            string scope,
+            string tracking,
+            string nonce)
+        {
+            this.LogMethodCall();
+            this.LoginCommon(requestId, scope);
+        }
+
         public void LogOut()
         {
             this.LogMethodCall();
+        }
+
+        public AuthenticationToken CurrentAuthenticationToken()
+        {
+            this.LogMethodCall();
+            return null;
+        }
+
+        public Profile CurrentProfile()
+        {
+            this.LogMethodCall();
+            return null;
         }
 
         public void SetPushNotificationsDeviceTokenString(string token)
@@ -167,6 +194,12 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             this.LogMethodCall();
         }
 
+        public bool FBAdvertiserTrackingEnabled(bool advertiserTrackingEnabled)
+        {
+            this.LogMethodCall();
+            return true;
+        }
+
         public void FBAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled)
         {
             this.LogMethodCall();
@@ -226,6 +259,11 @@ namespace Facebook.Unity.Tests.Mobile.IOS
         }
 
         public void UpdateUserProperties(int numParams, string[] paramKeys, string[] paramVals)
+        {
+            this.LogMethodCall();
+        }
+
+        public void SetDataProcessingOptions(string[] options, int country, int state)
         {
             this.LogMethodCall();
         }

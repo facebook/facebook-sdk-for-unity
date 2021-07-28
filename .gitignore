@@ -36,9 +36,6 @@ build
 # vim temp files
 *.swp
 
-# Arc generated
-.phutil_module_cache
-
 # Unity3D generated meta files
 *.pidb.meta
 
@@ -106,7 +103,7 @@ ads/.vs/
 /.buckconfig.local
 /.buckd
 /.buckjavaargs.local
-/.buckversion.local
+/.buck-java11.local
 /.bucklogging.local.properties
 .fakebuckversion
 /.nobuckcheck

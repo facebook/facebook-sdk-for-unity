@@ -47,5 +47,10 @@ namespace Facebook.Unity.Mobile.Android
         public void onPurchaseCompleteHandler(System.Object data) {
             CodelessIAPAutoLog.handlePurchaseCompleted(data);
         }
+
+        public void OnLoginStatusRetrieved(string message)
+        {
+            ((AndroidFacebook)this.Facebook).OnLoginStatusRetrieved(new ResultContainer(message));
+        }
     }
 }

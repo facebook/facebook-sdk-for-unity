@@ -30,9 +30,9 @@ namespace Facebook.Unity.Example
     {
 
         enum Scope {
-            PublicProfile   = 0b_0000_0001, 
-            UserFriends     = 0b_0000_0010, 
-            UserBirthday    = 0b_0000_0100, 
+            PublicProfile   = 0b_0000_0001,
+            UserFriends     = 0b_0000_0010,
+            UserBirthday    = 0b_0000_0100,
             UserAgeRange    = 0b_0000_1000,
             PublishActions  = 0b_0001_0000,
             UserLocation    = 0b_0010_0000,
@@ -73,7 +73,7 @@ namespace Facebook.Unity.Example
 
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
-            
+
             if (this.Button("Limited login"))
             {
                 this.CallFBLogin(LoginTracking.LIMITED, Scope.PublicProfile);
@@ -88,7 +88,7 @@ namespace Facebook.Unity.Example
             }
 
             GUILayout.EndHorizontal();
-            GUILayout.BeginHorizontal();           
+            GUILayout.BeginHorizontal();
 
             if (this.Button("Limited Login+bday"))
             {
@@ -192,9 +192,9 @@ namespace Facebook.Unity.Example
             List<string> scopes = new List<string>();
 
             if((scopemask & Scope.PublicProfile) > 0) {
-                scopes.Add("public_profile");                
+                scopes.Add("public_profile");
             }
-            if((scopemask & Scope.UserFriends) > 0) 
+            if((scopemask & Scope.UserFriends) > 0)
             {
                 scopes.Add("user_friends");
             }
@@ -225,7 +225,11 @@ namespace Facebook.Unity.Example
 
             if (mode == LoginTracking.ENABLED)
             {
-                FB.Mobile.LoginWithTrackingPreference(LoginTracking.ENABLED, scopes, "classic_nonce123", this.HandleResult);    
+                if (Constants.CurrentPlatform == FacebookUnityPlatform.IOS) {
+                    FB.Mobile.LoginWithTrackingPreference(LoginTracking.ENABLED, scopes, "classic_nonce123", this.HandleResult);
+                } else {
+                    FB.LogInWithReadPermissions(scopes, this.HandleResult);
+                }
             }
             else // mode == loginTracking.LIMITED
             {

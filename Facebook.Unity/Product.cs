@@ -37,6 +37,7 @@ namespace Facebook.Unity
         /// <param name="description">The product description.</param>
         /// <param name="imageURI">A link to the product's associated image.</param>
         /// <param name="price">The price of the product.</param>
+        /// <param name="priceAmount">The numeric price of a product.</param>
         /// <param name="priceCurrencyCode">The currency code for the product.</param>
         internal Product(
             string title,
@@ -44,6 +45,7 @@ namespace Facebook.Unity
             string description,
             string imageURI,
             string price,
+            double? priceAmount,
             string priceCurrencyCode)
         {
             if (string.IsNullOrEmpty(title))
@@ -71,6 +73,7 @@ namespace Facebook.Unity
             this.Description = description;
             this.ImageURI = imageURI;
             this.Price = price;
+            this.PriceAmount = priceAmount;
             this.PriceCurrencyCode = priceCurrencyCode;
         }
 
@@ -104,6 +107,11 @@ namespace Facebook.Unity
         /// <value>The price.</value>
         public string Price { get; private set; }
 
+        /// <summary>
+        /// Gets the price amount.
+        /// </summary>
+        /// <value>The price amount.</value>
+        public double? PriceAmount { get; private set; }
 
         /// <summary>
         /// Gets the price currency code.
@@ -127,6 +135,7 @@ namespace Facebook.Unity
                     { "Description", this.Description.ToStringNullOk() },
                     { "ImageURI", this.ImageURI.ToStringNullOk() },
                     { "Price", this.Price },
+                    { "PriceAmount", this.PriceAmount.ToStringNullOk() },
                     { "PriceCurrencyCode", this.PriceCurrencyCode },
                 });
         }

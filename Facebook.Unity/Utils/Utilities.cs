@@ -277,9 +277,10 @@ namespace Facebook.Unity
                     string description = product["description"].ToStringNullOk();
                     string imageURI = product.ContainsKey("imageURI") ? product["imageURI"].ToStringNullOk() : "";
                     string price = product["price"].ToStringNullOk();
+                    double? priceAmount = product.ContainsKey("priceAmount") ? (double?) product["priceAmount"] : null;
                     string priceCurrencyCode = product["priceCurrencyCode"].ToStringNullOk();
 
-                    products.Add(new Product(title, productID, description, imageURI, price, priceCurrencyCode));
+                    products.Add(new Product(title, productID, description, imageURI, price, priceAmount, priceCurrencyCode));
                 }
                 return products;
             }

@@ -30,14 +30,14 @@ namespace Facebook.Unity.Example
     {
 
         enum Scope {
-            PublicProfile   = 0b_0000_0001,
-            UserFriends     = 0b_0000_0010,
-            UserBirthday    = 0b_0000_0100,
-            UserAgeRange    = 0b_0000_1000,
-            PublishActions  = 0b_0001_0000,
-            UserLocation    = 0b_0010_0000,
-            UserHometown    = 0b_0100_0000,
-            UserGender      = 0b_1000_0000,
+            PublicProfile   = 1,
+            UserFriends     = 2,
+            UserBirthday    = 3,
+            UserAgeRange    = 4,
+            PublishActions  = 5,
+            UserLocation    = 6,
+            UserHometown    = 7,
+            UserGender      = 8,
         };
 
         protected override bool ShowBackButton()

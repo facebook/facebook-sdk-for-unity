@@ -119,8 +119,14 @@ namespace Facebook.Unity.Example
             resultSummary += "middle name: " + profile.MiddleName + "\n";
             resultSummary += "last name: " + profile.LastName + "\n";
             resultSummary += "friends: " + String.Join(",", profile.FriendIDs)  + "\n";
-            resultSummary += "hometown: " + profile.Hometown?.Name + "\n";
-            resultSummary += "location: " + profile.Location?.Name + "\n";
+
+            if (profile.Hometown!=null){
+                resultSummary += "hometown: " + profile.Hometown.Name + "\n";
+            }
+            if (profile.Location!=null){
+                resultSummary += "location: " + profile.Location.Name + "\n";
+            }
+
             resultSummary += "gender: " + profile.Gender + "\n";
 
             LogView.AddLog(resultSummary);

@@ -19,14 +19,13 @@
 
 # shellcheck disable=SC2039
 
-cd "$( dirname "${BASH_SOURCE[0]}" )/.."
+cd "$( dirname "${BASH_SOURCE[0]}" )/.." || exit 1
 PROJECT_ROOT=$(pwd)
 
 export SCRIPTS_DIR="$PROJECT_ROOT/scripts"
 
 CORE_ROOT=$PROJECT_ROOT/Facebook.Unity
 
-UNITY_PATH="/Applications/Unity/Unity.app/Contents/MacOS/Unity"
 UNITY_PACKAGE_ROOT=$PROJECT_ROOT/UnitySDK
 UNITY_PACKAGE_PLUGIN=$UNITY_PACKAGE_ROOT/Assets/FacebookSDK/Plugins/
 export UNITY_ANDROID_PLUGIN=$UNITY_PACKAGE_PLUGIN/Android/
@@ -58,6 +57,25 @@ UNITY_JAR_RESOLVER_ZIP_URL="$UNITY_JAR_RESOLVER_BASE_URL$UNITY_JAR_RESOLVER_VERS
 
 export OUT="$PROJECT_ROOT/out"
 
+# Read UnityReferences.xml and extract unity executable path
+set_unity_path_from_settings() {
+  UNITY_VERSION=$(awk "/\<UNITY_VERSION\>/, /\<\/UNITY_VERSION\>/" UnityReferences.xml | sed -e "s/\<UNITY_VERSION\>\(.*\)\<\/UNITY_VERSION\>/\1/" | xargs)
+  if [ "$UNITY_VERSION" == 'NONE' ]; then
+    echo "!Unity project not configured. Please, execute ./configure.sh to set Unity version."
+    exit 1
+  fi
+  UNITY_CONFIG=$(sed -n "/\<PropertyGroup Condition=\"\'\$(UNITY_VERSION)\' == \'$UNITY_VERSION\'\"\>/,/<\/PropertyGroup>/p" UnityReferences.xml | grep -v PropertyGroup)
+  MANAGED=$(awk "/\<UNITY_MANAGED_DIR\>/, /\<\/UNITY_MANAGED_DIR\>/" <<< "$UNITY_CONFIG" | sed -e "s/\<UNITY_MANAGED_DIR\>\(.*\)\<\/UNITY_MANAGED_DIR\>/\1/" | xargs)
+  UNITY_PATH=$(sed "s/Managed\//MacOS\/Unity/" <<< "$MANAGED")
+  if [ ! -f "$UNITY_PATH" ]; then
+      echo "Unity executable $UNITY_PATH not found."
+      exit 1
+  fi
+  echo "Using Unity executable $UNITY_PATH "
+}
+
+set_unity_path_from_settings
+
 die() {
   echo ""
   echo "${RED}FATAL: $* ${NC}" >&2
@@ -76,11 +94,11 @@ info() {
 downloadUnityJarResolverFromGithub() {
   UNITY_JAR_RESOLVER_PACKAGE="$UNITY_JAR_RESOLVER_PACKAGE_NAME.unitypackage"
 
-  pushd $PROJECT_ROOT > /dev/null
+  pushd "$PROJECT_ROOT" > /dev/null || exit 1
   info "Downloading unity-jar-resolver..."
   curl -L "$UNITY_JAR_RESOLVER_ZIP_URL" > $UNITY_JAR_RESOLVER_NAME.zip || die "Failed to download $UNITY_JAR_RESOLVER_URL"
   unzip -o -j -q $UNITY_JAR_RESOLVER_NAME.zip -d $UNITY_JAR_RESOLVER_NAME
-  mv $UNITY_JAR_RESOLVER_NAME/$UNITY_JAR_RESOLVER_PACKAGE_NAME-$UNITY_JAR_RESOLVER_VERSION.unitypackage $PROJECT_ROOT/$UNITY_JAR_RESOLVER_PACKAGE
+  mv $UNITY_JAR_RESOLVER_NAME/$UNITY_JAR_RESOLVER_PACKAGE_NAME-$UNITY_JAR_RESOLVER_VERSION.unitypackage "$PROJECT_ROOT"/$UNITY_JAR_RESOLVER_PACKAGE
   rm -rf $UNITY_JAR_RESOLVER_NAME.zip $UNITY_JAR_RESOLVER_NAME
   info "Importing unity-jar-resolver to UnitySDK project..."
 
@@ -90,7 +108,7 @@ downloadUnityJarResolverFromGithub() {
    -importPackage "$UNITY_PACKAGE_PATH" || die "Failed to import $UNITY_PACKAGE_PATH"
   info "Cleaning up..."
   rm "$UNITY_PACKAGE_PATH"
-  popd > /dev/null
+  popd > /dev/null || exit 1
 }
 
 validate_file_exists() {

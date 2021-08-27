@@ -1,0 +1,8 @@
+﻿  <ItemGroup>
+    <Reference Include="UnityEditor">
+      <HintPath>$(UNITY_MANAGED_DIR)UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>

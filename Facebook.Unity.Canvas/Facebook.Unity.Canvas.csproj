@@ -29,11 +29,12 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
+  <Import Project="$(SolutionDir)UnityReferences.xml"></Import>
+  <!-- Use ./configure.sh command to add correct unity references -->
+  <!-- BEGIN_UNITY_REFERENCES -->
+  <!-- END_UNITY_REFERENCES -->
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="UnityEngine">
-      <HintPath>\Applications\Unity\Unity.app\Contents\Managed\UnityEngine.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

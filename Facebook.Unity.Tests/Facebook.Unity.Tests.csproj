@@ -98,14 +98,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VersionNumberCheck.cs" />
   </ItemGroup>
+  <Import Project="$(SolutionDir)UnityReferences.xml"></Import>
+  <!-- Use ./configure.sh command to add correct unity references -->
+  <!-- BEGIN_UNITY_REFERENCES -->
+  <!-- END_UNITY_REFERENCES -->
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="UnityEditor">
-      <HintPath>\Applications\Unity\Unity.app\Contents\Managed\UnityEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>\Applications\Unity\Unity.app\Contents\Managed\UnityEngine.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.core" />
     <Reference Include="nunit.mocks">
       <HintPath>..\packages\NUnit.Mocks.2.6.4\lib\nunit.mocks.dll</HintPath>

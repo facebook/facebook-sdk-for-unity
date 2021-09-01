@@ -25,6 +25,7 @@ namespace Facebook.Unity
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.Networking;
 
     /*
      * A short lived async request that loads a FBResult from a url endpoint
@@ -81,7 +82,7 @@ namespace Facebook.Unity
 
         internal IEnumerator Start()
         {
-            WWW www;
+            UnityWebRequestAsyncOperation webRequestOperation;
             if (this.method == HttpMethod.GET)
             {
                 string urlParams = this.url.AbsoluteUri.Contains("?") ? "&" : "?";
@@ -93,14 +94,13 @@ namespace Facebook.Unity
                     }
                 }
 
-                Dictionary<string, string> headers = new Dictionary<string, string>();
-
+                UnityWebRequest webRequest = UnityWebRequest.Get(url + urlParams);
                 if (Constants.CurrentPlatform != FacebookUnityPlatform.WebGL)
                 {
-                    headers["User-Agent"] = Constants.GraphApiUserAgent;
+                    webRequest.SetRequestHeader("User-Agent", Constants.GraphApiUserAgent);
                 }
 
-                www = new WWW(this.url + urlParams, null, headers);
+                webRequestOperation = webRequest.SendWebRequest();
             }
             else
             {
@@ -128,18 +128,19 @@ namespace Facebook.Unity
                     this.query.headers["User-Agent"] = Constants.GraphApiUserAgent;
                 }
 
-                www = new WWW(this.url.AbsoluteUri, this.query);
+                UnityWebRequest webRequest = UnityWebRequest.Post(url.AbsoluteUri, query);
+                webRequestOperation = webRequest.SendWebRequest();
             }
 
-            yield return www;
+            yield return webRequestOperation;
 
             if (this.callback != null)
             {
-                this.callback(new GraphResult(www));
+                this.callback(new GraphResult(webRequestOperation));
             }
 
-            // after the callback is called, www should be able to be disposed
-            www.Dispose();
+            // after the callback is called,  web request should be able to be disposed
+            webRequestOperation.webRequest.Dispose();
             MonoBehaviour.Destroy(this);
         }
 

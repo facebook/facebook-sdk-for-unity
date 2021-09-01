@@ -28,21 +28,21 @@ BUILD_TYPE="Release"
 localSettings=false
 
 while [ $# -gt 0 ]; do
-	opt="$1"
-	shift
-	case $opt in
-		--debug)
-			BUILD_TYPE=Debug
-			;;
-		--release)
-			;;
-		--local)
-			localSettings=true
-			;;
-		*)
-			die "Invalid arguments"
-			;;
-	esac
+  opt="$1"
+  shift
+  case $opt in
+  --debug)
+    BUILD_TYPE=Debug
+    ;;
+  --release)
+    ;;
+  --local)
+    localSettings=true
+    ;;
+    *)
+    die "Invalid arguments"
+    ;;
+  esac
 done
 
 # Load settings
@@ -86,6 +86,10 @@ ANDROID_STRIPPING_HACK_DLL=$ANDROID_STRIPPING_HACK_ROOT/bin/Release/Facebook.Uni
 
 CORE_DLL=$CORE_ROOT/bin/Release/Facebook.Unity.dll
 
+WINDOWS_ROOT=$PROJECT_ROOT/Facebook.Unity.Windows
+WINDOWS_DLL=$WINDOWS_ROOT/bin/Release/Facebook.Unity.Windows.dll
+WINDOWS_SDK_DLL_DIR=$WINDOWS_ROOT/Plugins/
+
 ###############################################################################
 # UPDATE BUILD VERSION
 ###############################################################################
@@ -94,6 +98,7 @@ sed -i "" -e "s/AssemblyVersion(\"[0-9]\.[0-9][0-9]\.[0-9]\")/AssemblyVersion(\"
 "$PROJECT_ROOT/Facebook.Unity/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Canvas/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Gameroom/Properties/AssemblyInfo.cs" \
+"$PROJECT_ROOT/Facebook.Unity.Windows/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Editor/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.IOS/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.IOS.StrippingHack/Properties/AssemblyInfo.cs" \
@@ -132,6 +137,12 @@ if [ ! -d "$UNITY_GAMEROOM_PLUGIN" ]; then
 fi
 cp "$GAMEROOM_DLL" "$UNITY_GAMEROOM_PLUGIN" || die "Failed to copy Gameroom DLL"
 cp "$GAMEROOM_NAMED_PIPE_DLL" "$UNITY_GAMEROOM_PLUGIN" || die "Failed to copy FacebookNamedPipeClient DLL"
+
+if [ ! -d "$UNITY_WINDOWS_PLUGIN" ]; then
+  mkdir -p "$UNITY_WINDOWS_PLUGIN" || die "Failed to create Windows plugins folder"
+fi
+cp "$WINDOWS_DLL" "$UNITY_WINDOWS_PLUGIN" || die "Failed to copy Windows DLL"
+cp "$WINDOWS_SDK_DLL_DIR"* "$UNITY_WINDOWS_PLUGIN" || die "Failed to copy Windows SDK DLLs"
 
 if [ ! -d "$UNITY_EDITOR_PLUGIN" ]; then
   mkdir -p "$UNITY_EDITOR_PLUGIN" || die "Failed to create Editor plugins folder"

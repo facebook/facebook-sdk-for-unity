@@ -34,6 +34,9 @@
   <!-- END_UNITY_REFERENCES -->
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="LibFBGManaged">
+      <HintPath>Plugins\LibFBGManaged.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -43,6 +46,21 @@
     <ProjectReference Include="..\Facebook.Unity\Facebook.Unity.csproj">
       <Name>Facebook.Unity</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Plugins\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Plugins\cpprest_2_10.dll" />
+    <None Include="Plugins\libcrypto-1_1-x64.dll" />
+    <None Include="Plugins\libcurl.dll" />
+    <None Include="Plugins\LibFBGManaged.dll" />
+    <None Include="Plugins\LibFBGPlatform.dll" />
+    <None Include="Plugins\LibFBGUI.dll" />
+    <None Include="Plugins\libssl-1_1-x64.dll" />
+    <None Include="Plugins\tinyxml2.dll" />
+    <None Include="Plugins\WebView2Loader.dll" />
+    <None Include="Plugins\zlib1.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

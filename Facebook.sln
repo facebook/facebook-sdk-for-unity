@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity.Gameroom", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity.Canvas", "Facebook.Unity.Canvas\Facebook.Unity.Canvas.csproj", "{F0ED0CDD-F963-4266-8C08-670C05BA611E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity.Windows", "Facebook.Unity.Windows\Facebook.Unity.Windows.csproj", "{A4CFF4CA-9F89-427C-A4A4-2A735A6FF13B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,8 +69,12 @@ Global
 		{F0ED0CDD-F963-4266-8C08-670C05BA611E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0ED0CDD-F963-4266-8C08-670C05BA611E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0ED0CDD-F963-4266-8C08-670C05BA611E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4CFF4CA-9F89-427C-A4A4-2A735A6FF13B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4CFF4CA-9F89-427C-A4A4-2A735A6FF13B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4CFF4CA-9F89-427C-A4A4-2A735A6FF13B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4CFF4CA-9F89-427C-A4A4-2A735A6FF13B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		version = 
+		version =
 	EndGlobalSection
 EndGlobal

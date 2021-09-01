@@ -203,7 +203,7 @@ namespace Facebook.Unity
                 case RuntimePlatform.WebGLPlayer:
                     return FacebookUnityPlatform.WebGL;
                 case RuntimePlatform.WindowsPlayer:
-                    return FacebookUnityPlatform.Gameroom;
+                    return FacebookUnityPlatform.Windows;
                 default:
                     return FacebookUnityPlatform.Unknown;
             }

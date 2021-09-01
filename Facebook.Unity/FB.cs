@@ -23,6 +23,7 @@ namespace Facebook.Unity
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using Facebook.Unity.Windows;
     using Facebook.Unity.Gameroom;
     using Facebook.Unity.Canvas;
     using Facebook.Unity.Editor;
@@ -31,6 +32,7 @@ namespace Facebook.Unity
     using Facebook.Unity.Mobile.IOS;
     using Facebook.Unity.Settings;
     using UnityEngine;
+    using UnityEditor;
 
     /// <summary>
     /// Static class for exposing the facebook integration.
@@ -250,14 +252,27 @@ namespace Facebook.Unity
 
                 if (Constants.IsEditor)
                 {
-                    FB.OnDLLLoadedDelegate = delegate
+                    if (Application.platform == RuntimePlatform.WindowsEditor && ( EditorUserBuildSettings.activeBuildTarget == BuildTarget.StandaloneWindows || EditorUserBuildSettings.activeBuildTarget == BuildTarget.StandaloneWindows64) )
                     {
-                        ((EditorFacebook)FB.facebook).Init(onInitComplete);
-                    };
+                        FacebookLogger.Warn("You are running Facebook Windows SDK on a Windows device.");
+                        FB.OnDLLLoadedDelegate = delegate
+                        {
+                            ((WindowsFacebook)FB.facebook).Init(appId, onHideUnity, onInitComplete);
+                        };
+                        ComponentFactory.GetComponent<WindowsFacebookLoader>();
 
-                    ComponentFactory.GetComponent<EditorFacebookLoader>();
-                    ComponentFactory.GetComponent<CodelessCrawler>();
-                    ComponentFactory.GetComponent<CodelessUIInteractEvent>();
+                    }
+                    else
+                    {
+                        FB.OnDLLLoadedDelegate = delegate
+                        {
+                            ((EditorFacebook)FB.facebook).Init(onInitComplete);
+                        };
+
+                        ComponentFactory.GetComponent<EditorFacebookLoader>();
+                        ComponentFactory.GetComponent<CodelessCrawler>();
+                        ComponentFactory.GetComponent<CodelessUIInteractEvent>();
+                    }
                 }
                 else
                 {
@@ -314,6 +329,13 @@ namespace Facebook.Unity
                                 ((GameroomFacebook)FB.facebook).Init(appId, onHideUnity, onInitComplete);
                             };
                             ComponentFactory.GetComponent<GameroomFacebookLoader>();
+                            break;
+                        case FacebookUnityPlatform.Windows:
+                            FB.OnDLLLoadedDelegate = delegate
+                            {
+                                ((WindowsFacebook)FB.facebook).Init(appId, onHideUnity, onInitComplete);
+                            };
+                            ComponentFactory.GetComponent<WindowsFacebookLoader>();
                             break;
                         default:
                             throw new NotSupportedException("The facebook sdk does not support this platform");
@@ -967,7 +989,7 @@ namespace Facebook.Unity
 
             /// <summary>
             /// Call this function so that Profile will be automatically updated based on the changes to the access token.
-            /// </summary> 
+            /// </summary>
             public static void EnableProfileUpdatesOnAccessTokenChange(bool enable)
             {
                 Mobile.MobileFacebookImpl.EnableProfileUpdatesOnAccessTokenChange(enable);

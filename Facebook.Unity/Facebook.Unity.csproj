@@ -187,6 +187,13 @@
     <Compile Include="Results\TournamentResult.cs" />
     <Compile Include="Results\ITournamentScoreResult.cs" />
     <Compile Include="Results\TournamentScoreResult.cs" />
+    <Compile Include="Windows\WindowsFacebook.cs" />
+    <Compile Include="Windows\IWindowsFacebookImplementation.cs" />
+    <Compile Include="Windows\IWindowsFacebookResultHandler.cs" />
+    <Compile Include="Windows\IWindowsFacebook.cs" />
+    <Compile Include="Windows\IWindowsWrapper.cs" />
+    <Compile Include="Windows\WindowsFacebookLoader.cs" />
+    <Compile Include="Windows\WindowsFacebookGameObject.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

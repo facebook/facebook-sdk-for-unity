@@ -146,16 +146,6 @@ namespace Facebook.Unity.Windows
         }
 
         // START TO DO -------------------------------
-        public override void AppRequest(string message, OGActionType? actionType, string objectId, IEnumerable<string> to, IEnumerable<object> filters, IEnumerable<string> excludeIds, int? maxRecipients, string data, string title, FacebookDelegate<IAppRequestResult> callback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void OnAppRequestsComplete(ResultContainer resultContainer)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Pay(string product, string action, int quantity, int? quantityMin, int? quantityMax, string requestId, string pricepointId, string testCurrency, FacebookDelegate<IPayResult> callback)
         {
             throw new NotImplementedException();
@@ -192,6 +182,14 @@ namespace Facebook.Unity.Windows
         }
 
         // Not supported by Windows SDK
+        public override void AppRequest(string message, OGActionType? actionType, string objectId, IEnumerable<string> to, IEnumerable<object> filters, IEnumerable<string> excludeIds, int? maxRecipients, string data, string title, FacebookDelegate<IAppRequestResult> callback)
+        {
+            throw new NotSupportedException();
+        }
+        public override void OnAppRequestsComplete(ResultContainer resultContainer)
+        {
+            throw new NotSupportedException();
+        }
         public override void OnLoginComplete(ResultContainer resultContainer)
         {
             throw new NotSupportedException();

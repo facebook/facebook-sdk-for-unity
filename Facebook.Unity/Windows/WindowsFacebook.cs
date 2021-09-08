@@ -23,7 +23,6 @@ namespace Facebook.Unity.Windows
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-
     internal sealed class WindowsFacebook : FacebookBase,
     IWindowsFacebookImplementation
     {
@@ -58,7 +57,6 @@ namespace Facebook.Unity.Windows
                 return "1.0.3";
             }
         }
-
         public void Init(
             string appId,
             string clientToken,
@@ -97,32 +95,12 @@ namespace Facebook.Unity.Windows
             }
         }
 
-        public override void AppRequest(string message, OGActionType? actionType, string objectId, IEnumerable<string> to, IEnumerable<object> filters, IEnumerable<string> excludeIds, int? maxRecipients, string data, string title, FacebookDelegate<IAppRequestResult> callback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void ShareLink(Uri contentURL, string contentTitle, string contentDescription, Uri photoURL, FacebookDelegate<IShareResult> callback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void FeedShare(string toId, Uri link, string linkName, string linkCaption, string linkDescription, Uri picture, string mediaSource, FacebookDelegate<IShareResult> callback)
-        {
-            throw new NotImplementedException();
-        }
-
         public override void ActivateApp(string appId = null)
         {
             this.AppEventsLogEvent(
                 AppEventName.ActivatedApp,
                 null,
                 new Dictionary<string, object>());
-        }
-
-        public override void GetAppLink(FacebookDelegate<IAppLinkResult> callback)
-        {
-            throw new NotImplementedException();
         }
 
         public override void AppEventsLogEvent(string logEvent, float? valueToSum, Dictionary<string, object> parameters)
@@ -150,27 +128,30 @@ namespace Facebook.Unity.Windows
                 formData);
         }
 
-        public override void AppEventsLogPurchase(float logPurchase, string currency, Dictionary<string, object> parameters)
+        public override void AppEventsLogPurchase(
+            float logPurchase,
+            string currency,
+            Dictionary<string, object> parameters)
         {
-            throw new NotImplementedException();
+            if (parameters == null)
+            {
+                parameters = new Dictionary<string, object>();
+            }
+
+            parameters.Add("currency", currency);
+            this.AppEventsLogEvent(
+                AppEventName.Purchased,
+                logPurchase,
+                parameters);
         }
 
-        public override void OnLoginComplete(ResultContainer resultContainer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void OnGetAppLinkComplete(ResultContainer resultContainer)
+        // START TO DO -------------------------------
+        public override void AppRequest(string message, OGActionType? actionType, string objectId, IEnumerable<string> to, IEnumerable<object> filters, IEnumerable<string> excludeIds, int? maxRecipients, string data, string title, FacebookDelegate<IAppRequestResult> callback)
         {
             throw new NotImplementedException();
         }
 
         public override void OnAppRequestsComplete(ResultContainer resultContainer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void OnShareLinkComplete(ResultContainer resultContainer)
         {
             throw new NotImplementedException();
         }
@@ -189,6 +170,7 @@ namespace Facebook.Unity.Windows
         {
             throw new NotImplementedException();
         }
+        // END TO DO -------------------------------
 
         private static IWindowsWrapper GetWindowsWrapper()
         {
@@ -198,6 +180,7 @@ namespace Facebook.Unity.Windows
             return windowsWrapper;
         }
 
+        // Only Windows SDK
         public void Tick()
         {
             this.windowsWrapper.Tick();
@@ -207,5 +190,32 @@ namespace Facebook.Unity.Windows
         {
             this.windowsWrapper.Deinit();
         }
+
+        // Not supported by Windows SDK
+        public override void OnLoginComplete(ResultContainer resultContainer)
+        {
+            throw new NotSupportedException();
+        }
+        public override void FeedShare(string toId, Uri link, string linkName, string linkCaption, string linkDescription, Uri picture, string mediaSource, FacebookDelegate<IShareResult> callback)
+        {
+            throw new NotSupportedException();
+        }
+        public override void ShareLink(Uri contentURL, string contentTitle, string contentDescription, Uri photoURL, FacebookDelegate<IShareResult> callback)
+        {
+            throw new NotSupportedException();
+        }
+        public override void GetAppLink(FacebookDelegate<IAppLinkResult> callback)
+        {
+            throw new NotSupportedException();
+        }
+        public override void OnShareLinkComplete(ResultContainer resultContainer)
+        {
+            throw new NotSupportedException();
+        }
+        public override void OnGetAppLinkComplete(ResultContainer resultContainer)
+        {
+            throw new NotSupportedException();
+        }
+
     }
 }

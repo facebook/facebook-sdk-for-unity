@@ -34,5 +34,15 @@ namespace Facebook.Unity.Windows
         protected override void OnAwake()
         {
         }
+
+        public void Update()
+        {
+            this.WindowsFacebookImpl.Tick();
+        }
+
+        public void OnDestroy()
+        {
+            this.WindowsFacebookImpl.Deinit();
+        }
     }
 }

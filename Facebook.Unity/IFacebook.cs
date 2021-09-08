@@ -36,7 +36,7 @@ namespace Facebook.Unity
 
         string SDKUserAgent { get; }
 
-        bool Initialized { get; }
+        bool Initialized { get; set; }
 
         void LogInWithPublishPermissions(
             IEnumerable<string> permissions,

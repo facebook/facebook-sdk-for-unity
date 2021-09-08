@@ -256,7 +256,7 @@ namespace Facebook.Unity
                         FacebookLogger.Warn("You are running Facebook Windows SDK on a Windows device.");
                         FB.OnDLLLoadedDelegate = delegate
                         {
-                            ((WindowsFacebook)FB.facebook).Init(appId, onHideUnity, onInitComplete);
+                            ((WindowsFacebook)FB.facebook).Init(appId, clientToken, onHideUnity, onInitComplete);
                         };
                         ComponentFactory.GetComponent<WindowsFacebookLoader>();
 
@@ -332,7 +332,7 @@ namespace Facebook.Unity
                         case FacebookUnityPlatform.Windows:
                             FB.OnDLLLoadedDelegate = delegate
                             {
-                                ((WindowsFacebook)FB.facebook).Init(appId, onHideUnity, onInitComplete);
+                                ((WindowsFacebook)FB.facebook).Init(appId, clientToken, onHideUnity, onInitComplete);
                             };
                             ComponentFactory.GetComponent<WindowsFacebookLoader>();
                             break;
@@ -1164,6 +1164,23 @@ namespace Facebook.Unity
                 FacebookDelegate<IHasLicenseResult> callback = null)
             {
                 Gameroom.GameroomFacebookImpl.HasLicense(callback);
+            }
+        }
+
+        public sealed class Windows
+        {
+            private static IWindowsFacebook WindowsFacebookImpl
+            {
+                get
+                {
+                    IWindowsFacebook impl = FacebookImpl as IWindowsFacebook;
+                    if (impl == null)
+                    {
+                        throw new InvalidOperationException("Attempt to call Windows interface on non Windows platform");
+                    }
+
+                    return impl;
+                }
             }
         }
 

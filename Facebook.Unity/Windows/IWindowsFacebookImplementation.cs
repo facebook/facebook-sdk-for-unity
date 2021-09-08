@@ -22,5 +22,8 @@ namespace Facebook.Unity.Windows
 {
     internal interface IWindowsFacebookImplementation : IWindowsFacebook, IWindowsFacebookResultHandler
     {
+        void Tick();
+
+        void Deinit();
     }
 }

@@ -22,16 +22,34 @@ namespace Facebook.Unity.Windows
 {
     using System;
     using System.Collections.Generic;
+    using UnityEngine;
 
     internal class WindowsWrapper : IWindowsWrapper
     {
+
+        private fbg.InitResult result;
+
         public WindowsWrapper()
         {
         }
 
-        public void Init(WindowsFacebook.OnComplete completeDelegate)
+        public bool Init(string appId,string clientToken)
         {
-           
+            WindowsOptions options = new WindowsOptions(clientToken);
+            this.result = fbg.Globals.init(appId, JsonUtility.ToJson(options));
+            return result == fbg.InitResult.Success;
         }
+
+        public void Tick()
+        {
+            fbg.Globals.tick();
+        }
+
+        public void Deinit()
+        {
+            this.result = fbg.Globals.deinit();
+            Debug.Log("Deinitialized Facebook SDK: " + this.result);
+        }
+
     }
 }

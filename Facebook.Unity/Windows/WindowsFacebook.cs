@@ -61,12 +61,17 @@ namespace Facebook.Unity.Windows
 
         public void Init(
             string appId,
+            string clientToken,
             HideUnityDelegate hideUnityDelegate,
             InitDelegate onInitComplete)
         {
-            base.Init(onInitComplete);
             this.appId = appId;
-            this.windowsWrapper.Init(this.OnInitComplete);
+            Initialized = this.windowsWrapper.Init(appId, clientToken);
+
+            if (Initialized)
+            {
+                onInitComplete.Invoke();
+            }
         }
 
         public override void LogInWithPublishPermissions(IEnumerable<string> scope, FacebookDelegate<ILoginResult> callback)
@@ -96,7 +101,10 @@ namespace Facebook.Unity.Windows
 
         public override void ActivateApp(string appId = null)
         {
-            throw new NotImplementedException();
+            this.AppEventsLogEvent(
+                AppEventName.ActivatedApp,
+                null,
+                new Dictionary<string, object>());
         }
 
         public override void GetAppLink(FacebookDelegate<IAppLinkResult> callback)
@@ -106,7 +114,27 @@ namespace Facebook.Unity.Windows
 
         public override void AppEventsLogEvent(string logEvent, float? valueToSum, Dictionary<string, object> parameters)
         {
-            throw new NotImplementedException();
+            var appEventParameters = parameters != null ? parameters : new Dictionary<string, object>();
+
+            appEventParameters.Add("_eventName", logEvent);
+            if (valueToSum.HasValue)
+            {
+                appEventParameters.Add("_valueToSum", valueToSum.Value);
+            }
+
+            var formData = new Dictionary<string, string>
+            {
+                { "event", "CUSTOM_APP_EVENTS" },
+                { "application_tracking_enabled", "0" },
+                { "advertiser_tracking_enabled", "0" },
+                { "custom_events", string.Format("[{0}]", MiniJSON.Json.Serialize(appEventParameters)) },
+            };
+
+            FB.API(
+                string.Format("{0}/activities", this.appId),
+                HttpMethod.POST,
+                null,
+                formData);
         }
 
         public override void AppEventsLogPurchase(float logPurchase, string currency, Dictionary<string, object> parameters)
@@ -155,6 +183,16 @@ namespace Facebook.Unity.Windows
             Type type = assembly.GetType("Facebook.Unity.Windows.WindowsWrapper");
             IWindowsWrapper windowsWrapper = (IWindowsWrapper)Activator.CreateInstance(type);
             return windowsWrapper;
+        }
+
+        public void Tick()
+        {
+            this.windowsWrapper.Tick();
+        }
+
+        public void Deinit()
+        {
+            this.windowsWrapper.Deinit();
         }
     }
 }

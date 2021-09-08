@@ -57,7 +57,7 @@ namespace Facebook.Unity
             }
         }
 
-        public bool Initialized { get; private set; }
+        public bool Initialized { get; set; }
 
         protected CallbackManager CallbackManager { get; private set; }
 

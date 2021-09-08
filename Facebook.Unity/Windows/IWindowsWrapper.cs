@@ -24,6 +24,10 @@ namespace Facebook.Unity.Windows
 
     internal interface IWindowsWrapper
     {
-        void Init(WindowsFacebook.OnComplete completeDelegate);
+        bool Init(string appId, string clientToken);
+
+        void Tick();
+
+        void Deinit();
     }
 }

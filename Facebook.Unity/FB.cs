@@ -32,7 +32,6 @@ namespace Facebook.Unity
     using Facebook.Unity.Mobile.IOS;
     using Facebook.Unity.Settings;
     using UnityEngine;
-    using UnityEditor;
 
     /// <summary>
     /// Static class for exposing the facebook integration.
@@ -252,7 +251,7 @@ namespace Facebook.Unity
 
                 if (Constants.IsEditor)
                 {
-                    if (Application.platform == RuntimePlatform.WindowsEditor && ( EditorUserBuildSettings.activeBuildTarget == BuildTarget.StandaloneWindows || EditorUserBuildSettings.activeBuildTarget == BuildTarget.StandaloneWindows64) )
+                    if (Application.platform == RuntimePlatform.WindowsEditor)
                     {
                         FacebookLogger.Warn("You are running Facebook Windows SDK on a Windows device.");
                         FB.OnDLLLoadedDelegate = delegate

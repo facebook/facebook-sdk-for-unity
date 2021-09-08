@@ -76,12 +76,25 @@ namespace Facebook.Unity.Windows
 
         public override void LogInWithPublishPermissions(IEnumerable<string> scope, FacebookDelegate<ILoginResult> callback)
         {
-            throw new NotImplementedException();
+            this.windowsWrapper.LogInWithScopes(scope, this.CallbackManager.AddFacebookDelegate(callback),this.CallbackManager);
         }
 
         public override void LogInWithReadPermissions(IEnumerable<string> scope, FacebookDelegate<ILoginResult> callback)
         {
-            throw new NotImplementedException();
+            this.windowsWrapper.LogInWithScopes(scope, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
+        public override void LogOut()
+        {
+            this.windowsWrapper.LogOut();
+        }
+
+        public override bool LoggedIn
+        {
+            get
+            {
+                return this.windowsWrapper.IsLoggedIn();
+            }
         }
 
         public override void AppRequest(string message, OGActionType? actionType, string objectId, IEnumerable<string> to, IEnumerable<object> filters, IEnumerable<string> excludeIds, int? maxRecipients, string data, string title, FacebookDelegate<IAppRequestResult> callback)

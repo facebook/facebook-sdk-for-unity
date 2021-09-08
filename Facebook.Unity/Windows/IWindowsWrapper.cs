@@ -26,6 +26,12 @@ namespace Facebook.Unity.Windows
     {
         bool Init(string appId, string clientToken);
 
+        void LogInWithScopes(IEnumerable<string> scope, string callbackId, CallbackManager callbackManager);
+
+        bool IsLoggedIn();
+
+        void LogOut();
+
         void Tick();
 
         void Deinit();

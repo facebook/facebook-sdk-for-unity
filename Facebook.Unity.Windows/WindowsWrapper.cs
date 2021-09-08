@@ -21,7 +21,9 @@
 namespace Facebook.Unity.Windows
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
 
     internal class WindowsWrapper : IWindowsWrapper
@@ -40,6 +42,47 @@ namespace Facebook.Unity.Windows
             return result == fbg.InitResult.Success;
         }
 
+        public void LogInWithScopes(IEnumerable<string> scope, string callbackId, CallbackManager callbackManager)
+        {
+            WindowsResult result = new WindowsResult();
+            result.CallbackId = callbackId;
+
+            try
+            {
+                List<fbg.LoginScope> loginScopes = this.ConvertToFbgLoginScope(scope);
+
+                fbg.Globals.loginWithScopes(loginScopes.ToArray(), (accessToken) =>
+                {
+                    var perms = accessToken.Permissions.ConvertAll<string>(value => value.ToString());
+                    var dataTime = Utilities.FromTimestamp((int)accessToken.Expiration);
+
+                    result.AccessToken = new AccessToken(accessToken.Token,accessToken.UserID.ToString(), dataTime, perms, null,"fb.gg");
+                    AccessToken.CurrentAccessToken = result.AccessToken;
+
+                    callbackManager.OnFacebookResponse(result);
+                }, (error) =>
+                {
+                    result.RawResult = error.Message;
+                    callbackManager.OnFacebookResponse(result);
+                });
+            }
+            catch (Exception e)
+            {
+                result.RawResult = e.Message;
+                callbackManager.OnFacebookResponse(result);
+            }
+        }
+
+        public bool IsLoggedIn()
+        {
+            return fbg.Globals.isLoggedIn();
+        }
+
+        public void LogOut()
+        {
+            fbg.Globals.logout((success) => { Debug.Log("Logged out"); }, (error) => { Debug.LogError(error.Message); });
+        }
+
         public void Tick()
         {
             fbg.Globals.tick();
@@ -49,6 +92,31 @@ namespace Facebook.Unity.Windows
         {
             this.result = fbg.Globals.deinit();
             Debug.Log("Deinitialized Facebook SDK: " + this.result);
+        }
+
+        private List<fbg.LoginScope> ConvertToFbgLoginScope(IEnumerable<string> scope)
+        {
+            List<fbg.LoginScope> fbgLoginScope = new List<fbg.LoginScope>();
+            foreach (string str in scope){
+                string result = "";
+                string[] subs = str.Split('_');
+                foreach (string sub in subs)
+                {
+                    if (sub.Length == 1)
+                    {
+                        result += char.ToUpper(sub[0]).ToString();
+                    }
+                    else 
+                    { 
+                        result += (char.ToUpper(sub[0]) + sub.Substring(1)).ToString();
+                    }
+                }
+                if (result != "")
+                {
+                    fbgLoginScope.Add((fbg.LoginScope)Enum.Parse(typeof(fbg.LoginScope), result)); 
+                }
+            }
+            return fbgLoginScope;
         }
 
     }

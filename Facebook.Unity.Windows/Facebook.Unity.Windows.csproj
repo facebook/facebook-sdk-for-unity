@@ -30,7 +30,7 @@
   </PropertyGroup>
   <Import Project="$(SolutionDir)UnityReferences.xml"></Import>
   <!-- Use ./configure.sh command to add correct unity references -->
-  <!-- BEGIN_UNITY_REFERENCES -->
+  <!-- BEGIN_UNITY_REFERENCES -->s
   <!-- END_UNITY_REFERENCES -->
   <ItemGroup>
     <Reference Include="System" />
@@ -53,16 +53,43 @@
     <Folder Include="Plugins\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Plugins\cpprest_2_10.dll" />
-    <None Include="Plugins\libcrypto-1_1-x64.dll" />
-    <None Include="Plugins\libcurl.dll" />
     <None Include="Plugins\LibFBGManaged.dll" />
-    <None Include="Plugins\LibFBGPlatform.dll" />
-    <None Include="Plugins\LibFBGUI.dll" />
-    <None Include="Plugins\libssl-1_1-x64.dll" />
-    <None Include="Plugins\tinyxml2.dll" />
-    <None Include="Plugins\WebView2Loader.dll" />
-    <None Include="Plugins\zlib1.dll" />
+    <None Include="Plugins\x64\cpprest_2_10.dll" />
+    <None Include="Plugins\x64\cpprest_2_10.dll.meta" />
+    <None Include="Plugins\x64\libcrypto-1_1-x64.dll" />
+    <None Include="Plugins\x64\libcrypto-1_1-x64.dll.meta" />
+    <None Include="Plugins\x64\libcurl.dll" />
+    <None Include="Plugins\x64\libcurl.dll.meta" />
+    <None Include="Plugins\x64\LibFBGPlatform.dll" />
+    <None Include="Plugins\x64\LibFBGPlatform.dll.meta" />
+    <None Include="Plugins\x64\LibFBGUI.dll" />
+    <None Include="Plugins\x64\LibFBGUI.dll.meta" />
+    <None Include="Plugins\x64\libssl-1_1-x64.dll" />
+    <None Include="Plugins\x64\libssl-1_1-x64.dll.meta" />
+    <None Include="Plugins\x64\tinyxml2.dll" />
+    <None Include="Plugins\x64\tinyxml2.dll.meta" />
+    <None Include="Plugins\x64\WebView2Loader.dll" />
+    <None Include="Plugins\x64\WebView2Loader.dll.meta" />
+    <None Include="Plugins\x64\zlib1.dll" />
+    <None Include="Plugins\x64\zlib1.dll.meta" />
+    <None Include="Plugins\x86\cpprest_2_10.dll" />
+    <None Include="Plugins\x86\cpprest_2_10.dll.meta" />
+    <None Include="Plugins\x86\libcrypto-1_1.dll" />
+    <None Include="Plugins\x86\libcrypto-1_1.dll.meta" />
+    <None Include="Plugins\x86\libcurl.dll" />
+    <None Include="Plugins\x86\libcurl.dll.meta" />
+    <None Include="Plugins\x86\LibFBGPlatform.dll" />
+    <None Include="Plugins\x86\LibFBGPlatform.dll.meta" />
+    <None Include="Plugins\x86\LibFBGUI.dll" />
+    <None Include="Plugins\x86\LibFBGUI.dll.meta" />
+    <None Include="Plugins\x86\libssl-1_1.dll" />
+    <None Include="Plugins\x86\libssl-1_1.dll.meta" />
+    <None Include="Plugins\x86\tinyxml2.dll" />
+    <None Include="Plugins\x86\tinyxml2.dll.meta" />
+    <None Include="Plugins\x86\WebView2Loader.dll" />
+    <None Include="Plugins\x86\WebView2Loader.dll.meta" />
+    <None Include="Plugins\x86\zlib1.dll" />
+    <None Include="Plugins\x86\zlib1.dll.meta" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

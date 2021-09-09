@@ -681,7 +681,6 @@ public class FB {
 
         InAppPurchaseLibrary.onReady(
             getUnityActivity().getApplicationContext(),
-            new JSONObject(),
             createDaemonCallback(unityMessage)
         );
     }
@@ -696,7 +695,6 @@ public class FB {
 
         InAppPurchaseLibrary.getCatalog(
             getUnityActivity().getApplicationContext(),
-            new JSONObject(),
             createDaemonCallback(unityMessage)
         );
     }
@@ -711,7 +709,6 @@ public class FB {
 
         InAppPurchaseLibrary.getPurchases(
             getUnityActivity().getApplicationContext(),
-            new JSONObject(),
             createDaemonCallback(unityMessage)
         );
     }
@@ -726,20 +723,12 @@ public class FB {
         String productID = unityParams.getString("productID");
         String developerPayload = unityParams.getString("developerPayload");
 
-        try {
-            JSONObject params = new JSONObject().put(InAppPurchaseLibrary.PRODUCT_ID, productID);
-            if (!developerPayload.isEmpty()) {
-                params.put(InAppPurchaseLibrary.DEVELOPER_PAYLOAD, developerPayload);
-            }
-
-            InAppPurchaseLibrary.purchase(
-                getUnityActivity().getApplicationContext(),
-                params,
-                createDaemonCallback(unityMessage)
-            );
-        } catch(JSONException e) {
-            unityMessage.sendError(e.getMessage());
-        }
+        InAppPurchaseLibrary.purchase(
+            getUnityActivity().getApplicationContext(),
+            productID,
+            !developerPayload.isEmpty() ? developerPayload : null,
+            createDaemonCallback(unityMessage)
+        );
     }
 
     @UnityCallable
@@ -751,15 +740,11 @@ public class FB {
         }
         String purchaseToken = unityParams.getString("purchaseToken");
 
-        try {
-            InAppPurchaseLibrary.consumePurchase(
-                getUnityActivity().getApplicationContext(),
-                (new JSONObject()).put(InAppPurchaseLibrary.PURCHASE_TOKEN, purchaseToken),
-                createDaemonCallback(unityMessage)
-            );
-        } catch(JSONException e) {
-            unityMessage.sendError(e.getMessage());
-        }
+        InAppPurchaseLibrary.consumePurchase(
+            getUnityActivity().getApplicationContext(),
+            purchaseToken,
+            createDaemonCallback(unityMessage)
+        );
     }
 
     @UnityCallable
@@ -845,15 +830,11 @@ public class FB {
         }
         String placementID = unityParams.getString("placementID");
 
-        try {
-            InAppAdLibrary.loadInterstitialAd(
-                getUnityActivity().getApplicationContext(),
-                (new JSONObject()).put(InAppAdLibrary.PLACEMENT_ID, placementID),
-                createDaemonCallback(unityMessage)
-            );
-        } catch(JSONException e) {
-            unityMessage.sendError(e.getMessage());
-        }
+        InAppAdLibrary.loadInterstitialAd(
+            getUnityActivity().getApplicationContext(),
+            placementID,
+            createDaemonCallback(unityMessage)
+        );
     }
 
     @UnityCallable
@@ -865,15 +846,11 @@ public class FB {
         }
         String placementID = unityParams.getString("placementID");
 
-        try {
-            InAppAdLibrary.showInterstitialAd(
-                getUnityActivity().getApplicationContext(),
-                (new JSONObject()).put(InAppAdLibrary.PLACEMENT_ID, placementID),
-                createDaemonCallback(unityMessage)
-            );
-        } catch(JSONException e) {
-            unityMessage.sendError(e.getMessage());
-        }
+        InAppAdLibrary.showInterstitialAd(
+            getUnityActivity().getApplicationContext(),
+            placementID,
+            createDaemonCallback(unityMessage)
+        );
     }
 
     @UnityCallable
@@ -885,15 +862,11 @@ public class FB {
         }
         String placementID = unityParams.getString("placementID");
 
-        try {
-            InAppAdLibrary.loadRewardedVideo(
-                getUnityActivity().getApplicationContext(),
-                (new JSONObject()).put(InAppAdLibrary.PLACEMENT_ID, placementID),
-                createDaemonCallback(unityMessage)
-            );
-        } catch(JSONException e) {
-            unityMessage.sendError(e.getMessage());
-        }
+        InAppAdLibrary.loadRewardedVideo(
+            getUnityActivity().getApplicationContext(),
+            placementID,
+            createDaemonCallback(unityMessage)
+        );
     }
 
     @UnityCallable
@@ -905,15 +878,11 @@ public class FB {
         }
         String placementID = unityParams.getString("placementID");
 
-        try {
-            InAppAdLibrary.showRewardedVideo(
-                getUnityActivity().getApplicationContext(),
-                (new JSONObject()).put(InAppAdLibrary.PLACEMENT_ID, placementID),
-                createDaemonCallback(unityMessage)
-            );
-        } catch(JSONException e) {
-            unityMessage.sendError(e.getMessage());
-        }
+        InAppAdLibrary.showRewardedVideo(
+            getUnityActivity().getApplicationContext(),
+            placementID,
+            createDaemonCallback(unityMessage)
+        );
     }
 
     @UnityCallable
@@ -1027,7 +996,7 @@ public class FB {
             } catch(JSONException e) {
                 unityMessage.sendError(String.format("Invalid data payload: %s", e.getMessage()));
             }
-        }       
+        }
 
 
         try {
@@ -1073,7 +1042,7 @@ public class FB {
             } catch(JSONException e) {
                 unityMessage.sendError(String.format("Invalid data payload: %s", e.getMessage()));
             }
-        }     
+        }
 
         try {
             GameFeaturesLibrary.createTournamentAsync(

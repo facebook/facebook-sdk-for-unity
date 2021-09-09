@@ -142,7 +142,7 @@ if [ ! -d "$UNITY_WINDOWS_PLUGIN" ]; then
   mkdir -p "$UNITY_WINDOWS_PLUGIN" || die "Failed to create Windows plugins folder"
 fi
 cp "$WINDOWS_DLL" "$UNITY_WINDOWS_PLUGIN" || die "Failed to copy Windows DLL"
-cp "$WINDOWS_SDK_DLL_DIR"* "$UNITY_WINDOWS_PLUGIN" || die "Failed to copy Windows SDK DLLs"
+cp -R "$WINDOWS_SDK_DLL_DIR"* "$UNITY_WINDOWS_PLUGIN" || die "Failed to copy Windows SDK DLLs"
 
 if [ ! -d "$UNITY_EDITOR_PLUGIN" ]; then
   mkdir -p "$UNITY_EDITOR_PLUGIN" || die "Failed to create Editor plugins folder"

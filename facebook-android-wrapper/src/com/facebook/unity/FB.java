@@ -916,16 +916,11 @@ public class FB {
             return;
         }
 
-        try {
-            GameFeaturesLibrary.postSessionScoreAsync(
-                getUnityActivity().getApplicationContext(),
-                score,
-                createDaemonCallback(unityMessage)
-            );
-
-        } catch(JSONException e) {
-            unityMessage.sendError(e.getMessage());
-        }
+        GameFeaturesLibrary.postSessionScoreAsync(
+            getUnityActivity().getApplicationContext(),
+            score,
+            createDaemonCallback(unityMessage)
+        );
     }
 
     @UnityCallable
@@ -950,7 +945,6 @@ public class FB {
                 score,
                 createDaemonCallback(unityMessage)
             );
-
         } catch(JSONException e) {
             unityMessage.sendError(e.getMessage());
         }
@@ -998,18 +992,12 @@ public class FB {
             }
         }
 
-
-        try {
-            GameFeaturesLibrary.shareTournamentAsync(
-                getUnityActivity().getApplicationContext(),
-                score,
-                data,
-                createDaemonCallback(unityMessage)
-            );
-
-        } catch(JSONException e) {
-            unityMessage.sendError(e.getMessage());
-        }
+        GameFeaturesLibrary.shareTournamentAsync(
+            getUnityActivity().getApplicationContext(),
+            score,
+            data,
+            createDaemonCallback(unityMessage)
+        );
     }
 
     @UnityCallable
@@ -1044,22 +1032,17 @@ public class FB {
             }
         }
 
-        try {
-            GameFeaturesLibrary.createTournamentAsync(
-                getUnityActivity().getApplicationContext(),
-                initialScore,
-                title,
-                image,
-                sortOrder,
-                scoreFormat,
-                null, // endTime
-                data,
-                createDaemonCallback(unityMessage)
-            );
-
-        } catch(JSONException e) {
-            unityMessage.sendError(e.getMessage());
-        }
+        GameFeaturesLibrary.createTournamentAsync(
+            getUnityActivity().getApplicationContext(),
+            initialScore,
+            title,
+            image,
+            sortOrder,
+            scoreFormat,
+            null, // endTime
+            data,
+            createDaemonCallback(unityMessage)
+        );
     }
 
     public static void OpenAppStore(String params_str) {

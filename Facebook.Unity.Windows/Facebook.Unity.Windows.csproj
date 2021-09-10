@@ -30,7 +30,7 @@
   </PropertyGroup>
   <Import Project="$(SolutionDir)UnityReferences.xml"></Import>
   <!-- Use ./configure.sh command to add correct unity references -->
-  <!-- BEGIN_UNITY_REFERENCES -->s
+  <!-- BEGIN_UNITY_REFERENCES -->
   <!-- END_UNITY_REFERENCES -->
   <ItemGroup>
     <Reference Include="System" />

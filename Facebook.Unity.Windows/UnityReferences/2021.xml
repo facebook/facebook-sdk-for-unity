@@ -1,5 +1,11 @@
 ﻿  <ItemGroup>
     <Reference Include="UnityEngine">
-        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.dll</HintPath>
+      <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.JSONSerializeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.CoreModule.dll</HintPath>
     </Reference>
   </ItemGroup>

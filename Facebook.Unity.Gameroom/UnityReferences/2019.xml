@@ -1,8 +1,0 @@
-﻿  <ItemGroup>
-    <Reference Include="UnityEngine">
-      <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-  </ItemGroup>

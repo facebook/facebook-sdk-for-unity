@@ -35,7 +35,6 @@ main() {
     "Facebook.Unity/FacebookSdkVersion.cs"
     "Facebook.Unity/Properties/AssemblyInfo.cs"
     "Facebook.Unity.Canvas/Properties/AssemblyInfo.cs"
-    "Facebook.Unity.Gameroom/Properties/AssemblyInfo.cs"
     "Facebook.Unity.Editor/Properties/AssemblyInfo.cs"
     "Facebook.Unity.IOS/Properties/AssemblyInfo.cs"
     "Facebook.Unity.IOS.StrippingHack/Properties/AssemblyInfo.cs"

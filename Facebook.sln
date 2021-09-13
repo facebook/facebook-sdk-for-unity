@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity.Android.Stri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity.IOS.StrippingHack", "Facebook.Unity.IOS.StrippingHack\Facebook.Unity.IOS.StrippingHack.csproj", "{15A3CC9F-9BB6-41A4-813B-40D2CAA91F27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity.Gameroom", "Facebook.Unity.Gameroom\Facebook.Unity.Gameroom.csproj", "{D8F7CF97-7FE9-48B7-A30C-CB14BAA73010}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity.Canvas", "Facebook.Unity.Canvas\Facebook.Unity.Canvas.csproj", "{F0ED0CDD-F963-4266-8C08-670C05BA611E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facebook.Unity.Windows", "Facebook.Unity.Windows\Facebook.Unity.Windows.csproj", "{A4CFF4CA-9F89-427C-A4A4-2A735A6FF13B}"
@@ -57,10 +55,6 @@ Global
 		{D3DF5151-7271-4CBA-8F91-85B7845E2FBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3DF5151-7271-4CBA-8F91-85B7845E2FBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3DF5151-7271-4CBA-8F91-85B7845E2FBD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D8F7CF97-7FE9-48B7-A30C-CB14BAA73010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8F7CF97-7FE9-48B7-A30C-CB14BAA73010}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8F7CF97-7FE9-48B7-A30C-CB14BAA73010}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8F7CF97-7FE9-48B7-A30C-CB14BAA73010}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E9D1DFF6-9C2E-4954-95FD-A6F22B4D0121}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E9D1DFF6-9C2E-4954-95FD-A6F22B4D0121}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9D1DFF6-9C2E-4954-95FD-A6F22B4D0121}.Release|Any CPU.ActiveCfg = Release|Any CPU

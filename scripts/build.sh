@@ -66,10 +66,6 @@ CANVAS_ROOT=$PROJECT_ROOT/Facebook.Unity.Canvas
 CANVAS_DLL=$CANVAS_ROOT/bin/Release/Facebook.Unity.Canvas.dll
 CANVAS_JSLIB=$CANVAS_ROOT/bin/Release/CanvasJSSDKBindings.jslib
 
-GAMEROOM_ROOT=$PROJECT_ROOT/Facebook.Unity.Gameroom
-GAMEROOM_DLL=$GAMEROOM_ROOT/bin/Release/Facebook.Unity.Gameroom.dll
-GAMEROOM_NAMED_PIPE_DLL=$GAMEROOM_ROOT/bin/Release/FacebookNamedPipeClient.dll
-
 EDITOR_ROOT=$PROJECT_ROOT/Facebook.Unity.Editor
 EDITOR_DLL=$EDITOR_ROOT/bin/Release/Facebook.Unity.Editor.dll
 
@@ -97,7 +93,6 @@ sed -i "" -e "s/[0-9]\.[0-9][0-9]\.[0-9]/$UNITY_SDK_BUILD_VERSION/g" "$PROJECT_R
 sed -i "" -e "s/AssemblyVersion(\"[0-9]\.[0-9][0-9]\.[0-9]\")/AssemblyVersion(\"$UNITY_SDK_BUILD_VERSION\")/g" \
 "$PROJECT_ROOT/Facebook.Unity/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Canvas/Properties/AssemblyInfo.cs" \
-"$PROJECT_ROOT/Facebook.Unity.Gameroom/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Windows/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.Editor/Properties/AssemblyInfo.cs" \
 "$PROJECT_ROOT/Facebook.Unity.IOS/Properties/AssemblyInfo.cs" \
@@ -131,12 +126,6 @@ if [ ! -d "$UNITY_ANDROID_PLUGIN" ]; then
   mkdir -p "$UNITY_ANDROID_PLUGIN" || die "Failed to create Android plugins folder"
 fi
 cp "$ANDROID_DLL" "$UNITY_ANDROID_PLUGIN" || die "Failed to copy Android DLL"
-
-if [ ! -d "$UNITY_GAMEROOM_PLUGIN" ]; then
-  mkdir -p "$UNITY_GAMEROOM_PLUGIN" || die "Failed to create Gameroom plugins folder"
-fi
-cp "$GAMEROOM_DLL" "$UNITY_GAMEROOM_PLUGIN" || die "Failed to copy Gameroom DLL"
-cp "$GAMEROOM_NAMED_PIPE_DLL" "$UNITY_GAMEROOM_PLUGIN" || die "Failed to copy FacebookNamedPipeClient DLL"
 
 if [ ! -d "$UNITY_WINDOWS_PLUGIN" ]; then
   mkdir -p "$UNITY_WINDOWS_PLUGIN" || die "Failed to create Windows plugins folder"

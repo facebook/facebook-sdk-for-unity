@@ -283,7 +283,7 @@ mv "$TEMP_FILE" UnityReferences.xml
 
 # Fix projects files
 printf "\n"
-declare -a projects=("Facebook.Unity" "Facebook.Unity.Settings" "Facebook.Unity.Gameroom" "Facebook.Unity.Android" "Facebook.Unity.Canvas" "Facebook.Unity.Editor" "Facebook.Unity.Tests" "UnitySDK" "Facebook.Unity.Windows")
+declare -a projects=("Facebook.Unity" "Facebook.Unity.Settings" "Facebook.Unity.Android" "Facebook.Unity.Canvas" "Facebook.Unity.Editor" "Facebook.Unity.Tests" "UnitySDK" "Facebook.Unity.Windows")
 for PROJECT in "${projects[@]}"
 do
     printf "Project: %s \n" "$PROJECT"

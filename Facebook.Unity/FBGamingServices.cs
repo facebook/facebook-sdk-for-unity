@@ -23,7 +23,6 @@ namespace Facebook.Unity
     using System;
     using System.Collections.Generic;
     using System.Globalization;
-    using Facebook.Unity.Gameroom;
     using Facebook.Unity.Canvas;
     using Facebook.Unity.Editor;
     using Facebook.Unity.Mobile;

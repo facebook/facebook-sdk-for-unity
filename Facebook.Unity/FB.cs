@@ -24,7 +24,6 @@ namespace Facebook.Unity
     using System.Collections.Generic;
     using System.Globalization;
     using Facebook.Unity.Windows;
-    using Facebook.Unity.Gameroom;
     using Facebook.Unity.Canvas;
     using Facebook.Unity.Editor;
     using Facebook.Unity.Mobile;
@@ -321,13 +320,6 @@ namespace Facebook.Unity
                             ComponentFactory.GetComponent<AndroidFacebookLoader>();
                             ComponentFactory.GetComponent<CodelessCrawler>();
                             ComponentFactory.GetComponent<CodelessUIInteractEvent>();
-                            break;
-                        case FacebookUnityPlatform.Gameroom:
-                            FB.OnDLLLoadedDelegate = delegate
-                            {
-                                ((GameroomFacebook)FB.facebook).Init(appId, onHideUnity, onInitComplete);
-                            };
-                            ComponentFactory.GetComponent<GameroomFacebookLoader>();
                             break;
                         case FacebookUnityPlatform.Windows:
                             FB.OnDLLLoadedDelegate = delegate
@@ -1135,35 +1127,6 @@ namespace Facebook.Unity
                 {
                     androidFacebook.RetrieveLoginStatus(callback);
                 }
-            }
-        }
-
-        public sealed class Gameroom
-        {
-            private static IGameroomFacebook GameroomFacebookImpl
-            {
-                get
-                {
-                    IGameroomFacebook impl = FacebookImpl as IGameroomFacebook;
-                    if (impl == null)
-                    {
-                        throw new InvalidOperationException("Attempt to call Gameroom interface on non Windows platform");
-                    }
-
-                    return impl;
-                }
-            }
-
-            public static void PayPremium(
-                FacebookDelegate<IPayResult> callback = null)
-            {
-                Gameroom.GameroomFacebookImpl.PayPremium(callback);
-            }
-
-            public static void HasLicense(
-                FacebookDelegate<IHasLicenseResult> callback = null)
-            {
-                Gameroom.GameroomFacebookImpl.HasLicense(callback);
             }
         }
 

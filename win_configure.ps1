@@ -224,7 +224,7 @@ Write-Output ""
 Write-Output "Preparing Visual Studio Projects..."
 Write-Output ""
 
-$projects_array = @("Facebook.Unity", "Facebook.Unity.Settings", "Facebook.Unity.Gameroom", "Facebook.Unity.Android", "Facebook.Unity.Canvas", "Facebook.Unity.Editor", "Facebook.Unity.Tests", "UnitySDK", "Facebook.Unity.Windows")
+$projects_array = @("Facebook.Unity", "Facebook.Unity.Settings", "Facebook.Unity.Android", "Facebook.Unity.Canvas", "Facebook.Unity.Editor", "Facebook.Unity.Tests", "UnitySDK", "Facebook.Unity.Windows")
 foreach ($PROJECT in $projects_array) {
     Write-Output ""
     Write-Output "Project: $PROJECT"

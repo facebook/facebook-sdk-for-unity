@@ -24,7 +24,6 @@ namespace Facebook.Unity.Tests
     using System.Collections.Generic;
     using System.Diagnostics;
     using Facebook.Unity.Canvas;
-    using Facebook.Unity.Gameroom;
     using Facebook.Unity.Mobile;
 
     internal class MockWrapper
@@ -65,14 +64,6 @@ namespace Facebook.Unity.Tests
             get
             {
                 return this.Facebook as IMobileFacebookResultHandler;
-            }
-        }
-
-        internal IGameroomFacebookResultHandler GameroomFacebook
-        {
-            get
-            {
-                return this.Facebook as IGameroomFacebookResultHandler;
             }
         }
 

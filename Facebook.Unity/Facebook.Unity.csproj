@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -31,7 +31,8 @@
     <ConsolePause>false</ConsolePause>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)UnityReferences.xml"></Import>
+  <Import Project="$(SolutionDir)UnityReferences.xml">
+  </Import>
   <!-- Use ./configure.sh command to add correct unity references -->
   <!-- BEGIN_UNITY_REFERENCES -->
   <!-- END_UNITY_REFERENCES -->
@@ -160,13 +161,6 @@
     <Compile Include="Utils\FacebookSchedulerFactory.cs" />
     <Compile Include="Results\IHasLicenseResult.cs" />
     <Compile Include="Results\HasLicenseResult.cs" />
-    <Compile Include="Gameroom\GameroomFacebook.cs" />
-    <Compile Include="Gameroom\GameroomFacebookGameObject.cs" />
-    <Compile Include="Gameroom\GameroomFacebookLoader.cs" />
-    <Compile Include="Gameroom\IGameroomFacebook.cs" />
-    <Compile Include="Gameroom\IGameroomFacebookImplementation.cs" />
-    <Compile Include="Gameroom\IGameroomFacebookResultHandler.cs" />
-    <Compile Include="Gameroom\IGameroomWrapper.cs" />
     <Compile Include="Utils\CodelessIAPAutoLog.cs" />
     <Compile Include="Codeless\CodelessCrawler.cs" />
     <Compile Include="Codeless\CodelessUIInteractEvent.cs" />
@@ -198,7 +192,6 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Plugins\" />
-    <Folder Include="Codeless\" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

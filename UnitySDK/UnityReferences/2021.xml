@@ -1,5 +1,23 @@
 ﻿  <ItemGroup>
     <Reference Include="UnityEngine">
-      <HintPath>$(UNITY_MANAGED_DIR)UnityEngine.dll</HintPath>
+      <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.JSONSerializeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.UnityWebRequestModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.ImageConversionModule.dll</HintPath>
     </Reference>
   </ItemGroup>

@@ -61,12 +61,6 @@
     <Reference Include="Facebook.Unity.Settings">
       <HintPath>Assets/FacebookSDK/Plugins/Settings/Facebook.Unity.Settings.dll</HintPath>
     </Reference>
-    <Reference Include="Facebook.Unity.Gameroom">
-      <HintPath>Assets/FacebookSDK/Plugins/Gameroom/Facebook.Unity.Gameroom.dll</HintPath>
-    </Reference>
-    <Reference Include="FacebookNamedPipeClient">
-      <HintPath>Assets/FacebookSDK/Plugins/Gameroom/FacebookNamedPipeClient.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <Import Project="$(SolutionDir)../UnityReferences.xml"></Import>
   <!-- Use ./configure.sh command to add correct unity references -->

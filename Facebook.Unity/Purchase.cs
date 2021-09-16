@@ -37,6 +37,7 @@ namespace Facebook.Unity
         /// <param name="paymentActionType">The current status of the purchase.</param>
         /// <param name="paymentID">The identifier for the purchase transaction.</param>
         /// <param name="productID">The product's game-specified identifier.</param>
+        /// <param name="purchasePlatform">The purchase platform, such as "GOOGLE" or "FB".</param>
         /// <param name="purchasePrice">Contains the local amount and currency associated with the purchased item.</param>
         /// <param name="purchaseTime">Unix timestamp of when the purchase occurred.</param>
         /// <param name="purchaseToken">A token representing the purchase that may be used to consume the purchase.</param>
@@ -47,6 +48,7 @@ namespace Facebook.Unity
             string paymentActionType,
             string paymentID,
             string productID,
+            string purchasePlatform,
             IDictionary<string, object> purchasePrice,
             long purchaseTime,
             string purchaseToken,
@@ -88,6 +90,7 @@ namespace Facebook.Unity
             this.PaymentActionType = paymentActionType;
             this.PaymentID = paymentID;
             this.ProductID = productID;
+            this.PurchasePlatform = purchasePlatform;
             this.PurchasePrice = new CurrencyAmount(purchasePrice["currency"].ToStringNullOk(), purchasePrice["amount"].ToStringNullOk());
             this.PurchaseTime = Utilities.FromTimestamp(purchaseTimeInt);
             this.PurchaseToken = purchaseToken;
@@ -125,6 +128,12 @@ namespace Facebook.Unity
         public string ProductID { get; private set; }
 
         /// <summary>
+        /// Gets the platform associated with the purchase.
+        /// </summary>
+        /// <value>The purchase platform, such as "GOOGLE" or "FB".</value>
+        public string PurchasePlatform { get; private set; }
+
+        /// <summary>
         /// Gets the amount and currency fields associated with the purchase.
         /// </summary>
         /// <value>The amount and currency fields associated with the purchase as a CurrencyAmount</value>
@@ -141,7 +150,6 @@ namespace Facebook.Unity
         /// </summary>
         /// <value>The price.</value>
         public string PurchaseToken { get; private set; }
-
 
         /// <summary>
         /// Gets the price currency code.
@@ -165,6 +173,7 @@ namespace Facebook.Unity
                     { "PaymentActionType", this.PaymentActionType },
                     { "PaymentID", this.PaymentID },
                     { "ProductID", this.ProductID },
+                    { "PurchasePlatform", this.PurchasePlatform },
                     { "PurchasePrice", this.PurchasePrice.ToString() },
                     { "PurchaseTime", this.PurchaseTime.TotalSeconds().ToString() },
                     { "PurchaseToken", this.PurchaseToken },

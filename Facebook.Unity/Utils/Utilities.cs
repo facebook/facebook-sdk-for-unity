@@ -334,8 +334,9 @@ namespace Facebook.Unity
             long purchaseTime = (long)purchase["purchaseTime"];
             string purchaseToken = purchase["purchaseToken"].ToStringNullOk();
             string signedRequest = purchase["signedRequest"].ToStringNullOk();
+            string purchasePlatform = purchase["purchasePlatform"].ToStringNullOk();
 
-            return new Purchase(developerPayload, isConsumed, paymentActionType, paymentID, productID, purchasePrice, purchaseTime, purchaseToken, signedRequest);
+            return new Purchase(developerPayload, isConsumed, paymentActionType, paymentID, productID, purchasePlatform, purchasePrice, purchaseTime, purchaseToken, signedRequest);
         }
 
         public static IDictionary<string, string> ParseStringDictionaryFromString(string input) {

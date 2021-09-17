@@ -43,6 +43,12 @@ FB_WRAPPER_PATH="$PROJECT_ROOT/facebook-android-wrapper"
 FB_ANDROID_SDK_WRAPPER_NAME="facebook-android-wrapper.aar"
 FB_ANDROID_SDK_WRAPPER="$FB_WRAPPER_PATH/build/outputs/aar/$FB_ANDROID_SDK_WRAPPER_NAME"
 
+# Local build only properties
+FB_WRAPPER_LIB_PATH="$FB_WRAPPER_PATH/libs"
+FB_GS_SDK_AAR_NAME="facebook-gamingservices-release.aar"
+# FB_GS_SDK_AAR_PATH="$FB_WRAPPER_LIB_PATH/$FB_GS_SDK_AAR_NAME"
+FB_GS_SDK_AAR="$FB_ANDROID_SDK_PATH/facebook-gamingservices/build/outputs/aar/$FB_GS_SDK_AAR_NAME"
+
 # Get Unity Jar Resolver
 info "Step 1 - Download $UNITY_JAR_RESOLVER_NAME"
 downloadUnityJarResolverFromGithub
@@ -50,6 +56,15 @@ downloadUnityJarResolverFromGithub
 info "Step 2 - Build android wrapper"
 pushd "$FB_WRAPPER_PATH"
 if [ "$localBuild" = true ]; then
+  if [ ! -d "$FB_WRAPPER_LIB_PATH" ]; then
+    mkdir -p "$FB_WRAPPER_LIB_PATH" || die "Failed to create wrapper libs folder"
+  fi
+  info "Step 2.1 - Build local Facebook Gaming Services Android SDK at '$FB_ANDROID_SDK_PATH'"
+  pushd $FB_ANDROID_SDK_PATH
+  ./gradlew :facebook-gamingservices:assemble || die "Failed to build Facebook Gaming Services Android SDK"
+  popd
+  info "Step 2.2 - Copy $FB_ANDROID_SDK_AAR to $FB_WRAPPER_LIB_PATH/$FB_GS_SDK_AAR_NAME folder"
+  cp "$FB_GS_SDK_AAR" "$FB_WRAPPER_LIB_PATH/$FB_GS_SDK_AAR_NAME" || die "Failed to copy sdk to wrapper libs folder"
   ./gradlew clean -PlocalRepo=libs -PsdkVersion="$FB_ANDROID_SDK_VERSION" || die "Failed to perform gradle clean"
   ./gradlew assemble -PlocalRepo=libs -PsdkVersion="$FB_ANDROID_SDK_VERSION" || die "Failed to build facebook android wrapper"
 else

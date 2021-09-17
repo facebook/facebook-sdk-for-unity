@@ -87,7 +87,7 @@ $ANDROID_DLL="$ANDROID_ROOT\bin\Release\Facebook.Unity.Android.dll"
 
 $WINDOWS_ROOT="$PWD\Facebook.Unity.Windows"
 $WINDOWS_DLL="$WINDOWS_ROOT\bin\Release\Facebook.Unity.Windows.dll"
-$WINDOWS_SDK_DLL_DIR="$WINDOWS_ROOT\Plugin"
+$WINDOWS_SDK_DLL_DIR="$WINDOWS_ROOT\Plugins"
 
 $EDITOR_ROOT="$PWD\Facebook.Unity.Editor"
 $EDITOR_DLL="$EDITOR_ROOT\bin\Release\Facebook.Unity.Editor.dll"
@@ -129,7 +129,7 @@ Copy-Item $CANVAS_DLL $UNITY_CANVAS_PLUGIN -Force
 Copy-Item $CANVAS_JSLIB $UNITY_CANVAS_PLUGIN -Force
 Copy-Item $ANDROID_DLL $UNITY_ANDROID_PLUGIN -Force
 Copy-Item $WINDOWS_DLL $UNITY_WINDOWS_PLUGIN -Force
-Copy-Item "$WINDOWS_SDK_DLL_DIR*" $UNITY_WINDOWS_PLUGIN -Recurse -Force
+Copy-Item "$WINDOWS_SDK_DLL_DIR\*" $UNITY_WINDOWS_PLUGIN -Recurse -Force
 Copy-Item $EDITOR_DLL $UNITY_EDITOR_PLUGIN -Force
 Copy-Item $IOS_DLL $UNITY_IOS_PLUGIN -Force
 Copy-Item $SETTINGS_DLL $UNITY_SETTINGS_PLUGIN -Force

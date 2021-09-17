@@ -160,6 +160,11 @@ namespace Facebook.Unity.Windows
         {
             throw new NotImplementedException();
         }
+
+        public override void GetCatalog(FacebookDelegate<ICatalogResult> callback)
+        {
+            this.windowsWrapper.GetCatalog(this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);           
+        }
         // END TO DO -------------------------------
 
         private static IWindowsWrapper GetWindowsWrapper()

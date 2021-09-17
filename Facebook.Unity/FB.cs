@@ -733,6 +733,11 @@ namespace Facebook.Unity
             }
         }
 
+        public static void GetCatalog(FacebookDelegate<ICatalogResult> callback)
+        {
+            FacebookImpl.GetCatalog(callback);
+        }
+
         /// <summary>
         /// Contains methods specific to the Facebook Games Canvas platform.
         /// </summary>
@@ -1092,6 +1097,11 @@ namespace Facebook.Unity
             public static void SetPushNotificationsDeviceTokenString(string token)
             {
                 Mobile.MobileFacebookImpl.SetPushNotificationsDeviceTokenString(token);
+            }
+
+            public static void GetCatalog(FacebookDelegate<ICatalogResult> callback)
+            {
+                Mobile.MobileFacebookImpl.GetCatalog(callback);
             }
         }
 

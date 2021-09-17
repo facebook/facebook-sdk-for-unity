@@ -537,7 +537,7 @@ namespace Facebook.Unity.Editor
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 
-        public void GetCatalog(FacebookDelegate<ICatalogResult> callback)
+        public override void GetCatalog(FacebookDelegate<ICatalogResult> callback)
         {
             var result = new Dictionary<string, object>();
             result["success"] = "[{\"productID\":\"123\",\"title\":\"item\",\"price\":\"$0.99\",\"priceCurrencyCode\":\"USD\"}]";

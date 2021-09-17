@@ -580,5 +580,10 @@ namespace Facebook.Unity.Canvas
                 this.canvasImpl.canvasJSWrapper.Ui(clonedArgs.ToJsonString (), uniqueId, this.callbackMethod);
             }
         }
+
+        public override void GetCatalog(FacebookDelegate<ICatalogResult> callback)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

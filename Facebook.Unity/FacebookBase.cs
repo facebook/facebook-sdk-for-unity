@@ -271,5 +271,7 @@ namespace Facebook.Unity
 
             return new Uri(Constants.GraphUrl, query);
         }
+
+        public abstract void GetCatalog(FacebookDelegate<ICatalogResult> callback);
     }
 }

@@ -21,9 +21,7 @@
 namespace Facebook.Unity.Windows
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
     using UnityEngine;
 
     internal class WindowsWrapper : IWindowsWrapper
@@ -106,17 +104,31 @@ namespace Facebook.Unity.Windows
                     {
                         result += char.ToUpper(sub[0]).ToString();
                     }
-                    else 
-                    { 
+                    else
+                    {
                         result += (char.ToUpper(sub[0]) + sub.Substring(1)).ToString();
                     }
                 }
                 if (result != "")
                 {
-                    fbgLoginScope.Add((fbg.LoginScope)Enum.Parse(typeof(fbg.LoginScope), result)); 
+                    fbgLoginScope.Add((fbg.LoginScope)Enum.Parse(typeof(fbg.LoginScope), result));
                 }
             }
             return fbgLoginScope;
+        }
+
+        public void GetCatalog(string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Catalog.getCatalog(fbg.PagingType.None, "", 0, (catalogResult) =>
+            {               
+                CatalogResult result = new CatalogResult(WindowsCatalogParser.Parse(catalogResult, callbackId));
+                callbackManager.OnFacebookResponse(result);
+
+            }, (error) =>
+            {
+                PurchaseResult result = new PurchaseResult(WindowsCatalogParser.SetError(error, callbackId));
+                callbackManager.OnFacebookResponse(result);
+            });
         }
 
     }

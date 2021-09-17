@@ -113,5 +113,7 @@ namespace Facebook.Unity
             float logPurchase,
             string currency,
             Dictionary<string, object> parameters);
+
+        void GetCatalog(FacebookDelegate<ICatalogResult> callback);
     }
 }

@@ -31,6 +31,11 @@ namespace Facebook.Unity
             {
                 this.Products = Utilities.ParseCatalogFromResult(this.ResultDictionary);
             }
+            else if (this.ResultDictionary != null && this.ResultDictionary.ContainsKey("products"))
+            {
+                this.ResultDictionary.TryGetValue("products", out object productsList);
+                this.Products = (IList<Product>)productsList;
+            }
         }
 
         public IList<Product> Products { get; private set; }

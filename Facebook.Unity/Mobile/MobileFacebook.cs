@@ -283,7 +283,7 @@ namespace Facebook.Unity.Mobile
             throw new NotImplementedException();
         }
 
-        public virtual void GetCatalog(
+        public override void GetCatalog(
             FacebookDelegate<ICatalogResult> callback)
         {
             throw new NotImplementedException();

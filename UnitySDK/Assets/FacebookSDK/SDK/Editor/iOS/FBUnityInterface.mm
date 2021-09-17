@@ -611,7 +611,7 @@ extern "C" {
 
   void IOSFBAppEventsActivateApp()
   {
-    [FBSDKAppEvents activateApp];
+    [FBSDKAppEvents.shared activateApp];
   }
 
   void IOSFBAppEventsLogEvent(const char *eventName,

@@ -46,7 +46,6 @@
     <Compile Include="Parsers\WindowsPurchaseParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WindowsWrapper.cs" />
-    <Compile Include="WindowsResult.cs" />
     <Compile Include="WindowsOptions.cs" />
   </ItemGroup>
   <ItemGroup>

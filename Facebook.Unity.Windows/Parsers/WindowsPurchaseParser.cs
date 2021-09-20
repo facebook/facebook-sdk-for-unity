@@ -5,7 +5,7 @@ namespace Facebook.Unity.Windows
 {
     class WindowsPurchaseParser : WindowsParserBase
     {
-        public static ResultContainer Parse(fbg.Purchases purchases, string callbackId)
+        public static ResultContainer Parse(fbg.Purchases purchases, string callbackId, bool onlyFirst=false)
         {
             IDictionary<string, object> deserializedPurchaseData = Facebook.MiniJSON.Json.Deserialize(purchases.Raw) as Dictionary<string, object>;
             ResultContainer container;
@@ -26,7 +26,11 @@ namespace Facebook.Unity.Windows
 
                 if (purchasesList.Count >= 1)
                 {
-                    result["purchases"] = purchasesList;
+                    if (onlyFirst){
+                        result["purchase"] = purchasesList[0];
+                    }else{
+                        result["purchases"] = purchasesList;
+                    }
                 }
                 else
                 {

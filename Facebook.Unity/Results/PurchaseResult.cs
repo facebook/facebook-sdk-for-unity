@@ -31,6 +31,10 @@ namespace Facebook.Unity
             {
                 this.Purchase = Utilities.ParsePurchaseFromResult(this.ResultDictionary);
             }
+            else if (this.ResultDictionary != null && this.ResultDictionary.ContainsKey("purchase")) {
+                this.ResultDictionary.TryGetValue("purchase", out object product);
+                this.Purchase = (Purchase)product;
+            }
 
             if (this.ErrorDictionary != null && this.ErrorDictionary["errorType"] == "USER_INPUT")
             {

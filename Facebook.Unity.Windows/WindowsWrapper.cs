@@ -135,15 +135,26 @@ namespace Facebook.Unity.Windows
         {
             fbg.Purchases.getPurchases(fbg.PagingType.None, "", 0, (purchasesResult) =>
             {
-                PurchaseResult result = new PurchaseResult(WindowsPurchaseParser.Parse(purchasesResult, callbackId));
+                PurchasesResult result = new PurchasesResult(WindowsPurchaseParser.Parse(purchasesResult, callbackId));
                 callbackManager.OnFacebookResponse(result);
 
+            }, (error) =>
+            {
+                PurchasesResult result = new PurchasesResult(WindowsPurchaseParser.SetError(error, callbackId));
+                callbackManager.OnFacebookResponse(result);
+            });
+        }
+
+        public void Purchase(string newproductID, string newdeveloperPayload, string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Purchases.purchase(newproductID, newdeveloperPayload, (purchaseResult) => {
+                PurchaseResult result = new PurchaseResult(WindowsPurchaseParser.Parse(purchaseResult, callbackId,true));
+                callbackManager.OnFacebookResponse(result);
             }, (error) =>
             {
                 PurchaseResult result = new PurchaseResult(WindowsPurchaseParser.SetError(error, callbackId));
                 callbackManager.OnFacebookResponse(result);
             });
         }
-
     }
 }

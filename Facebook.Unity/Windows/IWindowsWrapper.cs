@@ -39,5 +39,7 @@ namespace Facebook.Unity.Windows
         void GetCatalog(string callbackId, CallbackManager callbackManager);
 
         void GetPurchases(string callbackId, CallbackManager callbackManager);
+
+        void Purchase(string productID, string developerPayload, string callbackId, CallbackManager callbackManager);
     }
 }

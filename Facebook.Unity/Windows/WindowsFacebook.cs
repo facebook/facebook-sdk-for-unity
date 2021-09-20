@@ -170,6 +170,11 @@ namespace Facebook.Unity.Windows
         {
             this.windowsWrapper.GetPurchases(this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
+
+        public override void Purchase( string productID, FacebookDelegate<IPurchaseResult> callback, string developerPayload = "")
+        {
+            this.windowsWrapper.Purchase(productID, developerPayload, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
         // END TO DO -------------------------------
 
         private static IWindowsWrapper GetWindowsWrapper()

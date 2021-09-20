@@ -295,7 +295,7 @@ namespace Facebook.Unity.Mobile
             throw new NotImplementedException();
         }
 
-        public virtual void Purchase(
+        public override void Purchase(
             string productID,
             FacebookDelegate<IPurchaseResult> callback,
             string developerPayload)

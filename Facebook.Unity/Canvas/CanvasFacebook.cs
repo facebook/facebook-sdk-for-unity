@@ -590,5 +590,10 @@ namespace Facebook.Unity.Canvas
         {
             throw new NotImplementedException();
         }
+
+        public override void Purchase(string productID, FacebookDelegate<IPurchaseResult> callback, string developerPayload = "")
+        {
+            throw new NotImplementedException();
+        }
     }
 }

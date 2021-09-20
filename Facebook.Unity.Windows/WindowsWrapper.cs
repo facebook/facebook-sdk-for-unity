@@ -42,8 +42,7 @@ namespace Facebook.Unity.Windows
 
         public void LogInWithScopes(IEnumerable<string> scope, string callbackId, CallbackManager callbackManager)
         {
-            WindowsResult result = new WindowsResult();
-            result.CallbackId = callbackId;
+            Dictionary<string, object> result = new Dictionary<string, object>() { { Constants.CallbackIdKey, callbackId } };
 
             try
             {
@@ -53,21 +52,25 @@ namespace Facebook.Unity.Windows
                 {
                     var perms = accessToken.Permissions.ConvertAll<string>(value => value.ToString());
                     var dataTime = Utilities.FromTimestamp((int)accessToken.Expiration);
+                    result["WindowsCurrentAccessToken"] = new AccessToken(accessToken.Token, accessToken.UserID.ToString(), dataTime, perms, null, "fb.gg");
 
-                    result.AccessToken = new AccessToken(accessToken.Token,accessToken.UserID.ToString(), dataTime, perms, null,"fb.gg");
-                    AccessToken.CurrentAccessToken = result.AccessToken;
-
-                    callbackManager.OnFacebookResponse(result);
+                    callbackManager.OnFacebookResponse(new LoginResult((new ResultContainer(result))));
                 }, (error) =>
                 {
-                    result.RawResult = error.Message;
-                    callbackManager.OnFacebookResponse(result);
+                    string msg = "ERROR: " + error.Message + ",";
+                        msg += "InnerErrorCode: " + error.InnerErrorCode.ToString() + ",";
+                        msg += "InnerErrorMessage: " + error.InnerErrorMessage + ",";
+                        msg += "InnerErrorSubcode: " + error.InnerErrorSubcode.ToString() + ",";
+                        msg += "InnerErrorTraceId: " + error.InnerErrorTraceId;
+
+                    result[Constants.ErrorKey] = msg;
+                    callbackManager.OnFacebookResponse(new LoginResult((new ResultContainer(result))));
                 });
             }
             catch (Exception e)
             {
-                result.RawResult = e.Message;
-                callbackManager.OnFacebookResponse(result);
+                result[Constants.ErrorKey] = e.Message;
+                callbackManager.OnFacebookResponse(new LoginResult((new ResultContainer(result))));
             }
         }
 

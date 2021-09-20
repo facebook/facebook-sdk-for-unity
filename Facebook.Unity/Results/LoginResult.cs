@@ -35,17 +35,26 @@ namespace Facebook.Unity
 
         internal LoginResult(ResultContainer resultContainer) : base(resultContainer)
         {
-            if (this.ResultDictionary != null && this.ResultDictionary.ContainsKey(LoginResult.AccessTokenKey))
+            if (this.ResultDictionary != null && this.ResultDictionary.ContainsKey("WindowsCurrentAccessToken"))
             {
-                this.AccessToken = Utilities.ParseAccessTokenFromResult(this.ResultDictionary);
+                //Windows SDK will create and validate the AccessToken
+                this.AccessToken = this.ResultDictionary.GetValueOrDefault<AccessToken>("WindowsCurrentAccessToken");
+                AccessToken.CurrentAccessToken = this.AccessToken;
             }
-            if (this.ResultDictionary != null && this.ResultDictionary.ContainsKey(LoginResult.AuthTokenString) && this.ResultDictionary.ContainsKey(LoginResult.AuthNonce))
+            else
             {
-                this.AuthenticationToken = Utilities.ParseAuthenticationTokenFromResult(this.ResultDictionary);
-            }
-            if (this.AuthenticationToken != null)
-            {
-                AccessToken.CurrentAccessToken = null;
+                if (this.ResultDictionary != null && this.ResultDictionary.ContainsKey(LoginResult.AccessTokenKey))
+                {
+                    this.AccessToken = Utilities.ParseAccessTokenFromResult(this.ResultDictionary);
+                }
+                if (this.ResultDictionary != null && this.ResultDictionary.ContainsKey(LoginResult.AuthTokenString) && this.ResultDictionary.ContainsKey(LoginResult.AuthNonce))
+                {
+                    this.AuthenticationToken = Utilities.ParseAuthenticationTokenFromResult(this.ResultDictionary);
+                }
+                if (this.AuthenticationToken != null)
+                {
+                    AccessToken.CurrentAccessToken = null;
+                }
             }
         }
 

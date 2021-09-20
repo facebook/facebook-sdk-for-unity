@@ -558,7 +558,7 @@ namespace Facebook.Unity.Editor
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 
-        public void ConsumePurchase(string productID, FacebookDelegate<IConsumePurchaseResult> callback)
+        public override void ConsumePurchase(string productID, FacebookDelegate<IConsumePurchaseResult> callback)
         {
             var result = new Dictionary<string, object>();
             result["success"] = "";

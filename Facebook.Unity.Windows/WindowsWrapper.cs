@@ -156,5 +156,19 @@ namespace Facebook.Unity.Windows
                 callbackManager.OnFacebookResponse(result);
             });
         }
+
+        public void ConsumePurchase(string productToken, string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Purchases.consume(productToken, (success) => {
+                ConsumePurchaseResult result = new ConsumePurchaseResult(new ResultContainer(new Dictionary<string, object>() {
+                    {Constants.CallbackIdKey,callbackId }
+                }
+                ));
+                callbackManager.OnFacebookResponse(result);
+            }, (error) => {
+                ConsumePurchaseResult result = new ConsumePurchaseResult(WindowsPurchaseParser.SetError(error, callbackId));
+                callbackManager.OnFacebookResponse(result);
+            });
+        }
     }
 }

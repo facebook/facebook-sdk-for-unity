@@ -41,5 +41,7 @@ namespace Facebook.Unity.Windows
         void GetPurchases(string callbackId, CallbackManager callbackManager);
 
         void Purchase(string productID, string developerPayload, string callbackId, CallbackManager callbackManager);
+
+        void ConsumePurchase(string productToken,  string callbackId, CallbackManager callbackManager);
     }
 }

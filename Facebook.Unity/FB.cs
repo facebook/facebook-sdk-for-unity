@@ -748,6 +748,11 @@ namespace Facebook.Unity
             FacebookImpl.Purchase(productID,callback,developerPayload);
         }
 
+        public static void ConsumePurchase(string productToken, FacebookDelegate<IConsumePurchaseResult> callback)
+        {
+            FacebookImpl.ConsumePurchase(productToken, callback);
+        }
+
         /// <summary>
         /// Contains methods specific to the Facebook Games Canvas platform.
         /// </summary>
@@ -1118,9 +1123,14 @@ namespace Facebook.Unity
             {
                 Mobile.MobileFacebookImpl.GetPurchases(callback);
             }
+
             public static void Purchase(string productID, FacebookDelegate<IPurchaseResult> callback, string developerPayload = "")
             {
                 Mobile.MobileFacebookImpl.Purchase(productID, callback, developerPayload);
+            }
+            public static void ConsumePurchase(string productToken, FacebookDelegate<IConsumePurchaseResult> callback)
+            {
+                Mobile.MobileFacebookImpl.ConsumePurchase(productToken, callback);
             }
         }
 

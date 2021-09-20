@@ -303,7 +303,7 @@ namespace Facebook.Unity.Mobile
             throw new NotImplementedException();
         }
 
-        public virtual void ConsumePurchase(
+        public override void ConsumePurchase(
             string purchaseToken,
             FacebookDelegate<IConsumePurchaseResult> callback)
         {

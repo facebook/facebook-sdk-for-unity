@@ -163,7 +163,7 @@ namespace Facebook.Unity.Windows
 
         public override void GetCatalog(FacebookDelegate<ICatalogResult> callback)
         {
-            this.windowsWrapper.GetCatalog(this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);           
+            this.windowsWrapper.GetCatalog(this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
 
         public override void GetPurchases(FacebookDelegate<IPurchasesResult> callback)
@@ -174,6 +174,11 @@ namespace Facebook.Unity.Windows
         public override void Purchase( string productID, FacebookDelegate<IPurchaseResult> callback, string developerPayload = "")
         {
             this.windowsWrapper.Purchase(productID, developerPayload, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
+        public override void ConsumePurchase(string productToken, FacebookDelegate<IConsumePurchaseResult> callback)
+        {
+            this.windowsWrapper.ConsumePurchase(productToken, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
         // END TO DO -------------------------------
 

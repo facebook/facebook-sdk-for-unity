@@ -69,8 +69,6 @@ namespace Facebook.Unity.Mobile
 
         void OnIAPReady(FacebookDelegate<IIAPReadyResult> callback);
 
-        void ConsumePurchase(string productToken, FacebookDelegate<IConsumePurchaseResult> callback);
-
         void InitCloudGame(FacebookDelegate<IInitCloudGameResult> callback);
 
         void ScheduleAppToUserNotification(

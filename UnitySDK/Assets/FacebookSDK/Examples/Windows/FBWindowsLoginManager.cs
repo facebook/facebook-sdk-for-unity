@@ -7,17 +7,26 @@ using System;
 
 public class FBWindowsLoginManager : MonoBehaviour {
 
-
 	public FBWindowsLogsManager Logger;
 	public InputField Permissions;
 
-	public void LogInButton()
+	public void LogInReadButton()
 	{
-
 		if (FB.IsInitialized)
 		{
-			//var perms = new List<string>() { "GamingProfile", "UserFriends" };
 			FB.LogInWithReadPermissions(Permissions.text.Split(','), AuthCallback);
+		}
+		else
+		{
+			Logger.DebugLog("Not Init");
+		}
+	}
+
+	public void LogInPublishButton()
+	{
+		if (FB.IsInitialized)
+		{
+			FB.LogInWithPublishPermissions(Permissions.text.Split(','), AuthCallback);
 		}
 		else
 		{
@@ -40,21 +49,28 @@ public class FBWindowsLoginManager : MonoBehaviour {
 
 	private void AuthCallback(ILoginResult result)
 	{
-		if (FB.IsLoggedIn)
+		if (result.Error != null)
 		{
-			// AccessToken class will have session details
-			var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
-			// Print current access token's User ID
-			Logger.DebugLog("aToken.UserId: " + aToken.UserId);
-			// Print current access token's granted permissions
-			foreach (string perm in aToken.Permissions)
+			Logger.DebugLog("Error: " + result.Error);
+        }
+        else 		 
+		{
+			if (FB.IsLoggedIn)
 			{
-				Logger.DebugLog("perm: " + perm);
+				// AccessToken class will have session details
+				var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
+				// Print current access token's User ID
+				Logger.DebugLog("aToken.UserId: " + aToken.UserId);
+				// Print current access token's granted permissions
+				foreach (string perm in aToken.Permissions)
+				{
+					Logger.DebugLog("perm: " + perm);
+				}
 			}
-		}
-		else
-		{
-			Logger.DebugLog("User cancelled login");
+			else
+			{
+				Logger.DebugLog("User cancelled login");
+			}
 		}
 	}
 }

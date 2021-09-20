@@ -115,5 +115,7 @@ namespace Facebook.Unity
             Dictionary<string, object> parameters);
 
         void GetCatalog(FacebookDelegate<ICatalogResult> callback);
+
+        void GetPurchases(FacebookDelegate<IPurchasesResult> callback);
     }
 }

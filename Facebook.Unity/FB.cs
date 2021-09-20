@@ -738,6 +738,11 @@ namespace Facebook.Unity
             FacebookImpl.GetCatalog(callback);
         }
 
+        public static void GetPurchases(FacebookDelegate<IPurchasesResult> callback)
+        {
+            FacebookImpl.GetPurchases(callback);
+        }
+
         /// <summary>
         /// Contains methods specific to the Facebook Games Canvas platform.
         /// </summary>
@@ -1102,6 +1107,11 @@ namespace Facebook.Unity
             public static void GetCatalog(FacebookDelegate<ICatalogResult> callback)
             {
                 Mobile.MobileFacebookImpl.GetCatalog(callback);
+            }
+
+            public static void GetPurchases(FacebookDelegate<IPurchasesResult> callback)
+            {
+                Mobile.MobileFacebookImpl.GetPurchases(callback);
             }
         }
 

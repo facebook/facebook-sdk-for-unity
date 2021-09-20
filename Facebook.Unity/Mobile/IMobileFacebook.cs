@@ -69,8 +69,6 @@ namespace Facebook.Unity.Mobile
 
         void OnIAPReady(FacebookDelegate<IIAPReadyResult> callback);
 
-        void GetPurchases(FacebookDelegate<IPurchasesResult> callback);
-
         void Purchase(string productID, FacebookDelegate<IPurchaseResult> callback, string developPayload);
 
         void ConsumePurchase(string productToken, FacebookDelegate<IConsumePurchaseResult> callback);

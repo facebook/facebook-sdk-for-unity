@@ -273,5 +273,7 @@ namespace Facebook.Unity
         }
 
         public abstract void GetCatalog(FacebookDelegate<ICatalogResult> callback);
+
+        public abstract void GetPurchases(FacebookDelegate<IPurchasesResult> callback);
     }
 }

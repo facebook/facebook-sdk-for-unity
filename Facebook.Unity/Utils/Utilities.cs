@@ -272,15 +272,7 @@ namespace Facebook.Unity
             {
                 IList<object> deserializedCatalogObject = (IList<object>) MiniJSON.Json.Deserialize(catalogObject as string);
                 foreach (IDictionary<string, object> product in deserializedCatalogObject) {
-                    string title = product["title"].ToStringNullOk();
-                    string productID = product["productID"].ToStringNullOk();
-                    string description = product["description"].ToStringNullOk();
-                    string imageURI = product.ContainsKey("imageURI") ? product["imageURI"].ToStringNullOk() : "";
-                    string price = product["price"].ToStringNullOk();
-                    double? priceAmount = product.ContainsKey("priceAmount") ? (double?) product["priceAmount"] : null;
-                    string priceCurrencyCode = product["priceCurrencyCode"].ToStringNullOk();
-
-                    products.Add(new Product(title, productID, description, imageURI, price, priceAmount, priceCurrencyCode));
+                    products.Add(ParseProductFromCatalogResult(product));
                 }
                 return products;
             }
@@ -288,6 +280,19 @@ namespace Facebook.Unity
             {
                 return null;
             }
+        }
+
+        public static Product ParseProductFromCatalogResult(IDictionary<string, object> product, bool isWindows = false)
+        {
+            string title = product["title"].ToStringNullOk();
+            string productID = product[isWindows ? "product_id" : "productID"].ToStringNullOk();
+            string description = product["description"].ToStringNullOk();
+            string imageURI = product.ContainsKey(isWindows ? "image_uri" : "imageURI") ? product[isWindows ? "image_uri" : "imageURI"].ToStringNullOk() : "";
+            string price = product["price"].ToStringNullOk();
+            double? priceAmount = product.ContainsKey(isWindows ? "price_amount" : "priceAmount") ? (double?)product[isWindows ? "price_amount" : "priceAmount"] : null;
+            string priceCurrencyCode = product[isWindows ? "price_currency_code" : "priceCurrencyCode"].ToStringNullOk();
+
+            return new Product(title, productID, description, imageURI, price, priceAmount, priceCurrencyCode);
         }
 
         public static IList<Purchase> ParsePurchasesFromResult(IDictionary<string, object> resultDictionary)
@@ -324,17 +329,17 @@ namespace Facebook.Unity
             }
         }
 
-        private static Purchase ParsePurchaseFromDictionary(IDictionary<string, object> purchase) {
-            bool isConsumed = (bool)purchase["isConsumed"];
-            string developerPayload = purchase.ContainsKey("developerPayload") ? purchase["developerPayload"].ToStringNullOk() : "";
-            string paymentActionType = purchase["paymentActionType"].ToStringNullOk();
-            string paymentID = purchase["paymentID"].ToStringNullOk();
-            string productID = purchase["productID"].ToStringNullOk();
-            IDictionary<string, object> purchasePrice = (IDictionary<string, object>) purchase["purchasePrice"];
-            long purchaseTime = (long)purchase["purchaseTime"];
-            string purchaseToken = purchase["purchaseToken"].ToStringNullOk();
-            string signedRequest = purchase["signedRequest"].ToStringNullOk();
-            string purchasePlatform = purchase["purchasePlatform"].ToStringNullOk();
+        public static Purchase ParsePurchaseFromDictionary(IDictionary<string, object> purchase, bool isWindows = false) {
+            bool isConsumed = (bool)purchase[isWindows ? "consumed" : "isConsumed"];
+            string developerPayload = purchase.ContainsKey(isWindows ? "developer_payload" : "developerPayload") ? purchase[isWindows ? "developer_payload" : "developerPayload"].ToStringNullOk() : "";
+            string paymentActionType = purchase[isWindows ? "payment_action_type" : "paymentActionType"].ToStringNullOk();
+            string paymentID = purchase[isWindows ? "payment_id" : "paymentID"].ToStringNullOk();
+            string productID = purchase[isWindows ? "product_id" : "productID"].ToStringNullOk();
+            IDictionary<string, object> purchasePrice = (IDictionary<string, object>) purchase[isWindows ? "purchase_price" : "purchasePrice"];
+            long purchaseTime = (long)purchase[isWindows ? "purchase_time" : "purchaseTime"];
+            string purchaseToken = purchase[isWindows ? "purchase_token" : "purchaseToken"].ToStringNullOk();
+            string signedRequest = purchase[isWindows ? "signed_request" : "signedRequest"].ToStringNullOk();
+            string purchasePlatform = purchase[isWindows ? "purchase_platform" : "purchasePlatform"].ToStringNullOk();
 
             return new Purchase(developerPayload, isConsumed, paymentActionType, paymentID, productID, purchasePlatform, purchasePrice, purchaseTime, purchaseToken, signedRequest);
         }

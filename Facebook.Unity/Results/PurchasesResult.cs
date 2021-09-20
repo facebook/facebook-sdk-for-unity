@@ -30,6 +30,10 @@ namespace Facebook.Unity
             if (this.ResultDictionary != null && this.ResultDictionary.ContainsKey("success"))
             {
                 this.Purchases = Utilities.ParsePurchasesFromResult(this.ResultDictionary);
+            }else if (this.ResultDictionary != null && this.ResultDictionary.ContainsKey("purchases"))
+            {
+                this.ResultDictionary.TryGetValue("purchases", out object productsList);
+                this.Purchases = (IList<Purchase>)productsList;
             }
         }
 

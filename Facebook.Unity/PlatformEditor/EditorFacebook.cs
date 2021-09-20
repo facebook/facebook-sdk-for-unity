@@ -544,7 +544,7 @@ namespace Facebook.Unity.Editor
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 
-        public void GetPurchases(FacebookDelegate<IPurchasesResult> callback)
+        public override void GetPurchases(FacebookDelegate<IPurchasesResult> callback)
         {
             var result = new Dictionary<string, object>();
             result["success"] = "[{\"isConsumed\":\"false\",\"paymentID\":\"2607915835989565\",\"productID\":\"123\",\"purchaseTime\":\"1583797821\":\"purchaseToken\":\"1655700687901784\",\"signedRequest\":\"abc123ZYZ\"}]";

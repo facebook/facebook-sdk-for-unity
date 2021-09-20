@@ -37,5 +37,7 @@ namespace Facebook.Unity.Windows
         void Deinit();
 
         void GetCatalog(string callbackId, CallbackManager callbackManager);
+
+        void GetPurchases(string callbackId, CallbackManager callbackManager);
     }
 }

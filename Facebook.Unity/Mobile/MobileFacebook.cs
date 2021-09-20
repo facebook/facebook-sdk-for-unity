@@ -289,7 +289,7 @@ namespace Facebook.Unity.Mobile
             throw new NotImplementedException();
         }
 
-        public virtual void GetPurchases(
+        public override void GetPurchases(
             FacebookDelegate<IPurchasesResult> callback)
         {
             throw new NotImplementedException();

@@ -120,13 +120,27 @@ namespace Facebook.Unity.Windows
         public void GetCatalog(string callbackId, CallbackManager callbackManager)
         {
             fbg.Catalog.getCatalog(fbg.PagingType.None, "", 0, (catalogResult) =>
-            {               
+            {
                 CatalogResult result = new CatalogResult(WindowsCatalogParser.Parse(catalogResult, callbackId));
                 callbackManager.OnFacebookResponse(result);
 
             }, (error) =>
             {
                 PurchaseResult result = new PurchaseResult(WindowsCatalogParser.SetError(error, callbackId));
+                callbackManager.OnFacebookResponse(result);
+            });
+        }
+
+        public void GetPurchases(string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Purchases.getPurchases(fbg.PagingType.None, "", 0, (purchasesResult) =>
+            {
+                PurchaseResult result = new PurchaseResult(WindowsPurchaseParser.Parse(purchasesResult, callbackId));
+                callbackManager.OnFacebookResponse(result);
+
+            }, (error) =>
+            {
+                PurchaseResult result = new PurchaseResult(WindowsPurchaseParser.SetError(error, callbackId));
                 callbackManager.OnFacebookResponse(result);
             });
         }

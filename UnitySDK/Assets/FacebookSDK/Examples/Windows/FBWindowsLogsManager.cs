@@ -6,32 +6,27 @@ using UnityEditor;
 
 public class FBWindowsLogsManager : MonoBehaviour
 {
+    public Text LogText;
 
-	public Text LogText;
-
-	void Awake()
+    void Awake()
     {
-
 #if !UNITY_EDITOR_WIN
-		Debug.Log("This example is only for Windows devices.");
+			Debug.Log("This example is only for Windows devices.");
 #else
-		if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.StandaloneWindows && EditorUserBuildSettings.activeBuildTarget != BuildTarget.StandaloneWindows64)
+        if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.StandaloneWindows && EditorUserBuildSettings.activeBuildTarget != BuildTarget.StandaloneWindows64)
         {
-			Debug.Log("This example is only for Windows build target (x86 or x84).");
-		}
-
+            Debug.Log("This example is only for Windows build target (x86 or x84).");
+        }
 #endif
+    }
 
-	}
+    public void DebugLog(string message)
+    {
+        LogText.text += message + "\n";
+    }
 
-	public void DebugLog(string message)
-	{
-		LogText.text += message + "\n";
-	}
-
-	public void DebugClean()
-	{
-		LogText.text = "";
-	}
+    public void DebugClean()
+    {
+        LogText.text = "";
+    }
 }
-

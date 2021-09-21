@@ -4,156 +4,155 @@ using UnityEngine;
 using UnityEngine.UI;
 using Facebook.Unity;
 
-public class FBWindowsPurchaseManager : MonoBehaviour {
+public class FBWindowsPurchaseManager : MonoBehaviour
+{
+    public FBWindowsLogsManager Logger;
+    public GameObject ProductGameObject;
+    public Transform CatalogPanelTarnsform;
+    public Transform PurchasesPanelTarnsform;
 
-	public FBWindowsLogsManager Logger;
+    // IN APP PURCHASES CATALOG FUNCTIONS ----------------------------------------------------------------------------------------------------------
+    public void GetCatalogButton()
+    {
+        if (FB.IsLoggedIn)
+        {
+            Logger.DebugLog("GetCatalog");
+            FB.GetCatalog(ProcessGetCatalog);
+        }
+        else
+        {
+            Logger.DebugLog("Login First");
+        }
+    }
 
-	public GameObject ProductGameObject;
-	public Transform CatalogPanelTarnsform;
-	public Transform PurchasesPanelTarnsform;
+    private void ProcessGetCatalog(ICatalogResult result)
+    {
+        foreach (Transform child in CatalogPanelTarnsform)
+        {
+            Destroy(child.gameObject);
+        }
 
-	// IN APP PURCHASES CATALOG FUNCTIONS ----------------------------------------------------------------------------------------------------------
+        if (FB.IsLoggedIn)
+        {
+            Logger.DebugLog("Processing Catalog");
+            if (result.Error != null)
+            {
+                Logger.DebugLog(result.Error);
+            }
+            else
+            {
+                foreach (Product item in result.Products)
+                {
+                    string itemInfo = item.Title + "\n";
+                    itemInfo += item.Description + "\n";
+                    itemInfo += item.Price;
 
-	public void GetCatalogButton()
-	{
-		if (FB.IsLoggedIn)
-		{
-			Logger.DebugLog("GetCatalog");
-			FB.GetCatalog(ProcessGetCatalog);
-		}
-		else
-		{
-			Logger.DebugLog("Login First");
-		}
-	}
+                    GameObject newProduct = Instantiate(ProductGameObject, CatalogPanelTarnsform);
 
-	private void ProcessGetCatalog(ICatalogResult result)
-	{
-		foreach (Transform child in CatalogPanelTarnsform)
-		{
-			Destroy(child.gameObject);
-		}
+                    newProduct.GetComponentInChildren<Text>().text = itemInfo;
+                    newProduct.GetComponentInChildren<Button>().onClick.AddListener(() => FB.Purchase(item.ProductID, ProcessPurchase, "FB_PayLoad"));
 
-		if (FB.IsLoggedIn)
-		{
-			Logger.DebugLog("Processing Catalog");
-			if (result.Error != null)
-			{
-				Logger.DebugLog(result.Error);
-			}
-			else
-			{
-				foreach (Product item in result.Products)
-				{
-					string itemInfo = item.Title + "\n";
-					itemInfo += item.Description + "\n";
-					itemInfo += item.Price;
+                    if (item.ImageURI != "")
+                    {
+                        StartCoroutine(LoadPictureFromUrl(item.ImageURI, newProduct.GetComponentInChildren<RawImage>()));
+                    }
+                }
+            }
+        }
+        else
+        {
+            Logger.DebugLog("Login First");
+        }
+    }
 
-					GameObject newProduct = Instantiate(ProductGameObject, CatalogPanelTarnsform);
+    IEnumerator LoadPictureFromUrl(string url, RawImage itemImage)
+    {
+        Texture2D UserPicture = new Texture2D(32, 32);
 
-					newProduct.GetComponentInChildren<Text>().text = itemInfo;
-					newProduct.GetComponentInChildren<Button>().onClick.AddListener(() => FB.Purchase(item.ProductID, ProcessPurchase, "FB_PayLoad"));
+        WWW www = new WWW(url);
+        yield return www;
 
-					if (item.ImageURI != "")
-					{
-						StartCoroutine(LoadPictureFromUrl(item.ImageURI, newProduct.GetComponentInChildren<RawImage>()));
-					}
-				}
-			}
-		}
-		else
-		{
-			Logger.DebugLog("Login First");
-		}
-	}
+        www.LoadImageIntoTexture(UserPicture);
+        www.Dispose();
+        www = null;
 
-	IEnumerator LoadPictureFromUrl(string url, RawImage itemImage)
-	{
-		Texture2D UserPicture = new Texture2D(32, 32);
+        itemImage.texture = UserPicture;
+    }
 
-		WWW www = new WWW(url);
-		yield return www;
+    private void ProcessPurchase(IPurchaseResult result)
+    {
+        Logger.DebugLog("Purchase result");
+        if (result.Error != null)
+        {
+            Logger.DebugLog(result.Error);
+        }
+        else
+        {
+            Logger.DebugLog("Product Purchased: " + result.Purchase.ProductID);
+        }
+        GetPurchases();
+    }
 
-		www.LoadImageIntoTexture(UserPicture);
-		www.Dispose();
-		www = null;
+    // IN APP PURCHASES PURCHASES FUNCTIONS ----------------------------------------------------------------------------------------------------------
+    public void GetPurchases()
+    {
+        Logger.DebugLog("Getting purchases");
+        FB.GetPurchases(processPurchases);
+    }
 
-		itemImage.texture = UserPicture;
-	}
+    private void processPurchases(IPurchasesResult result)
+    {
+        foreach (Transform child in PurchasesPanelTarnsform)
+        {
+            Destroy(child.gameObject);
+        }
 
-	private void ProcessPurchase(IPurchaseResult result)
-	{
-		Logger.DebugLog("Purchase result");
-		if (result.Error != null)
-		{
-			Logger.DebugLog(result.Error);
-		}
-		else
-		{
-			Logger.DebugLog("Product Purchased: " + result.Purchase.ProductID);
-		}
-		GetPurchases();
-	}
+        if (FB.IsLoggedIn)
+        {
+            Logger.DebugLog("Processing Purchases");
+            if (result.Error != null)
+            {
+                Debug.Log(result.Error);
+            }
+            else
+            {
+                if (result.Purchases != null)
+                {
+                    foreach (Purchase item in result.Purchases)
+                    {
+                        string itemInfo = item.ProductID + "\n";
+                        itemInfo += item.PurchasePlatform + "\n";
+                        itemInfo += item.PurchaseToken;
 
-	// IN APP PURCHASES PURCHASES FUNCTIONS ----------------------------------------------------------------------------------------------------------
+                        GameObject newProduct = Instantiate(ProductGameObject, PurchasesPanelTarnsform);
 
-	public void GetPurchases()
-	{
-		Logger.DebugLog("Getting purchases");
-		FB.GetPurchases(processPurchases);
-	}
-
-	private void processPurchases(IPurchasesResult result)
-	{
-		foreach (Transform child in PurchasesPanelTarnsform)
-		{
-			Destroy(child.gameObject);
-		}
-
-		if (FB.IsLoggedIn)
-		{
-			Logger.DebugLog("Processing Purchases");
-			if (result.Error != null)
-			{
-				Debug.Log(result.Error);
-			}
-			else
-			{
-				if (result.Purchases != null)
-				{
-					foreach (Purchase item in result.Purchases)
-					{
-						string itemInfo = item.ProductID + "\n";
-						itemInfo += item.PurchasePlatform + "\n";
-						itemInfo += item.PurchaseToken;
-
-						GameObject newProduct = Instantiate(ProductGameObject, PurchasesPanelTarnsform);
-
-						newProduct.GetComponentInChildren<Text>().text = itemInfo;
-						newProduct.GetComponentInChildren<Button>().onClick.AddListener( () => {
-							FB.ConsumePurchase(item.PurchaseToken, delegate (IConsumePurchaseResult consumeResult) {
-								if (consumeResult.Error != null)
-								{
-									Logger.DebugLog(consumeResult.Error);
-								}
-								else
-								{
-									Logger.DebugLog("Product consumed correctly! ProductID:" + item.ProductID);
-								}
-								GetPurchases();
-							});
-						});
-					}
-				}
-				else
-				{
-					Logger.DebugLog("No purchases");
-				}
-			}
-		}
-		else
-		{
-			Logger.DebugLog("Login First");
-		}
-	}
+                        newProduct.GetComponentInChildren<Text>().text = itemInfo;
+                        newProduct.GetComponentInChildren<Button>().onClick.AddListener(() =>
+                        {
+                            FB.ConsumePurchase(item.PurchaseToken, delegate (IConsumePurchaseResult consumeResult)
+                            {
+                                if (consumeResult.Error != null)
+                                {
+                                    Logger.DebugLog(consumeResult.Error);
+                                }
+                                else
+                                {
+                                    Logger.DebugLog("Product consumed correctly! ProductID:" + item.ProductID);
+                                }
+                                GetPurchases();
+                            });
+                        });
+                    }
+                }
+                else
+                {
+                    Logger.DebugLog("No purchases");
+                }
+            }
+        }
+        else
+        {
+            Logger.DebugLog("Login First");
+        }
+    }
 }

@@ -65,11 +65,7 @@ namespace Facebook.Unity.Windows
         {
             this.appId = appId;
             Initialized = this.windowsWrapper.Init(appId, clientToken);
-
-            if (Initialized)
-            {
-                onInitComplete.Invoke();
-            }
+            onInitComplete.Invoke();        
         }
 
         public override void LogInWithPublishPermissions(IEnumerable<string> scope, FacebookDelegate<ILoginResult> callback)

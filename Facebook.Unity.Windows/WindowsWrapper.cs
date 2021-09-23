@@ -253,5 +253,64 @@ namespace Facebook.Unity.Windows
                 callbackManager.OnFacebookResponse(new ProfileResult((new ResultContainer(result))));
             }
         }
+        public void LoadInterstitialAd(string placementID, string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Inappad.loadInterstitialAd(placementID, (response) => {
+                Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                    {Constants.CallbackIdKey,callbackId }
+                };
+                resultDict[Constants.ErrorKey] = response.Error;
+                InterstitialAdResult result = new InterstitialAdResult(new ResultContainer(resultDict));
+                callbackManager.OnFacebookResponse(result);
+            }, (error) =>{
+                InterstitialAdResult result = new InterstitialAdResult(WindowsParserBase.SetError(error, callbackId));
+                callbackManager.OnFacebookResponse(result);
+            });
+        }
+
+        public void ShowInterstitialAd(string placementID, string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Inappad.showInterstitialAd(placementID, (response) => {
+                Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                    {Constants.CallbackIdKey,callbackId }
+                };
+                resultDict[Constants.ErrorKey] = response.Error;
+                InterstitialAdResult result = new InterstitialAdResult(new ResultContainer(resultDict));
+                callbackManager.OnFacebookResponse(result);
+            }, (error) => {
+                InterstitialAdResult result = new InterstitialAdResult(WindowsParserBase.SetError(error, callbackId));
+                callbackManager.OnFacebookResponse(result);
+            });
+        }
+
+        public void LoadRewardedVideo(string placementID, string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Inappad.loadRewardedVideo(placementID, (response) => {
+                Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                    {Constants.CallbackIdKey,callbackId }
+                };
+                resultDict[Constants.ErrorKey] = response.Error;
+                RewardedVideoResult result = new RewardedVideoResult(new ResultContainer(resultDict));
+                callbackManager.OnFacebookResponse(result);
+            }, (error) => {
+                RewardedVideoResult result = new RewardedVideoResult(WindowsParserBase.SetError(error, callbackId));
+                callbackManager.OnFacebookResponse(result);
+            });
+        }
+
+        public void ShowRewardedVideo(string placementID, string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Inappad.showRewardedVideo(placementID, (response) => {
+                Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                    {Constants.CallbackIdKey,callbackId }
+                };
+                resultDict[Constants.ErrorKey] = response.Error;
+                RewardedVideoResult result = new RewardedVideoResult(new ResultContainer(resultDict));
+                callbackManager.OnFacebookResponse(result);
+            }, (error) => {
+                RewardedVideoResult result = new RewardedVideoResult(WindowsParserBase.SetError(error, callbackId));
+                callbackManager.OnFacebookResponse(result);
+            });
+        }
     }
 }

@@ -763,6 +763,26 @@ namespace Facebook.Unity
             FacebookImpl.CurrentProfile(callback);
         }
 
+        public static void LoadInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback)
+        {
+            FacebookImpl.LoadInterstitialAd(placementID, callback);
+        }
+
+        public static void ShowInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback)
+        {
+            FacebookImpl.ShowInterstitialAd(placementID, callback);
+        }
+
+        public static void LoadRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback)
+        {
+            FacebookImpl.LoadRewardedVideo(placementID, callback);
+        }
+
+        public static void ShowRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback)
+        {
+            FacebookImpl.ShowRewardedVideo(placementID, callback);
+        }
+
         /// <summary>
         /// Contains methods specific to the Facebook Games Canvas platform.
         /// </summary>
@@ -1155,6 +1175,26 @@ namespace Facebook.Unity
             public static void ConsumePurchase(string productToken, FacebookDelegate<IConsumePurchaseResult> callback)
             {
                 Mobile.MobileFacebookImpl.ConsumePurchase(productToken, callback);
+            }
+
+            public static void LoadInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback)
+            {
+                Mobile.MobileFacebookImpl.LoadInterstitialAd(placementID, callback);
+            }
+
+            public static void ShowInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback)
+            {
+                Mobile.MobileFacebookImpl.ShowInterstitialAd(placementID, callback);
+            }
+
+            public static void LoadRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback)
+            {
+                Mobile.MobileFacebookImpl.LoadRewardedVideo(placementID, callback);
+            }
+
+            public static void ShowRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback)
+            {
+                Mobile.MobileFacebookImpl.ShowRewardedVideo(placementID, callback);
             }
         }
 

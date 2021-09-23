@@ -45,5 +45,13 @@ namespace Facebook.Unity.Windows
         void ConsumePurchase(string productToken,  string callbackId, CallbackManager callbackManager);
 
         void CurrentProfile(string callbackId, CallbackManager callbackManager);
+
+        void LoadInterstitialAd(string placementID, string callbackId, CallbackManager callbackManager);
+
+        void ShowInterstitialAd(string placementID, string callbackId, CallbackManager callbackManager);
+
+        void LoadRewardedVideo(string placementID, string callbackId, CallbackManager callbackManager);
+
+        void ShowRewardedVideo(string placementID, string callbackId, CallbackManager callbackManager);
     }
 }

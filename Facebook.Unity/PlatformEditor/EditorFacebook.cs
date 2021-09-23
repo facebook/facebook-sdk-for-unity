@@ -590,28 +590,28 @@ namespace Facebook.Unity.Editor
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 
-        public void LoadInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback)
+        public override void LoadInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback)
         {
             var result = new Dictionary<string, object>();
             result["success"] = "";
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 
-        public void ShowInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback)
+        public override void ShowInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback)
         {
             var result = new Dictionary<string, object>();
             result["success"] = "";
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 
-        public void LoadRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback)
+        public override void LoadRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback)
         {
             var result = new Dictionary<string, object>();
             result["success"] = "";
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 
-        public void ShowRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback)
+        public override void ShowRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback)
         {
             var result = new Dictionary<string, object>();
             result["success"] = "";

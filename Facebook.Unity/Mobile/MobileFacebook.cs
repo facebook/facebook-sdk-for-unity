@@ -335,28 +335,28 @@ namespace Facebook.Unity.Mobile
             throw new NotImplementedException();
         }
 
-        public virtual void LoadInterstitialAd(
+        public override void LoadInterstitialAd(
             string placementID,
             FacebookDelegate<IInterstitialAdResult> callback)
         {
             throw new NotImplementedException();
         }
 
-        public virtual void ShowInterstitialAd(
+        public override void ShowInterstitialAd(
             string placementID,
             FacebookDelegate<IInterstitialAdResult> callback)
         {
             throw new NotImplementedException();
         }
 
-        public virtual void LoadRewardedVideo(
+        public override void LoadRewardedVideo(
             string placementID,
             FacebookDelegate<IRewardedVideoResult> callback)
         {
             throw new NotImplementedException();
         }
 
-        public virtual void ShowRewardedVideo(
+        public override void ShowRewardedVideo(
             string placementID,
             FacebookDelegate<IRewardedVideoResult> callback)
         {

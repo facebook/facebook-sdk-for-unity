@@ -125,5 +125,13 @@ namespace Facebook.Unity
         Profile CurrentProfile();
 
         void CurrentProfile(FacebookDelegate<IProfileResult> callback);
+
+        void LoadInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback);
+
+        void ShowInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback);
+
+        void LoadRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback);
+
+        void ShowRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback);
     }
 }

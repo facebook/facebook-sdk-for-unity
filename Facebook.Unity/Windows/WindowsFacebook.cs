@@ -166,6 +166,27 @@ namespace Facebook.Unity.Windows
             this.windowsWrapper.CurrentProfile(this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
 
+        public override void LoadInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback)
+        {
+            this.windowsWrapper.LoadInterstitialAd(placementID, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
+        public override void ShowInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback)
+        {
+            this.windowsWrapper.ShowInterstitialAd(placementID, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
+        public override void LoadRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback)
+        {
+            this.windowsWrapper.LoadRewardedVideo(placementID, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
+        public override void ShowRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback)
+        {
+            this.windowsWrapper.ShowRewardedVideo(placementID, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+        // END TO DO -------------------------------
+
         private static IWindowsWrapper GetWindowsWrapper()
         {
             Assembly assembly = Assembly.Load("Facebook.Unity.Windows");

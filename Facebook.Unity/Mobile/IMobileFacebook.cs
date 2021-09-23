@@ -79,14 +79,6 @@ namespace Facebook.Unity.Mobile
             string payload,
             FacebookDelegate<IScheduleAppToUserNotificationResult> callback);
 
-        void LoadInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback);
-
-        void ShowInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback);
-
-        void LoadRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback);
-
-        void ShowRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback);
-
         void GetPayload(FacebookDelegate<IPayloadResult> callback);
 
         void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback);

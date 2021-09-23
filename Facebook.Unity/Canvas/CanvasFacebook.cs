@@ -611,5 +611,24 @@ namespace Facebook.Unity.Canvas
             throw new NotSupportedException();
         }
 
+        public override void LoadInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ShowInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void LoadRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ShowRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

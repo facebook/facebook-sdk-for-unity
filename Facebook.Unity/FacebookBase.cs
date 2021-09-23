@@ -283,5 +283,13 @@ namespace Facebook.Unity
         public abstract Profile CurrentProfile();
 
         public abstract void CurrentProfile(FacebookDelegate<IProfileResult> callback);
+
+        public abstract void LoadInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback);
+
+        public abstract void ShowInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback);
+
+        public abstract void LoadRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback);
+
+        public abstract void ShowRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback);
     }
 }

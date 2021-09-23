@@ -753,6 +753,16 @@ namespace Facebook.Unity
             FacebookImpl.ConsumePurchase(productToken, callback);
         }
 
+        public static Profile CurrentProfile()
+        {
+            return FacebookImpl.CurrentProfile();
+        }
+
+        public static void CurrentProfile(FacebookDelegate<IProfileResult> callback)
+        {
+            FacebookImpl.CurrentProfile(callback);
+        }
+
         /// <summary>
         /// Contains methods specific to the Facebook Games Canvas platform.
         /// </summary>
@@ -1042,6 +1052,20 @@ namespace Facebook.Unity
             public static Profile CurrentProfile()
             {
                 return Mobile.MobileFacebookImpl.CurrentProfile();
+            }
+
+            /// <summary>
+            /// Current Profile via vallback.
+            /// </summary>
+            public static void CurrentProfile(FacebookDelegate<IProfileResult> callback)
+            {
+                Profile currentProfile = Mobile.MobileFacebookImpl.CurrentProfile();
+                Dictionary<string, object> result = new Dictionary<string, object>() { { ProfileResult.ProfileKey, currentProfile } };
+                if (currentProfile == null)
+                {
+                    result[Constants.ErrorKey] = "ERROR: No profile data";
+                }
+                callback.Invoke(new ProfileResult(new ResultContainer(result)));
             }
 
             /// <summary>

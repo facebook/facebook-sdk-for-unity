@@ -110,6 +110,5 @@ namespace Facebook.Unity.Mobile
 
         AuthenticationToken CurrentAuthenticationToken();
 
-        Profile CurrentProfile();
     }
 }

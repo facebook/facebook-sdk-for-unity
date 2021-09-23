@@ -121,5 +121,9 @@ namespace Facebook.Unity
         void Purchase(string productID, FacebookDelegate<IPurchaseResult> callback, string developerPayload = "");
 
         void ConsumePurchase(string productToken, FacebookDelegate<IConsumePurchaseResult> callback);
+
+        Profile CurrentProfile();
+
+        void CurrentProfile(FacebookDelegate<IProfileResult> callback);
     }
 }

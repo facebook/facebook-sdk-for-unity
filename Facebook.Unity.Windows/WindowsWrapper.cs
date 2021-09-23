@@ -22,18 +22,20 @@ namespace Facebook.Unity.Windows
 {
     using System;
     using System.Collections.Generic;
+
     using UnityEngine;
 
     internal class WindowsWrapper : IWindowsWrapper
     {
 
         private fbg.InitResult result;
+        private string userID;
 
         public WindowsWrapper()
         {
         }
 
-        public bool Init(string appId,string clientToken)
+        public bool Init(string appId, string clientToken)
         {
             WindowsOptions options = new WindowsOptions(clientToken);
             this.result = fbg.Globals.init(appId, JsonUtility.ToJson(options));
@@ -52,16 +54,17 @@ namespace Facebook.Unity.Windows
                 {
                     var perms = accessToken.Permissions.ConvertAll<string>(value => value.ToString());
                     var dataTime = Utilities.FromTimestamp((int)accessToken.Expiration);
-                    result["WindowsCurrentAccessToken"] = new AccessToken(accessToken.Token, accessToken.UserID.ToString(), dataTime, perms, null, "fb.gg");
+                    this.userID = accessToken.UserID.ToString();
+                    result["WindowsCurrentAccessToken"] = new AccessToken(accessToken.Token, userID, dataTime, perms, null, "fb.gg");
 
                     callbackManager.OnFacebookResponse(new LoginResult((new ResultContainer(result))));
                 }, (error) =>
                 {
                     string msg = "ERROR: " + error.Message + ",";
-                        msg += "InnerErrorCode: " + error.InnerErrorCode.ToString() + ",";
-                        msg += "InnerErrorMessage: " + error.InnerErrorMessage + ",";
-                        msg += "InnerErrorSubcode: " + error.InnerErrorSubcode.ToString() + ",";
-                        msg += "InnerErrorTraceId: " + error.InnerErrorTraceId;
+                    msg += "InnerErrorCode: " + error.InnerErrorCode.ToString() + ",";
+                    msg += "InnerErrorMessage: " + error.InnerErrorMessage + ",";
+                    msg += "InnerErrorSubcode: " + error.InnerErrorSubcode.ToString() + ",";
+                    msg += "InnerErrorTraceId: " + error.InnerErrorTraceId;
 
                     result[Constants.ErrorKey] = msg;
                     callbackManager.OnFacebookResponse(new LoginResult((new ResultContainer(result))));
@@ -98,7 +101,8 @@ namespace Facebook.Unity.Windows
         private List<fbg.LoginScope> ConvertToFbgLoginScope(IEnumerable<string> scope)
         {
             List<fbg.LoginScope> fbgLoginScope = new List<fbg.LoginScope>();
-            foreach (string str in scope){
+            foreach (string str in scope)
+            {
                 string result = "";
                 string[] subs = str.Split('_');
                 foreach (string sub in subs)
@@ -150,8 +154,9 @@ namespace Facebook.Unity.Windows
 
         public void Purchase(string newproductID, string newdeveloperPayload, string callbackId, CallbackManager callbackManager)
         {
-            fbg.Purchases.purchase(newproductID, newdeveloperPayload, (purchaseResult) => {
-                PurchaseResult result = new PurchaseResult(WindowsPurchaseParser.Parse(purchaseResult, callbackId,true));
+            fbg.Purchases.purchase(newproductID, newdeveloperPayload, (purchaseResult) =>
+            {
+                PurchaseResult result = new PurchaseResult(WindowsPurchaseParser.Parse(purchaseResult, callbackId, true));
                 callbackManager.OnFacebookResponse(result);
             }, (error) =>
             {
@@ -162,16 +167,91 @@ namespace Facebook.Unity.Windows
 
         public void ConsumePurchase(string productToken, string callbackId, CallbackManager callbackManager)
         {
-            fbg.Purchases.consume(productToken, (success) => {
+            fbg.Purchases.consume(productToken, (success) =>
+            {
                 ConsumePurchaseResult result = new ConsumePurchaseResult(new ResultContainer(new Dictionary<string, object>() {
                     {Constants.CallbackIdKey,callbackId }
                 }
                 ));
                 callbackManager.OnFacebookResponse(result);
-            }, (error) => {
+            }, (error) =>
+            {
                 ConsumePurchaseResult result = new ConsumePurchaseResult(WindowsPurchaseParser.SetError(error, callbackId));
                 callbackManager.OnFacebookResponse(result);
             });
+        }
+
+        public void CurrentProfile(string callbackId, CallbackManager callbackManager)
+        {
+            Dictionary<string, object> result = new Dictionary<string, object>() { { Constants.CallbackIdKey, callbackId } };
+
+            if (IsLoggedIn())
+            {
+                fbg.Profile.getProfile((windowsProfile) =>
+                {
+                    if (!String.IsNullOrEmpty(windowsProfile.Raw))
+                    {
+                        try
+                        {
+                            Dictionary<string, object> profile = MiniJSON.Json.Deserialize(windowsProfile.Raw) as Dictionary<string, object>;
+
+                            profile.TryGetValue("first_name", out string firstName);
+                            profile.TryGetValue("name", out string name);
+                            profile.TryGetValue("email", out string email);
+                            profile.TryGetValue("picture", out Dictionary<string, object> picture);
+
+                            string imageURL = null;
+                            if (picture.TryGetValue("data", out Dictionary<string, object> pictureData))
+                            {
+                                pictureData.TryGetValue("url", out imageURL);
+                            }
+
+                            profile.TryGetValue("link", out string link);
+
+                            result[ProfileResult.ProfileKey] = new Profile(
+                                userID,
+                                firstName,
+                                null,
+                                null,
+                                name,
+                                email,
+                                imageURL,
+                                link,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null);
+                        }
+                        catch (Exception e)
+                        {
+                            result[Constants.ErrorKey] = "ERROR: " + e.Message;
+                        }
+                    }
+                    else
+                    {
+                        result[Constants.ErrorKey] = "ERROR: No profile data.";
+                    }
+                    callbackManager.OnFacebookResponse(new ProfileResult((new ResultContainer(result))));
+
+                }, (error) =>
+                {
+                    string msg = "ERROR: " + error.Message + ",";
+                    msg += "InnerErrorCode: " + error.InnerErrorCode.ToString() + ",";
+                    msg += "InnerErrorMessage: " + error.InnerErrorMessage + ",";
+                    msg += "InnerErrorSubcode: " + error.InnerErrorSubcode.ToString() + ",";
+                    msg += "InnerErrorTraceId: " + error.InnerErrorTraceId;
+
+                    result[Constants.ErrorKey] = msg;
+                    callbackManager.OnFacebookResponse(new ProfileResult((new ResultContainer(result))));
+                });
+            }
+            else
+            {
+                result[Constants.ErrorKey] = "ERROR: user must by logged in.";
+                callbackManager.OnFacebookResponse(new ProfileResult((new ResultContainer(result))));
+            }
         }
     }
 }

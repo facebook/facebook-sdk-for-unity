@@ -600,5 +600,16 @@ namespace Facebook.Unity.Canvas
         {
             throw new NotImplementedException();
         }
+
+        public override Profile CurrentProfile()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void CurrentProfile(FacebookDelegate<IProfileResult> callback)
+        {
+            throw new NotSupportedException();
+        }
+
     }
 }

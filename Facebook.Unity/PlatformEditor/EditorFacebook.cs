@@ -234,9 +234,14 @@ namespace Facebook.Unity.Editor
             return null;
         }
 
-        public Profile CurrentProfile()
+        public override Profile CurrentProfile()
         {
             return null;
+        }
+
+        public override void CurrentProfile(FacebookDelegate<IProfileResult> callback)
+        {
+            throw new NotSupportedException();
         }
 
         public void FetchDeferredAppLink(

@@ -87,7 +87,8 @@ namespace Facebook.Unity
                 CallbackManager.TryCallCallback<ILoginResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IAccessTokenRefreshResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IHasLicenseResult>(callback, result) ||
-                CallbackManager.TryCallCallback<ILoginStatusResult>(callback, result))
+                CallbackManager.TryCallCallback<ILoginStatusResult>(callback, result) ||
+                CallbackManager.TryCallCallback<IProfileResult>(callback, result))
             {
                 return;
             }

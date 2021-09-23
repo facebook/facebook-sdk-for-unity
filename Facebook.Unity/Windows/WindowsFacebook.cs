@@ -65,12 +65,12 @@ namespace Facebook.Unity.Windows
         {
             this.appId = appId;
             Initialized = this.windowsWrapper.Init(appId, clientToken);
-            onInitComplete.Invoke();        
+            onInitComplete.Invoke();
         }
 
         public override void LogInWithPublishPermissions(IEnumerable<string> scope, FacebookDelegate<ILoginResult> callback)
         {
-            this.windowsWrapper.LogInWithScopes(scope, this.CallbackManager.AddFacebookDelegate(callback),this.CallbackManager);
+            this.windowsWrapper.LogInWithScopes(scope, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
 
         public override void LogInWithReadPermissions(IEnumerable<string> scope, FacebookDelegate<ILoginResult> callback)
@@ -141,22 +141,6 @@ namespace Facebook.Unity.Windows
                 parameters);
         }
 
-        // START TO DO -------------------------------
-        public void Pay(string product, string action, int quantity, int? quantityMin, int? quantityMax, string requestId, string pricepointId, string testCurrency, FacebookDelegate<IPayResult> callback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void PayWithProductId(string productId, string action, int quantity, int? quantityMin, int? quantityMax, string requestId, string pricepointId, string testCurrency, FacebookDelegate<IPayResult> callback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void PayWithProductId(string productId, string action, string developerPayload, string testCurrency, FacebookDelegate<IPayResult> callback)
-        {
-            throw new NotImplementedException();
-        }
-
         public override void GetCatalog(FacebookDelegate<ICatalogResult> callback)
         {
             this.windowsWrapper.GetCatalog(this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
@@ -167,7 +151,7 @@ namespace Facebook.Unity.Windows
             this.windowsWrapper.GetPurchases(this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
 
-        public override void Purchase( string productID, FacebookDelegate<IPurchaseResult> callback, string developerPayload = "")
+        public override void Purchase(string productID, FacebookDelegate<IPurchaseResult> callback, string developerPayload = "")
         {
             this.windowsWrapper.Purchase(productID, developerPayload, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
@@ -176,7 +160,11 @@ namespace Facebook.Unity.Windows
         {
             this.windowsWrapper.ConsumePurchase(productToken, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
-        // END TO DO -------------------------------
+
+        public override void CurrentProfile(FacebookDelegate<IProfileResult> callback)
+        {
+            this.windowsWrapper.CurrentProfile(this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
 
         private static IWindowsWrapper GetWindowsWrapper()
         {
@@ -230,6 +218,21 @@ namespace Facebook.Unity.Windows
         {
             throw new NotSupportedException();
         }
-
+        public void Pay(string product, string action, int quantity, int? quantityMin, int? quantityMax, string requestId, string pricepointId, string testCurrency, FacebookDelegate<IPayResult> callback)
+        {
+            throw new NotSupportedException();
+        }
+        public void PayWithProductId(string productId, string action, int quantity, int? quantityMin, int? quantityMax, string requestId, string pricepointId, string testCurrency, FacebookDelegate<IPayResult> callback)
+        {
+            throw new NotSupportedException();
+        }
+        public void PayWithProductId(string productId, string action, string developerPayload, string testCurrency, FacebookDelegate<IPayResult> callback)
+        {
+            throw new NotSupportedException();
+        }
+        public override Profile CurrentProfile()
+        {
+            throw new NotSupportedException();
+        }
     }
 }

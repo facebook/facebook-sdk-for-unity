@@ -57,7 +57,15 @@ namespace Facebook.Unity.Mobile
 
         public abstract AuthenticationToken CurrentAuthenticationToken();
 
-        public abstract Profile CurrentProfile();
+        public override Profile CurrentProfile()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void CurrentProfile(FacebookDelegate<IProfileResult> callback)
+        {
+            throw new NotImplementedException();
+        }
 
         public abstract void UpdateUserProperties(Dictionary<string, string> parameters);
 

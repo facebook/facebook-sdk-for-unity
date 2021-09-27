@@ -19,7 +19,7 @@ public class FBWindowsADSManager : MonoBehaviour
         {
             if (rewardedVideoResult.Error != null)
             {
-                Logger.DebugLog(rewardedVideoResult.Error);
+                Logger.DebugErrorLog(rewardedVideoResult.Error);
             }
             else
             {
@@ -35,7 +35,7 @@ public class FBWindowsADSManager : MonoBehaviour
         {
             if (rewardedVideoResult.Error != null)
             {
-                Logger.DebugLog(rewardedVideoResult.Error);
+                Logger.DebugErrorLog(rewardedVideoResult.Error);
             }
             else
             {
@@ -53,7 +53,7 @@ public class FBWindowsADSManager : MonoBehaviour
         {
             if (interstitialAdResult.Error != null)
             {
-                Logger.DebugLog(interstitialAdResult.Error);
+                Logger.DebugErrorLog(interstitialAdResult.Error);
             }
             else
             {
@@ -69,7 +69,7 @@ public class FBWindowsADSManager : MonoBehaviour
         {
             if (interstitialAdResult.Error != null)
             {
-                Logger.DebugLog(interstitialAdResult.Error);
+                Logger.DebugErrorLog(interstitialAdResult.Error);
             }
             else
             {
@@ -86,7 +86,7 @@ public class FBWindowsADSManager : MonoBehaviour
         }
         else
         {
-            Logger.DebugLog("Please, insert interstitial placement ID code.");
+            Logger.DebugWarningLog("Please, insert interstitial placement ID code.");
         }
     }
 
@@ -98,7 +98,7 @@ public class FBWindowsADSManager : MonoBehaviour
         }
         else
         {
-            Logger.DebugLog("Please, insert interstitial placement ID code.");
+            Logger.DebugWarningLog("Please, insert interstitial placement ID code.");
         }
     }
 
@@ -110,7 +110,7 @@ public class FBWindowsADSManager : MonoBehaviour
         }
         else
         {
-            Logger.DebugLog("Please, insert rewarded video placement ID code.");
+            Logger.DebugWarningLog("Please, insert rewarded video placement ID code.");
         }
     }
 
@@ -122,7 +122,7 @@ public class FBWindowsADSManager : MonoBehaviour
         }
         else
         {
-            Logger.DebugLog("Please, insert rewarded video placement ID code.");
+            Logger.DebugWarningLog("Please, insert rewarded video placement ID code.");
         }
     }
 }

@@ -22,7 +22,17 @@ public class FBWindowsLogsManager : MonoBehaviour
 
     public void DebugLog(string message)
     {
-        LogText.text += message + "\n";
+        LogText.text += "<color=white>" + message + "</color> \n";
+    }
+
+    public void DebugErrorLog(string message)
+    {
+        LogText.text += "<color=red>" + message + "</color> \n";
+    }
+
+    public void DebugWarningLog(string message)
+    {
+        LogText.text += "<color=yellow>" + message + "</color> \n";
     }
 
     public void DebugClean()

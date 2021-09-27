@@ -29,7 +29,7 @@ public class FBWindowsInitManager : MonoBehaviour
         }
         else
         {
-            Logger.DebugLog("Failed to Initialize the Facebook SDK");
+            Logger.DebugErrorLog("Failed to Initialize the Facebook SDK");
         }
     }
 

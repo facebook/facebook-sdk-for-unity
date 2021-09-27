@@ -21,7 +21,7 @@ public class FBWindowsLoginManager : MonoBehaviour
         }
         else
         {
-            Logger.DebugLog("Not Init");
+            Logger.DebugWarningLog("Not Init");
         }
     }
 
@@ -33,7 +33,7 @@ public class FBWindowsLoginManager : MonoBehaviour
         }
         else
         {
-            Logger.DebugLog("Not Init");
+            Logger.DebugWarningLog("Not Init");
         }
     }
 
@@ -46,7 +46,7 @@ public class FBWindowsLoginManager : MonoBehaviour
         }
         else
         {
-            Logger.DebugLog("Login First");
+            Logger.DebugWarningLog("Login First");
         }
     }
 
@@ -54,7 +54,7 @@ public class FBWindowsLoginManager : MonoBehaviour
     {
         if (result.Error != null)
         {
-            Logger.DebugLog("Error: " + result.Error);
+            Logger.DebugErrorLog("Error: " + result.Error);
         }
         else
         {
@@ -74,7 +74,7 @@ public class FBWindowsLoginManager : MonoBehaviour
             }
             else
             {
-                Logger.DebugLog("User cancelled login");
+                Logger.DebugWarningLog("User cancelled login");
             }
         }
     }
@@ -87,7 +87,7 @@ public class FBWindowsLoginManager : MonoBehaviour
         {
             if (result.Error != null)
             {
-                Logger.DebugLog(result.Error);
+                Logger.DebugErrorLog(result.Error);
             }
             else
             {

@@ -21,7 +21,7 @@ public class FBWindowsPurchaseManager : MonoBehaviour
         }
         else
         {
-            Logger.DebugLog("Login First");
+            Logger.DebugWarningLog("Login First");
         }
     }
 
@@ -37,7 +37,7 @@ public class FBWindowsPurchaseManager : MonoBehaviour
             Logger.DebugLog("Processing Catalog");
             if (result.Error != null)
             {
-                Logger.DebugLog(result.Error);
+                Logger.DebugErrorLog(result.Error);
             }
             else
             {
@@ -61,7 +61,7 @@ public class FBWindowsPurchaseManager : MonoBehaviour
         }
         else
         {
-            Logger.DebugLog("Login First");
+            Logger.DebugWarningLog("Login First");
         }
     }
 
@@ -84,7 +84,7 @@ public class FBWindowsPurchaseManager : MonoBehaviour
         Logger.DebugLog("Purchase result");
         if (result.Error != null)
         {
-            Logger.DebugLog(result.Error);
+            Logger.DebugErrorLog(result.Error);
         }
         else
         {
@@ -96,7 +96,7 @@ public class FBWindowsPurchaseManager : MonoBehaviour
     // IN APP PURCHASES PURCHASES FUNCTIONS ----------------------------------------------------------------------------------------------------------
     public void GetPurchases()
     {
-        Logger.DebugLog("Getting purchases");
+        Logger.DebugLog("Getting purchases...");
         FB.GetPurchases(processPurchases);
     }
 
@@ -109,10 +109,10 @@ public class FBWindowsPurchaseManager : MonoBehaviour
 
         if (FB.IsLoggedIn)
         {
-            Logger.DebugLog("Processing Purchases");
+            Logger.DebugLog("Processing Purchases...");
             if (result.Error != null)
             {
-                Debug.Log(result.Error);
+                Logger.DebugErrorLog(result.Error);
             }
             else
             {
@@ -133,7 +133,7 @@ public class FBWindowsPurchaseManager : MonoBehaviour
                             {
                                 if (consumeResult.Error != null)
                                 {
-                                    Logger.DebugLog(consumeResult.Error);
+                                    Logger.DebugErrorLog(consumeResult.Error);
                                 }
                                 else
                                 {
@@ -152,7 +152,7 @@ public class FBWindowsPurchaseManager : MonoBehaviour
         }
         else
         {
-            Logger.DebugLog("Login First");
+            Logger.DebugWarningLog("Login First");
         }
     }
 }

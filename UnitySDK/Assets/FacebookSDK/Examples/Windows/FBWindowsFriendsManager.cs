@@ -19,7 +19,7 @@ public class FBWindowsFriendsManager : MonoBehaviour {
         }
         else
         {
-            Logger.DebugLog("Login First");
+            Logger.DebugWarningLog("Login First");
         }
     }
 
@@ -27,7 +27,7 @@ public class FBWindowsFriendsManager : MonoBehaviour {
     {
         if (result.Error != null)
         {
-            Logger.DebugLog(result.Error);
+            Logger.DebugErrorLog(result.Error);
         }
         else
         {
@@ -43,44 +43,50 @@ public class FBWindowsFriendsManager : MonoBehaviour {
         }
         else
         {
-            Logger.DebugLog("Login First");
+            Logger.DebugWarningLog("Login First");
         }
     }
 
     private void GetFriendFinderInvitationsCallback(IFriendFinderInvitationResult receivedInvitations)
     {
         Logger.DebugLog("Processing received invitations...");
-
-        foreach (Transform child in ReceivedInvitationsPanelTransform)
+        if (FB.IsLoggedIn)
         {
-            Destroy(child.gameObject);
-        }
-
-        if (receivedInvitations.Error != null)
-        {
-            Logger.DebugLog(receivedInvitations.Error);
-        }
-        else
-        {
-            if (receivedInvitations.Invitations.Count <= 0)
+            foreach (Transform child in ReceivedInvitationsPanelTransform)
             {
-                Logger.DebugLog("No invitations received.");
+                Destroy(child.gameObject);
+            }
+
+            if (receivedInvitations.Error != null)
+            {
+                Logger.DebugErrorLog(receivedInvitations.Error);
             }
             else
             {
-                foreach (FriendFinderInviation item in receivedInvitations.Invitations)
+                if (receivedInvitations.Invitations.Count <= 0)
                 {
-                    GameObject obj = (GameObject)Instantiate(ShowReceivedInvitation);
-                    obj.transform.SetParent(ReceivedInvitationsPanelTransform, false);
-                    obj.transform.localScale = new Vector3(1, 1, 1);
+                    Logger.DebugLog("No invitations received.");
+                }
+                else
+                {
+                    foreach (FriendFinderInviation item in receivedInvitations.Invitations)
+                    {
+                        GameObject obj = (GameObject)Instantiate(ShowReceivedInvitation);
+                        obj.transform.SetParent(ReceivedInvitationsPanelTransform, false);
+                        obj.transform.localScale = new Vector3(1, 1, 1);
 
-                    Button button = obj.GetComponent<Button>();
-                    button.onClick.AddListener(() => { button.interactable = false; FB.DeleteFriendFinderInvitation(item.Id, DeleteFriendFinderInvitationCallback); });
+                        Button button = obj.GetComponent<Button>();
+                        button.onClick.AddListener(() => { button.interactable = false; FB.DeleteFriendFinderInvitation(item.Id, DeleteFriendFinderInvitationCallback); });
 
-                    Text textComponent = obj.GetComponentInChildren<Text>();
-                    textComponent.text = "ApplicationName: " + item.ApplicationName + "\nFrom: " + item.FromName + "\nTo: " + item.ToName + "\nMessage: " + item.Message + "\nTime: " + item.CreatedTime;
+                        Text textComponent = obj.GetComponentInChildren<Text>();
+                        textComponent.text = "ApplicationName: " + item.ApplicationName + "\nFrom: " + item.FromName + "\nTo: " + item.ToName + "\nMessage: " + item.Message + "\nTime: " + item.CreatedTime;
+                    }
                 }
             }
+        }
+        else
+        {
+            Logger.DebugWarningLog("Login First");
         }
     }
 
@@ -88,7 +94,7 @@ public class FBWindowsFriendsManager : MonoBehaviour {
     {
         if (receivedInvitations.Error != null)
         {
-            Logger.DebugLog(receivedInvitations.Error);
+            Logger.DebugErrorLog(receivedInvitations.Error);
         }
         else
         {

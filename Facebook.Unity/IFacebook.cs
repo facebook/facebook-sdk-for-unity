@@ -133,5 +133,11 @@ namespace Facebook.Unity
         void LoadRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback);
 
         void ShowRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback);
+
+        void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback);
+
+        void GetFriendFinderInvitations(FacebookDelegate<IFriendFinderInvitationResult> callback);
+
+        void DeleteFriendFinderInvitation(string invitationId, FacebookDelegate<IFriendFinderInvitationResult> callback);
     }
 }

@@ -53,6 +53,7 @@
     <Compile Include="FacebookGameObject.cs" />
     <Compile Include="FacebookSdkVersion.cs" />
     <Compile Include="FacebookUnityPlatform.cs" />
+    <Compile Include="FriendFinderInviation.cs" />
     <Compile Include="IFacebook.cs" />
     <Compile Include="IFacebookCallbackHandler.cs" />
     <Compile Include="IFacebookImplementation.cs" />
@@ -102,6 +103,8 @@
     <Compile Include="Results\AppLinkResult.cs" />
     <Compile Include="Results\AppReqeustResult.cs" />
     <Compile Include="Results\CatalogResult.cs" />
+    <Compile Include="Results\FriendFinderInvitationResult.cs" />
+    <Compile Include="Results\IFriendFinderInvitationResult.cs" />
     <Compile Include="Results\IProfileResult.cs" />
     <Compile Include="Results\ConsumePurchaseResult.cs" />
     <Compile Include="Results\GamingServicesFriendFinderResult.cs" />

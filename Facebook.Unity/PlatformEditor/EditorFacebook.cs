@@ -502,12 +502,22 @@ namespace Facebook.Unity.Editor
             CallbackManager.OnFacebookResponse(result);
         }
 
-        public void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback)
+        public override void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback)
         {
             this.editorWrapper.ShowMockFriendFinderDialog(
                 this.OnFriendFinderComplete,
                 "Friend Finder Dialog",
                 this.CallbackManager.AddFacebookDelegate(callback));
+        }
+
+        public override void GetFriendFinderInvitations(FacebookDelegate<IFriendFinderInvitationResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DeleteFriendFinderInvitation(string invitationId, FacebookDelegate<IFriendFinderInvitationResult> callback)
+        {
+            throw new NotImplementedException();
         }
 
         public void UploadImageToMediaLibrary(

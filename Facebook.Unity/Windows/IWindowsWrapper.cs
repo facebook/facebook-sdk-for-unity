@@ -53,5 +53,11 @@ namespace Facebook.Unity.Windows
         void LoadRewardedVideo(string placementID, string callbackId, CallbackManager callbackManager);
 
         void ShowRewardedVideo(string placementID, string callbackId, CallbackManager callbackManager);
+
+        void OpenFriendFinderDialog(string callbackId, CallbackManager callbackManager);
+
+        void GetFriendFinderInvitations(string callbackId, CallbackManager callbackManager);
+
+        void DeleteFriendFinderInvitation(string invitationId, string callbackId, CallbackManager callbackManager);
     }
 }

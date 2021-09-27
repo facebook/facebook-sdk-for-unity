@@ -185,7 +185,21 @@ namespace Facebook.Unity.Windows
         {
             this.windowsWrapper.ShowRewardedVideo(placementID, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
-        // END TO DO -------------------------------
+
+        public override void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback)
+        {
+            this.windowsWrapper.OpenFriendFinderDialog(this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
+        public override void GetFriendFinderInvitations(FacebookDelegate<IFriendFinderInvitationResult> callback)
+        {
+            this.windowsWrapper.GetFriendFinderInvitations(this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
+        public override void DeleteFriendFinderInvitation(string invitationId, FacebookDelegate<IFriendFinderInvitationResult> callback)
+        {
+            this.windowsWrapper.DeleteFriendFinderInvitation(invitationId, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
 
         private static IWindowsWrapper GetWindowsWrapper()
         {

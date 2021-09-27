@@ -136,7 +136,17 @@ namespace Facebook.Unity.Mobile
             CallbackManager.OnFacebookResponse(result);
         }
 
-        public virtual void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback)
+        public override void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void GetFriendFinderInvitations(FacebookDelegate<IFriendFinderInvitationResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DeleteFriendFinderInvitation(string invitationId, FacebookDelegate<IFriendFinderInvitationResult> callback)
         {
             throw new NotImplementedException();
         }

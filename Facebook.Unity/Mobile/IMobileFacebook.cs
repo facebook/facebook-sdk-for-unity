@@ -54,8 +54,6 @@ namespace Facebook.Unity.Mobile
 
         void SetDataProcessingOptions(IEnumerable<string> options, int country, int state);
 
-        void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback);
-
         void UploadImageToMediaLibrary(
             string caption,
             Uri imageUri,

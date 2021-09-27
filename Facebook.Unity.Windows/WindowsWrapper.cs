@@ -312,5 +312,78 @@ namespace Facebook.Unity.Windows
                 callbackManager.OnFacebookResponse(result);
             });
         }
+
+        public void OpenFriendFinderDialog(string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Invite.gameInvite(
+              (invitation) =>
+              {
+                  Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                    {Constants.CallbackIdKey,callbackId }
+                  };
+                  callbackManager.OnFacebookResponse(new FriendFinderInvitationResult(new ResultContainer(resultDict)));
+              },
+              (error) =>
+              {
+                  FriendFinderInvitationResult result = new FriendFinderInvitationResult(WindowsParserBase.SetError(error, callbackId));
+                  callbackManager.OnFacebookResponse(result);
+              }
+            );
+        }
+
+        public void GetFriendFinderInvitations(string callbackId, CallbackManager callbackManager)
+        {
+            fbg.ReceivedInvitations.getReceivedInvitations(fbg.PagingType.None, "", 0,
+              (fbg.ReceivedInvitations receivedInvitations) =>
+              {                 
+                  IList<FriendFinderInviation> invitationsList = new List<FriendFinderInviation>();
+                  for (uint i = 0; i < receivedInvitations.Length; ++i)
+                  {
+                      var item = receivedInvitations[i];
+                      invitationsList.Add(new FriendFinderInviation(item.Id, item.ApplicationId, item.ApplicationName, item.FromId, item.FromName, item.ToId, item.ToName, item.Message, item.CreatedTime));
+                  }
+
+                  Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                    {Constants.CallbackIdKey,callbackId },
+                    {FriendFinderInvitationResult.InvitationsKey,invitationsList }
+                  };
+                  callbackManager.OnFacebookResponse(new FriendFinderInvitationResult(new ResultContainer(resultDict)));
+              },
+              (fbg.Error error) =>
+              {
+                  FriendFinderInvitationResult result = new FriendFinderInvitationResult(WindowsParserBase.SetError(error, callbackId));
+                  callbackManager.OnFacebookResponse(result);
+              });
+        }
+
+        public void DeleteFriendFinderInvitation(string invitationId, string callbackId, CallbackManager callbackManager)
+        {
+            fbg.ReceivedInvitations.removeInvitation(invitationId,
+              (fbg.DeleteInvitation  success) =>
+              {
+                  Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                    {Constants.CallbackIdKey,callbackId },
+                  };
+
+                  Dictionary<string, object> deletedInviation = MiniJSON.Json.Deserialize(success.Raw) as Dictionary<string, object>;
+                  if (!deletedInviation.TryGetValue(invitationId, out bool deletedOK))
+                  {
+                      resultDict[Constants.ErrorKey] = "ERROR: wrong deleted inviationID: " + invitationId;
+
+                  }
+                  else if (!deletedOK)
+                  {
+                      resultDict[Constants.ErrorKey] = "ERROR: Fail deleting inviationID: " + invitationId;
+                  }
+
+                  callbackManager.OnFacebookResponse(new FriendFinderInvitationResult(new ResultContainer(resultDict)));
+              },
+              (fbg.Error error) =>
+              {
+                  FriendFinderInvitationResult result = new FriendFinderInvitationResult(WindowsParserBase.SetError(error, callbackId));
+                  callbackManager.OnFacebookResponse(result);
+              });
+        }
+
     }
 }

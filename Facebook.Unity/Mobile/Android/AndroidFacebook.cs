@@ -446,6 +446,16 @@ namespace Facebook.Unity.Mobile.Android
             openFriendFinderDialog.Call();
         }
 
+        public override void GetFriendFinderInvitations(FacebookDelegate<IFriendFinderInvitationResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DeleteFriendFinderInvitation(string invitationId, FacebookDelegate<IFriendFinderInvitationResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void UploadImageToMediaLibrary(
             string caption,
             Uri imageUri,

@@ -783,6 +783,21 @@ namespace Facebook.Unity
             FacebookImpl.ShowRewardedVideo(placementID, callback);
         }
 
+        public static void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback)
+        {
+            FacebookImpl.OpenFriendFinderDialog(callback);
+        }
+
+        public static void GetFriendFinderInvitations(FacebookDelegate<IFriendFinderInvitationResult> callback)
+        {
+            FacebookImpl.GetFriendFinderInvitations(callback);
+        }
+
+        public static void DeleteFriendFinderInvitation(string invitationId, FacebookDelegate<IFriendFinderInvitationResult> callback)
+        {
+            FacebookImpl.DeleteFriendFinderInvitation(invitationId, callback);
+        }
+
         /// <summary>
         /// Contains methods specific to the Facebook Games Canvas platform.
         /// </summary>
@@ -1195,6 +1210,11 @@ namespace Facebook.Unity
             public static void ShowRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback)
             {
                 Mobile.MobileFacebookImpl.ShowRewardedVideo(placementID, callback);
+            }
+
+            public static void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback)
+            {
+                Mobile.MobileFacebookImpl.OpenFriendFinderDialog(callback);
             }
         }
 

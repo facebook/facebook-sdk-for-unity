@@ -80,6 +80,19 @@ namespace Facebook.Unity
             MobileFacebookImpl.UploadVideoToMediaLibrary(caption, videoUri, callback);
         }
 
+        /// <summary>
+        /// Informs facebook that the player has taken an action and will notify other players in the same GamingContext
+        /// </summary>
+        /// <param name="content">Please check CustomUpdateContent.Builder for details on all the fields that
+        /// allow customizing the update.</param>
+        /// <param name="callback">The callback to use upon completion.</param>
+        public static void PerformCustomUpdate(
+            CustomUpdateContent content,
+            FacebookDelegate<IGraphResult> callback = null)
+        {
+            FB.API("/me/custom_update", HttpMethod.POST, callback, content.toGraphAPIData());
+        }
+
         public static void OnIAPReady(FacebookDelegate<IIAPReadyResult> callback) {
             MobileFacebookImpl.OnIAPReady(callback);
         }

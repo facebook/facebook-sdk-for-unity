@@ -39,14 +39,12 @@ namespace Facebook.Unity.Tests
 
         private static string unityPluginPath = Path.Combine(unityRepoPath, UnityPluginSubPath);
         private static string coreDLLSubPath = Path.Combine(unityPluginPath, "Facebook.Unity.dll");
-        private static string gameroomDLLSubPath = Path.Combine(unityPluginPath, "Gameroom/Facebook.Unity.Gameroom.dll");
         private static string editorDLLSubPath = Path.Combine(unityPluginPath, "Editor/Facebook.Unity.Editor.dll");
 
         [Test]
         public void ValidateDLLVersions()
         {
             VersionNumberCheck.CheckVersionOfDll(VersionNumberCheck.coreDLLSubPath);
-            VersionNumberCheck.CheckVersionOfDll(VersionNumberCheck.gameroomDLLSubPath);
             VersionNumberCheck.CheckVersionOfDll(VersionNumberCheck.editorDLLSubPath);
        }
 

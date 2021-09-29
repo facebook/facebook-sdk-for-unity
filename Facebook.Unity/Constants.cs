@@ -131,14 +131,6 @@ namespace Facebook.Unity
             }
         }
 
-        public static bool IsGameroom
-        {
-            get
-            {
-                return Constants.CurrentPlatform == FacebookUnityPlatform.Gameroom;
-            }
-        }
-
         /// <summary>
         /// Gets the legacy user agent suffix that gets
         /// appended to graph requests on ios and android.

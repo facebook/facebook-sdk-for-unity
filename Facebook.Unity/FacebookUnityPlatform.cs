@@ -28,7 +28,6 @@ namespace Facebook.Unity
         Android,
         IOS,
         WebGL,
-        Gameroom,
         Windows
     }
 }

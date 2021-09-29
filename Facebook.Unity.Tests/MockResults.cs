@@ -105,11 +105,7 @@ namespace Facebook.Unity.Tests
             var result = MockResults.GetGenericResult(requestID, extras);
 
             object expirationTime;
-            if (Constants.IsGameroom)
-            {
-                expirationTime = Math.Round((MockResults.MockExpirationTimeValue - DateTime.UtcNow).TotalSeconds).ToString();
-            }
-            else if (Constants.IsWeb)
+            if (Constants.IsWeb)
             {
                 expirationTime = (long)(MockResults.MockExpirationTimeValue - DateTime.UtcNow).TotalSeconds;
             }

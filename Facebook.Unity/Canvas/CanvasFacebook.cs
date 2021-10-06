@@ -645,5 +645,10 @@ namespace Facebook.Unity.Canvas
         {
             throw new NotImplementedException();
         }
+
+        public override void ScheduleAppToUserNotification(string title, string body, Uri media, int timeInterval, string payload, FacebookDelegate<IScheduleAppToUserNotificationResult> callback)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

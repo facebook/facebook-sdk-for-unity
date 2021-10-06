@@ -201,6 +201,11 @@ namespace Facebook.Unity.Windows
             this.windowsWrapper.DeleteFriendFinderInvitation(invitationId, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
 
+        public override void ScheduleAppToUserNotification(string title, string body, Uri media, int timeInterval, string payload, FacebookDelegate<IScheduleAppToUserNotificationResult> callback)
+        {
+            this.windowsWrapper.ScheduleAppToUserNotification(title, body, media, timeInterval, payload, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
         private static IWindowsWrapper GetWindowsWrapper()
         {
             Assembly assembly = Assembly.Load("Facebook.Unity.Windows");

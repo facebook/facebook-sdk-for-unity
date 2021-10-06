@@ -297,5 +297,7 @@ namespace Facebook.Unity
         public abstract void GetFriendFinderInvitations(FacebookDelegate<IFriendFinderInvitationResult> callback);
         
         public abstract void DeleteFriendFinderInvitation(string invitationId, FacebookDelegate<IFriendFinderInvitationResult> callback);
+
+        public abstract void ScheduleAppToUserNotification(string title, string body, Uri media, int timeInterval, string payload, FacebookDelegate<IScheduleAppToUserNotificationResult> callback);
     }
 }

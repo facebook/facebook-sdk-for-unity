@@ -385,5 +385,20 @@ namespace Facebook.Unity.Windows
               });
         }
 
+        void IWindowsWrapper.ScheduleAppToUserNotification(string title, string body, Uri media, int timeInterval, string payload, string callbackId, CallbackManager callbackManager)
+        {
+            fbg.AppToUserNotifications.scheduleAppToUserNotification(title, body, media.ToString(), timeInterval, payload, 
+                (fbg.ScheduleAppToUserNotificationResult success) => {
+                    Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                        {Constants.CallbackIdKey,callbackId },
+                    };
+                    callbackManager.OnFacebookResponse(new ScheduleAppToUserNotificationResult(new ResultContainer(resultDict)));
+                },
+                (fbg.Error error) =>
+                {
+                    ScheduleAppToUserNotificationResult result = new ScheduleAppToUserNotificationResult(WindowsParserBase.SetError(error, callbackId));
+                    callbackManager.OnFacebookResponse(result);
+                });
+        }
     }
 }

@@ -69,14 +69,6 @@ namespace Facebook.Unity.Mobile
 
         void InitCloudGame(FacebookDelegate<IInitCloudGameResult> callback);
 
-        void ScheduleAppToUserNotification(
-            string title,
-            string body,
-            Uri media,
-            int timeInterval,
-            string payload,
-            FacebookDelegate<IScheduleAppToUserNotificationResult> callback);
-
         void GetPayload(FacebookDelegate<IPayloadResult> callback);
 
         void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback);

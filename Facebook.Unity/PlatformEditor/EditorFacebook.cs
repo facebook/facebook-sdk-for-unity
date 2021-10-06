@@ -587,7 +587,7 @@ namespace Facebook.Unity.Editor
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 
-        public void ScheduleAppToUserNotification(
+        public override void ScheduleAppToUserNotification(
             string title,
             string body,
             Uri media,

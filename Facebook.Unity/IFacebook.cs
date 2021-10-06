@@ -139,5 +139,7 @@ namespace Facebook.Unity
         void GetFriendFinderInvitations(FacebookDelegate<IFriendFinderInvitationResult> callback);
 
         void DeleteFriendFinderInvitation(string invitationId, FacebookDelegate<IFriendFinderInvitationResult> callback);
+
+        void ScheduleAppToUserNotification(string title, string body, Uri media, int timeInterval, string payload, FacebookDelegate<IScheduleAppToUserNotificationResult> callback);
     }
 }

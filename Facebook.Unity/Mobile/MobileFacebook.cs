@@ -334,7 +334,7 @@ namespace Facebook.Unity.Mobile
             throw new NotImplementedException();
         }
 
-        public virtual void ScheduleAppToUserNotification(
+        public override void ScheduleAppToUserNotification(
             string title,
             string body,
             Uri media,

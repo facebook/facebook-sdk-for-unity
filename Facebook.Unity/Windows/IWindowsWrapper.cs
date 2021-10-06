@@ -20,6 +20,7 @@
 
 namespace Facebook.Unity.Windows
 {
+    using System;
     using System.Collections.Generic;
 
     internal interface IWindowsWrapper
@@ -59,5 +60,7 @@ namespace Facebook.Unity.Windows
         void GetFriendFinderInvitations(string callbackId, CallbackManager callbackManager);
 
         void DeleteFriendFinderInvitation(string invitationId, string callbackId, CallbackManager callbackManager);
+
+        void ScheduleAppToUserNotification(string title, string body, Uri media, int timeInterval, string payload, string callbackId, CallbackManager callbackManager);
     }
 }

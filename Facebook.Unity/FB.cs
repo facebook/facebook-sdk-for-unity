@@ -798,6 +798,11 @@ namespace Facebook.Unity
             FacebookImpl.DeleteFriendFinderInvitation(invitationId, callback);
         }
 
+        public static void ScheduleAppToUserNotification(string title, string body, Uri media, int timeInterval, string payload, FacebookDelegate<IScheduleAppToUserNotificationResult> callback) 
+        {
+            FacebookImpl.ScheduleAppToUserNotification(title, body, media, timeInterval, payload, callback);
+        }
+
         /// <summary>
         /// Contains methods specific to the Facebook Games Canvas platform.
         /// </summary>
@@ -1215,6 +1220,11 @@ namespace Facebook.Unity
             public static void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback)
             {
                 Mobile.MobileFacebookImpl.OpenFriendFinderDialog(callback);
+            }
+
+            public static void ScheduleAppToUserNotification(string title, string body, Uri media, int timeInterval, string payload, FacebookDelegate<IScheduleAppToUserNotificationResult> callback)
+            {
+                Mobile.MobileFacebookImpl.ScheduleAppToUserNotification(title, body, media, timeInterval, payload, callback);
             }
         }
 

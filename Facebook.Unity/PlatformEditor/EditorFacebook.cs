@@ -502,6 +502,30 @@ namespace Facebook.Unity.Editor
             CallbackManager.OnFacebookResponse(result);
         }
 
+        public void OnCreateGamingContextComplete(ResultContainer resultContainer)
+        {
+            var result = new CreateGamingContextResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnSwitchGamingContextComplete(ResultContainer resultContainer)
+        {
+            var result = new SwitchGamingContextResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnChooseGamingContextComplete(ResultContainer resultContainer)
+        {
+            var result = new ChooseGamingContextResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnGetCurrentGamingContextComplete(ResultContainer resultContainer)
+        {
+            var result = new GetCurrentGamingContextResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
         public override void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback)
         {
             this.editorWrapper.ShowMockFriendFinderDialog(
@@ -687,6 +711,34 @@ namespace Facebook.Unity.Editor
         {
             var result = new Dictionary<string, object>();
             result["success"] = "";
+            result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
+        }
+
+        public void CreateGamingContext(string playerID, FacebookDelegate<ICreateGamingContextResult> callback)
+        {
+            var result = new Dictionary<string, object>();
+            result["contextId"] = "1234";
+            result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
+        }
+
+        public void SwitchGamingContext(string gamingContextID, FacebookDelegate<ISwitchGamingContextResult> callback)
+        {
+            var result = new Dictionary<string, object>();
+            result["contextId"] = "1234";
+            result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
+        }
+
+        public void ChooseGamingContext(List<string> filters, int minSize, int maxSize, FacebookDelegate<IChooseGamingContextResult> callback)
+        {
+            var result = new Dictionary<string, object>();
+            result["contextId"] = "1234";
+            result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
+        }
+
+        public void GetCurrentGamingContext(FacebookDelegate<IGetCurrentGamingContextResult> callback)
+        {
+            var result = new Dictionary<string, object>();
+            result["contextId"] = "1234";
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 

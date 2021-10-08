@@ -278,6 +278,30 @@ namespace Facebook.Unity.Mobile
             CallbackManager.OnFacebookResponse(result);
         }
 
+        public void OnCreateGamingContextComplete(ResultContainer resultContainer)
+        {
+            var result = new CreateGamingContextResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnSwitchGamingContextComplete(ResultContainer resultContainer)
+        {
+            var result = new SwitchGamingContextResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnChooseGamingContextComplete(ResultContainer resultContainer)
+        {
+            var result = new ChooseGamingContextResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnGetCurrentGamingContextComplete(ResultContainer resultContainer)
+        {
+            var result = new GetCurrentGamingContextResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
         public virtual void UploadImageToMediaLibrary(
             string caption,
             Uri imageUri,
@@ -415,6 +439,26 @@ namespace Facebook.Unity.Mobile
 
         public virtual void OpenAppStore(
             FacebookDelegate<IOpenAppStoreResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void CreateGamingContext(string playerID, FacebookDelegate<ICreateGamingContextResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void SwitchGamingContext(string gamingContextID, FacebookDelegate<ISwitchGamingContextResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void ChooseGamingContext(List<string> filters, int minSize, int maxSize, FacebookDelegate<IChooseGamingContextResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void GetCurrentGamingContext(FacebookDelegate<IGetCurrentGamingContextResult> callback)
         {
             throw new NotImplementedException();
         }

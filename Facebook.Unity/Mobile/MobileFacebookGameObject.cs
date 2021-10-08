@@ -144,5 +144,28 @@ namespace Facebook.Unity.Mobile
         {
             this.MobileFacebook.OnOpenAppStoreComplete(new ResultContainer(message));
         }
+
+        public void OnCreateGamingContextComplete(string message)
+        {
+            this.MobileFacebook.OnCreateGamingContextComplete(new ResultContainer(message));
+        }
+
+        public void OnSwitchGamingContextComplete(string message)
+
+        {
+            this.MobileFacebook.OnSwitchGamingContextComplete(new ResultContainer(message));
+        }
+
+        public void OnChooseGamingContextComplete(string message)
+
+        {
+            this.MobileFacebook.OnChooseGamingContextComplete(new ResultContainer(message));
+        }
+
+        public void OnGetCurrentGamingContextComplete(string message)
+
+        {
+            this.MobileFacebook.OnGetCurrentGamingContextComplete(new ResultContainer(message));
+        }
     }
 }

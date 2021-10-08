@@ -194,6 +194,14 @@
     <Compile Include="Windows\IWindowsWrapper.cs" />
     <Compile Include="Windows\WindowsFacebookLoader.cs" />
     <Compile Include="Windows\WindowsFacebookGameObject.cs" />
+    <Compile Include="Results\ICreateGamingContextResult.cs" />
+    <Compile Include="Results\ISwitchGamingContextResult.cs" />
+    <Compile Include="Results\IChooseGamingContextResult.cs" />
+    <Compile Include="Results\ChooseGamingContextResult.cs" />
+    <Compile Include="Results\CreateGamingContextResult.cs" />
+    <Compile Include="Results\SwitchGamingContextResult.cs" />
+    <Compile Include="Results\IGetCurrentGamingContextResult.cs" />
+    <Compile Include="Results\GetCurrentGamingContextResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

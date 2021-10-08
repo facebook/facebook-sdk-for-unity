@@ -45,6 +45,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.appevents.internal.ActivityLifecycleTracker;
 import com.facebook.appevents.internal.AutomaticAnalyticsLogger;
 import com.facebook.applinks.AppLinkData;
+import com.facebook.gamingservices.GamingContext;
 import com.facebook.internal.BundleJSONConverter;
 import com.facebook.internal.Utility;
 import com.facebook.internal.InternalSettings;
@@ -1057,6 +1058,42 @@ public class FB {
             new JSONObject(),
             createDaemonCallback(unityMessage)
         );
+    }
+
+    @UnityCallable
+    public static void CreateGamingContext(String params_str) {
+        Log.v(TAG, "CreateGamingContext(" + params_str + ")");
+        startActivity(FBUnityCreateGamingContextActivity.class, params_str);
+    }
+
+    @UnityCallable
+    public static void SwitchGamingContext(String params_str) {
+        Log.v(TAG, "SwitchGamingContext(" + params_str + ")");
+        startActivity(FBUnitySwitchGamingContextActivity.class, params_str);
+    }
+
+    @UnityCallable
+    public static void ChooseGamingContext(String params_str) {
+        Log.v(TAG, "ChooseGamingContext(" + params_str + ")");
+        startActivity(FBUnityChooseGamingContextActivity.class, params_str);
+    }
+    
+    @UnityCallable
+    public static void GetCurrentGamingContext(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnCreateTournamentComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+
+        try {
+            String contextID = GamingContext.getCurrentGamingContext().getContextID();
+            unityMessage.put("contextId", contextID);
+            unityMessage.send();
+        } catch (Exception e) {
+            unityMessage.sendError(String.format("Fail to get current gaming context: %s", e.getMessage()));
+        }
+        
     }
 
     private static DaemonRequest.Callback createDaemonCallback(final UnityMessage unityMessage) {

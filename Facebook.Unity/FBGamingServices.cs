@@ -186,6 +186,26 @@ namespace Facebook.Unity
             MobileFacebookImpl.OpenAppStore(callback);
         }
 
+        public static void CreateGamingContext(string playerID, FacebookDelegate<ICreateGamingContextResult> callback) {
+            MobileFacebookImpl.CreateGamingContext(playerID, callback);
+        }
+
+        public static void SwitchGamingContext(string gamingContextID, FacebookDelegate<ISwitchGamingContextResult> callback)
+        {
+            MobileFacebookImpl.SwitchGamingContext(gamingContextID, callback);
+        }
+
+        public static void ChooseGamingContext(List<string> filters, int minSize, int maxSize, FacebookDelegate<IChooseGamingContextResult> callback)
+        {
+            MobileFacebookImpl.ChooseGamingContext(filters, minSize, maxSize, callback);
+        }
+
+
+        public static void GetCurrentGamingContext(FacebookDelegate<IGetCurrentGamingContextResult> callback)
+        {
+            MobileFacebookImpl.GetCurrentGamingContext(callback);
+        }
+
         private static IMobileFacebook MobileFacebookImpl
         {
             get

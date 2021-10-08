@@ -90,6 +90,14 @@ namespace Facebook.Unity.Mobile
 
         void OpenAppStore(FacebookDelegate<IOpenAppStoreResult> callback);
 
+        void CreateGamingContext(string playerID, FacebookDelegate<ICreateGamingContextResult> callback);
+
+        void SwitchGamingContext(string gamingContextID, FacebookDelegate<ISwitchGamingContextResult> callback);
+
+        void ChooseGamingContext(List<string> filters, int minSize, int maxSize, FacebookDelegate<IChooseGamingContextResult> callback);
+
+        void GetCurrentGamingContext(FacebookDelegate<IGetCurrentGamingContextResult> callback);
+
         AuthenticationToken CurrentAuthenticationToken();
 
     }

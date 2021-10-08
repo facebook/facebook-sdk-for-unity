@@ -757,6 +757,63 @@ namespace Facebook.Unity.Mobile.Android
             openAppStore.Call();
         }
 
+        public override void CreateGamingContext(string playerID, FacebookDelegate<ICreateGamingContextResult> callback)
+        {
+            MethodArguments args = new MethodArguments();
+            args.AddString("playerID", playerID);
+
+            var createGamingContext = new JavaMethodCall<ICreateGamingContextResult>(
+                this,
+                "CreateGamingContext")
+            {
+                Callback = callback
+            };
+            createGamingContext.Call(args);
+        }
+
+        public override void SwitchGamingContext(string gamingContextID, FacebookDelegate<ISwitchGamingContextResult> callback)
+        {
+            MethodArguments args = new MethodArguments();
+            args.AddString("gamingContextID", gamingContextID);
+
+            var switchGamingContext = new JavaMethodCall<ISwitchGamingContextResult>(
+                this,
+                "SwitchGamingContext")
+            {
+                Callback = callback
+            };
+            switchGamingContext.Call(args);
+        }
+
+        public override void ChooseGamingContext(List<string> filters, int minSize, int maxSize, FacebookDelegate<IChooseGamingContextResult> callback)
+        {
+            MethodArguments args = new MethodArguments();
+            args.AddList<string>("filters", filters);
+            args.AddPrimative<int>("minSize", minSize);
+            args.AddPrimative<int>("maxSize", maxSize);
+
+            var chooseGamingContext = new JavaMethodCall<IChooseGamingContextResult>(
+                this,
+                "ChooseGamingContext")
+            {
+                Callback = callback
+            };
+            chooseGamingContext.Call(args);
+        }
+
+        public override void GetCurrentGamingContext(FacebookDelegate<IGetCurrentGamingContextResult> callback)
+        {
+            MethodArguments args = new MethodArguments();
+
+            var getCurrentGamingContext = new JavaMethodCall<IGetCurrentGamingContextResult>(
+                this,
+                "GetCurrentGamingContext")
+            {
+                Callback = callback
+            };
+            getCurrentGamingContext.Call(args);
+        }
+
         protected override void SetShareDialogMode(ShareDialogMode mode)
         {
             this.CallFB("SetShareDialogMode", mode.ToString());

@@ -60,6 +60,8 @@ TestResult.xml
 # Ignore Unity Jar Resolver which is pulled in by build script
 /UnitySDK/Assets/PlayServicesResolver.meta
 /UnitySDK/Assets/PlayServicesResolver/
+/UnitySDK/Assets/ExternalDependencyManager.meta
+/UnitySDK/Assets/ExternalDependencyManager/
 
 # Ignore Current Facebook Settings
 FacebookSettings.asset*

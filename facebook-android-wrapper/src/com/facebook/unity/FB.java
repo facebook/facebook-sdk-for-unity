@@ -775,6 +775,17 @@ public class FB {
     }
 
     @UnityCallable
+    public static void GameLoadComplete(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnGameLoadCompleteComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+
+        CloudGameLoginHandler.gameLoadComplete(getUnityActivity().getApplicationContext(), createDaemonCallback(unityMessage));
+    }
+
+    @UnityCallable
     public static void ScheduleAppToUserNotification(String params_str) {
         UnityParams unityParams = UnityParams.parse(params_str);
         final UnityMessage unityMessage = new UnityMessage("OnScheduleAppToUserNotificationComplete");

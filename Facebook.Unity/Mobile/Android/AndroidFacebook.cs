@@ -572,6 +572,18 @@ namespace Facebook.Unity.Mobile.Android
             initCloudGame.Call();
         }
 
+        public override void GameLoadComplete(
+            FacebookDelegate<IGameLoadCompleteResult> callback)
+        {
+            var gameLoadComplete = new JavaMethodCall<IGameLoadCompleteResult>(
+                this,
+                "GameLoadComplete")
+            {
+                Callback = callback
+            };
+            gameLoadComplete.Call();
+        }
+
         public override void ScheduleAppToUserNotification(
             string title,
             string body,

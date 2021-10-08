@@ -348,6 +348,45 @@ namespace Facebook.Unity.Mobile.IOS
             throw new NotImplementedException();
         }
 
+        public override void CreateGamingContext(string playerID, FacebookDelegate<ICreateGamingContextResult> callback)
+        {
+            this.iosWrapper.CreateGamingContext(
+                System.Convert.ToInt32(CallbackManager.AddFacebookDelegate(callback)),
+                playerID);
+        }
+
+        public override void SwitchGamingContext(string gamingContextID, FacebookDelegate<ISwitchGamingContextResult> callback)
+        {
+            this.iosWrapper.SwitchGamingContext(
+                System.Convert.ToInt32(CallbackManager.AddFacebookDelegate(callback)),
+                gamingContextID);
+        }
+
+        public override void ChooseGamingContext(
+            List<string> filters,
+            int minSize,
+            int maxSize,
+            FacebookDelegate<IChooseGamingContextResult> callback)
+        {
+            string filter = "";
+            if (filters != null && filters.Count > 0)
+            {
+                filter = filters[0];
+            }
+            this.iosWrapper.ChooseGamingContext(
+              System.Convert.ToInt32(CallbackManager.AddFacebookDelegate(callback)),
+              filter,
+              minSize,
+              maxSize);
+        }
+
+        public override void GetCurrentGamingContext(FacebookDelegate<IGetCurrentGamingContextResult> callback)
+        {
+            this.iosWrapper.GetCurrentGamingContext(
+                System.Convert.ToInt32(CallbackManager.AddFacebookDelegate(callback))
+            );
+        }
+
         public override void RefreshCurrentAccessToken(
             FacebookDelegate<IAccessTokenRefreshResult> callback)
         {

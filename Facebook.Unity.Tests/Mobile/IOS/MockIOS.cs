@@ -286,5 +286,32 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
             this.MobileFacebook.OnUploadVideoToMediaLibraryComplete(new ResultContainer(result));
         }
+
+        public void CreateGamingContext(int requestId, string playerID)
+        {
+            var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
+            this.MobileFacebook.OnCreateGamingContextComplete(new ResultContainer(result));
+        }
+
+        public void SwitchGamingContext(int requestId, string gamingContextID) {
+            var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
+            this.MobileFacebook.OnSwitchGamingContextComplete(new ResultContainer(result));
+        }
+
+        public void ChooseGamingContext(
+            int requestId,
+            string filter,
+            int minSize,
+            int maxSize)
+        {
+            var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
+            this.MobileFacebook.OnChooseGamingContextComplete(new ResultContainer(result));
+        }
+
+        public void GetCurrentGamingContext(int requestId)
+        {
+            var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
+            this.MobileFacebook.OnGetCurrentGamingContextComplete(new ResultContainer(result));
+        }
     }
 }

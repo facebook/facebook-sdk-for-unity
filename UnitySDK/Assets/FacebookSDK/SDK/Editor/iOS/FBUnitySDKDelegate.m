@@ -33,6 +33,10 @@ NSString *const FBUnityMessageName_OnFetchDeferredAppLinkComplete = @"OnFetchDef
 NSString *const FBUnityMessageName_OnRefreshCurrentAccessTokenComplete = @"OnRefreshCurrentAccessTokenComplete";
 NSString *const FBUnityMessageName_OnUploadImageToMediaLibraryComplete = @"OnUploadImageToMediaLibraryComplete";
 NSString *const FBUnityMessageName_OnUploadVideoToMediaLibraryComplete = @"OnUploadVideoToMediaLibraryComplete";
+NSString *const FBUnityMessageName_OnCreateGamingContextComplete = @"OnCreateGamingContextComplete";
+NSString *const FBUnityMessageName_OnSwitchGamingContextComplete = @"OnSwitchGamingContextComplete";
+NSString *const FBUnityMessageName_OnChooseGamingContextComplete = @"OnChooseGamingContextComplete";
+NSString *const FBUnityMessageName_OnGetCurrentGamingContextComplete = @"OnGetCurrentGamingContextComplete";
 
 static NSMutableArray *g_instances;
 
@@ -106,5 +110,45 @@ static NSMutableArray *g_instances;
   [FBUnityUtility sendCancelToUnity:FBUnityMessageName_OnShareLinkComplete requestId:_requestID];
   [self complete];
 }
+
+#pragma mark - FBSDKContextDialogDelegate
+
+- (void)contextDialogDidComplete:(id<FBSDKContextDialogDelegate>)contextDialog;
+{
+  if ([contextDialog isKindOfClass:[FBSDKChooseContextDialog class]]) {
+    [FBUnityUtility sendMessageToUnity: FBUnityMessageName_OnChooseGamingContextComplete userData: NULL requestId:_requestID];
+  } else if ([contextDialog isKindOfClass:[FBSDKSwitchContextDialog class]]) {
+    [FBUnityUtility sendMessageToUnity: FBUnityMessageName_OnSwitchGamingContextComplete userData: NULL requestId:_requestID];
+  } else if ([contextDialog isKindOfClass:[FBSDKCreateContextDialog class]]) {
+    [FBUnityUtility sendMessageToUnity: FBUnityMessageName_OnCreateGamingContextComplete userData: NULL requestId:_requestID];
+  }
+  [self complete];
+}
+
+- (void)contextDialog:(id<FBSDKContextDialogDelegate>)contextDialog didFailWithError:(NSError *)error
+{
+  if ([contextDialog isKindOfClass:[FBSDKChooseContextDialog class]]) {
+    [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnChooseGamingContextComplete error:error requestId:_requestID];
+  } else if ([contextDialog isKindOfClass:[FBSDKSwitchContextDialog class]]) {
+    [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnSwitchGamingContextComplete error:error requestId:_requestID];
+  } else if ([contextDialog isKindOfClass:[FBSDKCreateContextDialog class]]) {
+    [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnCreateGamingContextComplete error:error requestId:_requestID];
+  }
+  [self complete];
+}
+
+- (void)contextDialogDidCancel:(id<FBSDKContextDialogDelegate>)contextDialog
+{
+  if ([contextDialog isKindOfClass:[FBSDKChooseContextDialog class]]) {
+    [FBUnityUtility sendCancelToUnity:FBUnityMessageName_OnChooseGamingContextComplete requestId:_requestID];
+  } else if ([contextDialog isKindOfClass:[FBSDKSwitchContextDialog class]]) {
+    [FBUnityUtility sendCancelToUnity:FBUnityMessageName_OnSwitchGamingContextComplete requestId:_requestID];
+  } else if ([contextDialog isKindOfClass:[FBSDKCreateContextDialog class]]) {
+    [FBUnityUtility sendCancelToUnity:FBUnityMessageName_OnCreateGamingContextComplete requestId:_requestID];
+  }
+
+  [self complete];
+}
+
 
 @end

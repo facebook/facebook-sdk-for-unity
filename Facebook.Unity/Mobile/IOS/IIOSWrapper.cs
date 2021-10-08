@@ -122,6 +122,18 @@ namespace Facebook.Unity.Mobile.IOS
 
         void OpenFriendFinderDialog(int requestId);
 
+        void CreateGamingContext(int requestId, string playerID);
+
+        void SwitchGamingContext(int requestId, string gamingContextID);
+
+        void GetCurrentGamingContext(int requestId);
+
+        void ChooseGamingContext(
+            int requestId,
+            string filter,
+            int minSize,
+            int maxSize);
+
         void UpdateUserProperties(
             int numParams,
             string[] paramKeys,

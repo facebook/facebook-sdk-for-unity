@@ -21,6 +21,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
+#import <FBSDKGamingServicesKit-Swift.h>
 #import <FBSDKGamingServicesKit/FBSDKGamingServicesKit.h>
 #import <Foundation/NSJSONSerialization.h>
 
@@ -679,6 +680,70 @@ extern "C" {
                                     requestId:requestId];
         }
       }];
+  }
+
+  void IOSFBCreateGamingContext(
+    int requestID,
+    const char *playerID) {
+    NSString *playerIDString = [FBUnityUtility stringFromCString:playerID];
+    FBUnitySDKDelegate *delegate = [FBUnitySDKDelegate instanceWithRequestID:requestID];
+    FBSDKCreateContextContent *content = [[FBSDKCreateContextContent alloc] initDialogContentWithPlayerID:playerIDString];
+    [FBSDKContextDialogPresenter showCreateContextDialogWithContent:content delegate:delegate];
+   }
+
+  void IOSFBSwitchGamingContext(
+    int requestID,
+    const char *contextID) {
+    NSString *contextIDString = [FBUnityUtility stringFromCString:contextID];
+    FBUnitySDKDelegate *delegate = [FBUnitySDKDelegate instanceWithRequestID:requestID];
+    FBSDKSwitchContextContent *content = [[FBSDKSwitchContextContent alloc] initDialogContentWithContextID:contextIDString];
+    [FBSDKContextDialogPresenter showSwitchContextDialogWithContent:content delegate:delegate];
+   }
+
+   void IOSFBChooseGamingContext(
+     int requestID,
+     const char *filter,
+     int minSize,
+     int maxSize)
+   {
+     FBUnitySDKDelegate *delegate = [FBUnitySDKDelegate instanceWithRequestID:requestID];
+     FBSDKChooseContextContent *chooseContent = [FBSDKChooseContextContent alloc];
+
+
+     NSString *filterNSString = [NSString stringWithUTF8String:filter];
+     if ([filterNSString length] == 0) {
+        chooseContent.filter = FBSDKChooseContextFilterNone;
+     } else if ([filterNSString isEqualToString:@"NEW_PLAYERS_ONLY"]) {
+       chooseContent.filter = FBSDKChooseContextFilterNewPlayersOnly;
+     } else if ([filterNSString isEqualToString:@"INCLUDE_EXISTING_CHALLENGES"]) {
+       chooseContent.filter = FBSDKChooseContextFilterExistingChallenges;
+     } else if ([filterNSString isEqualToString:@"NEW_CONTEXT_ONLY"]) {
+       chooseContent.filter = FBSDKChooseContextFilterNewContextOnly;
+     }
+
+     if (minSize > 0) {
+       chooseContent.minParticipants = minSize;
+     }
+     if (maxSize > 0) {
+       chooseContent.maxParticipants = maxSize;
+     }
+
+    [FBSDKContextDialogPresenter showChooseContextDialogWithContent: chooseContent delegate: delegate];
+
+   }
+
+  void IOSFBGetCurrentGamingContext(int requestID)
+  {
+      FBSDKGamingContext *currentContext = [FBSDKGamingContext currentContext];
+      if (currentContext) {
+          [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnGetCurrentGamingContextComplete
+            userData:@{@"contextId":[currentContext identifier]}
+            requestId:requestID];
+      } else {
+          [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnGetCurrentGamingContextComplete
+            userData:NULL
+            requestId:requestID];
+      }
   }
 
   void IOSFBSetDataProcessingOptions(

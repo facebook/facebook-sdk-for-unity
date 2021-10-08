@@ -165,6 +165,31 @@ namespace Facebook.Unity.IOS
             IOSWrapper.IOSFBAppEventsActivateApp();
         }
 
+
+        public void CreateGamingContext(int requestId, string playerID)
+        {
+            IOSWrapper.IOSFBCreateGamingContext(requestId, playerID);
+        }
+
+        public void SwitchGamingContext(int requestId, string gamingContextID)
+        {
+            IOSWrapper.IOSFBSwitchGamingContext(requestId, gamingContextID);
+        }
+
+        public void ChooseGamingContext(
+            int requestId,
+            string filter,
+            int minSize,
+            int maxSize)
+        {
+            IOSWrapper.IOSFBChooseGamingContext(requestId, filter, minSize, maxSize);
+        }
+
+        public void GetCurrentGamingContext(int requestId)
+        {
+            IOSWrapper.IOSFBGetCurrentGamingContext(requestId);
+        }
+
         public void LogAppEvent(
             string logEvent,
             double valueToSum,
@@ -494,6 +519,27 @@ namespace Facebook.Unity.IOS
             int requestID,
             string caption,
             string videoUri);
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBCreateGamingContext(
+            int requestID,
+            string playerID);
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBSwitchGamingContext(
+            int requestID,
+            string contextID);
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBChooseGamingContext(
+            int requestID,
+            string filter,
+            int minSize,
+            int maxSize);
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBGetCurrentGamingContext(
+            int requestID);
 
         [DllImport("__Internal")]
         private static extern string IOSFBGetUserID();

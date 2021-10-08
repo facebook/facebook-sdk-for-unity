@@ -85,6 +85,11 @@ namespace Facebook.Unity.Mobile
             this.MobileFacebook.OnInitCloudGameComplete(new ResultContainer(message));
         }
 
+        public void OnGameLoadCompleteComplete(string message)
+        {
+            this.MobileFacebook.OnGameLoadCompleteComplete(new ResultContainer(message));
+        }
+
         public void OnScheduleAppToUserNotificationComplete(string message)
         {
             this.MobileFacebook.OnScheduleAppToUserNotificationComplete(new ResultContainer(message));

@@ -69,6 +69,8 @@ namespace Facebook.Unity.Mobile
 
         void InitCloudGame(FacebookDelegate<IInitCloudGameResult> callback);
 
+        void GameLoadComplete(FacebookDelegate<IGameLoadCompleteResult> callback);
+
         void GetPayload(FacebookDelegate<IPayloadResult> callback);
 
         void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback);

@@ -430,6 +430,12 @@ namespace Facebook.Unity.Editor
             CallbackManager.OnFacebookResponse(result);
         }
 
+        public void OnGameLoadCompleteComplete(ResultContainer resultContainer)
+        {
+            var result = new GameLoadCompleteResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
         public void OnScheduleAppToUserNotificationComplete(ResultContainer resultContainer)
         {
             var result = new ScheduleAppToUserNotificationResult(resultContainer);
@@ -605,6 +611,13 @@ namespace Facebook.Unity.Editor
         }
 
         public void InitCloudGame(FacebookDelegate<IInitCloudGameResult> callback)
+        {
+            var result = new Dictionary<string, object>();
+            result["success"] = "";
+            result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
+        }
+
+        public void GameLoadComplete(FacebookDelegate<IGameLoadCompleteResult> callback)
         {
             var result = new Dictionary<string, object>();
             result["success"] = "";

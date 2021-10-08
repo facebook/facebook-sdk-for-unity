@@ -35,6 +35,32 @@
   </Import>
   <!-- Use ./configure.sh command to add correct unity references -->
   <!-- BEGIN_UNITY_REFERENCES -->
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(UNITY_UI_DIR)UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.UnityWebRequestModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <!-- END_UNITY_REFERENCES -->
   <ItemGroup>
     <Reference Include="System" />
@@ -123,9 +149,11 @@
     <Compile Include="Results\IGroupCreateResult.cs" />
     <Compile Include="Results\IGroupJoinResult.cs" />
     <Compile Include="Results\InitCloudGameResult.cs" />
+    <Compile Include="Results\GameLoadCompleteResult.cs" />
     <Compile Include="Results\InterstitialAdResult.cs" />
     <Compile Include="Results\IIAPReadyResult.cs" />
     <Compile Include="Results\IInitCloudGameResult.cs" />
+    <Compile Include="Results\IGameLoadCompleteResult.cs" />
     <Compile Include="Results\IInternalResult.cs" />
     <Compile Include="Results\IInterstitialAdResult.cs" />
     <Compile Include="Results\ILoginResult.cs" />

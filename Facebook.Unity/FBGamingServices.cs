@@ -119,6 +119,12 @@ namespace Facebook.Unity
             MobileFacebookImpl.InitCloudGame(callback);
         }
 
+        public static void GameLoadComplete(
+            FacebookDelegate<IGameLoadCompleteResult> callback)
+        {
+            MobileFacebookImpl.GameLoadComplete(callback);
+        }
+
         public static void ScheduleAppToUserNotification(
             string title,
             string body,

@@ -205,6 +205,12 @@ namespace Facebook.Unity.Mobile
             CallbackManager.OnFacebookResponse(result);
         }
 
+        public void OnGameLoadCompleteComplete(ResultContainer resultContainer)
+        {
+            var result = new GameLoadCompleteResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
         public void OnScheduleAppToUserNotificationComplete(ResultContainer resultContainer)
         {
             var result = new ScheduleAppToUserNotificationResult(resultContainer);
@@ -354,6 +360,12 @@ namespace Facebook.Unity.Mobile
 
         public virtual void InitCloudGame(
             FacebookDelegate<IInitCloudGameResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void GameLoadComplete(
+            FacebookDelegate<IGameLoadCompleteResult> callback)
         {
             throw new NotImplementedException();
         }

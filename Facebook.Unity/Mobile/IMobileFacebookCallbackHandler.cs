@@ -44,6 +44,8 @@ namespace Facebook.Unity.Mobile
 
         void OnInitCloudGameComplete(string message);
 
+        void OnGameLoadCompleteComplete(string message);
+
         void OnScheduleAppToUserNotificationComplete(string message);
 
         void OnLoadInterstitialAdComplete(string message);

@@ -72,6 +72,7 @@ namespace Facebook.Unity
                 CallbackManager.TryCallCallback<IPurchaseResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IConsumePurchaseResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IInitCloudGameResult>(callback, result) ||
+                CallbackManager.TryCallCallback<IGameLoadCompleteResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IScheduleAppToUserNotificationResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IInterstitialAdResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IRewardedVideoResult>(callback, result) ||

@@ -47,7 +47,7 @@ public class FBUnityCreateGamingContextActivity extends BaseActivity {
 
         String playerID = params.getString("playerID");
         ContextCreateContent.Builder builder = new ContextCreateContent.Builder();
-        builder.setSuggestedPlayerIDs(playerID);
+        builder.setSuggestedPlayerID(playerID);
         
         ContextCreateContent content = builder.build();
 

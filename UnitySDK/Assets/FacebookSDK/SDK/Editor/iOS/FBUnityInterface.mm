@@ -299,11 +299,11 @@ isPublishPermLogin:(BOOL)isPublishPermLogin
                      shareContent:(FBSDKShareLinkContent *)linkContent
                        dialogMode:(FBSDKShareDialogMode)dialogMode
 {
-  FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
-  dialog.shareContent = linkContent;
-  dialog.mode = dialogMode;
   FBUnitySDKDelegate *delegate = [FBUnitySDKDelegate instanceWithRequestID:requestId];
-  dialog.delegate = delegate;
+  FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] initWithViewController:nil
+                                                                      content:linkContent
+                                                                     delegate:delegate];
+  dialog.mode = dialogMode;
 
   NSError *error;
   if (![dialog validateWithError:&error]) {

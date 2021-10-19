@@ -53,6 +53,16 @@
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\Pay.cs" />
      <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver_v1.2.135.0.txt" />
      <None Include="Assets\FacebookSDK\Plugins\Editor\Dependencies.xml" />
+     <Compile Include="Assets\FacebookSDK\Examples\Windows\FBWindowsA2UNotificationsManager.cs" />
+     <Compile Include="Assets\FacebookSDK\Examples\Windows\FBWindowsADSManager.cs" />
+     <Compile Include="Assets\FacebookSDK\Examples\Windows\FBWindowsExampleTabsManager.cs" />
+     <Compile Include="Assets\FacebookSDK\Examples\Windows\FBWindowsFriendsManager.cs" />
+     <Compile Include="Assets\FacebookSDK\Examples\Windows\FBWindowsGraphAPIManager.cs" />
+     <Compile Include="Assets\FacebookSDK\Examples\Windows\FBWindowsInitManager.cs" />
+     <Compile Include="Assets\FacebookSDK\Examples\Windows\FBWindowsLoginManager.cs" />
+     <Compile Include="Assets\FacebookSDK\Examples\Windows\FBWindowsLogsManager.cs" />
+     <Compile Include="Assets\FacebookSDK\Examples\Windows\FBWindowsPurchaseManager.cs" />
+     <Compile Include="Assets\FacebookSDK\Examples\Windows\FBWindowsTournamentsManager.cs" />
      <None Include="Assets\FacebookSDK\link.xml" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <Reference Include="Facebook.Unity">

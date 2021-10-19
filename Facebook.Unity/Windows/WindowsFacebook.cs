@@ -206,6 +206,31 @@ namespace Facebook.Unity.Windows
             this.windowsWrapper.ScheduleAppToUserNotification(title, body, media, timeInterval, payload, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
 
+        public override void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback)
+        {
+            this.windowsWrapper.PostSessionScore(score, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
+        public override void PostTournamentScore(int score, FacebookDelegate<ITournamentScoreResult> callback)
+        {
+            this.windowsWrapper.PostTournamentScore(score, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
+        public override void GetTournament(FacebookDelegate<ITournamentResult> callback)
+        {
+            this.windowsWrapper.GetTournament(this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
+        public override void ShareTournament(int score, Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
+        {
+            this.windowsWrapper.ShareTournament(score,data,this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
+        public override void CreateTournament(int initialScore, string title, string imageBase64DataUrl, string sortOrder, string scoreFormat, Dictionary<string, string> data, FacebookDelegate<ITournamentResult> callback)
+        {
+            this.windowsWrapper.CreateTournament(initialScore, title, imageBase64DataUrl, sortOrder, scoreFormat, data, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
         private static IWindowsWrapper GetWindowsWrapper()
         {
             Assembly assembly = Assembly.Load("Facebook.Unity.Windows");

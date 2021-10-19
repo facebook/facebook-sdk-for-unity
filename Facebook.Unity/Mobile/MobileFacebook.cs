@@ -415,29 +415,29 @@ namespace Facebook.Unity.Mobile
             throw new NotImplementedException();
         }
 
-        public virtual void PostSessionScore(
+        public override void PostSessionScore(
             int score,
             FacebookDelegate<ISessionScoreResult> callback)
         {
             throw new NotImplementedException();
         }
 
-        public virtual void PostTournamentScore(int score, FacebookDelegate<ITournamentScoreResult> callback)
+        public override void PostTournamentScore(int score, FacebookDelegate<ITournamentScoreResult> callback)
         {
             throw new NotImplementedException();
         }
 
-        public virtual void GetTournament(FacebookDelegate<ITournamentResult> callback)
+        public override void GetTournament(FacebookDelegate<ITournamentResult> callback)
         {
             throw new NotImplementedException();
         }
 
-        public virtual void ShareTournament(Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
+        public override void ShareTournament(int score, Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
         {
             throw new NotImplementedException();
         }
 
-        public virtual void CreateTournament(
+        public override void CreateTournament(
             int initialScore,
             string title,
             string imageBase64DataUrl,

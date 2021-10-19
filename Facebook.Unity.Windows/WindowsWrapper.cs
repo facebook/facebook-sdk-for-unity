@@ -385,7 +385,7 @@ namespace Facebook.Unity.Windows
               });
         }
 
-        void IWindowsWrapper.ScheduleAppToUserNotification(string title, string body, Uri media, int timeInterval, string payload, string callbackId, CallbackManager callbackManager)
+        public void ScheduleAppToUserNotification(string title, string body, Uri media, int timeInterval, string payload, string callbackId, CallbackManager callbackManager)
         {
             fbg.AppToUserNotifications.scheduleAppToUserNotification(title, body, media.ToString(), timeInterval, payload, 
                 (fbg.ScheduleAppToUserNotificationResult success) => {
@@ -397,6 +397,166 @@ namespace Facebook.Unity.Windows
                 (fbg.Error error) =>
                 {
                     ScheduleAppToUserNotificationResult result = new ScheduleAppToUserNotificationResult(WindowsParserBase.SetError(error, callbackId));
+                    callbackManager.OnFacebookResponse(result);
+                });
+        }
+
+        public void PostSessionScore(int score, string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Tournaments.postSessionScore(score, 
+                (fbg.PostSessionScoreResult success) => {
+                    Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                        {Constants.CallbackIdKey,callbackId },
+                        {"Response", success.Raw },
+                    };
+                    callbackManager.OnFacebookResponse(new SessionScoreResult(new ResultContainer(resultDict)));
+                },
+                (fbg.Error error) =>
+                {
+                    SessionScoreResult result = new SessionScoreResult(WindowsParserBase.SetError(error, callbackId));
+                    callbackManager.OnFacebookResponse(result);
+                });
+        }
+
+        public void PostTournamentScore(int score, string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Tournaments.postTournamentScore(score,
+                (fbg.PostTournamentScoreResult success) => {
+                    Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                        {Constants.CallbackIdKey,callbackId },
+                        {"Response", success.Raw },
+                    };
+                    callbackManager.OnFacebookResponse(new TournamentScoreResult(new ResultContainer(resultDict)));
+                },
+                (fbg.Error error) =>
+                {
+                    TournamentScoreResult result = new TournamentScoreResult(WindowsParserBase.SetError(error, callbackId));
+                    callbackManager.OnFacebookResponse(result);
+                });
+        }
+
+        public void GetTournament(string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Tournaments.getTournament(
+                (fbg.GetTournamentResult tournamentData) => {
+                    Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                        {Constants.CallbackIdKey,callbackId },
+                    };
+
+                    Dictionary<string, object> response = MiniJSON.Json.Deserialize(tournamentData.Raw) as Dictionary<string, object>;
+                    Dictionary<string, object> success = null;
+                    if (response.TryGetValue("success", out success)) {
+                        string tournamentId;
+                        if (success.TryGetValue("tournamentId", out tournamentId))
+                        {
+                            resultDict["tournament_id"] = tournamentId;
+                        }
+                        string contextId;
+                        if (success.TryGetValue("contextId", out contextId))
+                        {
+                            resultDict["context_id"] = contextId;
+                        }
+                        int endTime;
+                        if (success.TryGetValue("endTime", out endTime))
+                        {
+                            resultDict["end_time"] = endTime;
+                        }
+                        string tournamentTitle;
+                        if (success.TryGetValue("tournamentTitle", out tournamentTitle))
+                        {
+                            resultDict["tournament_title"] = tournamentTitle;
+                        }
+                        IDictionary<string, string> payload;
+                        if (success.TryGetValue("payload",out payload))
+                        {
+                            resultDict["payload"] = payload;
+                        }
+                    }
+                    else
+                    {
+                        resultDict[Constants.ErrorKey] = "ERROR: Wrong Tournament Data";
+                    }
+
+                    callbackManager.OnFacebookResponse(new TournamentResult(new ResultContainer(resultDict)));
+                },
+                (fbg.Error error) =>
+                {
+                    TournamentResult result = new TournamentResult(WindowsParserBase.SetError(error, callbackId));
+                    callbackManager.OnFacebookResponse(result);
+                });
+        }
+
+        public void ShareTournament(int score, Dictionary<string, string> data, string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Tournaments.shareTournament(score,
+                MiniJSON.Json.Serialize(data),
+                (fbg.ShareTournamentResult success) => {
+                    Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                        {Constants.CallbackIdKey,callbackId },
+                        {"Response", success.Raw },
+                    };
+                    callbackManager.OnFacebookResponse(new TournamentScoreResult(new ResultContainer(resultDict)));
+                },
+                (fbg.Error error) =>
+                {
+                    TournamentScoreResult result = new TournamentScoreResult(WindowsParserBase.SetError(error, callbackId));
+                    callbackManager.OnFacebookResponse(result);
+                });
+        }
+
+        public void CreateTournament(int initialScore, string title, string imageBase64DataUrl, string sortOrder, string scoreFormat, Dictionary<string, string> data, string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Tournaments.createTournament(
+                initialScore, 
+                title, 
+                imageBase64DataUrl, 
+                sortOrder, 
+                scoreFormat,
+                MiniJSON.Json.Serialize(data),
+                (fbg.CreateTournamentResult tournamentData) => {
+                    Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                        {Constants.CallbackIdKey,callbackId },
+                    };
+
+                    Dictionary<string, object> response = MiniJSON.Json.Deserialize(tournamentData.Raw) as Dictionary<string, object>;
+                    Dictionary<string, object> success = null;
+                    if (response.TryGetValue("success", out success))
+                    {
+                        string tournamentId;
+                        if (success.TryGetValue("tournamentId", out tournamentId))
+                        {
+                            resultDict["tournament_id"] = tournamentId;
+                        }
+                        string contextId;
+                        if (success.TryGetValue("contextId", out contextId))
+                        {
+                            resultDict["context_id"] = contextId;
+                        }
+                        int endTime;
+                        if (success.TryGetValue("endTime", out endTime))
+                        {
+                            resultDict["end_time"] = endTime;
+                        }
+                        string tournamentTitle;
+                        if (success.TryGetValue("tournamentTitle", out tournamentTitle))
+                        {
+                            resultDict["tournament_title"] = tournamentTitle;
+                        }
+                        IDictionary<string, string> payload;
+                        if (success.TryGetValue("payload", out payload))
+                        {
+                            resultDict["payload"] = payload;
+                        }
+                    }
+                    else
+                    {
+                        resultDict[Constants.ErrorKey] = "ERROR: Wrong Tournament Data";
+                    }
+                    callbackManager.OnFacebookResponse(new TournamentResult(new ResultContainer(resultDict)));
+                },
+                (fbg.Error error) =>
+                {
+                    TournamentResult result = new TournamentResult(WindowsParserBase.SetError(error, callbackId));
                     callbackManager.OnFacebookResponse(result);
                 });
         }

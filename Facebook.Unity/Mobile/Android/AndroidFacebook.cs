@@ -743,7 +743,7 @@ namespace Facebook.Unity.Mobile.Android
             createTournament.Call(args);
         }
 
-        public override void ShareTournament(Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
+        public override void ShareTournament(int score, Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
         {
             MethodArguments args = new MethodArguments();
             args.AddDictionary("data", data.ToDictionary(pair => pair.Key, pair => (object)pair.Value));

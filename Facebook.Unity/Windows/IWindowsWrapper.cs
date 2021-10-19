@@ -62,5 +62,16 @@ namespace Facebook.Unity.Windows
         void DeleteFriendFinderInvitation(string invitationId, string callbackId, CallbackManager callbackManager);
 
         void ScheduleAppToUserNotification(string title, string body, Uri media, int timeInterval, string payload, string callbackId, CallbackManager callbackManager);
+
+        void PostSessionScore(int score, string callbackId, CallbackManager callbackManager);
+
+        void PostTournamentScore(int score, string callbackId, CallbackManager callbackManager);
+
+        void GetTournament(string callbackId, CallbackManager callbackManager);
+
+        void ShareTournament(int score, Dictionary<string, string> data, string callbackId, CallbackManager callbackManager);
+
+        void CreateTournament(int initialScore, string title, string imageBase64DataUrl, string sortOrder, string scoreFormat, Dictionary<string, string> data, string callbackId, CallbackManager callbackManager);
+
     }
 }

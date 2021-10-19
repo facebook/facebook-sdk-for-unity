@@ -73,23 +73,6 @@ namespace Facebook.Unity.Mobile
 
         void GetPayload(FacebookDelegate<IPayloadResult> callback);
 
-        void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback);
-
-        void PostTournamentScore(int score, FacebookDelegate<ITournamentScoreResult> callback);
-
-        void GetTournament(FacebookDelegate<ITournamentResult> callback);
-
-        void ShareTournament(Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback);
-
-        void CreateTournament(
-            int initialScore,
-            string title,
-            string imageBase64DataUrl,
-            string sortOrder,
-            string scoreFormat,
-            Dictionary<string, string> data,
-            FacebookDelegate<ITournamentResult> callback);
-
         void OpenAppStore(FacebookDelegate<IOpenAppStoreResult> callback);
 
         void CreateGamingContext(string playerID, FacebookDelegate<ICreateGamingContextResult> callback);

@@ -798,9 +798,41 @@ namespace Facebook.Unity
             FacebookImpl.DeleteFriendFinderInvitation(invitationId, callback);
         }
 
-        public static void ScheduleAppToUserNotification(string title, string body, Uri media, int timeInterval, string payload, FacebookDelegate<IScheduleAppToUserNotificationResult> callback) 
+        public static void ScheduleAppToUserNotification(string title, string body, Uri media, int timeInterval, string payload, FacebookDelegate<IScheduleAppToUserNotificationResult> callback)
         {
             FacebookImpl.ScheduleAppToUserNotification(title, body, media, timeInterval, payload, callback);
+        }
+
+        public static void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback)
+        {
+            FacebookImpl.PostSessionScore(score, callback);
+        }
+
+        public static void PostTournamentScore(int score, FacebookDelegate<ITournamentScoreResult> callback)
+        {
+            FacebookImpl.PostTournamentScore(score, callback);
+        }
+
+        public static void GetTournament(FacebookDelegate<ITournamentResult> callback)
+        {
+            FacebookImpl.GetTournament(callback);
+        }
+
+        public static void ShareTournament(int score, Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
+        {
+            FacebookImpl.ShareTournament(score,data,callback);
+        }
+
+        public static void CreateTournament(
+            int initialScore,
+            string title,
+            string imageBase64DataUrl,
+            string sortOrder,
+            string scoreFormat,
+            Dictionary<string, string> data,
+            FacebookDelegate<ITournamentResult> callback)
+        {
+            FacebookImpl.CreateTournament(initialScore, title, imageBase64DataUrl, sortOrder, scoreFormat, data, callback);
         }
 
         /// <summary>
@@ -1225,6 +1257,26 @@ namespace Facebook.Unity
             public static void ScheduleAppToUserNotification(string title, string body, Uri media, int timeInterval, string payload, FacebookDelegate<IScheduleAppToUserNotificationResult> callback)
             {
                 Mobile.MobileFacebookImpl.ScheduleAppToUserNotification(title, body, media, timeInterval, payload, callback);
+            }
+
+            public static void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback)
+            {
+                Mobile.MobileFacebookImpl.PostSessionScore(score, callback);
+            }
+
+            public static void PostTournamentScore(int score, FacebookDelegate<ITournamentScoreResult> callback)
+            {
+                Mobile.MobileFacebookImpl.PostTournamentScore(score, callback);
+            }
+
+            public static void GetTournament(FacebookDelegate<ITournamentResult> callback)
+            {
+                Mobile.MobileFacebookImpl.GetTournament(callback);
+            }
+
+            public static void ShareTournament(int score, Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
+            {
+                Mobile.MobileFacebookImpl.ShareTournament(score,data, callback);
             }
         }
 

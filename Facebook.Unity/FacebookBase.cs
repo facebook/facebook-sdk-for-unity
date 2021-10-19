@@ -299,5 +299,15 @@ namespace Facebook.Unity
         public abstract void DeleteFriendFinderInvitation(string invitationId, FacebookDelegate<IFriendFinderInvitationResult> callback);
 
         public abstract void ScheduleAppToUserNotification(string title, string body, Uri media, int timeInterval, string payload, FacebookDelegate<IScheduleAppToUserNotificationResult> callback);
+        
+        public abstract void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback);
+        
+        public abstract void PostTournamentScore(int score, FacebookDelegate<ITournamentScoreResult> callback);
+        
+        public abstract void GetTournament(FacebookDelegate<ITournamentResult> callback);
+        
+        public abstract void ShareTournament(int score, Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback);
+        
+        public abstract void CreateTournament(int initialScore, string title, string imageBase64DataUrl, string sortOrder, string scoreFormat, Dictionary<string, string> data, FacebookDelegate<ITournamentResult> callback);
     }
 }

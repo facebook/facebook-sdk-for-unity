@@ -166,9 +166,9 @@ namespace Facebook.Unity
             MobileFacebookImpl.GetTournament(callback);
         }
 
-        public static void ShareTournament(Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
+        public static void ShareTournament(int score, Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
         {
-            MobileFacebookImpl.ShareTournament(data, callback);
+            MobileFacebookImpl.ShareTournament(score, data, callback);
         }
 
         public static void CreateTournament(

@@ -672,21 +672,21 @@ namespace Facebook.Unity.Editor
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 
-        public void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback)
+        public override void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback)
         {
             var result = new Dictionary<string, object>();
             result["success"] = "";
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 
-        public void PostTournamentScore(int score, FacebookDelegate<ITournamentScoreResult> callback)
+        public override void PostTournamentScore(int score, FacebookDelegate<ITournamentScoreResult> callback)
         {
             var result = new Dictionary<string, object>();
             result["success"] = "";
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 
-        public void GetTournament(FacebookDelegate<ITournamentResult> callback)
+        public override void GetTournament(FacebookDelegate<ITournamentResult> callback)
         {
             var result = new Dictionary<string, object>();
             result["tournamentId"] = "123";
@@ -696,14 +696,14 @@ namespace Facebook.Unity.Editor
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 
-        public void ShareTournament(Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
+        public override void ShareTournament(int score, Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
         {
             var result = new Dictionary<string, object>();
             result["success"] = "";
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 
-        public void CreateTournament(
+        public override void CreateTournament(
             int initialScore,
             string title,
             string imageBase64DataUrl,

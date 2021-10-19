@@ -650,5 +650,30 @@ namespace Facebook.Unity.Canvas
         {
             throw new NotImplementedException();
         }
+
+        public override void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void PostTournamentScore(int score, FacebookDelegate<ITournamentScoreResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void GetTournament(FacebookDelegate<ITournamentResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ShareTournament(int score, Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void CreateTournament(int initialScore, string title, string imageBase64DataUrl, string sortOrder, string scoreFormat, Dictionary<string, string> data, FacebookDelegate<ITournamentResult> callback)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

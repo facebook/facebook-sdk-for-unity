@@ -323,7 +323,13 @@ namespace Facebook.Unity
         }
 
         public static Purchase ParsePurchaseFromDictionary(IDictionary<string, object> purchase, bool isWindows = false) {
-            bool isConsumed = (bool)purchase[isWindows ? "consumed" : "isConsumed"];
+
+            bool isConsumed = false;
+            if ( !purchase.TryGetValue(isWindows ? "is_consumed" : "isConsumed", out isConsumed)) // compatibility with Graph API 11 or higher
+            {
+                purchase.TryGetValue(isWindows ? "consumed" : "isConsumed", out isConsumed); // compatibility with Graph API 10 or lower
+            }
+
             string developerPayload = purchase.ContainsKey(isWindows ? "developer_payload" : "developerPayload") ? purchase[isWindows ? "developer_payload" : "developerPayload"].ToStringNullOk() : "";
             string paymentActionType = purchase[isWindows ? "payment_action_type" : "paymentActionType"].ToStringNullOk();
             string paymentID = purchase[isWindows ? "payment_id" : "paymentID"].ToStringNullOk();

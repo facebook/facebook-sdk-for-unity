@@ -89,6 +89,19 @@ public class FBWindowsPurchaseManager : MonoBehaviour
         else
         {
             Logger.DebugLog("Product Purchased: " + result.Purchase.ProductID);
+            Logger.DebugLog("----------------------------------");
+            Logger.DebugLog("ProductID: " + result.Purchase.ProductID);
+            Logger.DebugLog("IsConsumed: " + result.Purchase.IsConsumed);
+            Logger.DebugLog("DeveloperPayload: " + result.Purchase.DeveloperPayload);
+            Logger.DebugLog("PaymentID: " + result.Purchase.PaymentID);
+            Logger.DebugLog("PaymentActionType: " + result.Purchase.PaymentActionType);
+            Logger.DebugLog("PurchasePlatform: " + result.Purchase.PurchasePlatform);
+            Logger.DebugLog("PurchasePrice.Amount: " + result.Purchase.PurchasePrice.Amount);
+            Logger.DebugLog("PurchasePrice.Currency: " + result.Purchase.PurchasePrice.Currency);
+            Logger.DebugLog("PurchaseTime: " + result.Purchase.PurchaseTime);
+            Logger.DebugLog("PurchaseToken: " + result.Purchase.PurchaseToken);
+            Logger.DebugLog("SignedRequest: " + result.Purchase.SignedRequest);
+            Logger.DebugLog("----------------------------------");
         }
         GetPurchases();
     }

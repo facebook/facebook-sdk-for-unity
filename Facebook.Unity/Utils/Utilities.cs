@@ -331,11 +331,36 @@ namespace Facebook.Unity
             }
 
             string developerPayload = purchase.ContainsKey(isWindows ? "developer_payload" : "developerPayload") ? purchase[isWindows ? "developer_payload" : "developerPayload"].ToStringNullOk() : "";
-            string paymentActionType = purchase[isWindows ? "payment_action_type" : "paymentActionType"].ToStringNullOk();
+
+            string paymentActionType = "charge";
+            if (purchase.ContainsKey("payment_action_type") || purchase.ContainsKey("paymentActionType"))
+            {
+                paymentActionType = purchase[isWindows ? "payment_action_type" : "paymentActionType"].ToStringNullOk();
+            }           
+            
             string paymentID = purchase[isWindows ? "payment_id" : "paymentID"].ToStringNullOk();
             string productID = purchase[isWindows ? "product_id" : "productID"].ToStringNullOk();
-            IDictionary<string, object> purchasePrice = (IDictionary<string, object>) purchase[isWindows ? "purchase_price" : "purchasePrice"];
-            long purchaseTime = (long)purchase[isWindows ? "purchase_time" : "purchaseTime"];
+            IDictionary<string, object> purchasePrice = new Dictionary<string, object>();
+            if (purchase.ContainsKey("purchase_price") || purchase.ContainsKey("purchasePrice"))
+            {
+                purchasePrice = (IDictionary<string, object>)purchase[isWindows ? "purchase_price" : "purchasePrice"];
+            }
+            else
+            {
+                purchasePrice.Add("amount", "1.11");
+                purchasePrice.Add("currency", "USD");
+            }
+
+            long purchaseTime;
+            if (isWindows)
+            {
+                purchase.TryGetValue("purchase_time", out purchaseTime);
+            }
+            else
+            {
+                purchase.TryGetValue("purchaseTime", out purchaseTime);
+            }
+
             string purchaseToken = purchase[isWindows ? "purchase_token" : "purchaseToken"].ToStringNullOk();
             string signedRequest = purchase[isWindows ? "signed_request" : "signedRequest"].ToStringNullOk();
             string purchasePlatform = purchase[isWindows ? "purchase_platform" : "purchasePlatform"].ToStringNullOk();

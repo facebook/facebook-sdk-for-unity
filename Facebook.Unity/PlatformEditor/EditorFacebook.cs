@@ -550,7 +550,7 @@ namespace Facebook.Unity.Editor
             throw new NotImplementedException();
         }
 
-        public void UploadImageToMediaLibrary(
+        public override void UploadImageToMediaLibrary(
             string caption,
             Uri imageUri,
             bool shouldLaunchMediaDialog,
@@ -562,9 +562,10 @@ namespace Facebook.Unity.Editor
             this.OnFetchDeferredAppLinkComplete(new ResultContainer(result));
         }
 
-        public void UploadVideoToMediaLibrary(
+        public override void UploadVideoToMediaLibrary(
             string caption,
             Uri imageUri,
+            bool shouldLaunchMediaDialog,
             FacebookDelegate<IMediaUploadResult> callback)
         {
             // construct a dummy ResultContainer

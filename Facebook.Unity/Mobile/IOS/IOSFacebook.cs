@@ -415,6 +415,7 @@ namespace Facebook.Unity.Mobile.IOS
         public override void UploadVideoToMediaLibrary(
             string caption,
             Uri videoUri,
+            bool shouldLaunchMediaDialog,
             FacebookDelegate<IMediaUploadResult> callback)
         {
             this.iosWrapper.UploadVideoToMediaLibrary(

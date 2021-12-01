@@ -478,6 +478,7 @@ namespace Facebook.Unity.Mobile.Android
         public override void UploadVideoToMediaLibrary(
             string caption,
             Uri videoUri,
+            bool shouldLaunchMediaDialog,
             FacebookDelegate<IMediaUploadResult> callback)
         {
             MethodArguments args = new MethodArguments();

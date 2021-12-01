@@ -43,7 +43,7 @@ namespace Facebook.Unity.Windows
 
         void Purchase(string productID, string developerPayload, string callbackId, CallbackManager callbackManager);
 
-        void ConsumePurchase(string productToken,  string callbackId, CallbackManager callbackManager);
+        void ConsumePurchase(string productToken, string callbackId, CallbackManager callbackManager);
 
         void CurrentProfile(string callbackId, CallbackManager callbackManager);
 
@@ -73,5 +73,8 @@ namespace Facebook.Unity.Windows
 
         void CreateTournament(int initialScore, string title, string imageBase64DataUrl, string sortOrder, string scoreFormat, Dictionary<string, string> data, string callbackId, CallbackManager callbackManager);
 
+        void UploadImageToMediaLibrary(string caption, Uri imageUri, bool shouldLaunchMediaDialog, string callbackId, CallbackManager callbackManager);
+
+        void UploadVideoToMediaLibrary(string caption, Uri videoUri, bool shouldLaunchMediaDialog, string callbackId, CallbackManager callbackManager);
     }
 }

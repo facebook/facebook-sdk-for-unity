@@ -308,7 +308,7 @@ namespace Facebook.Unity.Mobile
             CallbackManager.OnFacebookResponse(result);
         }
 
-        public virtual void UploadImageToMediaLibrary(
+        public override void UploadImageToMediaLibrary(
             string caption,
             Uri imageUri,
             bool shouldLaunchMediaDialog,
@@ -317,9 +317,10 @@ namespace Facebook.Unity.Mobile
             throw new NotImplementedException();
         }
 
-        public virtual void UploadVideoToMediaLibrary(
+        public override void UploadVideoToMediaLibrary(
             string caption,
             Uri videoUri,
+            bool shouldLaunchMediaDialog,
             FacebookDelegate<IMediaUploadResult> callback)
         {
             throw new NotImplementedException();

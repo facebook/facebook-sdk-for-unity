@@ -158,5 +158,9 @@ namespace Facebook.Unity
             string scoreFormat,
             Dictionary<string, string> data,
             FacebookDelegate<ITournamentResult> callback);
+
+        void UploadImageToMediaLibrary(string caption, Uri imageUri, bool shouldLaunchMediaDialog, FacebookDelegate<IMediaUploadResult> callback);
+
+        void UploadVideoToMediaLibrary(string caption, Uri videoUri, bool shouldLaunchMediaDialog, FacebookDelegate<IMediaUploadResult> callback);
     }
 }

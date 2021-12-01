@@ -675,5 +675,15 @@ namespace Facebook.Unity.Canvas
         {
             throw new NotImplementedException();
         }
+
+        public override void UploadImageToMediaLibrary(string caption, Uri imageUri, bool shouldLaunchMediaDialog, FacebookDelegate<IMediaUploadResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UploadVideoToMediaLibrary(string caption, Uri videoUri, bool shouldLaunchMediaDialog, FacebookDelegate<IMediaUploadResult> callback)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

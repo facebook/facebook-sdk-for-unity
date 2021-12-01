@@ -75,9 +75,10 @@ namespace Facebook.Unity
         public static void UploadVideoToMediaLibrary(
             string caption,
             Uri videoUri,
+            bool shouldLaunchMediaDialog,
             FacebookDelegate<IMediaUploadResult> callback)
         {
-            MobileFacebookImpl.UploadVideoToMediaLibrary(caption, videoUri, callback);
+            MobileFacebookImpl.UploadVideoToMediaLibrary(caption, videoUri, shouldLaunchMediaDialog, callback);
         }
 
         /// <summary>

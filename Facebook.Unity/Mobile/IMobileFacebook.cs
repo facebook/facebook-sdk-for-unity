@@ -54,17 +54,6 @@ namespace Facebook.Unity.Mobile
 
         void SetDataProcessingOptions(IEnumerable<string> options, int country, int state);
 
-        void UploadImageToMediaLibrary(
-            string caption,
-            Uri imageUri,
-            bool shouldLaunchMediaDialog,
-            FacebookDelegate<IMediaUploadResult> callback);
-
-        void UploadVideoToMediaLibrary(
-            string caption,
-            Uri videoUri,
-            FacebookDelegate<IMediaUploadResult> callback);
-
         void OnIAPReady(FacebookDelegate<IIAPReadyResult> callback);
 
         void InitCloudGame(FacebookDelegate<IInitCloudGameResult> callback);

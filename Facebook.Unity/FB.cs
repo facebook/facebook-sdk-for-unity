@@ -835,6 +835,17 @@ namespace Facebook.Unity
             FacebookImpl.CreateTournament(initialScore, title, imageBase64DataUrl, sortOrder, scoreFormat, data, callback);
         }
 
+
+        public static void UploadImageToMediaLibrary(string caption, Uri imageUri, bool shouldLaunchMediaDialog, FacebookDelegate<IMediaUploadResult> callback)
+        {
+            FacebookImpl.UploadImageToMediaLibrary(caption, imageUri, shouldLaunchMediaDialog, callback);
+        }
+
+        public static void UploadVideoToMediaLibrary(string caption, Uri videoUri, bool shouldLaunchMediaDialog, FacebookDelegate<IMediaUploadResult> callback)
+        {
+            FacebookImpl.UploadVideoToMediaLibrary(caption, videoUri, shouldLaunchMediaDialog, callback);
+        }
+
         /// <summary>
         /// Contains methods specific to the Facebook Games Canvas platform.
         /// </summary>
@@ -1278,6 +1289,17 @@ namespace Facebook.Unity
             {
                 Mobile.MobileFacebookImpl.ShareTournament(score,data, callback);
             }
+
+            public static void UploadImageToMediaLibrary(string caption, Uri imageUri, bool shouldLaunchMediaDialog, FacebookDelegate<IMediaUploadResult> callback)
+            {
+                Mobile.MobileFacebookImpl.UploadImageToMediaLibrary(caption, imageUri, shouldLaunchMediaDialog, callback);
+            }
+
+            public static void UploadVideoToMediaLibrary(string caption, Uri videoUri, bool shouldLaunchMediaDialog, FacebookDelegate<IMediaUploadResult> callback)
+            {
+                Mobile.MobileFacebookImpl.UploadVideoToMediaLibrary(caption, videoUri, shouldLaunchMediaDialog, callback);
+            }
+
         }
 
         /// <summary>

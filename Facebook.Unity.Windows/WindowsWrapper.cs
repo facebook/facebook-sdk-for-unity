@@ -255,14 +255,16 @@ namespace Facebook.Unity.Windows
         }
         public void LoadInterstitialAd(string placementID, string callbackId, CallbackManager callbackManager)
         {
-            fbg.Inappad.loadInterstitialAd(placementID, (response) => {
+            fbg.Inappad.loadInterstitialAd(placementID, (response) =>
+            {
                 Dictionary<string, object> resultDict = new Dictionary<string, object>() {
                     {Constants.CallbackIdKey,callbackId }
                 };
                 resultDict[Constants.ErrorKey] = response.Error;
                 InterstitialAdResult result = new InterstitialAdResult(new ResultContainer(resultDict));
                 callbackManager.OnFacebookResponse(result);
-            }, (error) =>{
+            }, (error) =>
+            {
                 InterstitialAdResult result = new InterstitialAdResult(WindowsParserBase.SetError(error, callbackId));
                 callbackManager.OnFacebookResponse(result);
             });
@@ -270,14 +272,16 @@ namespace Facebook.Unity.Windows
 
         public void ShowInterstitialAd(string placementID, string callbackId, CallbackManager callbackManager)
         {
-            fbg.Inappad.showInterstitialAd(placementID, (response) => {
+            fbg.Inappad.showInterstitialAd(placementID, (response) =>
+            {
                 Dictionary<string, object> resultDict = new Dictionary<string, object>() {
                     {Constants.CallbackIdKey,callbackId }
                 };
                 resultDict[Constants.ErrorKey] = response.Error;
                 InterstitialAdResult result = new InterstitialAdResult(new ResultContainer(resultDict));
                 callbackManager.OnFacebookResponse(result);
-            }, (error) => {
+            }, (error) =>
+            {
                 InterstitialAdResult result = new InterstitialAdResult(WindowsParserBase.SetError(error, callbackId));
                 callbackManager.OnFacebookResponse(result);
             });
@@ -285,14 +289,16 @@ namespace Facebook.Unity.Windows
 
         public void LoadRewardedVideo(string placementID, string callbackId, CallbackManager callbackManager)
         {
-            fbg.Inappad.loadRewardedVideo(placementID, (response) => {
+            fbg.Inappad.loadRewardedVideo(placementID, (response) =>
+            {
                 Dictionary<string, object> resultDict = new Dictionary<string, object>() {
                     {Constants.CallbackIdKey,callbackId }
                 };
                 resultDict[Constants.ErrorKey] = response.Error;
                 RewardedVideoResult result = new RewardedVideoResult(new ResultContainer(resultDict));
                 callbackManager.OnFacebookResponse(result);
-            }, (error) => {
+            }, (error) =>
+            {
                 RewardedVideoResult result = new RewardedVideoResult(WindowsParserBase.SetError(error, callbackId));
                 callbackManager.OnFacebookResponse(result);
             });
@@ -300,14 +306,16 @@ namespace Facebook.Unity.Windows
 
         public void ShowRewardedVideo(string placementID, string callbackId, CallbackManager callbackManager)
         {
-            fbg.Inappad.showRewardedVideo(placementID, (response) => {
+            fbg.Inappad.showRewardedVideo(placementID, (response) =>
+            {
                 Dictionary<string, object> resultDict = new Dictionary<string, object>() {
                     {Constants.CallbackIdKey,callbackId }
                 };
                 resultDict[Constants.ErrorKey] = response.Error;
                 RewardedVideoResult result = new RewardedVideoResult(new ResultContainer(resultDict));
                 callbackManager.OnFacebookResponse(result);
-            }, (error) => {
+            }, (error) =>
+            {
                 RewardedVideoResult result = new RewardedVideoResult(WindowsParserBase.SetError(error, callbackId));
                 callbackManager.OnFacebookResponse(result);
             });
@@ -335,7 +343,7 @@ namespace Facebook.Unity.Windows
         {
             fbg.ReceivedInvitations.getReceivedInvitations(fbg.PagingType.None, "", 0,
               (fbg.ReceivedInvitations receivedInvitations) =>
-              {                 
+              {
                   IList<FriendFinderInviation> invitationsList = new List<FriendFinderInviation>();
                   for (uint i = 0; i < receivedInvitations.Length; ++i)
                   {
@@ -359,7 +367,7 @@ namespace Facebook.Unity.Windows
         public void DeleteFriendFinderInvitation(string invitationId, string callbackId, CallbackManager callbackManager)
         {
             fbg.ReceivedInvitations.removeInvitation(invitationId,
-              (fbg.DeleteInvitation  success) =>
+              (fbg.DeleteInvitation success) =>
               {
                   Dictionary<string, object> resultDict = new Dictionary<string, object>() {
                     {Constants.CallbackIdKey,callbackId },
@@ -387,8 +395,9 @@ namespace Facebook.Unity.Windows
 
         public void ScheduleAppToUserNotification(string title, string body, Uri media, int timeInterval, string payload, string callbackId, CallbackManager callbackManager)
         {
-            fbg.AppToUserNotifications.scheduleAppToUserNotification(title, body, media.ToString(), timeInterval, payload, 
-                (fbg.ScheduleAppToUserNotificationResult success) => {
+            fbg.AppToUserNotifications.scheduleAppToUserNotification(title, body, media.ToString(), timeInterval, payload,
+                (fbg.ScheduleAppToUserNotificationResult success) =>
+                {
                     Dictionary<string, object> resultDict = new Dictionary<string, object>() {
                         {Constants.CallbackIdKey,callbackId },
                     };
@@ -403,8 +412,9 @@ namespace Facebook.Unity.Windows
 
         public void PostSessionScore(int score, string callbackId, CallbackManager callbackManager)
         {
-            fbg.Tournaments.postSessionScore(score, 
-                (fbg.PostSessionScoreResult success) => {
+            fbg.Tournaments.postSessionScore(score,
+                (fbg.PostSessionScoreResult success) =>
+                {
                     Dictionary<string, object> resultDict = new Dictionary<string, object>() {
                         {Constants.CallbackIdKey,callbackId },
                         {"Response", success.Raw },
@@ -421,7 +431,8 @@ namespace Facebook.Unity.Windows
         public void PostTournamentScore(int score, string callbackId, CallbackManager callbackManager)
         {
             fbg.Tournaments.postTournamentScore(score,
-                (fbg.PostTournamentScoreResult success) => {
+                (fbg.PostTournamentScoreResult success) =>
+                {
                     Dictionary<string, object> resultDict = new Dictionary<string, object>() {
                         {Constants.CallbackIdKey,callbackId },
                         {"Response", success.Raw },
@@ -438,14 +449,16 @@ namespace Facebook.Unity.Windows
         public void GetTournament(string callbackId, CallbackManager callbackManager)
         {
             fbg.Tournaments.getTournament(
-                (fbg.GetTournamentResult tournamentData) => {
+                (fbg.GetTournamentResult tournamentData) =>
+                {
                     Dictionary<string, object> resultDict = new Dictionary<string, object>() {
                         {Constants.CallbackIdKey,callbackId },
                     };
 
                     Dictionary<string, object> response = MiniJSON.Json.Deserialize(tournamentData.Raw) as Dictionary<string, object>;
                     Dictionary<string, object> success = null;
-                    if (response.TryGetValue("success", out success)) {
+                    if (response.TryGetValue("success", out success))
+                    {
                         string tournamentId;
                         if (success.TryGetValue("tournamentId", out tournamentId))
                         {
@@ -467,7 +480,7 @@ namespace Facebook.Unity.Windows
                             resultDict["tournament_title"] = tournamentTitle;
                         }
                         IDictionary<string, string> payload;
-                        if (success.TryGetValue("payload",out payload))
+                        if (success.TryGetValue("payload", out payload))
                         {
                             resultDict["payload"] = payload;
                         }
@@ -490,7 +503,8 @@ namespace Facebook.Unity.Windows
         {
             fbg.Tournaments.shareTournament(score,
                 MiniJSON.Json.Serialize(data),
-                (fbg.ShareTournamentResult success) => {
+                (fbg.ShareTournamentResult success) =>
+                {
                     Dictionary<string, object> resultDict = new Dictionary<string, object>() {
                         {Constants.CallbackIdKey,callbackId },
                         {"Response", success.Raw },
@@ -507,13 +521,14 @@ namespace Facebook.Unity.Windows
         public void CreateTournament(int initialScore, string title, string imageBase64DataUrl, string sortOrder, string scoreFormat, Dictionary<string, string> data, string callbackId, CallbackManager callbackManager)
         {
             fbg.Tournaments.createTournament(
-                initialScore, 
-                title, 
-                imageBase64DataUrl, 
-                sortOrder, 
+                initialScore,
+                title,
+                imageBase64DataUrl,
+                sortOrder,
                 scoreFormat,
                 MiniJSON.Json.Serialize(data),
-                (fbg.CreateTournamentResult tournamentData) => {
+                (fbg.CreateTournamentResult tournamentData) =>
+                {
                     Dictionary<string, object> resultDict = new Dictionary<string, object>() {
                         {Constants.CallbackIdKey,callbackId },
                     };
@@ -560,5 +575,46 @@ namespace Facebook.Unity.Windows
                     callbackManager.OnFacebookResponse(result);
                 });
         }
+
+        public void UploadImageToMediaLibrary(string caption, Uri imageUri, bool shouldLaunchMediaDialog, string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Share.uploadImageToMediaLibrary(
+                caption,
+                imageUri.LocalPath,
+                shouldLaunchMediaDialog,
+                (fbg.UploadImageToMediaLibraryResult success) =>
+                {
+                    Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                        {Constants.CallbackIdKey,callbackId },
+                        {"id", success.Id },
+                    };
+                    callbackManager.OnFacebookResponse(new MediaUploadResult(new ResultContainer(resultDict)));
+                }, (fbg.Error error) =>
+                {
+                    MediaUploadResult result = new MediaUploadResult(WindowsParserBase.SetError(error, callbackId));
+                    callbackManager.OnFacebookResponse(result);
+                });
+        }
+
+        public void UploadVideoToMediaLibrary(string caption, Uri videoUri, bool shouldLaunchMediaDialog, string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Share.uploadVideoToMediaLibrary(
+               caption,
+               videoUri.LocalPath,
+               shouldLaunchMediaDialog,
+               (fbg.UploadVideoToMediaLibraryResult success) =>
+               {
+                   Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                        {Constants.CallbackIdKey,callbackId },
+                        {"video_id", success.VideoId },
+                    };
+                   callbackManager.OnFacebookResponse(new MediaUploadResult(new ResultContainer(resultDict)));
+               }, (fbg.Error error) =>
+               {
+                   MediaUploadResult result = new MediaUploadResult(WindowsParserBase.SetError(error, callbackId));
+                   callbackManager.OnFacebookResponse(result);
+               });
+        }
+
     }
 }

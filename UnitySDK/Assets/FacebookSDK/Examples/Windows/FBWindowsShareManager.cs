@@ -21,16 +21,18 @@ public class FBWindowsShareManager : MonoBehaviour
 
     public void Button_UploadImage()
     {
+        string imagePath = Path.GetFullPath(Application.streamingAssetsPath + "/" + ImageFile.text);
         ImageUploadButton.interactable = false;
-        Logger.DebugLog("Uploading image file [" + Path.GetFullPath(ImageFile.text) + "] to media library");
-        FB.UploadImageToMediaLibrary(Caption.text, new Uri(Path.GetFullPath(ImageFile.text)), ShouldShowDialog.isOn, CallbackUploadImage);
+        Logger.DebugLog("Uploading image file [" + imagePath + "] to media library");
+        FB.UploadImageToMediaLibrary(Caption.text, new Uri(imagePath), ShouldShowDialog.isOn, CallbackUploadImage);
     }
 
     public void Button_UploadVideo()
     {
+        string videoPath = Path.GetFullPath(Application.streamingAssetsPath + "/" + VideoFile.text);
         VideoUploadButton.interactable = false;
-        Logger.DebugLog("Uploading video file [" + Path.GetFullPath(VideoFile.text) + "] to media library");
-        FB.UploadVideoToMediaLibrary(Caption.text, new Uri(Path.GetFullPath(VideoFile.text)), ShouldShowDialog.isOn, CallbackUploadVideo);
+        Logger.DebugLog("Uploading video file [" + videoPath + "] to media library");
+        FB.UploadVideoToMediaLibrary(Caption.text, new Uri(videoPath), ShouldShowDialog.isOn, CallbackUploadVideo);
     }
 
     private void CallbackUploadImage(IMediaUploadResult result)

@@ -78,16 +78,6 @@ namespace Facebook.Unity.Mobile.Android
             }
         }
 
-        public override void UpdateUserProperties(Dictionary<string, string> parameters)
-        {
-            var args = new MethodArguments();
-            foreach (KeyValuePair<string, string> entry in parameters)
-            {
-                args.AddString(entry.Key, entry.Value);
-            }
-            this.CallFB("UpdateUserProperties", args.ToJsonString());
-        }
-
         public override void SetDataProcessingOptions(IEnumerable<string> options, int country, int state)
         {
             var args = new MethodArguments();
@@ -207,6 +197,23 @@ namespace Facebook.Unity.Mobile.Android
 
         public override AuthenticationToken CurrentAuthenticationToken()
         {
+            String authTokenString = this.androidWrapper.CallStatic<string>("GetCurrentAuthenticationToken");
+            if (!String.IsNullOrEmpty(authTokenString))
+            {
+              IDictionary<string, string> token = Utilities.ParseStringDictionaryFromString(authTokenString);
+              string tokenString;
+              string nonce;
+              token.TryGetValue("auth_token_string", out tokenString);
+              token.TryGetValue("auth_nonce", out nonce);
+              try
+              {
+                return new AuthenticationToken(tokenString, nonce);
+              }
+              catch (Exception)
+              {
+                Debug.Log("An unexpected error occurred while retrieving the current authentication token");
+              }
+            }
             return null;
         }
 

@@ -260,14 +260,6 @@ namespace Facebook.Unity.IOS
             return IOSWrapper.IOSFBGetUserID();
         }
 
-        public void UpdateUserProperties(
-            int numParams,
-            string[] paramKeys,
-            string[] paramVals)
-        {
-            IOSWrapper.IOSFBUpdateUserProperties(numParams, paramKeys, paramVals);
-        }
-
         public void SetDataProcessingOptions(string[] options, int country, int state)
         {
             IOSWrapper.IOSFBSetDataProcessingOptions(options, options.Length, country, state);

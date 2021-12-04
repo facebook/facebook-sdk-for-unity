@@ -134,11 +134,6 @@ namespace Facebook.Unity.Mobile.IOS
             int minSize,
             int maxSize);
 
-        void UpdateUserProperties(
-            int numParams,
-            string[] paramKeys,
-            string[] paramVals);
-
         void UploadImageToMediaLibrary(
             int requestId,
             string caption,

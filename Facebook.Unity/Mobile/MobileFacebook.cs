@@ -67,8 +67,6 @@ namespace Facebook.Unity.Mobile
             throw new NotImplementedException();
         }
 
-        public abstract void UpdateUserProperties(Dictionary<string, string> parameters);
-
         public abstract void SetDataProcessingOptions(IEnumerable<string> options, int country, int state);
 
         public abstract void EnableProfileUpdatesOnAccessTokenChange(bool enable);

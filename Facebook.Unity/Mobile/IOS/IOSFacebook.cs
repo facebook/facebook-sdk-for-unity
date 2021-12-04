@@ -120,12 +120,6 @@ namespace Facebook.Unity.Mobile.IOS
             }
         }
 
-        public override void UpdateUserProperties(Dictionary<string, string> parameters)
-        {
-            NativeDict dict = MarshallDict(parameters);
-            this.iosWrapper.UpdateUserProperties(dict.NumEntries, dict.Keys, dict.Values);
-        }
-
         public override void SetDataProcessingOptions(IEnumerable<string> options, int country, int state)
         {
             this.iosWrapper.SetDataProcessingOptions(options.ToArray(), country, state);

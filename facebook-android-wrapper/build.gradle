@@ -22,7 +22,7 @@ buildscript {
     }
 }
 
-def fbSdkVersion = project.hasProperty("sdkVersion") ? sdkVersion : '11.0.0'
+def fbSdkVersion = project.hasProperty("sdkVersion") ? sdkVersion : '12.1.0'
 
 repositories {
     mavenCentral()
@@ -34,7 +34,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.facebook.android:facebook-android-sdk:[11.0.0, 12)'
+    implementation 'com.facebook.android:facebook-android-sdk:[12.1.0, 13)'
 
     // enable local testing
     if (project.hasProperty("localRepo")) {

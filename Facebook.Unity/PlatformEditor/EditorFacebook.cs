@@ -66,11 +66,6 @@ namespace Facebook.Unity.Editor
 
         public string UserID { get; set; }
 
-        public void UpdateUserProperties(Dictionary<string, string> parameters)
-        {
-            return;
-        }
-
         private static IFacebookCallbackHandler EditorGameObject
         {
             get

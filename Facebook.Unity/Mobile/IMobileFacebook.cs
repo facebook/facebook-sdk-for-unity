@@ -29,8 +29,6 @@ namespace Facebook.Unity.Mobile
 
         string UserID { get; set; }
 
-        void UpdateUserProperties(Dictionary<string, string> parameters);
-
         void EnableProfileUpdatesOnAccessTokenChange(bool enable);
 
         void LoginWithTrackingPreference(string tracking, IEnumerable<string> permissions, string nonce,

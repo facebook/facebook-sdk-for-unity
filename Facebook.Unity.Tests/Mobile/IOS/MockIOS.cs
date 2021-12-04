@@ -258,11 +258,6 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             return "1234";
         }
 
-        public void UpdateUserProperties(int numParams, string[] paramKeys, string[] paramVals)
-        {
-            this.LogMethodCall();
-        }
-
         public void SetDataProcessingOptions(string[] options, int country, int state)
         {
             this.LogMethodCall();

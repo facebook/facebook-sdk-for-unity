@@ -28,6 +28,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.facebook.AccessToken;
+import com.facebook.AuthenticationToken;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
@@ -61,30 +62,35 @@ public class FBLogin {
         login(params, activity, true, true);
     }
 
-    public static void sendLoginSuccessMessage(AccessToken token, String callbackID) {
+    public static void sendLoginSuccessMessage(AccessToken accessToken, AuthenticationToken authenticationToken, String callbackID) {
         UnityMessage unityMessage = new UnityMessage("OnLoginComplete");
-        FBLogin.addLoginParametersToMessage(unityMessage, token, callbackID);
+        FBLogin.addLoginParametersToMessage(unityMessage, accessToken, authenticationToken, callbackID);
         unityMessage.send();
     }
 
     public static void addLoginParametersToMessage(
             UnityMessage unityMessage,
-            AccessToken token,
+            AccessToken accessToken,
+            AuthenticationToken authenticationToken,
             String callbackID) {
         unityMessage.put("key_hash", FB.getKeyHash());
         unityMessage.put("opened", true);
-        unityMessage.put("access_token", token.getToken());
-        Long expiration = token.getExpires().getTime() / 1000;
+        unityMessage.put("access_token", accessToken.getToken());
+        if (authenticationToken != null) {
+          unityMessage.put("auth_token_string", authenticationToken.getToken());
+          unityMessage.put("auth_nonce", authenticationToken.getExpectedNonce());
+        }
+        Long expiration = accessToken.getExpires().getTime() / 1000;
         unityMessage.put("expiration_timestamp", expiration.toString());
-        unityMessage.put("user_id", token.getUserId());
+        unityMessage.put("user_id", accessToken.getUserId());
         unityMessage.put("permissions",
-                TextUtils.join(",", token.getPermissions()));
+                TextUtils.join(",", accessToken.getPermissions()));
         unityMessage.put("declined_permissions",
-                TextUtils.join(",", token.getDeclinedPermissions()));
-        unityMessage.put("graph_domain", token.getGraphDomain() != null ? token.getGraphDomain() : "facebook");
+                TextUtils.join(",", accessToken.getDeclinedPermissions()));
+        unityMessage.put("graph_domain", accessToken.getGraphDomain() != null ? accessToken.getGraphDomain() : "facebook");
 
-        if (token.getLastRefresh() != null) {
-            Long lastRefresh = token.getLastRefresh().getTime() / 1000;
+        if (accessToken.getLastRefresh() != null) {
+            Long lastRefresh = accessToken.getLastRefresh().getTime() / 1000;
             unityMessage.put("last_refresh", lastRefresh.toString());
         }
 
@@ -128,7 +134,7 @@ public class FBLogin {
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        sendLoginSuccessMessage(loginResult.getAccessToken(), callbackID);
+                        sendLoginSuccessMessage(loginResult.getAccessToken(), loginResult.getAuthenticationToken(), callbackID);
                     }
 
                     @Override
@@ -139,6 +145,7 @@ public class FBLogin {
 
                     @Override
                     public void onError(FacebookException e) {
+                        Log.w(FB.TAG, "Error occurred, ", e);
                         unityMessage.sendError(e.getMessage());
                     }
                 });

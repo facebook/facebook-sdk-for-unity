@@ -45,6 +45,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.appevents.internal.ActivityLifecycleTracker;
 import com.facebook.appevents.internal.AutomaticAnalyticsLogger;
 import com.facebook.applinks.AppLinkData;
+import com.facebook.AuthenticationToken;
 import com.facebook.gamingservices.GamingContext;
 import com.facebook.internal.BundleJSONConverter;
 import com.facebook.internal.Utility;
@@ -106,7 +107,7 @@ public class FB {
                 // If we have a cached access token send it back as well
                 AccessToken token = AccessToken.getCurrentAccessToken();
                 if (token != null) {
-                    FBLogin.addLoginParametersToMessage(unityMessage, token, null);
+                    FBLogin.addLoginParametersToMessage(unityMessage, token, null, null);
                 } else {
                     unityMessage.put("key_hash", FB.getKeyHash());
                 }
@@ -173,7 +174,7 @@ public class FB {
             new LoginStatusCallback() {
                 @Override
                 public void onCompleted(final AccessToken accessToken) {
-                    FBLogin.addLoginParametersToMessage(unityMessage, accessToken, callbackID);
+                    FBLogin.addLoginParametersToMessage(unityMessage, accessToken, null, callbackID);
                     unityMessage.send();
                 }
 
@@ -317,12 +318,27 @@ public class FB {
     }
 
     @UnityCallable
-    public static void UpdateUserProperties(String params_str) {
-      Log.v(TAG, "UpdateUserProperties(" + params_str + ")");
-      final UnityParams unityParams = UnityParams.parse(params_str);
-      final Bundle params = unityParams.getStringParams();
-      AppEventsLogger.updateUserProperties(params, null);
+    public static String GetCurrentAuthenticationToken() {
+        if (!FacebookSdk.isInitialized()) {
+            return null;
+        }
+        AuthenticationToken authToken = AuthenticationToken.getCurrentAuthenticationToken();
+        if (authToken == null){
+          return null;
+        }
+
+        try {
+          JSONObject authTokenData = new JSONObject();
+          authTokenData.put("auth_token_string", authToken.getToken());
+          authTokenData.put("auth_nonce", authToken.getExpectedNonce());
+          return authTokenData.toString();
+        } catch(JSONException e) {
+          Log.e(TAG, e.getLocalizedMessage());
+        }
+
+        return null;
     }
+
 
     @UnityCallable
     public static void SetDataProcessingOptions(String params_str) {
@@ -516,7 +532,7 @@ public class FB {
         AccessToken.refreshCurrentAccessTokenAsync(new AccessToken.AccessTokenRefreshCallback() {
             @Override
             public void OnTokenRefreshed(AccessToken accessToken) {
-                FBLogin.addLoginParametersToMessage(unityMessage, accessToken, null);
+                FBLogin.addLoginParametersToMessage(unityMessage, accessToken, null, null);
                 unityMessage.send();
             }
 
@@ -562,7 +578,7 @@ public class FB {
 
     @UnityCallable
     public static void ActivateApp() {
-        AppEventsLogger.activateApp(getUnityActivity());
+        AppEventsLogger.activateApp(getUnityActivity().getApplication());
     }
 
     @UnityCallable
@@ -764,7 +780,7 @@ public class FB {
                 unityMessage.sendError("Failed to receive access token.");
                 return;
             }
-            FBLogin.addLoginParametersToMessage(loginUnityMessage, accessToken, null);
+            FBLogin.addLoginParametersToMessage(loginUnityMessage, accessToken, null, null);
             loginUnityMessage.send();
 
             unityMessage.put("success", "");

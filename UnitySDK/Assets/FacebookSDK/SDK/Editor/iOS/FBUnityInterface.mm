@@ -833,11 +833,6 @@ extern "C" {
     return res;
   }
 
-  void IOSFBUpdateUserProperties(int numParams,
-                                 const char **paramKeys,
-                                 const char **paramVals)
-  { }
-
   void IOSFBFetchDeferredAppLink(int requestId)
   {
     [FBSDKAppLinkUtility fetchDeferredAppLink:^(NSURL *url, NSError *error) {

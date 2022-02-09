@@ -94,11 +94,11 @@
   self.useFrictionlessRequests = frictionlessRequests;
 
   if(appId) {
-    [FBSDKSettings setAppID:[FBUnityUtility stringFromCString:appId]];
+    [FBSDKSettings.sharedSettings setAppID:[FBUnityUtility stringFromCString:appId]];
   }
 
   if(urlSuffix && strlen(urlSuffix) > 0) {
-    [FBSDKSettings setAppURLSchemeSuffix:[FBUnityUtility stringFromCString:urlSuffix]];
+    [FBSDKSettings.sharedSettings setAppURLSchemeSuffix:[FBUnityUtility stringFromCString:urlSuffix]];
   }
 
   NSDictionary *userData = [self getAccessTokenUserData] ?: @{};
@@ -401,7 +401,7 @@ extern "C" {
   {
     // Set the user agent before calling init to ensure that calls made during
     // init use the user agent suffix.
-    [FBSDKSettings setUserAgentSuffix:[FBUnityUtility stringFromCString:_userAgentSuffix]];
+    [FBSDKSettings.sharedSettings setUserAgentSuffix:[FBUnityUtility stringFromCString:_userAgentSuffix]];
 
     [[FBUnityInterface sharedInstance] configureAppId:_appId
                                  frictionlessRequests:_frictionlessRequests
@@ -637,27 +637,27 @@ extern "C" {
 
   void IOSFBAppEventsSetLimitEventUsage(BOOL limitEventUsage)
   {
-    [FBSDKSettings setLimitEventAndDataUsage:limitEventUsage];
+    [FBSDKSettings.sharedSettings setLimitEventAndDataUsage:limitEventUsage];
   }
 
   void IOSFBAutoLogAppEventsEnabled(BOOL autoLogAppEventsEnabledID)
   {
-    [FBSDKSettings setAutoLogAppEventsEnabled:autoLogAppEventsEnabledID];
+    [FBSDKSettings.sharedSettings setAutoLogAppEventsEnabled:autoLogAppEventsEnabledID];
   }
 
   void IOSFBAdvertiserIDCollectionEnabled(BOOL advertiserIDCollectionEnabledID)
   {
-    [FBSDKSettings setAdvertiserIDCollectionEnabled:advertiserIDCollectionEnabledID];
+    [FBSDKSettings.sharedSettings setAdvertiserIDCollectionEnabled:advertiserIDCollectionEnabledID];
   }
 
   BOOL IOSFBAdvertiserTrackingEnabled(BOOL advertiserTrackingEnabled)
   {
-    return [FBSDKSettings setAdvertiserTrackingEnabled:advertiserTrackingEnabled];
+    return [FBSDKSettings.sharedSettings setAdvertiserTrackingEnabled:advertiserTrackingEnabled];
   }
 
   char* IOSFBSdkVersion()
   {
-    const char* string = [[FBSDKSettings sdkVersion] UTF8String];
+    const char* string = [[FBSDKSettings.sharedSettings sdkVersion] UTF8String];
     char* res = (char*)malloc(strlen(string) + 1);
     strcpy(res, string);
     return res;
@@ -758,7 +758,7 @@ extern "C" {
         [array addObject:option];
       }
     }
-    [FBSDKSettings setDataProcessingOptions:array country:country state:state];
+    [FBSDKSettings.sharedSettings setDataProcessingOptions:array country:country state:state];
   }
 
   void IOSFBUploadImageToMediaLibrary(int requestId,

@@ -217,7 +217,7 @@ static char* FBUnityMakeStringCopy (const char* string)
                @"granted_permissions" : [token.permissions allObjects],
                @"declined_permissions" : [token.declinedPermissions allObjects],
                @"last_refresh" : [@(lastRefreshDate) stringValue],
-               @"graph_domain" : token.graphDomain ? : @"facebook",
+               @"graph_domain" : @"facebook",
                };
     }
   }

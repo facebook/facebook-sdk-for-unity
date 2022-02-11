@@ -21,8 +21,8 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
-#import <FBSDKGamingServicesKit-Swift.h>
-#import <FBSDKGamingServicesKit/FBSDKGamingServicesKit.h>
+#import <FacebookGamingServices/FacebookGamingServices-Swift.h>
+#import <FBSDKGamingServicesKit/FBSDKGamingServicesKit-Swift.h>
 #import <Foundation/NSJSONSerialization.h>
 
 #include "FBUnitySDKDelegate.h"
@@ -778,7 +778,7 @@ extern "C" {
 
     [FBSDKGamingImageUploader
       uploadImageWithConfiguration:config
-      andResultCompletionHandler:^(BOOL success, id result, NSError * _Nullable error) {
+      andResultCompletion:^(BOOL success, id result, NSError * _Nullable error) {
         if (!success || error) {
           [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnUploadImageToMediaLibraryComplete
             error:error
@@ -807,7 +807,7 @@ extern "C" {
 
     [FBSDKGamingVideoUploader
       uploadVideoWithConfiguration:config
-      andResultCompletionHandler:^(BOOL success, id result, NSError * _Nullable error) {
+      andResultCompletion:^(BOOL success, id result, NSError * _Nullable error) {
         if (!success || error) {
           [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnUploadVideoToMediaLibraryComplete
             error:error
@@ -849,15 +849,16 @@ extern "C" {
 
   void IOSFBRefreshCurrentAccessToken(int requestId)
   {
-    [FBSDKAccessToken refreshCurrentAccessToken:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-      if (error) {
-        [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnRefreshCurrentAccessTokenComplete error:error requestId:requestId];
-        return;
-      }
+    FBSDKGraphRequestCompletion completion = ^(id<FBSDKGraphRequestConnecting> connection, id result, NSError *error) {
+          if (error) {
+            [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnRefreshCurrentAccessTokenComplete error:error requestId:requestId];
+            return;
+          }
 
-      [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnRefreshCurrentAccessTokenComplete
-                                userData:[FBUnityUtility getUserDataFromAccessToken:[FBSDKAccessToken currentAccessToken]]
-                               requestId:requestId];
-    }];
+          [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnRefreshCurrentAccessTokenComplete
+                                    userData:[FBUnityUtility getUserDataFromAccessToken:[FBSDKAccessToken currentAccessToken]]
+                                   requestId:requestId];
+      };
+    [FBSDKAccessToken refreshCurrentAccessTokenWithCompletion: completion];
   }
 }

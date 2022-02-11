@@ -5,7 +5,57 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [12.0.0] - 2021-12-09
+
+### Added
+- OIDC support for login
+- Added APIs for Instant Games context dialogs
+- Added Windows platform (Unity standalone build)
+    - Windows platform methods:
+        FB.Init
+        FB.LogInWithReadPermissions
+        FB.LogInWithPublishPermissions
+        FB.LogOut
+        FB.API
+        FB.GetCatalog
+        FB.Purchase
+        FB.GetPurchases
+        FB.ConsumePurchase
+        FB.CurrentProfile
+        FB.LoadRewardedVideo
+        FB.ShowRewardedVideo
+        FB.LoadInterstitialAd
+        FB.ShowInterstitialAd
+        FB.OpenFriendDialog
+        FB.GetFriendFinderInvitations
+        FB.DeleteFriendInvitation
+        FB.ScheduleAppToUserNotification
+        FB.PostSessionScoreAsync
+        FB.CreateTournamentAsync
+        FB.GetTournament
+        FB.ShareTournament
+        FB.PostTournamentScore
+        FB.UploadImageToMediaLibrary
+        FB.UploadVideoToMediaLibrary
+
+- Current public session properties:
+    AccessToken
+    FB.IsInistialized
+    FB.IsLoggedIn
+    FB.GraphAPIVersion
+
+- App events:
+    FB.ActiveApp
+    FB.LogAppEvent
+    FB.LogPurchase
+
+### Changed
+- Bumped native SDK versions to 12.1.0
+- Bumped Graph API version to 12.0
+
+### Removed
+- Removed methods relating to user properties as they have been removed from the native mobile SDK versions
+- Removed gameroom support
 
 ## [11.0.0] - 2021-06-05
 
@@ -172,7 +222,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-11.0.0...HEAD
+[12.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-11.0.0...sdk-version-12.0.0
 [11.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-9.2.0...sdk-version-11.0.0
 [9.2.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-9.1.0...sdk-version-9.2.0
 [9.1.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-9.0.0...sdk-version-9.1.0

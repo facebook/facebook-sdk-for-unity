@@ -21,7 +21,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyVersion("11.0.0")]
+[assembly: AssemblyVersion("12.0.0")]
 [assembly: InternalsVisibleTo("Assembly-CSharp")]
 [assembly: InternalsVisibleTo("Facebook.Unity.Android")]
 [assembly: InternalsVisibleTo("Facebook.Unity.Canvas")]

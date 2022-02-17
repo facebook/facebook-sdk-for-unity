@@ -117,10 +117,6 @@ static NSMutableArray *g_instances;
 {
   if ([contextDialog isKindOfClass:[FBSDKChooseContextDialog class]]) {
     [FBUnityUtility sendMessageToUnity: FBUnityMessageName_OnChooseGamingContextComplete userData: NULL requestId:_requestID];
-  } else if ([contextDialog isKindOfClass:[FBSDKSwitchContextDialog class]]) {
-    [FBUnityUtility sendMessageToUnity: FBUnityMessageName_OnSwitchGamingContextComplete userData: NULL requestId:_requestID];
-  } else if ([contextDialog isKindOfClass:[FBSDKCreateContextDialog class]]) {
-    [FBUnityUtility sendMessageToUnity: FBUnityMessageName_OnCreateGamingContextComplete userData: NULL requestId:_requestID];
   }
   [self complete];
 }
@@ -129,10 +125,6 @@ static NSMutableArray *g_instances;
 {
   if ([contextDialog isKindOfClass:[FBSDKChooseContextDialog class]]) {
     [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnChooseGamingContextComplete error:error requestId:_requestID];
-  } else if ([contextDialog isKindOfClass:[FBSDKSwitchContextDialog class]]) {
-    [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnSwitchGamingContextComplete error:error requestId:_requestID];
-  } else if ([contextDialog isKindOfClass:[FBSDKCreateContextDialog class]]) {
-    [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnCreateGamingContextComplete error:error requestId:_requestID];
   }
   [self complete];
 }
@@ -141,10 +133,6 @@ static NSMutableArray *g_instances;
 {
   if ([contextDialog isKindOfClass:[FBSDKChooseContextDialog class]]) {
     [FBUnityUtility sendCancelToUnity:FBUnityMessageName_OnChooseGamingContextComplete requestId:_requestID];
-  } else if ([contextDialog isKindOfClass:[FBSDKSwitchContextDialog class]]) {
-    [FBUnityUtility sendCancelToUnity:FBUnityMessageName_OnSwitchGamingContextComplete requestId:_requestID];
-  } else if ([contextDialog isKindOfClass:[FBSDKCreateContextDialog class]]) {
-    [FBUnityUtility sendCancelToUnity:FBUnityMessageName_OnCreateGamingContextComplete requestId:_requestID];
   }
 
   [self complete];

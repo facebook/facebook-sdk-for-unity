@@ -1,4 +1,4 @@
-﻿  <ItemGroup>
+  <ItemGroup>
     <Reference Include="UnityEditor">
       <HintPath>$(UNITY_MANAGED_DIR)UnityEditor.dll</HintPath>
     </Reference>

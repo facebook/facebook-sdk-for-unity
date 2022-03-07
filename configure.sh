@@ -303,8 +303,7 @@ do
         mv "$TEMP_FILE" "$PROJECT"/"$PROJECT_FILE_NAME".csproj
     fi
     awk -v line_add_from=$line_add_from 'FNR==line_add_from{system("cat '"$PROJECT"'/UnityReferences/'"$TARGET_VERSION"'.xml")} 1' "$PROJECT"/"$PROJECT_FILE_NAME".csproj > "$TEMP_FILE"
-    awk '{ gsub(/\xef\xbb\xbf/,""); print }' "$TEMP_FILE" > "$TEMP_FILE2"
-    mv "$TEMP_FILE2" "$PROJECT"/"$PROJECT_FILE_NAME".csproj
+    mv "$TEMP_FILE" "$PROJECT"/"$PROJECT_FILE_NAME".csproj
     echo " -> $PROJECT/$PROJECT_FILE_NAME.csproj Updated!"
 done
 

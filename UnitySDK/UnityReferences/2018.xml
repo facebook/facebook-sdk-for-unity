@@ -1,4 +1,4 @@
-﻿  <ItemGroup>
+  <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.dll</HintPath>
     </Reference>
@@ -19,5 +19,14 @@
     </Reference>
     <Reference Include="UnityEngine.ImageConversionModule">
         <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+        <HintPath>$(UNITY_UI_DIR)UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+        <HintPath>$(UNITY_NETWORKING_DIR)UnityEngine.Networking.dll</HintPath>
+    </Reference>
+     <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
     </Reference>
   </ItemGroup>

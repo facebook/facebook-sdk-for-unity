@@ -7,35 +7,41 @@
     <UNITY_UI_DIR>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/</UNITY_UI_DIR>
     <UNITY_ENGINE_DIR>/Applications/Unity/Unity.app/Contents/Managed/</UNITY_ENGINE_DIR>
     <UNITY_EXTENSIONS_DIR>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/</UNITY_EXTENSIONS_DIR>
+    <UNITY_NETWORKING_DIR>NONE</UNITY_NETWORKING_DIR>
   </PropertyGroup>
   <PropertyGroup Condition="'$(UNITY_VERSION)' == '2017'">
     <UNITY_MANAGED_DIR>/Applications/Unity/Unity.app/Contents/Managed/</UNITY_MANAGED_DIR>
     <UNITY_UI_DIR>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/</UNITY_UI_DIR>
     <UNITY_ENGINE_DIR>/Applications/Unity/Unity.app/Contents/Managed/</UNITY_ENGINE_DIR>
     <UNITY_EXTENSIONS_DIR>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/</UNITY_EXTENSIONS_DIR>
+    <UNITY_NETWORKING_DIR>NONE</UNITY_NETWORKING_DIR>
   </PropertyGroup>
   <PropertyGroup Condition="'$(UNITY_VERSION)' == '2018'">
     <UNITY_MANAGED_DIR>/Applications/Unity/hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/</UNITY_MANAGED_DIR>
     <UNITY_UI_DIR>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/GUISystem/</UNITY_UI_DIR>
     <UNITY_ENGINE_DIR>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/</UNITY_ENGINE_DIR>
     <UNITY_EXTENSIONS_DIR>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/</UNITY_EXTENSIONS_DIR>
+    <UNITY_NETWORKING_DIR>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/Networking/</UNITY_NETWORKING_DIR>
   </PropertyGroup>
   <PropertyGroup Condition="'$(UNITY_VERSION)' == '2019'">
     <UNITY_MANAGED_DIR>/Applications/Unity/hub/Editor/2019.4.29f1/Unity.app/Contents/Managed/</UNITY_MANAGED_DIR>
     <UNITY_UI_DIR>/Applications/Unity/Hub/Editor/2019.4.29f1/Unity.app/Contents/Resources/PackageManager/ProjectTemplates/libcache/com.unity.template.universal-7.7.1/ScriptAssemblies/</UNITY_UI_DIR>
     <UNITY_ENGINE_DIR>/Applications/Unity/Hub/Editor/2019.4.29f1/Unity.app/Contents/Managed/UnityEngine/</UNITY_ENGINE_DIR>
     <UNITY_EXTENSIONS_DIR>/Applications/Unity/Hub/Editor/2019.4.29f1/Unity.app/Contents/UnityExtensions/Unity/</UNITY_EXTENSIONS_DIR>
+    <UNITY_NETWORKING_DIR>/Applications/Unity/Hub/Editor/2019.4.29f1/Unity.app/Contents/UnityExtensions/Unity/Networking/</UNITY_NETWORKING_DIR>
   </PropertyGroup>
   <PropertyGroup Condition="'$(UNITY_VERSION)' == '2020'">
     <UNITY_MANAGED_DIR>/Applications/Unity/hub/Editor/2020.3.16f1/Unity.app/Contents/Managed/</UNITY_MANAGED_DIR>
     <UNITY_UI_DIR>/Applications/Unity/Hub/Editor/2020.3.16f1/Unity.app/Contents/Resources/PackageManager/ProjectTemplates/libcache/com.unity.template.universal-10.5.0/ScriptAssemblies/</UNITY_UI_DIR>
     <UNITY_ENGINE_DIR>/Applications/Unity/Hub/Editor/2020.3.16f1/Unity.app/Contents/Managed/UnityEngine/</UNITY_ENGINE_DIR>
     <UNITY_EXTENSIONS_DIR>NONE</UNITY_EXTENSIONS_DIR>
+    <UNITY_NETWORKING_DIR>NONE</UNITY_NETWORKING_DIR>
   </PropertyGroup>
   <PropertyGroup Condition="'$(UNITY_VERSION)' == '2021'">
     <UNITY_MANAGED_DIR>/Applications/Unity/hub/Editor/2021.1.17f1/Unity.app/Contents/Managed/</UNITY_MANAGED_DIR>
     <UNITY_UI_DIR>/Applications/Unity/Hub/Editor/2021.1.17f1/Unity.app/Contents/Resources/PackageManager/ProjectTemplates/libcache/com.unity.template.universal-11.0.0/ScriptAssemblies/</UNITY_UI_DIR>
     <UNITY_ENGINE_DIR>/Applications/Unity/Hub/Editor/2021.1.17f1/Unity.app/Contents/Managed/UnityEngine/</UNITY_ENGINE_DIR>
     <UNITY_EXTENSIONS_DIR>NONE</UNITY_EXTENSIONS_DIR>
+    <UNITY_NETWORKING_DIR>NONE</UNITY_NETWORKING_DIR>
   </PropertyGroup>
 </Project>

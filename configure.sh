@@ -182,12 +182,14 @@ case "$TARGET_VERSION" in
         UNITY_UI_DIR="/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/"
         UNITY_ENGINE_DIR="/Applications/Unity/Unity.app/Contents/Managed/"
         UNITY_EXTENSIONS_DIR="/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/"
+        UNITY_NETWORKING_DIR="NONE"
     ;;
     2018)
         UNITY_MANAGED_DIR="/Applications/Unity/hub/Editor/$FULL_VERSION/Unity.app/Contents/Managed/"
         UNITY_UI_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/UnityExtensions/Unity/GUISystem/"
         UNITY_ENGINE_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/Managed/UnityEngine/"
         UNITY_EXTENSIONS_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/UnityExtensions/Unity/"
+        UNITY_NETWORKING_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/UnityExtensions/Unity/Networking/"
     ;;
     2019)
         #fix find template version
@@ -199,6 +201,7 @@ case "$TARGET_VERSION" in
         UNITY_UI_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/Resources/PackageManager/ProjectTemplates/libcache/$TEMPLATE_VERSION/ScriptAssemblies/"
         UNITY_ENGINE_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/Managed/UnityEngine/"
         UNITY_EXTENSIONS_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/UnityExtensions/Unity/"
+        UNITY_NETWORKING_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/UnityExtensions/Unity/Networking/"
     ;;
     2020)
         #fix find template version
@@ -209,6 +212,7 @@ case "$TARGET_VERSION" in
         UNITY_UI_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/Resources/PackageManager/ProjectTemplates/libcache/$TEMPLATE_VERSION/ScriptAssemblies/"
         UNITY_ENGINE_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/Managed/UnityEngine/"
         UNITY_EXTENSIONS_DIR="NONE"
+        UNITY_NETWORKING_DIR="NONE"
     ;;
     2021)
         #fix find template version
@@ -219,6 +223,7 @@ case "$TARGET_VERSION" in
         UNITY_UI_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/Resources/PackageManager/ProjectTemplates/libcache/$TEMPLATE_VERSION/ScriptAssemblies/"
         UNITY_ENGINE_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/Managed/UnityEngine/"
         UNITY_EXTENSIONS_DIR="NONE"
+        UNITY_NETWORKING_DIR="NONE"
     ;;
     *)
         printf "!Unknown version.\n"
@@ -233,12 +238,16 @@ sed "s/\<UNITY_MANAGED_DIR\>.*\<\/UNITY_MANAGED_DIR\>/\<UNITY_MANAGED_DIR\>${UNI
 sed "s/\<UNITY_UI_DIR\>.*\<\/UNITY_UI_DIR\>/\<UNITY_UI_DIR\>${UNITY_UI_DIR//\//\\/}<\/UNITY_UI_DIR\>/g" "$TEMP_FILE2" > "$TEMP_FILE"
 sed "s/\<UNITY_ENGINE_DIR\>.*\<\/UNITY_ENGINE_DIR\>/\<UNITY_ENGINE_DIR\>${UNITY_ENGINE_DIR//\//\\/}<\/UNITY_ENGINE_DIR\>/g" "$TEMP_FILE" > "$TEMP_FILE2"
 sed "s/\<UNITY_EXTENSIONS_DIR\>.*\<\/UNITY_EXTENSIONS_DIR\>/\<UNITY_EXTENSIONS_DIR\>${UNITY_EXTENSIONS_DIR//\//\\/}<\/UNITY_EXTENSIONS_DIR\>/g" "$TEMP_FILE2" > "$TEMP_FILE"
+sed "s/\<UNITY_NETWORKING_DIR\>.*\<\/UNITY_NETWORKING_DIR\>/\<UNITY_NETWORKING_DIR\>${UNITY_NETWORKING_DIR//\//\\/}<\/UNITY_NETWORKING_DIR\>/g" "$TEMP_FILE" > "$TEMP_FILE2"
+
+# Temp fix because the final result must to be in $TEMP_FILE
+cat "$TEMP_FILE2" > "$TEMP_FILE"
 
 cat "$TEMP_FILE"
 
 # Checking paths
 printf "\n"
-declare -a directories=("UNITY_MANAGED_DIR" "UNITY_UI_DIR" "UNITY_ENGINE_DIR" "UNITY_EXTENSIONS_DIR")
+declare -a directories=("UNITY_MANAGED_DIR" "UNITY_UI_DIR" "UNITY_ENGINE_DIR" "UNITY_EXTENSIONS_DIR" "UNITY_NETWORKING_DIR")
 for TAG in "${directories[@]}"
 do
     DIRECTORY=$(awk "/\<$TAG\>/, /\<\/$TAG\>/" "$TEMP_FILE" | sed -e "s/\<$TAG\>\(.*\)\<\/$TAG\>/\1/" | xargs)

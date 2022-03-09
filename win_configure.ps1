@@ -145,6 +145,7 @@ switch ($TARGET_VERSION) {
         $UNITY_UI_DIR = "$TARGET_PATH\Data\UnityExtensions\Unity\GUISystem\"
         $UNITY_ENGINE_DIR = "$TARGET_PATH\Data\Managed\UnityEngine\"
         $UNITY_EXTENSIONS_DIR = "$TARGET_PATH\Data\UnityExtensions\Unity\"
+        $UNITY_NETWORKING_DIR = "$TARGET_PATH\Data\UnityExtensions\Unity\Networking\"
     }
     2019 {
         #fix find template version
@@ -156,6 +157,7 @@ switch ($TARGET_VERSION) {
         $UNITY_UI_DIR = "$TARGET_PATH\Data\Resources\PackageManager\ProjectTemplates\libcache\$TEMPLATE_VERSION\ScriptAssemblies\"
         $UNITY_ENGINE_DIR = "$TARGET_PATH\Data\Managed\UnityEngine\"
         $UNITY_EXTENSIONS_DIR = "$TARGET_PATH\Data\UnityExtensions\Unity\"
+        $UNITY_NETWORKING_DIR = "$TARGET_PATH\Data\UnityExtensions\Unity\Networking\"
     }
     2020 {
         #fix find template version
@@ -167,6 +169,7 @@ switch ($TARGET_VERSION) {
         $UNITY_UI_DIR = "$TARGET_PATH\Data\esources\PackageManager\ProjectTemplates\libcache\$TEMPLATE_VERSION\ScriptAssemblies\"
         $UNITY_ENGINE_DIR = "$TARGET_PATH\Data\Managed\UnityEngine\"
         $UNITY_EXTENSIONS_DIR = "NONE"
+        $UNITY_NETWORKING_DIR = "NONE"
     }
     2021 {
         #fix find template version
@@ -178,6 +181,7 @@ switch ($TARGET_VERSION) {
         $UNITY_UI_DIR = "$TARGET_PATH\Data\esources\PackageManager\ProjectTemplates\libcache\$TEMPLATE_VERSION\ScriptAssemblies\"
         $UNITY_ENGINE_DIR = "$TARGET_PATH\Data\Managed\UnityEngine\"
         $UNITY_EXTENSIONS_DIR = "NONE"
+        $UNITY_NETWORKING_DIR = "NONE"
     }
     default {
         Write-Output ""
@@ -204,6 +208,7 @@ foreach ($property_group in $xml_data.Project.PropertyGroup) {
             $property_group.UNITY_UI_DIR = $UNITY_UI_DIR
             $property_group.UNITY_ENGINE_DIR = $UNITY_ENGINE_DIR
             $property_group.UNITY_EXTENSIONS_DIR = $UNITY_EXTENSIONS_DIR
+            $property_group.UNITY_NETWORKING_DIR = $UNITY_NETWORKING_DIR
             $error_version = false
         }
     }

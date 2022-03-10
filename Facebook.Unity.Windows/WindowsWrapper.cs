@@ -576,12 +576,13 @@ namespace Facebook.Unity.Windows
                 });
         }
 
-        public void UploadImageToMediaLibrary(string caption, Uri imageUri, bool shouldLaunchMediaDialog, string callbackId, CallbackManager callbackManager)
+        public void UploadImageToMediaLibrary(string caption, Uri imageUri, bool shouldLaunchMediaDialog, string travelId, string callbackId, CallbackManager callbackManager)
         {
             fbg.Share.uploadImageToMediaLibrary(
                 caption,
                 imageUri.LocalPath,
                 shouldLaunchMediaDialog,
+                travelId,
                 (fbg.UploadImageToMediaLibraryResult success) =>
                 {
                     Dictionary<string, object> resultDict = new Dictionary<string, object>() {
@@ -596,12 +597,13 @@ namespace Facebook.Unity.Windows
                 });
         }
 
-        public void UploadVideoToMediaLibrary(string caption, Uri videoUri, bool shouldLaunchMediaDialog, string callbackId, CallbackManager callbackManager)
+        public void UploadVideoToMediaLibrary(string caption, Uri videoUri, bool shouldLaunchMediaDialog, string travelId, string callbackId, CallbackManager callbackManager)
         {
             fbg.Share.uploadVideoToMediaLibrary(
                caption,
                videoUri.LocalPath,
                shouldLaunchMediaDialog,
+               travelId,
                (fbg.UploadVideoToMediaLibraryResult success) =>
                {
                    Dictionary<string, object> resultDict = new Dictionary<string, object>() {

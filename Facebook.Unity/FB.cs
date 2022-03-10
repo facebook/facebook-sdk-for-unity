@@ -846,6 +846,16 @@ namespace Facebook.Unity
             FacebookImpl.UploadVideoToMediaLibrary(caption, videoUri, shouldLaunchMediaDialog, callback);
         }
 
+        public static void UploadImageToMediaLibrary(string caption, Uri imageUri, bool shouldLaunchMediaDialog, string travelId, FacebookDelegate<IMediaUploadResult> callback)
+        {
+            FacebookImpl.UploadImageToMediaLibrary(caption, imageUri, shouldLaunchMediaDialog, travelId, callback);
+        }
+
+        public static void UploadVideoToMediaLibrary(string caption, Uri videoUri, bool shouldLaunchMediaDialog, string travelId, FacebookDelegate<IMediaUploadResult> callback)
+        {
+            FacebookImpl.UploadVideoToMediaLibrary(caption, videoUri, shouldLaunchMediaDialog, travelId, callback);
+        }
+
         /// <summary>
         /// Contains methods specific to the Facebook Games Canvas platform.
         /// </summary>

@@ -24,7 +24,7 @@ namespace Facebook.Unity
     using System.Collections.Generic;
     using UnityEngine;
 
-    internal interface IFacebook
+    internal interface IFacebook: IFacebookWindows
     {
         bool LoggedIn { get; }
 
@@ -162,5 +162,11 @@ namespace Facebook.Unity
         void UploadImageToMediaLibrary(string caption, Uri imageUri, bool shouldLaunchMediaDialog, FacebookDelegate<IMediaUploadResult> callback);
 
         void UploadVideoToMediaLibrary(string caption, Uri videoUri, bool shouldLaunchMediaDialog, FacebookDelegate<IMediaUploadResult> callback);
+    }
+
+    internal interface IFacebookWindows
+    {
+        void UploadImageToMediaLibrary(string caption, Uri imageUri, bool shouldLaunchMediaDialog, string travelId, FacebookDelegate<IMediaUploadResult> callback);
+        void UploadVideoToMediaLibrary(string caption, Uri videoUri, bool shouldLaunchMediaDialog, string travelId, FacebookDelegate<IMediaUploadResult> callback);
     }
 }

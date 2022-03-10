@@ -15,6 +15,7 @@ public class FBWindowsShareManager : MonoBehaviour
     public InputField Caption;
     public InputField ImageFile;
     public InputField VideoFile;
+    public InputField TravelID;
     public Toggle ShouldShowDialog;
     public Button ImageUploadButton;
     public Button VideoUploadButton;
@@ -24,7 +25,7 @@ public class FBWindowsShareManager : MonoBehaviour
         string imagePath = Path.GetFullPath(Application.streamingAssetsPath + "/" + ImageFile.text);
         ImageUploadButton.interactable = false;
         Logger.DebugLog("Uploading image file [" + imagePath + "] to media library");
-        FB.UploadImageToMediaLibrary(Caption.text, new Uri(imagePath), ShouldShowDialog.isOn, CallbackUploadImage);
+        FB.UploadImageToMediaLibrary(Caption.text, new Uri(imagePath), ShouldShowDialog.isOn, TravelID.text, CallbackUploadImage);
     }
 
     public void Button_UploadVideo()
@@ -32,7 +33,7 @@ public class FBWindowsShareManager : MonoBehaviour
         string videoPath = Path.GetFullPath(Application.streamingAssetsPath + "/" + VideoFile.text);
         VideoUploadButton.interactable = false;
         Logger.DebugLog("Uploading video file [" + videoPath + "] to media library");
-        FB.UploadVideoToMediaLibrary(Caption.text, new Uri(videoPath), ShouldShowDialog.isOn, CallbackUploadVideo);
+        FB.UploadVideoToMediaLibrary(Caption.text, new Uri(videoPath), ShouldShowDialog.isOn, TravelID.text, CallbackUploadVideo);
     }
 
     private void CallbackUploadImage(IMediaUploadResult result)

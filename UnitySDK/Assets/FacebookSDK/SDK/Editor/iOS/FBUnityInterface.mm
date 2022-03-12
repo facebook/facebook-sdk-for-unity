@@ -637,7 +637,7 @@ extern "C" {
 
   void IOSFBAppEventsSetLimitEventUsage(BOOL limitEventUsage)
   {
-    [FBSDKSettings.sharedSettings setLimitEventAndDataUsage:limitEventUsage];
+    [FBSDKSettings.sharedSettings setIsEventDataUsageLimited:limitEventUsage];
   }
 
   void IOSFBAutoLogAppEventsEnabled(BOOL autoLogAppEventsEnabledID)
@@ -652,7 +652,8 @@ extern "C" {
 
   BOOL IOSFBAdvertiserTrackingEnabled(BOOL advertiserTrackingEnabled)
   {
-    return [FBSDKSettings.sharedSettings setAdvertiserTrackingEnabled:advertiserTrackingEnabled];
+    [FBSDKSettings.sharedSettings setAdvertiserTrackingEnabled:advertiserTrackingEnabled];
+    return advertiserTrackingEnabled;
   }
 
   char* IOSFBSdkVersion()
@@ -831,6 +832,14 @@ extern "C" {
     char* res = (char*)malloc(strlen(string) + 1);
     strcpy(res, string);
     return res;
+  }
+
+  // referrenced in IOSWrapper.cs, [DllImport("__Internal")]
+  // either remove that or add a dummy function here to avoid link error
+  void IOSFBUpdateUserProperties(int numParams,
+                                 const char **paramKeys,
+                                 const char **paramVals)
+  {
   }
 
   void IOSFBFetchDeferredAppLink(int requestId)

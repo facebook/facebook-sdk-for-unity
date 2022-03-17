@@ -637,7 +637,7 @@ extern "C" {
 
   void IOSFBAppEventsSetLimitEventUsage(BOOL limitEventUsage)
   {
-    [FBSDKSettings.sharedSettings setLimitEventAndDataUsage:limitEventUsage];
+    [FBSDKSettings.sharedSettings setIsEventDataUsageLimited:limitEventUsage];
   }
 
   void IOSFBAutoLogAppEventsEnabled(BOOL autoLogAppEventsEnabledID)
@@ -652,7 +652,8 @@ extern "C" {
 
   BOOL IOSFBAdvertiserTrackingEnabled(BOOL advertiserTrackingEnabled)
   {
-    return [FBSDKSettings.sharedSettings setAdvertiserTrackingEnabled:advertiserTrackingEnabled];
+    [FBSDKSettings.sharedSettings setAdvertiserTrackingEnabled:advertiserTrackingEnabled];
+    return [FBSDKSettings.sharedSettings isAdvertiserTrackingEnabled];
   }
 
   char* IOSFBSdkVersion()

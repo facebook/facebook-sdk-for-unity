@@ -544,12 +544,6 @@ namespace Facebook.Unity.IOS
             int state);
 
         [DllImport("__Internal")]
-        private static extern void IOSFBUpdateUserProperties(
-            int numParams,
-            string[] paramKeys,
-            string[] paramVals);
-
-        [DllImport("__Internal")]
         private static extern string IOSFBCurrentAuthenticationToken();
 
         [DllImport("__Internal")]

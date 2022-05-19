@@ -54,7 +54,7 @@ namespace Facebook.Unity.Windows
         {
             get
             {
-                return "1.0.10";
+                return "1.0.12";
             }
         }
         public void Init(

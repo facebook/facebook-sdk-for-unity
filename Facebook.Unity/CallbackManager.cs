@@ -94,7 +94,8 @@ namespace Facebook.Unity
                 CallbackManager.TryCallCallback<IHasLicenseResult>(callback, result) ||
                 CallbackManager.TryCallCallback<ILoginStatusResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IProfileResult>(callback, result) ||
-                CallbackManager.TryCallCallback<IFriendFinderInvitationResult>(callback, result))
+                CallbackManager.TryCallCallback<IFriendFinderInvitationResult>(callback, result) ||
+                CallbackManager.TryCallCallback<IVirtualGamepadLayoutResult>(callback, result))
             {
                 return;
             }

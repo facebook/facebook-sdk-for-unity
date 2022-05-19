@@ -618,5 +618,21 @@ namespace Facebook.Unity.Windows
                });
         }
 
+        public void SetVirtualGamepadLayout(string layout, string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Virtualgamepad.setVirtualGamepadLayout(layout,
+                (fbg.VirtualGamepadLayoutResult success) =>
+                {
+                    Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                        { Constants.CallbackIdKey, callbackId },
+                        { "success", success },
+                    };
+                    callbackManager.OnFacebookResponse(new VirtualGamepadLayoutResult(new ResultContainer(resultDict)));
+                }, (fbg.Error error) =>
+                {
+                    VirtualGamepadLayoutResult result = new VirtualGamepadLayoutResult(WindowsParserBase.SetError(error, callbackId));
+                    callbackManager.OnFacebookResponse(result);
+                });
+        }
     }
 }

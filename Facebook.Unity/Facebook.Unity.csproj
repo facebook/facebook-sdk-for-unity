@@ -141,6 +141,7 @@
     <Compile Include="Results\IRewardedVideoResult.cs" />
     <Compile Include="Results\IScheduleAppToUserNotificationResult.cs" />
     <Compile Include="Results\IShareResult.cs" />
+    <Compile Include="Results\IVirtualGamepadLayoutResult.cs" />
     <Compile Include="Results\LoginResult.cs" />
     <Compile Include="Results\LoginStatusResult.cs" />
     <Compile Include="Results\OpenAppStoreResult.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Results\RewardedVideoResult.cs" />
     <Compile Include="Results\ScheduleAppToUserNotificationResult.cs" />
     <Compile Include="Results\ShareResult.cs" />
+    <Compile Include="Results\VirtualGamepadLayoutResult.cs" />
     <Compile Include="Utils\AsyncRequestString.cs" />
     <Compile Include="Utils\FacebookLogger.cs" />
     <Compile Include="Utils\HttpMethod.cs" />

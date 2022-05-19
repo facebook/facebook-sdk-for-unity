@@ -1356,6 +1356,16 @@ namespace Facebook.Unity
                     return impl;
                 }
             }
+
+            /// <summary>
+            /// Sets the Virtual Gamepad Layout to use.
+            /// </summary>
+            /// <param name="layout">Name of the layout to use.</param>
+            /// <param name="callback">Callback to be called when request completes.</param>
+            public static void SetVirtualGamepadLayout(string layout, FacebookDelegate<IVirtualGamepadLayoutResult> callback)
+            {
+                Windows.WindowsFacebookImpl.SetVirtualGamepadLayout(layout, callback);
+            }
         }
 
         internal abstract class CompiledFacebookLoader : MonoBehaviour

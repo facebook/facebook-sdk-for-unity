@@ -22,5 +22,6 @@ namespace Facebook.Unity.Windows
 {
     internal interface IWindowsFacebook : IPayFacebook, IFacebook
     {
+        void SetVirtualGamepadLayout(string layout, FacebookDelegate<IVirtualGamepadLayoutResult> callback);
     }
 }

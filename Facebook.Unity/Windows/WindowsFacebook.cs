@@ -271,6 +271,11 @@ namespace Facebook.Unity.Windows
             this.windowsWrapper.Deinit();
         }
 
+        public void SetVirtualGamepadLayout(string layout, FacebookDelegate<IVirtualGamepadLayoutResult> callback)
+        {
+            this.windowsWrapper.SetVirtualGamepadLayout(layout, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
         // Not supported by Windows SDK
         public override void AppRequest(string message, OGActionType? actionType, string objectId, IEnumerable<string> to, IEnumerable<object> filters, IEnumerable<string> excludeIds, int? maxRecipients, string data, string title, FacebookDelegate<IAppRequestResult> callback)
         {

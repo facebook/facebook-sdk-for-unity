@@ -16,8 +16,8 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "FBUnitySDKDelegate.h"
-
 #import "FBUnityUtility.h"
 
 NSString *const FBUnityMessageName_OnAppRequestsComplete = @"OnAppRequestsComplete";
@@ -113,7 +113,7 @@ static NSMutableArray *g_instances;
 
 #pragma mark - FBSDKContextDialogDelegate
 
-- (void)contextDialogDidComplete:(id<FBSDKContextDialogDelegate>)contextDialog;
+- (void)contextDialogDidComplete:(NSObject<FBSDKContextDialogDelegate>*)contextDialog;
 {
   if ([contextDialog isKindOfClass:[FBSDKChooseContextDialog class]]) {
     [FBUnityUtility sendMessageToUnity: FBUnityMessageName_OnChooseGamingContextComplete userData: NULL requestId:_requestID];
@@ -125,7 +125,7 @@ static NSMutableArray *g_instances;
   [self complete];
 }
 
-- (void)contextDialog:(id<FBSDKContextDialogDelegate>)contextDialog didFailWithError:(NSError *)error
+- (void)contextDialog:(NSObject<FBSDKContextDialogDelegate>*)contextDialog didFailWithError:(NSError *)error
 {
   if ([contextDialog isKindOfClass:[FBSDKChooseContextDialog class]]) {
     [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnChooseGamingContextComplete error:error requestId:_requestID];
@@ -137,7 +137,7 @@ static NSMutableArray *g_instances;
   [self complete];
 }
 
-- (void)contextDialogDidCancel:(id<FBSDKContextDialogDelegate>)contextDialog
+- (void)contextDialogDidCancel:(NSObject<FBSDKContextDialogDelegate>*)contextDialog
 {
   if ([contextDialog isKindOfClass:[FBSDKChooseContextDialog class]]) {
     [FBUnityUtility sendCancelToUnity:FBUnityMessageName_OnChooseGamingContextComplete requestId:_requestID];

@@ -16,8 +16,9 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <FBSDKShareKit/FBSDKShareKit.h>
-#import <FBSDKGamingServicesKit/FBSDKGamingServicesKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import <FBSDKShareKit/FBSDKShareKit-Swift.h>
+#import <FBSDKGamingServicesKit/FBSDKGamingServicesKit-Swift.h>
 
 extern NSString *const FBUnityMessageName_OnAppRequestsComplete;
 extern NSString *const FBUnityMessageName_OnFriendFinderComplete;

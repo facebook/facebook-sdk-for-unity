@@ -16,15 +16,12 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include "FBUnityInterface.h"
-
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <FBSDKShareKit/FBSDKShareKit.h>
-#import <FacebookGamingServices/FacebookGamingServices-Swift.h>
+#import <FBSDKLoginKit/FBSDKLoginKit-Swift.h>
+#import <FBSDKShareKit/FBSDKShareKit-Swift.h>
 #import <FBSDKGamingServicesKit/FBSDKGamingServicesKit-Swift.h>
 #import <Foundation/NSJSONSerialization.h>
 
+#include "FBUnityInterface.h"
 #include "FBUnitySDKDelegate.h"
 #include "FBUnityUtility.h"
 #include "FBSDK+Internal.h"
@@ -227,10 +224,8 @@ isPublishPermLogin:(BOOL)isPublishPermLogin
 
   FBUnitySDKDelegate *delegate = [FBUnitySDKDelegate instanceWithRequestID:requestId];
   NSError *error;
-  FBSDKGameRequestDialog *dialog = [[FBSDKGameRequestDialog alloc] init];
-  dialog.content = content;
-  dialog.delegate = delegate;
-  dialog.frictionlessRequestsEnabled = self.useFrictionlessRequests;
+  FBSDKGameRequestDialog *dialog = [[FBSDKGameRequestDialog alloc] initWithContent:content delegate:delegate];
+  dialog.isFrictionlessRequestsEnabled = self.useFrictionlessRequests;
 
   if (![dialog validateWithError:&error]) {
     [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnAppRequestsComplete error:error requestId:requestId];
@@ -406,8 +401,8 @@ extern "C" {
     [[FBUnityInterface sharedInstance] configureAppId:_appId
                                  frictionlessRequests:_frictionlessRequests
                                             urlSuffix:_urlSuffix];
-    [FBSDKAppEvents setIsUnityInit:true];
-    [FBSDKAppEvents sendEventBindingsToUnity];
+    [[FBSDKAppEvents shared] setIsUnityInitialized:true];
+    [[FBSDKAppEvents shared] sendEventBindingsToUnity];
   }
 
   void IOSFBEnableProfileUpdatesOnAccessTokenChange(bool enable)
@@ -536,7 +531,7 @@ extern "C" {
 
   void IOSFBSetPushNotificationsDeviceTokenString(const char *token)
   {
-    [FBSDKAppEvents setPushNotificationsDeviceTokenString:[FBUnityUtility stringFromCString:token]];
+    [[FBSDKAppEvents shared] setPushNotificationsDeviceTokenString:[FBUnityUtility stringFromCString:token]];
   }
 
   void IOSFBSetShareDialogMode(int mode)
@@ -622,7 +617,7 @@ extern "C" {
                               const char **paramVals)
   {
     NSDictionary *params =  [FBUnityUtility dictionaryFromKeys:paramKeys values:paramVals length:numParams];
-    [FBSDKAppEvents logEvent:[FBUnityUtility stringFromCString:eventName] valueToSum:valueToSum parameters:params];
+    [[FBSDKAppEvents shared] logEvent:[FBUnityUtility stringFromCString:eventName] valueToSum:valueToSum parameters:params];
   }
 
   void IOSFBAppEventsLogPurchase(double amount,
@@ -632,7 +627,7 @@ extern "C" {
                                  const char **paramVals)
   {
     NSDictionary *params =  [FBUnityUtility dictionaryFromKeys:paramKeys values:paramVals length:numParams];
-    [FBSDKAppEvents logPurchase:amount currency:[FBUnityUtility stringFromCString:currency] parameters:params];
+    [[FBSDKAppEvents shared] logPurchase:amount currency:[FBUnityUtility stringFromCString:currency] parameters:params];
   }
 
   void IOSFBAppEventsSetLimitEventUsage(BOOL limitEventUsage)
@@ -666,7 +661,7 @@ extern "C" {
 
   void IOSFBSetUserID(const char *userID)
   {
-    [FBSDKAppEvents setUserID:[FBUnityUtility stringFromCString:userID]];
+    [[FBSDKAppEvents shared] setUserID:[FBUnityUtility stringFromCString:userID]];
   }
 
   void IOSFBOpenGamingServicesFriendFinder(int requestId)
@@ -824,7 +819,7 @@ extern "C" {
 
   char* IOSFBGetUserID()
   {
-    NSString *userID = [FBSDKAppEvents userID];
+    NSString *userID = [[FBSDKAppEvents shared] userID];
     if (!userID) {
       return NULL;
     }

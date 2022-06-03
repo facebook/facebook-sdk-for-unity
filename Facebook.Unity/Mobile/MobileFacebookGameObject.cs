@@ -145,6 +145,31 @@ namespace Facebook.Unity.Mobile
             this.MobileFacebook.OnCreateTournamentComplete(new ResultContainer(message));
         }
 
+        public virtual void OnGetTournamentsComplete(string message)
+        {
+            this.MobileFacebook.OnGetTournamentsComplete(new ResultContainer(message));
+        }
+
+        public virtual void OnUpdateTournamentComplete(string message)
+        {
+            this.MobileFacebook.OnUpdateTournamentComplete(new ResultContainer(message));
+        }
+
+        public virtual void OnTournamentDialogSuccess(string message)
+        {
+            this.MobileFacebook.OnTournamentDialogSuccess(new ResultContainer(message));
+        }
+
+        public virtual void OnTournamentDialogCancel(string message)
+        {
+            this.MobileFacebook.OnTournamentDialogCancel(new ResultContainer(message));
+        }
+
+        public virtual void OnTournamentDialogError(string message)
+        {
+            this.MobileFacebook.OnTournamentDialogError(new ResultContainer(message));
+        }
+
         public void OnOpenAppStoreComplete(string message)
         {
             this.MobileFacebook.OnOpenAppStoreComplete(new ResultContainer(message));

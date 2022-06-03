@@ -23,7 +23,7 @@ namespace Facebook.Unity
     using System.Collections.Generic;
     using System.Text;
 
-    internal class TournamentResult : ResultBase, ITournamentResult
+    internal class TournamentResult : ResultBase, ITournamentResult, IDialogResult
     {
         internal TournamentResult(ResultContainer resultContainer) : base(resultContainer)
         {

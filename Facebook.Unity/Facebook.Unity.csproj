@@ -189,6 +189,10 @@
     <Compile Include="FBLocation.cs" />
     <Compile Include="Results\ITournamentResult.cs" />
     <Compile Include="Results\TournamentResult.cs" />
+    <Compile Include="Results\IGetTournamentsResult.cs" />
+    <Compile Include="Results\GetTournamentsResult.cs" />
+    <Compile Include="Results\IDialogResult.cs" />
+    <Compile Include="Results\AbortDialogResult.cs" />
     <Compile Include="Results\ITournamentScoreResult.cs" />
     <Compile Include="Results\TournamentScoreResult.cs" />
     <Compile Include="Windows\WindowsFacebook.cs" />

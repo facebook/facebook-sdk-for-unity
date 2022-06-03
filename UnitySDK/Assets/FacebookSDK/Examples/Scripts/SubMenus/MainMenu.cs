@@ -177,6 +177,11 @@ namespace Facebook.Unity.Example
                 this.SwitchMenu(typeof(AppLinks));
             }
 
+            if (this.Button("Tournaments"))
+            {
+                this.SwitchMenu(typeof(TournamentsMenu));
+            }
+
             if (Constants.IsMobile && this.Button("Access Token"))
             {
                 this.SwitchMenu(typeof(AccessTokenMenu));

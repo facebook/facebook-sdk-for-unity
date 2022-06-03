@@ -51,6 +51,7 @@
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\GraphRequest.cs" />
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\MainMenu.cs" />
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\Pay.cs" />
+     <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\TournamentsMenu.cs" />
      <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver_v1.2.135.0.txt" />
      <None Include="Assets\FacebookSDK\Plugins\Editor\Dependencies.xml" />
      <Compile Include="Assets\FacebookSDK\Examples\Windows\FBWindowsA2UNotificationsManager.cs" />

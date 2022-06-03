@@ -381,6 +381,51 @@ namespace Facebook.Unity.Mobile.IOS
             );
         }
 
+        public override void GetTournaments(FacebookDelegate<IGetTournamentsResult> callback)
+        {
+            this.iosWrapper.GetTournaments(
+                System.Convert.ToInt32(CallbackManager.AddFacebookDelegate(callback))
+            );
+        }
+
+        public override void UpdateTournament(string tournamentID, int score, FacebookDelegate<ITournamentScoreResult> callback)
+        {
+            this.iosWrapper.UpdateTournament(
+                tournamentID,
+                score,
+                System.Convert.ToInt32(CallbackManager.AddFacebookDelegate(callback))
+            );
+        }
+
+        public override void UpdateAndShareTournament(string tournamentID, int score, FacebookDelegate<IDialogResult> callback)
+        {
+            this.iosWrapper.UpdateAndShareTournament(
+                tournamentID,
+                score,
+                System.Convert.ToInt32(CallbackManager.AddFacebookDelegate(callback))
+            );
+        }
+
+        public override void CreateAndShareTournament(
+            int initialScore,
+            string title,
+            TournamentSortOrder sortOrder,
+            TournamentScoreFormat scoreFormat,
+            long endTime,
+            string payload,
+            FacebookDelegate<IDialogResult> callback)
+        {
+            this.iosWrapper.CreateAndShareTournament(
+                initialScore,
+                title,
+                sortOrder,
+                scoreFormat,
+                endTime,
+                payload,
+                System.Convert.ToInt32(CallbackManager.AddFacebookDelegate(callback))
+            );
+        }
+
         public override void RefreshCurrentAccessToken(
             FacebookDelegate<IAccessTokenRefreshResult> callback)
         {

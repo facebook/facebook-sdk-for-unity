@@ -345,6 +345,48 @@ namespace Facebook.Unity.IOS
             }
         }
 
+        public void GetTournaments(int requestId)
+        {
+            IOSWrapper.IOSFBGetTournaments(requestId);
+        }
+
+        public void UpdateTournament(string tournamentId, int score, int requestId)
+        {
+            IOSWrapper.IOSFBUpdateTournament(tournamentId, score, requestId);
+        }
+
+        public void UpdateAndShareTournament(
+            string tournamentId,
+            int score,
+            int requestId)
+        {
+            IOSWrapper.IOSFBUpdateAndShareTournament(
+                tournamentId,
+                score,
+                requestId
+            );
+        }
+
+        public void CreateAndShareTournament(
+            int initialScore,
+            string title,
+            TournamentSortOrder sortOrder,
+            TournamentScoreFormat scoreFormat,
+            long endTime,
+            string payload,
+            int requestId)
+        {
+            IOSWrapper.IOSFBCreateAndShareTournament(
+                initialScore,
+                title,
+                (int)sortOrder,
+                (int)scoreFormat,
+                endTime,
+                payload,
+                requestId
+            );
+        }
+
         public void UploadImageToMediaLibrary(
             int requestId,
             string caption,
@@ -511,6 +553,25 @@ namespace Facebook.Unity.IOS
             int requestID,
             string caption,
             string videoUri);
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBGetTournaments(int requestID);
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBUpdateTournament(string tournamentID, int score, int requestID);
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBUpdateAndShareTournament(string tournamentID, int score, int requestID);
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBCreateAndShareTournament(
+            int initialScore,
+            string title,
+            int sortOrder,
+            int scoreFormat,
+            long endTime,
+            string payload,
+            int requestID);
 
         [DllImport("__Internal")]
         private static extern void IOSFBCreateGamingContext(

@@ -134,6 +134,24 @@ namespace Facebook.Unity.Mobile.IOS
             int minSize,
             int maxSize);
 
+        void GetTournaments(int requestId);
+
+        void UpdateTournament(string tournamentId, int score, int requestId);
+
+        void UpdateAndShareTournament(
+            string tournamentId,
+            int score,
+            int requestId);
+
+        void CreateAndShareTournament(
+            int initialScore,
+            string title,
+            TournamentSortOrder sortOrder,
+            TournamentScoreFormat scoreFormat,
+            long endTime,
+            string payload,
+            int requestId);
+
         void UploadImageToMediaLibrary(
             int requestId,
             string caption,

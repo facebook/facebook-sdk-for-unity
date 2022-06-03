@@ -27,11 +27,12 @@ EditorBuildSettings:
     path: Assets/FacebookSDK/Examples/AppLinks.unity
     guid: 4ac12dfde6570493291366d0ab3eb20d
   - enabled: 1
-    path: Assets/FacebookSDK/Examples/AppInvites.unity
-    guid: 1beb7e4efae1b4e8d87bb52689540adf
+    path: Assets/FacebookSDK/Examples/TournamentsMenu.unity
+    guid: 6f8d688887086476cb9533793ffa1756
   - enabled: 1
     path: Assets/FacebookSDK/Examples/Pay.unity
     guid: 3ee189cdb21ea4bdb9d7022a0780c44c
   - enabled: 1
     path: Assets/FacebookSDK/Examples/AccessTokenMenu.unity
-    guid: 00000000000000000000000000000000
+    guid: 67cb5b2387b8e4ec9b2fa69ad9510e9b
+  m_configObjects: {}

@@ -60,6 +60,21 @@ namespace Facebook.Unity.Mobile
 
         void GetPayload(FacebookDelegate<IPayloadResult> callback);
 
+        void GetTournaments(FacebookDelegate<IGetTournamentsResult> callback);
+
+        void UpdateTournament(string tournamentID, int score, FacebookDelegate<ITournamentScoreResult> callback);
+
+        void UpdateAndShareTournament(string tournamentID, int score, FacebookDelegate<IDialogResult> callback);
+
+        void CreateAndShareTournament(
+            int initialScore,
+            string title,
+            TournamentSortOrder sortOrder,
+            TournamentScoreFormat scoreFormat,
+            long endTime,
+            string payload,
+            FacebookDelegate<IDialogResult> callback);
+
         void OpenAppStore(FacebookDelegate<IOpenAppStoreResult> callback);
 
         void CreateGamingContext(string playerID, FacebookDelegate<ICreateGamingContextResult> callback);

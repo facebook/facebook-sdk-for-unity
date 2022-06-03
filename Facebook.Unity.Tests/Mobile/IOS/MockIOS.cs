@@ -282,6 +282,36 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             this.MobileFacebook.OnUploadVideoToMediaLibraryComplete(new ResultContainer(result));
         }
 
+        public void GetTournaments(int requestId)
+        {
+            this.LogMethodCall();
+        }
+
+        public void UpdateTournament(string tournamentId, int score, int requestId)
+        {
+            this.LogMethodCall();
+        }
+
+        public void UpdateAndShareTournament(
+            string tournamentId,
+            int score,
+            int requestId)
+        {
+            this.LogMethodCall();
+        }
+
+        public void CreateAndShareTournament(
+            int initialScore,
+            string title,
+            TournamentSortOrder sortOrder,
+            TournamentScoreFormat scoreFormat,
+            long endTime,
+            string payload,
+            int requestId)
+        {
+            this.LogMethodCall();
+        }
+
         public void CreateGamingContext(int requestId, string playerID)
         {
             var result = MockResults.GetGenericResult(requestId, this.ResultExtras);

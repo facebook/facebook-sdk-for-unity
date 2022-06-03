@@ -80,6 +80,7 @@ namespace Facebook.Unity
                 CallbackManager.TryCallCallback<ISessionScoreResult>(callback, result) ||
                 CallbackManager.TryCallCallback<ITournamentResult>(callback, result) ||
                 CallbackManager.TryCallCallback<ITournamentScoreResult>(callback, result) ||
+                CallbackManager.TryCallCallback<IGetTournamentsResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IGroupCreateResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IGroupJoinResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IMediaUploadResult>(callback, result) ||
@@ -95,7 +96,8 @@ namespace Facebook.Unity
                 CallbackManager.TryCallCallback<ILoginStatusResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IProfileResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IFriendFinderInvitationResult>(callback, result) ||
-                CallbackManager.TryCallCallback<IVirtualGamepadLayoutResult>(callback, result))
+                CallbackManager.TryCallCallback<IVirtualGamepadLayoutResult>(callback, result) ||
+                CallbackManager.TryCallCallback<IDialogResult>(callback, result))
             {
                 return;
             }

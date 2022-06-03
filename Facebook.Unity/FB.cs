@@ -1294,6 +1294,40 @@ namespace Facebook.Unity
                 Mobile.MobileFacebookImpl.ShareTournament(score,data, callback);
             }
 
+            public static void GetTournaments(FacebookDelegate<IGetTournamentsResult> callback)
+            {
+                Mobile.MobileFacebookImpl.GetTournaments(callback);
+            }
+
+            public static void UpdateTournament(string tournamentID, int score, FacebookDelegate<ITournamentScoreResult> callback)
+            {
+                Mobile.MobileFacebookImpl.UpdateTournament(tournamentID, score, callback);
+            }
+
+            public static void UpdateAndShareTournament(string tournamentID, int score, FacebookDelegate<IDialogResult> callback)
+            {
+                Mobile.MobileFacebookImpl.UpdateAndShareTournament(tournamentID, score, callback);
+            }
+
+            public static void CreateAndShareTournament(
+                int initialScore,
+                string title,
+                TournamentSortOrder sortOrder,
+                TournamentScoreFormat scoreFormat,
+                DateTime endTime,
+                string payload,
+                FacebookDelegate<IDialogResult> callback)
+            {
+                Mobile.MobileFacebookImpl.CreateAndShareTournament(
+                    initialScore,
+                    title,
+                    sortOrder,
+                    scoreFormat,
+                    (long)endTime.Subtract(new DateTime(1970, 1, 1)).TotalSeconds,
+                    payload,
+                    callback);
+            }
+
             public static void UploadImageToMediaLibrary(string caption, Uri imageUri, bool shouldLaunchMediaDialog, FacebookDelegate<IMediaUploadResult> callback)
             {
                 Mobile.MobileFacebookImpl.UploadImageToMediaLibrary(caption, imageUri, shouldLaunchMediaDialog, callback);
@@ -1381,4 +1415,16 @@ namespace Facebook.Unity
             }
         }
     }
+}
+
+public enum TournamentSortOrder
+{
+    HigherIsBetter,
+    LowerIsBetter
+}
+
+public enum TournamentScoreFormat
+{
+    Numeric,
+    Time
 }

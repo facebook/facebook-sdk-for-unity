@@ -38,8 +38,6 @@ namespace Facebook.Unity.Editor
         public const string UnityDialogsActivityName = "com.facebook.unity.FBUnityDialogsActivity";
         public const string UnityGameRequestActivityName = "com.facebook.unity.FBUnityGameRequestActivity";
         public const string UnityGamingServicesFriendFinderActivityName = "com.facebook.unity.FBUnityGamingServicesFriendFinderActivity";
-        public const string UnityGameGroupCreateActivityName = "com.facebook.unity.FBUnityCreateGameGroupActivity";
-        public const string UnityGameGroupJoinActivityName = "com.facebook.unity.FBUnityJoinGameGroupActivity";
         public const string ApplicationIdMetaDataName = "com.facebook.sdk.ApplicationId";
         public const string AutoLogAppEventsEnabled = "com.facebook.sdk.AutoLogAppEventsEnabled";
         public const string AdvertiserIDCollectionEnabled = "com.facebook.sdk.AdvertiserIDCollectionEnabled";
@@ -156,8 +154,6 @@ namespace Facebook.Unity.Editor
 
             ManifestMod.AddSimpleActivity(doc, dict, ns, DeepLinkingActivityName, true);
             ManifestMod.AddSimpleActivity(doc, dict, ns, UnityGameRequestActivityName);
-            ManifestMod.AddSimpleActivity(doc, dict, ns, UnityGameGroupCreateActivityName);
-            ManifestMod.AddSimpleActivity(doc, dict, ns, UnityGameGroupJoinActivityName);
 
             // add the app id
             // <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="\ fb<APPID>" />

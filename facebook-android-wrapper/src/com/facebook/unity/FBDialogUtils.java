@@ -32,19 +32,11 @@ class FBDialogUtils {
         ShareLinkContent.Builder  builder = new ShareLinkContent.Builder();
 
         if (params.containsKey("content_title")) {
-            builder.setContentTitle(params.getString("content_title"));
-        }
-
-        if (params.containsKey("content_description")) {
-            builder.setContentDescription(params.getString("content_description"));
+            builder.setQuote(params.getString("content_title"));
         }
 
         if (params.containsKey("content_url")) {
             builder.setContentUrl(Uri.parse(params.getString("content_url")));
-        }
-
-        if (params.containsKey("photo_url")) {
-            builder.setImageUrl(Uri.parse(params.getString("photo_url")));
         }
 
         return builder;

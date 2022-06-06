@@ -98,7 +98,7 @@ public class FB {
         } else {
             appID = Utility.getMetadataApplicationId(getUnityActivity());
         }
-
+        FacebookSdk.setClientToken(unity_params.getString("clientToken"));
         FacebookSdk.setApplicationId(appID);
         FacebookSdk.sdkInitialize(FB.getUnityActivity(), new FacebookSdk.InitializeCallback() {
             @Override
@@ -218,26 +218,6 @@ public class FB {
         UnityParams unity_params = UnityParams.parse(params_str);
         Bundle params = unity_params.getStringParams();
         intent.putExtra(FBUnityGameRequestActivity.GAME_REQUEST_PARAMS, params);
-        getUnityActivity().startActivity(intent);
-    }
-
-    @UnityCallable
-    public static void GameGroupCreate(String params_str) {
-        Log.v(TAG, "GameGroupCreate(" + params_str + ")");
-        final UnityParams unity_params = UnityParams.parse(params_str);
-        final Bundle params = unity_params.getStringParams();
-        Intent intent = new Intent(getUnityActivity(), FBUnityCreateGameGroupActivity.class);
-        intent.putExtra(FBUnityCreateGameGroupActivity.CREATE_GAME_GROUP_PARAMS, params);
-        getUnityActivity().startActivity(intent);
-    }
-
-    @UnityCallable
-    public static void GameGroupJoin(String params_str) {
-        Log.v(TAG, "GameGroupJoin(" + params_str + ")");
-        final UnityParams unity_params = UnityParams.parse(params_str);
-        final Bundle params = unity_params.getStringParams();
-        Intent intent = new Intent(getUnityActivity(), FBUnityJoinGameGroupActivity.class);
-        intent.putExtra(FBUnityJoinGameGroupActivity.JOIN_GAME_GROUP_PARAMS, params);
         getUnityActivity().startActivity(intent);
     }
 

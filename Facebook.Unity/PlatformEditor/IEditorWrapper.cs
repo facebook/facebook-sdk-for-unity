@@ -33,14 +33,6 @@ namespace Facebook.Unity.Editor
             Utilities.Callback<ResultContainer> callback,
             string callbackId);
 
-        void ShowGameGroupCreateMockDialog(
-            Utilities.Callback<ResultContainer> callback,
-            string callbackId);
-
-        void ShowGameGroupJoinMockDialog(
-            Utilities.Callback<ResultContainer> callback,
-            string callbackId);
-
         void ShowPayMockDialog(
             Utilities.Callback<ResultContainer> callback,
             string callbackId);

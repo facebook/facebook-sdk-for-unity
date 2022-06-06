@@ -314,6 +314,7 @@ namespace Facebook.Unity
                             {
                                 ((AndroidFacebook)FB.facebook).Init(
                                     appId,
+                                    clientToken,
                                     onHideUnity,
                                     onInitComplete);
                             };

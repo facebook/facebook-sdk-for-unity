@@ -125,6 +125,7 @@ namespace Facebook.Unity.Mobile.Android
 
         public void Init(
             string appId,
+            string clientToken,
             HideUnityDelegate hideUnityDelegate,
             InitDelegate onInitComplete)
         {
@@ -139,6 +140,7 @@ namespace Facebook.Unity.Mobile.Android
 
             var args = new MethodArguments();
             args.AddString("appId", appId);
+            args.AddString("clientToken", clientToken);
             var initCall = new JavaMethodCall<IResult>(this, "Init");
             initCall.Call(args);
             this.userID = this.androidWrapper.CallStatic<string>("GetUserID");

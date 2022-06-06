@@ -29,7 +29,7 @@ namespace Facebook.Unity.Tests.Mobile.Android
     {
         protected override void CallInit(InitDelegate callback)
         {
-            ((AndroidFacebook)this.Mock.Facebook).Init("123456789", null, callback);
+            ((AndroidFacebook)this.Mock.Facebook).Init("123456789", "token", null, callback);
         }
     }
 }

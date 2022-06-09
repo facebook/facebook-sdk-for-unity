@@ -201,7 +201,7 @@ case "$TARGET_VERSION" in
         UNITY_UI_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/Resources/PackageManager/ProjectTemplates/libcache/$TEMPLATE_VERSION/ScriptAssemblies/"
         UNITY_ENGINE_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/Managed/UnityEngine/"
         UNITY_EXTENSIONS_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/UnityExtensions/Unity/"
-        UNITY_NETWORKING_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/UnityExtensions/Unity/Networking/"
+        UNITY_NETWORKING_DIR="NONE"
     ;;
     2020)
         #fix find template version

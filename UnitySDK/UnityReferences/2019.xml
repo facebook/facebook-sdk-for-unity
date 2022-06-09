@@ -23,9 +23,6 @@
     <Reference Include="UnityEngine.UI">
         <HintPath>$(UNITY_UI_DIR)UnityEngine.UI.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-        <HintPath>$(UNITY_NETWORKING_DIR)UnityEngine.Networking.dll</HintPath>
-    </Reference>
      <Reference Include="UnityEngine.UnityWebRequestWWWModule">
         <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
     </Reference>

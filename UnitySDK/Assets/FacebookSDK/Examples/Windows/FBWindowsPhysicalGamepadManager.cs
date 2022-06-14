@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using XInputDotNetPure;
+
+#if (UNITY_STANDALONE_WIN || UNTIY_EDITOR_WIN) && !UNITY_WEBGL
+    using XInputDotNetPure;
+#endif
 
 public class FBWindowsPhysicalGamepadManager : MonoBehaviour {
-    [SerializeField]
-    private Text displayGamepadInputText;
-    private GamePadState state;
+    public Text displayGamepadInputText;
 
+#if (UNITY_STANDALONE_WIN || UNTIY_EDITOR_WIN) && !UNITY_WEBGL
+    public GamePadState state;
     void Update()
     {
         state = GamePad.GetState(0);
@@ -23,4 +26,10 @@ public class FBWindowsPhysicalGamepadManager : MonoBehaviour {
         displayGamepadInputText.text += "\n--- D-Pad ---\n";
         displayGamepadInputText.text += string.Format("Up: {0} | Right: {1} | Down: {2} | Left: {3}\n", state.DPad.Up, state.DPad.Right, state.DPad.Down, state.DPad.Left);
     }
+#else
+    void Start()
+    {
+        displayGamepadInputText.text = "Run this example in a Windows device.";
+    }
+#endif
 }

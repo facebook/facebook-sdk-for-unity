@@ -463,6 +463,11 @@ namespace Facebook.Unity.Mobile.IOS
                 videoUri.AbsolutePath.ToString());
         }
 
+        public override void GetUserLocale(FacebookDelegate<ILocaleResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
         private static IIOSWrapper GetIOSWrapper()
         {
             Assembly assembly = Assembly.Load("Facebook.Unity.IOS");

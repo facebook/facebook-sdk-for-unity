@@ -601,6 +601,11 @@ namespace Facebook.Unity.Editor
             this.OnFetchDeferredAppLinkComplete(new ResultContainer(result));
         }
 
+        public override void GetUserLocale(FacebookDelegate<ILocaleResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
         public void OnIAPReady(FacebookDelegate<IIAPReadyResult> callback)
         {
             var result = new Dictionary<string, object>();

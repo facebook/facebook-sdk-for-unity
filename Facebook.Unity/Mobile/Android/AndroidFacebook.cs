@@ -502,6 +502,11 @@ namespace Facebook.Unity.Mobile.Android
             uploadImageToMediaLibrary.Call(args);
         }
 
+        public override void GetUserLocale(FacebookDelegate<ILocaleResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void OnIAPReady(
             FacebookDelegate<IIAPReadyResult> callback)
         {

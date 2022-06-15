@@ -162,6 +162,8 @@ namespace Facebook.Unity
         void UploadImageToMediaLibrary(string caption, Uri imageUri, bool shouldLaunchMediaDialog, FacebookDelegate<IMediaUploadResult> callback);
 
         void UploadVideoToMediaLibrary(string caption, Uri videoUri, bool shouldLaunchMediaDialog, FacebookDelegate<IMediaUploadResult> callback);
+
+        void GetUserLocale(FacebookDelegate<ILocaleResult> callback);
     }
 
     internal interface IFacebookWindows

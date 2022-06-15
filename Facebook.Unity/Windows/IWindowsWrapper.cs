@@ -78,5 +78,7 @@ namespace Facebook.Unity.Windows
         void UploadVideoToMediaLibrary(string caption, Uri videoUri, bool shouldLaunchMediaDialog, string callbackId, string travelId, CallbackManager callbackManager);
 
         void SetVirtualGamepadLayout(string layout, string callbackId, CallbackManager callbackManager);
+
+        void GetUserLocale(string callbackId, CallbackManager callbackManager);
     }
 }

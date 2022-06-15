@@ -634,5 +634,35 @@ namespace Facebook.Unity.Windows
                     callbackManager.OnFacebookResponse(result);
                 });
         }
+
+        public void GetUserLocale(string callbackId, CallbackManager callbackManager)
+        {
+            Dictionary<string, object> result = new Dictionary<string, object>() { { Constants.CallbackIdKey, callbackId } };
+
+            if (IsLoggedIn())
+            {
+                fbg.Profile.getProfile((windowsProfile) =>
+                {
+                    result.Add("locale", windowsProfile.Locale);
+                    callbackManager.OnFacebookResponse(new LocaleResult((new ResultContainer(result))));
+
+                }, (error) =>
+                {
+                    string msg = "ERROR: " + error.Message + ",";
+                    msg += "InnerErrorCode: " + error.InnerErrorCode.ToString() + ",";
+                    msg += "InnerErrorMessage: " + error.InnerErrorMessage + ",";
+                    msg += "InnerErrorSubcode: " + error.InnerErrorSubcode.ToString() + ",";
+                    msg += "InnerErrorTraceId: " + error.InnerErrorTraceId;
+
+                    result[Constants.ErrorKey] = msg;
+                    callbackManager.OnFacebookResponse(new LocaleResult(new ResultContainer(result)));
+                });
+            }
+            else
+            {
+                result[Constants.ErrorKey] = "ERROR: user must be logged in.";
+                callbackManager.OnFacebookResponse(new LocaleResult(new ResultContainer(result)));
+            }
+        }
     }
 }

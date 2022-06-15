@@ -106,6 +106,7 @@
     <Compile Include="Results\CatalogResult.cs" />
     <Compile Include="Results\FriendFinderInvitationResult.cs" />
     <Compile Include="Results\IFriendFinderInvitationResult.cs" />
+    <Compile Include="Results\ILocaleResult.cs" />
     <Compile Include="Results\IProfileResult.cs" />
     <Compile Include="Results\ConsumePurchaseResult.cs" />
     <Compile Include="Results\GamingServicesFriendFinderResult.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Results\IScheduleAppToUserNotificationResult.cs" />
     <Compile Include="Results\IShareResult.cs" />
     <Compile Include="Results\IVirtualGamepadLayoutResult.cs" />
+    <Compile Include="Results\LocaleResult.cs" />
     <Compile Include="Results\LoginResult.cs" />
     <Compile Include="Results\LoginStatusResult.cs" />
     <Compile Include="Results\OpenAppStoreResult.cs" />

@@ -685,5 +685,10 @@ namespace Facebook.Unity.Canvas
         {
             throw new NotImplementedException();
         }
+
+        public override void GetUserLocale(FacebookDelegate<ILocaleResult> callback)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

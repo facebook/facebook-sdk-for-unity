@@ -252,6 +252,11 @@ namespace Facebook.Unity.Windows
             this.windowsWrapper.UploadVideoToMediaLibrary(caption, videoUri, shouldLaunchMediaDialog, "", this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
 
+        public override void GetUserLocale(FacebookDelegate<ILocaleResult> callback)
+        {
+            this.windowsWrapper.GetUserLocale(this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
         private static IWindowsWrapper GetWindowsWrapper()
         {
             Assembly assembly = Assembly.Load("Facebook.Unity.Windows");

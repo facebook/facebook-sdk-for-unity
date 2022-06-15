@@ -857,6 +857,11 @@ namespace Facebook.Unity
             FacebookImpl.UploadVideoToMediaLibrary(caption, videoUri, shouldLaunchMediaDialog, travelId, callback);
         }
 
+        public static void GetUserLocale(FacebookDelegate<ILocaleResult> callback)
+        {
+            FacebookImpl.GetUserLocale(callback);
+        }
+
         /// <summary>
         /// Contains methods specific to the Facebook Games Canvas platform.
         /// </summary>

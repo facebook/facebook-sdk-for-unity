@@ -9,10 +9,10 @@
         <androidPackage spec="com.facebook.android:facebook-gamingservices:[13.2, 14)" />
     </androidPackages>
     <iosPods>
-        <iosPod name="FBSDKCoreKit_Basics" version="~> 13.2" />
-        <iosPod name="FBSDKCoreKit" version="~> 13.2" />
-        <iosPod name="FBSDKLoginKit" version="~> 13.2" />
-        <iosPod name="FBSDKShareKit" version="~> 13.2" />
-        <iosPod name="FBSDKGamingServicesKit" version="~> 13.2" />
+        <iosPod name="FBSDKCoreKit_Basics" version="~> 14.0" />
+        <iosPod name="FBSDKCoreKit" version="~> 14.0" />
+        <iosPod name="FBSDKLoginKit" version="~> 14.0" />
+        <iosPod name="FBSDKShareKit" version="~> 14.0" />
+        <iosPod name="FBSDKGamingServicesKit" version="~> 14.0" />
     </iosPods>
 </dependencies>

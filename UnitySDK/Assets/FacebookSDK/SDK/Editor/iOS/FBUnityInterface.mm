@@ -676,22 +676,30 @@ extern "C" {
       }];
   }
 
-  void IOSFBCreateGamingContext(
-    int requestID,
-    const char *playerID) {
+  void IOSFBCreateGamingContext(int requestID, const char *playerID) {
+    NSError *error;
     NSString *playerIDString = [FBUnityUtility stringFromCString:playerID];
     FBUnitySDKDelegate *delegate = [FBUnitySDKDelegate instanceWithRequestID:requestID];
     FBSDKCreateContextContent *content = [[FBSDKCreateContextContent alloc] initDialogContentWithPlayerID:playerIDString];
-    [FBSDKContextDialogPresenter showCreateContextDialogWithContent:content delegate:delegate];
-   }
+    FBSDKContextDialogPresenter *presenter = [[FBSDKContextDialogPresenter alloc] init];
+    [presenter makeAndShowCreateContextDialogWithContent:content delegate:delegate error:&error];
+    if (error) {
+      [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnGetTournamentsComplete error:error requestId:requestID];
+    }
+  }
 
   void IOSFBSwitchGamingContext(
     int requestID,
     const char *contextID) {
+    NSError *error;
     NSString *contextIDString = [FBUnityUtility stringFromCString:contextID];
     FBUnitySDKDelegate *delegate = [FBUnitySDKDelegate instanceWithRequestID:requestID];
     FBSDKSwitchContextContent *content = [[FBSDKSwitchContextContent alloc] initDialogContentWithContextID:contextIDString];
-    [FBSDKContextDialogPresenter showSwitchContextDialogWithContent:content delegate:delegate];
+    FBSDKContextDialogPresenter *presenter = [[FBSDKContextDialogPresenter alloc] init];
+    [presenter makeAndShowSwitchContextDialogWithContent:content delegate:delegate error:&error];
+    if (error) {
+      [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnGetTournamentsComplete error:error requestId:requestID];
+    }
    }
 
    void IOSFBChooseGamingContext(
@@ -702,7 +710,6 @@ extern "C" {
    {
      FBUnitySDKDelegate *delegate = [FBUnitySDKDelegate instanceWithRequestID:requestID];
      FBSDKChooseContextContent *chooseContent = [FBSDKChooseContextContent alloc];
-
 
      NSString *filterNSString = [NSString stringWithUTF8String:filter];
      if ([filterNSString length] == 0) {
@@ -722,8 +729,8 @@ extern "C" {
        chooseContent.maxParticipants = maxSize;
      }
 
-    [FBSDKContextDialogPresenter showChooseContextDialogWithContent: chooseContent delegate: delegate];
-
+     FBSDKContextDialogPresenter *presenter = [[FBSDKContextDialogPresenter alloc] init];
+     [presenter makeAndShowChooseContextDialogWithContent:chooseContent delegate:delegate];
    }
 
   void IOSFBGetCurrentGamingContext(int requestID)

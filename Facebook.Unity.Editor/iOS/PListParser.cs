@@ -36,6 +36,7 @@ namespace Facebook.Unity.Editor
         private const string FacebookCFBundleURLName = "facebook-unity-sdk";
         private const string FacebookAppIDKey = "FacebookAppID";
         private const string FacebookAppIDPrefix = "fb";
+        private const string FacebookClientTokenKey = "FacebookClientToken";
         private const string AutoLogAppEventsEnabled = "FacebookAutoLogAppEventsEnabled";
         private const string AdvertiserIDCollectionEnabled = "FacebookAdvertiserIDCollectionEnabled";
 
@@ -70,10 +71,13 @@ namespace Facebook.Unity.Editor
 
         public PListDict XMLDict { get; set; }
 
-        public void UpdateFBSettings(string appID, string urlSuffix, ICollection<string> appLinkSchemes)
+        public void UpdateFBSettings(string appID, string clientToken, string urlSuffix, ICollection<string> appLinkSchemes)
         {
             // Set the facbook app ID
             this.XMLDict[PListParser.FacebookAppIDKey] = appID;
+
+            // Set the client token
+            this.XMLDict[PListParser.FacebookClientTokenKey] = clientToken;
 
             // Set the Auto Log AppEvents Enabled
             this.XMLDict[PListParser.AutoLogAppEventsEnabled] = FacebookSettings.AutoLogAppEventsEnabled;

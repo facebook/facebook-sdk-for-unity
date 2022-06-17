@@ -96,6 +96,7 @@ public class FBWindowsLoginManager : MonoBehaviour
                 Logger.DebugLog("First Name: " + result.CurrentProfile.FirstName);
                 Logger.DebugLog("Email: " + result.CurrentProfile.Email);
                 Logger.DebugLog("ImageURL: " + result.CurrentProfile.ImageURL);
+                GetUserLocale();
 
                 UserName.text = result.CurrentProfile.Name + " " + result.CurrentProfile.LastName;
                 if (result.CurrentProfile.ImageURL != "" && result.CurrentProfile.ImageURL != null)
@@ -108,13 +109,11 @@ public class FBWindowsLoginManager : MonoBehaviour
 
     public void GetUserLocale()
     {
-        Logger.DebugLog("Getting user locale ...");
-
         FB.GetUserLocale((ILocaleResult result) =>
         {
             if (result.Error != null)
             {
-                Logger.DebugErrorLog(result.Error);
+                Logger.DebugErrorLog("Error getting user locale: " + result.Error);
             }
             else
             {

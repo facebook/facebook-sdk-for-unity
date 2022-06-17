@@ -98,27 +98,39 @@ public class FB {
         } else {
             appID = Utility.getMetadataApplicationId(getUnityActivity());
         }
+        // The Android SDK searches the manifest for AppID and ClientToken and then initializes itself.
+        if (FacebookSdk.isInitialized()) {
+            OnInitialized(appID);
+            return;
+        }
+        Log.w(TAG, "Missing AppID or ClientToken in AndroidManifest.xml - Please update FacebookSettings in the Unity Editor and then hit \"Regenerate Android Manifest\"");
+
+        // (Deprecated) Attempt to initialize SDK manually with FB.Init args
         FacebookSdk.setClientToken(unity_params.getString("clientToken"));
         FacebookSdk.setApplicationId(appID);
         FacebookSdk.sdkInitialize(FB.getUnityActivity(), new FacebookSdk.InitializeCallback() {
             @Override
             public void onInitialized() {
-                final UnityMessage unityMessage = new UnityMessage("OnInitComplete");
-                // If we have a cached access token send it back as well
-                AccessToken token = AccessToken.getCurrentAccessToken();
-                if (token != null) {
-                    FBLogin.addLoginParametersToMessage(unityMessage, token, null, null);
-                } else {
-                    unityMessage.put("key_hash", FB.getKeyHash());
-                }
-
-                if (FacebookSdk.getAutoLogAppEventsEnabled()) {
-                    FB.ActivateApp(appID);
-                }
-
-                unityMessage.send();
+                OnInitialized(appID);
             }
         });
+    }
+
+    private static void OnInitialized(final String appID) {
+        final UnityMessage unityMessage = new UnityMessage("OnInitComplete");
+        // If we have a cached access token send it back as well
+        AccessToken token = AccessToken.getCurrentAccessToken();
+        if (token != null) {
+            FBLogin.addLoginParametersToMessage(unityMessage, token, null, null);
+        } else {
+            unityMessage.put("key_hash", FB.getKeyHash());
+        }
+
+        if (FacebookSdk.getAutoLogAppEventsEnabled()) {
+            FB.ActivateApp(appID);
+        }
+
+        unityMessage.send();
     }
 
     @UnityCallable

@@ -39,6 +39,7 @@ namespace Facebook.Unity.Editor
         public const string UnityGameRequestActivityName = "com.facebook.unity.FBUnityGameRequestActivity";
         public const string UnityGamingServicesFriendFinderActivityName = "com.facebook.unity.FBUnityGamingServicesFriendFinderActivity";
         public const string ApplicationIdMetaDataName = "com.facebook.sdk.ApplicationId";
+        public const string ClientTokenMetaDataName = "com.facebook.sdk.ClientToken";
         public const string AutoLogAppEventsEnabled = "com.facebook.sdk.AutoLogAppEventsEnabled";
         public const string AdvertiserIDCollectionEnabled = "com.facebook.sdk.AdvertiserIDCollectionEnabled";
         public const string FacebookContentProviderName = "com.facebook.FacebookContentProvider";
@@ -111,6 +112,7 @@ namespace Facebook.Unity.Editor
         public static void UpdateManifest(string fullPath)
         {
             string appId = FacebookSettings.AppId;
+            string clientToken = FacebookSettings.ClientToken;
 
             if (!FacebookSettings.IsValidAppId)
             {
@@ -161,6 +163,13 @@ namespace Facebook.Unity.Editor
             appIdElement.SetAttribute("name", ns, ApplicationIdMetaDataName);
             appIdElement.SetAttribute("value", ns, "fb" + appId);
             ManifestMod.SetOrReplaceXmlElement(dict, appIdElement);
+
+            // add the client token
+            // <meta-data android:name="com.facebook.sdk.ClientToken" android:value="\ <CLIENT_TOKEN>" />
+            XmlElement clientTokenElement = doc.CreateElement("meta-data");
+            clientTokenElement.SetAttribute("name", ns, ClientTokenMetaDataName);
+            clientTokenElement.SetAttribute("value", ns, clientToken);
+            ManifestMod.SetOrReplaceXmlElement(dict, clientTokenElement);
 
             // enable AutoLogAppEventsEnabled by default
             // <meta-data android:name="com.facebook.sdk.AutoLogAppEventsEnabled" android:value="true"/>

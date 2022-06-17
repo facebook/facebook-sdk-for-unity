@@ -39,15 +39,15 @@ namespace Facebook.Unity.Editor
         private bool showAboutSection = false;
 
         private GUIContent appNameLabel = new GUIContent(
-            "App Name (Optional) [?]:",
+            "App Name:",
             "For your own use and organization.\n(ex. 'dev', 'qa', 'prod')");
 
         private GUIContent appIdLabel = new GUIContent(
-            "Facebook App Id [?]:",
+            "Facebook App Id:",
             "Facebook App Ids can be found at https://developers.facebook.com/apps");
 
         private GUIContent clientTokenLabel = new GUIContent(
-            "Client Token (Optional) [?]:",
+            "Client Token:",
             "For login purposes. Client Token can be found at https://developers.facebook.com/apps, in Settings -> Advanced");
 
         private GUIContent urlSuffixLabel = new GUIContent("URL Scheme Suffix [?]", "Use this to share Facebook APP ID's across multiple iOS apps.  https://developers.facebook.com/docs/ios/share-appid-across-multiple-apps-ios-sdk/");

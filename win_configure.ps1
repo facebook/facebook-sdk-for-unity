@@ -41,7 +41,7 @@ function help {
 
 # Cheking working dir
 if ( ![System.IO.File]::Exists("$PWD\Facebook.sln") ) {
-    Write-Output "Please, execute configure.sh script from root project directory"
+    Write-Output "Please, execute win_configure.ps1 script from root project directory"
     exit 1
 }
 
@@ -64,7 +64,7 @@ else {
     $unity_array = $unity_versions.Split("`n", [StringSplitOptions]::RemoveEmptyEntries)
 
     $patterns = '^FullName\s:\s(.*)Unity.exe'
-    $pattern_version = '^(.*)\\Editor\\(.*)\.(.*)\.(.*)\\Editor'
+    $pattern_version = '^(.*)\\Editor\\(.*)\\Editor'
 
     $array_unity_path = @()
     $array_unity_version = @()
@@ -134,58 +134,16 @@ if ( $TARGET_VERSION -eq "NONE" ) {
 
 #define full paths for unity version
 switch ($TARGET_VERSION) {
-    2017 {
+    '2017.4.40f1' {
         $UNITY_MANAGED_DIR = "$TARGET_PATH\Data\Managed\"
         $UNITY_UI_DIR = "$TARGET_PATH\Data\UnityExtensions\Unity\GUISystem\"
         $UNITY_ENGINE_DIR = "$TARGET_PATH\Data\Managed\"
         $UNITY_EXTENSIONS_DIR = "$TARGET_PATH\Data\UnityExtensions\Unity\"
-    }
-    2018 {
-        $UNITY_MANAGED_DIR = "$TARGET_PATH\Data\Managed\"
-        $UNITY_UI_DIR = "$TARGET_PATH\Data\UnityExtensions\Unity\GUISystem\"
-        $UNITY_ENGINE_DIR = "$TARGET_PATH\Data\Managed\UnityEngine\"
-        $UNITY_EXTENSIONS_DIR = "$TARGET_PATH\Data\UnityExtensions\Unity\"
-        $UNITY_NETWORKING_DIR = "$TARGET_PATH\Data\UnityExtensions\Unity\Networking\"
-    }
-    2019 {
-        #fix find template version
-        $PRJ_TEMPLATE = "$TARGET_PATH\Data\Resources\PackageManager\ProjectTemplates\libcache\"
-        $tmp = Get-ChildItem -Path $PRJ_TEMPLATE -Directory | Select-Object Name -Unique | Where-Object Name -Match universal | Select-Object Name -First 1
-        $TEMPLATE_VERSION = $tmp.Name
-
-        $UNITY_MANAGED_DIR = "$TARGET_PATH\Data\Managed\"
-        $UNITY_UI_DIR = "$TARGET_PATH\Data\Resources\PackageManager\ProjectTemplates\libcache\$TEMPLATE_VERSION\ScriptAssemblies\"
-        $UNITY_ENGINE_DIR = "$TARGET_PATH\Data\Managed\UnityEngine\"
-        $UNITY_EXTENSIONS_DIR = "$TARGET_PATH\Data\UnityExtensions\Unity\"
-        $UNITY_NETWORKING_DIR = "$TARGET_PATH\Data\UnityExtensions\Unity\Networking\"
-    }
-    2020 {
-        #fix find template version
-        $PRJ_TEMPLATE = "$TARGET_PATH\Data\Resources\PackageManager\ProjectTemplates\libcache\"
-        $tmp = Get-ChildItem -Path $PRJ_TEMPLATE -Directory | Select-Object Name -Unique | Where-Object Name -Match universal | Select-Object Name -First 1
-        $TEMPLATE_VERSION = $tmp.Name
-
-        $UNITY_MANAGED_DIR = "$TARGET_PATH\Data\Managed\"
-        $UNITY_UI_DIR = "$TARGET_PATH\Data\esources\PackageManager\ProjectTemplates\libcache\$TEMPLATE_VERSION\ScriptAssemblies\"
-        $UNITY_ENGINE_DIR = "$TARGET_PATH\Data\Managed\UnityEngine\"
-        $UNITY_EXTENSIONS_DIR = "NONE"
-        $UNITY_NETWORKING_DIR = "NONE"
-    }
-    2021 {
-        #fix find template version
-        $PRJ_TEMPLATE = "$TARGET_PATH\Data\Resources\PackageManager\ProjectTemplates\libcache\"
-        $tmp = Get-ChildItem -Path $PRJ_TEMPLATE -Directory | Select-Object Name -Unique | Where-Object Name -Match universal | Select-Object Name -First 1
-        $TEMPLATE_VERSION = $tmp.Name
-
-        $UNITY_MANAGED_DIR = "$TARGET_PATH\Data\Managed\"
-        $UNITY_UI_DIR = "$TARGET_PATH\Data\esources\PackageManager\ProjectTemplates\libcache\$TEMPLATE_VERSION\ScriptAssemblies\"
-        $UNITY_ENGINE_DIR = "$TARGET_PATH\Data\Managed\UnityEngine\"
-        $UNITY_EXTENSIONS_DIR = "NONE"
-        $UNITY_NETWORKING_DIR = "NONE"
+        $TARGET_VERSION = 2017;
     }
     default {
         Write-Output ""
-        Write-Output "Unknown version!"
+        Write-Output "Please use Unity 2017.4.40f1 to work with UnitySDK project on Windows devices."
         Write-Output ""
         exit 1
     }

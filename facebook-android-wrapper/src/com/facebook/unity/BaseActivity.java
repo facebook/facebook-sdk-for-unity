@@ -51,4 +51,13 @@ public abstract class BaseActivity extends Activity {
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
         finish();
     }
+
+    // Prevents passing a null intent in some cases
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        if (intent == null) {
+            intent = new Intent();
+        }
+        super.startActivityForResult(intent, requestCode);
+    }
 }

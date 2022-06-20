@@ -773,6 +773,72 @@ namespace Facebook.Unity.Mobile.Android
             shareTournament.Call(args);
         }
 
+        public override void GetTournaments(FacebookDelegate<IGetTournamentsResult> callback)
+        {
+            var getTournaments = new JavaMethodCall<IGetTournamentsResult>(
+                this,
+                "GetTournaments")
+            {
+                Callback = callback
+            };
+            getTournaments.Call();
+        }
+
+        public override void UpdateTournament(string tournamentID, int score, FacebookDelegate<ITournamentScoreResult> callback)
+        {
+            MethodArguments args = new MethodArguments();
+            args.AddString("tournamentID", tournamentID);
+            args.AddString("score", score.ToString());
+
+            var updateTournament = new JavaMethodCall<ITournamentScoreResult>(
+                this,
+                "UpdateTournament")
+            {
+                Callback = callback
+            };
+            updateTournament.Call(args);
+        }
+
+        public override void UpdateAndShareTournament(string tournamentID, int score, FacebookDelegate<IDialogResult> callback)
+        {
+            MethodArguments args = new MethodArguments();
+            args.AddString("tournamentID", tournamentID);
+            args.AddString("score", score.ToString());
+
+            var updateAndShareTournament = new JavaMethodCall<IDialogResult>(
+                this,
+                "UpdateAndShareTournament")
+            {
+                Callback = callback
+            };
+            updateAndShareTournament.Call(args);
+        }
+
+        public override void CreateAndShareTournament(
+            int initialScore,
+            string title,
+            TournamentSortOrder sortOrder,
+            TournamentScoreFormat scoreFormat,
+            long endTime,
+            string payload,
+            FacebookDelegate<IDialogResult> callback)
+        {
+            MethodArguments args = new MethodArguments();
+            args.AddString("initialScore", initialScore.ToString());
+            args.AddString("title", title);
+            args.AddString("sortOrder", sortOrder == TournamentSortOrder.HigherIsBetter ? "HigherIsBetter" : "LowerIsBetter");
+            args.AddString("scoreType", scoreFormat == TournamentScoreFormat.Numeric ? "Numeric" : "Time");
+            args.AddString("endTime", endTime.ToString());
+            args.AddString("payload", payload.ToString());
+            var createAndShareTournament = new JavaMethodCall<IDialogResult>(
+                this,
+                "CreateAndShareTournament")
+            {
+                Callback = callback
+            };
+            createAndShareTournament.Call(args);
+        }
+
         public override void OpenAppStore(
             FacebookDelegate<IOpenAppStoreResult> callback)
         {

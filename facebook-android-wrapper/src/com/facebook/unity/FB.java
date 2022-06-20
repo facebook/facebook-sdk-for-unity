@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.annotation.TargetApi;
@@ -46,6 +47,12 @@ import com.facebook.appevents.internal.ActivityLifecycleTracker;
 import com.facebook.appevents.internal.AutomaticAnalyticsLogger;
 import com.facebook.applinks.AppLinkData;
 import com.facebook.AuthenticationToken;
+import com.facebook.bolts.Continuation;
+import com.facebook.bolts.Task;
+import com.facebook.bolts.TaskCompletionSource;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.gamingservices.GamingContext;
 import com.facebook.internal.BundleJSONConverter;
 import com.facebook.internal.Utility;
@@ -60,6 +67,13 @@ import com.facebook.gamingservices.cloudgaming.InAppPurchaseLibrary;
 import com.facebook.gamingservices.cloudgaming.PlayableAdsLibrary;
 import com.facebook.gamingservices.GamingImageUploader;
 import com.facebook.gamingservices.GamingVideoUploader;
+import com.facebook.gamingservices.Tournament;
+import com.facebook.gamingservices.TournamentConfig;
+import com.facebook.gamingservices.TournamentFetcher;
+import com.facebook.gamingservices.TournamentShareDialog;
+import com.facebook.gamingservices.TournamentUpdater;
+import com.facebook.gamingservices.internal.TournamentScoreType;
+import com.facebook.gamingservices.internal.TournamentSortOrder;
 import com.facebook.share.widget.ShareDialog;
 import com.facebook.LoginStatusCallback;
 
@@ -75,6 +89,7 @@ public class FB {
     private static Intent clearedIntent;
     private static AppEventsLogger appEventsLogger;
     private static AtomicBoolean activateAppCalled = new AtomicBoolean();
+    private static CallbackManager callbackManager = CallbackManager.Factory.create();
     static ShareDialog.Mode ShareDialogMode = ShareDialog.Mode.AUTOMATIC;
 
     private static AppEventsLogger getAppEventsLogger() {
@@ -1065,6 +1080,139 @@ public class FB {
         );
     }
 
+    @UnityCallable
+    public static void GetTournaments(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = UnityMessage.createWithCallbackFromParams("OnGetTournamentsComplete", unityParams);
+
+        TournamentFetcher fetcher = new TournamentFetcher();
+
+        Task<List<Tournament>> task = fetcher.fetchTournaments().getTask();
+          task.continueWith(
+            new Continuation<List<Tournament>, Void>() {
+            public Void then(Task<List<Tournament>> resultTask) throws Exception {
+                if (resultTask.isFaulted()) {
+                unityMessage.sendError(
+                    String.format(
+                        "Tournaments fetcher failed with Error: \n%s", resultTask.getError()));
+                } else if (resultTask.isCancelled()) {
+                    unityMessage.sendError("Tournaments fetcher cancelled");
+                } else {
+                    List<Tournament> tournaments = resultTask.getResult();
+                    Bundle dataBundle = new Bundle();
+                    unityMessage.put("tournaments", resultTask.getResult().toString());
+                    unityMessage.put("count", tournaments.size());
+                    int index = 0;
+                    for (Tournament tournament: tournaments) {
+                        JSONObject json = new JSONObject();
+                        json.put("tournament_title", tournament.title);
+                        json.put("payload", tournament.payload);
+                        json.put("end_time", tournament.endTime);
+                        json.put("tournament_id", tournament.identifier);
+                        unityMessage.put(Integer.toString(index), json.toString());
+                    }
+                    unityMessage.send();
+                }
+                return null;
+            }
+        });
+    }
+
+    @UnityCallable
+    public static void UpdateTournament(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = UnityMessage.createWithCallbackFromParams("OnUpdateTournamentComplete", unityParams);
+        String tournamentID = unityParams.getString("tournamentID");
+        int score = Integer.parseInt(unityParams.getString("score"));
+
+        TournamentUpdater updater = new TournamentUpdater();
+
+        Task<Boolean> task = updater.update(tournamentID, score).getTask();
+          task.continueWith(
+              new Continuation<Boolean, Void>() {
+                public Void then(Task<Boolean> resultTask) throws Exception {
+                  if (resultTask.isFaulted()) {
+                    unityMessage.sendError(
+                        String.format(
+                            "Tournaments updater failed with Error: \n%s", resultTask.getError()));
+                  } else if (resultTask.isCancelled()) {
+                    unityMessage.putCancelled();
+                    unityMessage.send();
+                  } else {
+                    Boolean success = resultTask.getResult();
+                    unityMessage.put("Success", success);
+                    unityMessage.send();
+                  }
+                  return null;
+                }
+              });
+    }
+
+    @UnityCallable
+    public static void UpdateAndShareTournament(String params_str) {
+        final UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = UnityMessage.createWithCallbackFromParams("OnTournamentDialogError", unityParams);
+        unityMessage.sendError("Update and Share is not yet supported on Android.");
+    }
+
+    @UnityCallable
+    public static void CreateAndShareTournament(String params_str) {
+        final UnityParams unityParams = UnityParams.parse(params_str);
+
+        int initialScore = Integer.parseInt(unityParams.getString("initialScore"));
+        final String title = unityParams.getString("title");
+        final String payload = unityParams.getString("payload");
+        final long endTime = Long.parseLong(unityParams.getString("endTime"));
+        TournamentScoreType scoreType = unityParams.getString("scoreType").equals("Numeric") ? TournamentScoreType.NUMERIC : TournamentScoreType.TIME;
+        TournamentSortOrder sortOrder = unityParams.getString("sortOrder").equals("HigherIsBetter") ? TournamentSortOrder.HigherIsBetter : TournamentSortOrder.LowerIsBetter;
+        TournamentConfig newTournamentConfig;
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Instant instant = Instant.ofEpochSecond(endTime);
+            newTournamentConfig =
+                new TournamentConfig.Builder()
+                    .setTournamentTitle(title)
+                    .setTournamentSortOrder(sortOrder)
+                    .setTournamentScoreType(scoreType)
+                    .setTournamentPayload(payload)
+                    .setTournamentEndTime(instant)
+                    .build();
+          } else {
+            newTournamentConfig =
+                new TournamentConfig.Builder()
+                    .setTournamentTitle(title)
+                    .setTournamentSortOrder(sortOrder)
+                    .setTournamentScoreType(scoreType)
+                    .setTournamentPayload(payload)
+                    .build();
+          }
+
+          TournamentShareDialog shareDialog = new TournamentShareDialog(getUnityActivity());
+          shareDialog.registerCallback(
+              callbackManager,
+              new FacebookCallback<TournamentShareDialog.Result>() {
+                public void onSuccess(TournamentShareDialog.Result result) {
+                    final UnityMessage unityMessage = UnityMessage.createWithCallbackFromParams("OnTournamentDialogSuccess", unityParams);
+                    unityMessage.put("tournament_id", result.getTournamentID());
+                    unityMessage.put("end_time", endTime);
+                    unityMessage.put("tournament_title", title);
+                    unityMessage.put("payload", payload);
+                    unityMessage.send();
+                }
+
+                public void onCancel() {
+                    final UnityMessage unityMessage = UnityMessage.createWithCallbackFromParams("OnTournamentDialogCancel", unityParams);
+                    unityMessage.putCancelled();
+                    unityMessage.send();
+                }
+
+                public void onError(FacebookException error) {
+                    final UnityMessage unityMessage = UnityMessage.createWithCallbackFromParams("OnTournamentDialogError", unityParams);
+                    unityMessage.sendError(error.toString());
+                }
+              });
+          shareDialog.show(initialScore, newTournamentConfig);
+    }
+
     public static void OpenAppStore(String params_str) {
         UnityParams unityParams = UnityParams.parse(params_str);
         final UnityMessage unityMessage = new UnityMessage("OnOpenAppStoreComplete");
@@ -1096,7 +1244,7 @@ public class FB {
         Log.v(TAG, "ChooseGamingContext(" + params_str + ")");
         startActivity(FBUnityChooseGamingContextActivity.class, params_str);
     }
-    
+
     @UnityCallable
     public static void GetCurrentGamingContext(String params_str) {
         UnityParams unityParams = UnityParams.parse(params_str);
@@ -1112,7 +1260,7 @@ public class FB {
         } catch (Exception e) {
             unityMessage.sendError(String.format("Fail to get current gaming context: %s", e.getMessage()));
         }
-        
+
     }
 
     private static DaemonRequest.Callback createDaemonCallback(final UnityMessage unityMessage) {

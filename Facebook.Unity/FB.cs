@@ -250,7 +250,7 @@ namespace Facebook.Unity
 
                 if (Constants.IsEditor)
                 {
-                    if (Application.platform == RuntimePlatform.WindowsEditor)
+                    if (Application.platform == RuntimePlatform.WindowsEditor && Constants.CurrentPlatform == FacebookUnityPlatform.Windows)
                     {
                         FacebookLogger.Warn("You are running Facebook Windows SDK on a Windows device.");
                         FB.OnDLLLoadedDelegate = delegate

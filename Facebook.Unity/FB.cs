@@ -242,7 +242,7 @@ namespace Facebook.Unity
             }
 
             FB.AppId = appId;
-            FB.ClientToken = clientToken;
+            FB.ClientToken = clientToken == null ? FacebookSettings.ClientToken : clientToken;
 
             if (!isInitCalled)
             {
@@ -255,7 +255,7 @@ namespace Facebook.Unity
                         FacebookLogger.Warn("You are running Facebook Windows SDK on a Windows device.");
                         FB.OnDLLLoadedDelegate = delegate
                         {
-                            ((WindowsFacebook)FB.facebook).Init(appId, clientToken, onHideUnity, onInitComplete);
+                            ((WindowsFacebook)FB.facebook).Init(appId, FB.ClientToken, onHideUnity, onInitComplete);
                         };
                         ComponentFactory.GetComponent<WindowsFacebookLoader>();
 

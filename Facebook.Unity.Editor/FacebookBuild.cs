@@ -33,6 +33,7 @@ namespace Facebook.Unity.Editor
         private const string PluginsPath = "Assets/FacebookSDK/Plugins/";
         private const string PlayServicesResolverPath = "Assets/PlayServicesResolver/";
         private const string StreamingAssetsPath = "Assets/StreamingAssets/";
+        private const string ExternalDependencyManagerPath = "Assets/ExternalDependencyManager/";
 
         public enum Target
         {
@@ -88,16 +89,19 @@ namespace Facebook.Unity.Editor
                 string[] playServicesResolverFiles = (string[])Directory.GetFiles(PlayServicesResolverPath, "*.*",
                                                                                   SearchOption.AllDirectories);
 
-                string[] streamingAssetsFiles =  (string[])Directory.GetFiles(StreamingAssetsPath, "*.*", SearchOption.AllDirectories);
+                string[] streamingAssetsFiles = (string[])Directory.GetFiles(StreamingAssetsPath, "*.*", SearchOption.AllDirectories);
+
+                string[] externalDependencyManagerFiles = (string[])Directory.GetFiles(ExternalDependencyManagerPath, "*.*", SearchOption.AllDirectories);
 
                 string[] files = new string[facebookFiles.Length + sdkFiles.Length + exampleFiles.Length +
-                                            pluginsFiles.Length + playServicesResolverFiles.Length + streamingAssetsFiles.Length];
+                                            pluginsFiles.Length + playServicesResolverFiles.Length + streamingAssetsFiles.Length + externalDependencyManagerFiles.Length];
                 facebookFiles.CopyTo(files, 0);
                 sdkFiles.CopyTo(files, facebookFiles.Length);
                 exampleFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length);
                 pluginsFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length + exampleFiles.Length);
                 playServicesResolverFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length + exampleFiles.Length + pluginsFiles.Length);
                 streamingAssetsFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length + exampleFiles.Length + pluginsFiles.Length + playServicesResolverFiles.Length);
+                externalDependencyManagerFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length + exampleFiles.Length + pluginsFiles.Length + playServicesResolverFiles.Length+ streamingAssetsFiles.Length);
 
                 AssetDatabase.ExportPackage(
                     files,

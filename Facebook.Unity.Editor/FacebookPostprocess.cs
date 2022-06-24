@@ -37,6 +37,7 @@ namespace Facebook.Unity.Editor
                 string podFilePath = Path.Combine(buildPath, "Podfile");
                 string contents = File.ReadAllText(podFilePath);
                 bool isUnityIphoneInPodFile = contents.Contains("Unity-iPhone");
+                bool isUseFrameworksInPodFile = contents.Contains("use_frameworks!");
                 using (StreamWriter sw = File.AppendText(podFilePath))
                 {
                     if (!isUnityIphoneInPodFile)
@@ -44,7 +45,11 @@ namespace Facebook.Unity.Editor
                         sw.WriteLine("target 'Unity-iPhone' do");
                         sw.WriteLine("end");
                     }
-                    sw.WriteLine("use_frameworks!");
+
+                    if (!isUseFrameworksInPodFile)
+                    {
+                        sw.WriteLine("use_frameworks!");
+                    }
                 }
             }
         }

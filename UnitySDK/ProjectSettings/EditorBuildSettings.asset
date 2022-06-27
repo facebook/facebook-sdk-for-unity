@@ -35,4 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/FacebookSDK/Examples/AccessTokenMenu.unity
     guid: 67cb5b2387b8e4ec9b2fa69ad9510e9b
+  - enabled: 1
+    path: Assets/FacebookSDK/Examples/UploadToMediaLibrary.unity
+    guid: 6953b5ebad5134d32b0433745ec4a661
   m_configObjects: {}

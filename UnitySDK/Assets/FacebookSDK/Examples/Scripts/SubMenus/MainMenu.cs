@@ -187,6 +187,11 @@ namespace Facebook.Unity.Example
                 this.SwitchMenu(typeof(AccessTokenMenu));
             }
 
+            if (this.Button("UploadToMediaLibrary"))
+            {
+                this.SwitchMenu(typeof(UploadToMediaLibrary));
+            }
+            
             GUILayout.EndVertical();
 
             GUI.enabled = enabled;

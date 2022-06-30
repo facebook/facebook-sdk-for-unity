@@ -35,16 +35,23 @@ namespace Facebook.Unity.Editor
             if (target == BuildTarget.iOS)
             {
                 string podFilePath = Path.Combine(buildPath, "Podfile");
-                string contents = File.ReadAllText(podFilePath);
-                bool isUnityIphoneInPodFile = contents.Contains("Unity-iPhone");
-                using (StreamWriter sw = File.AppendText(podFilePath))
+                if (File.Exists(podFilePath))
                 {
-                    if (!isUnityIphoneInPodFile)
+                    string contents = File.ReadAllText(podFilePath);
+                    bool isUnityIphoneInPodFile = contents.Contains("Unity-iPhone");
+                    using (StreamWriter sw = File.AppendText(podFilePath))
                     {
-                        sw.WriteLine("target 'Unity-iPhone' do");
-                        sw.WriteLine("end");
+                        if (!isUnityIphoneInPodFile)
+                        {
+                            sw.WriteLine("target 'Unity-iPhone' do");
+                            sw.WriteLine("end");
+                        }
+                        sw.WriteLine("use_frameworks!");
                     }
-                    sw.WriteLine("use_frameworks!");
+                }
+                else
+                {
+                    Debug.LogWarning("No podfile created");
                 }
             }
         }

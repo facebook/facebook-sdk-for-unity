@@ -19,11 +19,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bumped windows SDK versions to 1.0.14
 - Bumped native SDK versions to 14.0
 - Bumped Graph API version to 14.0
+- Facebook Settings
+  - Client Token is automatically added to Podfile and AndroidManifest.xml
+  - Client Token is no longer marked as optional in the editor
 
 ### Fixed
 - GraphAPI version
 - IAP empty description field
-- PodFile creation for iOS paltform
+- Podfile creation for iOS platform
 
 ## [13.2.0]
 

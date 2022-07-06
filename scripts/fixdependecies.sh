@@ -49,8 +49,6 @@ set_name $UNITY_CSPROJ/Google.JarResolver*.dll "$UNITY_CSPROJ/Google.JarResolver
 set_name $UNITY_CSPROJ/Google.JarResolver*.dll.mdb "$UNITY_CSPROJ/Google.JarResolver.dll.mdb"
 set_name $UNITY_CSPROJ/Google.PackageManagerResolver*.dll "$UNITY_CSPROJ/Google.PackageManagerResolver.dll"
 set_name $UNITY_CSPROJ/Google.PackageManagerResolver*.dll.mdb "$UNITY_CSPROJ/Google.PackageManagerResolver.dll.mdb"
-set_name $UNITY_CSPROJ/Google.VersionHandler*.dll "$UNITY_CSPROJ/Google.VersionHandler.dll"
-set_name $UNITY_CSPROJ/Google.VersionHandler*.dll.mdb "$UNITY_CSPROJ/Google.VersionHandler.dll.mdb"
 set_name $UNITY_CSPROJ/Google.VersionHandlerImpl*.dll "$UNITY_CSPROJ/Google.VersionHandlerImpl.dll"
 set_name $UNITY_CSPROJ/Google.VersionHandlerImpl*.dll.mdb "$UNITY_CSPROJ/Google.VersionHandlerImpl.dll.mdb"
 

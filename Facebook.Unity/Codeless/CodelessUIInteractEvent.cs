@@ -18,7 +18,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,15 +32,17 @@ namespace Facebook.Unity
     {
 
         private FBSDKEventBindingManager eventBindingManager { get; set; }
+        private Boolean isOldEventSystem { get; set; }
 
         void Awake ()
         {
+            Debug.LogWarning("This example uses Unity Engine OLD input system. If you are using new Input System and you want to use this example, please set your input configuration to BOTH.");
+
             EventSystem sceneEventSystem = FindObjectOfType<EventSystem> ();
-            if (sceneEventSystem == null) {
-                GameObject eventSystem = new GameObject ("EventSystem");
-                eventSystem.AddComponent<EventSystem> ();
-                eventSystem.AddComponent<StandaloneInputModule> ();
-                DontDestroyOnLoad (eventSystem);
+            isOldEventSystem = !(sceneEventSystem == null);
+            if (isOldEventSystem)
+            {
+                DontDestroyOnLoad(sceneEventSystem);
             }
             switch (Constants.CurrentPlatform) {
             case FacebookUnityPlatform.Android:
@@ -68,37 +70,50 @@ namespace Facebook.Unity
         // Update is called once per frame
         void Update ()
         {
-            if (Input.GetMouseButtonDown (0) || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began)) {
-                try {
-                    if (EventSystem.current.IsPointerOverGameObject () ||
-                        (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject (Input.touches [0].fingerId))
-                        ) {
-                        if (null != EventSystem.current.currentSelectedGameObject) {
-                            string name = EventSystem.current.currentSelectedGameObject.name;
-                            GameObject go = EventSystem.current.currentSelectedGameObject;
-                            if (null != go.GetComponent<UnityEngine.UI.Button> () &&
-                                null != eventBindingManager) {
+            if (isOldEventSystem)
+            {
+                if (Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
+                {
+                    try
+                    {
+                        if (EventSystem.current.IsPointerOverGameObject() ||
+                            (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId))
+                            )
+                        {
+                            if (null != EventSystem.current.currentSelectedGameObject)
+                            {
+                                string name = EventSystem.current.currentSelectedGameObject.name;
+                                GameObject go = EventSystem.current.currentSelectedGameObject;
+                                if (null != go.GetComponent<UnityEngine.UI.Button>() &&
+                                    null != eventBindingManager)
+                                {
 
-                                var eventBindings = eventBindingManager.eventBindings;
-                                FBSDKEventBinding matchedBinding = null;
-                                if (null != eventBindings) {
-                                  foreach(var eventBinding in eventBindings) {
-                                      if (FBSDKViewHiearchy.CheckGameObjectMatchPath(go, eventBinding.path)) {
-                                          matchedBinding = eventBinding;
-                                          break;
-                                      }
-                                  }
-                                }
+                                    var eventBindings = eventBindingManager.eventBindings;
+                                    FBSDKEventBinding matchedBinding = null;
+                                    if (null != eventBindings)
+                                    {
+                                        foreach (var eventBinding in eventBindings)
+                                        {
+                                            if (FBSDKViewHiearchy.CheckGameObjectMatchPath(go, eventBinding.path))
+                                            {
+                                                matchedBinding = eventBinding;
+                                                break;
+                                            }
+                                        }
+                                    }
 
-                                if (null != matchedBinding) {
-                                    FB.LogAppEvent(matchedBinding.eventName);
+                                    if (null != matchedBinding)
+                                    {
+                                        FB.LogAppEvent(matchedBinding.eventName);
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                catch (Exception) {
-                    return;
+                    catch (Exception)
+                    {
+                        return;
+                    }
                 }
             }
         }

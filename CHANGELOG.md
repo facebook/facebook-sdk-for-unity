@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Issue with new Unity Input System and UnitySDK Example.
 - Issue with misconfiguration of each DLL when Unity import the package.
+- Fixed some example scenes background color
 
 ### Changed
 - Bumped native SDK versions to 14.1.0

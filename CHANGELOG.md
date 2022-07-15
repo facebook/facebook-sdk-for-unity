@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Issue with new Unity Input System and UnitySDK Example.
 - Issue with misconfiguration of each DLL when Unity import the package.
 
+### Changed
+- Bumped native SDK versions to 14.1.0
+
 ## [14.0.0]
 
 ### Added
@@ -259,7 +262,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Links -->
 
-[14.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-13.2.0...HEAD
+[14.1.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-14.0.0...HEAD
+[14.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-13.2.0...sdk-version-14.0.0
 [13.2.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-12.0.0...sdk-version-13.2.0
 [12.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-11.0.0...sdk-version-12.0.0
 [11.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-9.2.0...sdk-version-11.0.0

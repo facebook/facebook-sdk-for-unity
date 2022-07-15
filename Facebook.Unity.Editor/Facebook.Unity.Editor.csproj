@@ -67,6 +67,7 @@
     <Compile Include="iOS\PBX\Sections.cs" />
     <Compile Include="iOS\PBX\Serializer.cs" />
     <Compile Include="iOS\PBX\Utils.cs" />
+    <Compile Include="FacebookImporter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

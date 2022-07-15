@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [14.1.0]
 
 ### Fixed
-- Issue with new Unity Input System and UnitySDK Example
+- Issue with new Unity Input System and UnitySDK Example.
+- Issue with misconfiguration of each DLL when Unity import the package.
 
 ## [14.0.0]
 

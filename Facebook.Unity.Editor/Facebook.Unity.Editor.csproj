@@ -68,6 +68,7 @@
     <Compile Include="iOS\PBX\Serializer.cs" />
     <Compile Include="iOS\PBX\Utils.cs" />
     <Compile Include="FacebookImporter.cs" />
+    <Compile Include="FacebookPlayModeChanged.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

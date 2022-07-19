@@ -250,15 +250,13 @@ namespace Facebook.Unity
 
                 if (Constants.IsEditor)
                 {
-                    if (Application.platform == RuntimePlatform.WindowsEditor)
+                    if (Application.platform == RuntimePlatform.WindowsEditor && (FacebookSettings.EditorBuildTarget == FacebookSettings.BuildTarget.StandaloneWindows || FacebookSettings.EditorBuildTarget == FacebookSettings.BuildTarget.StandaloneWindows64))
                     {
-                        FacebookLogger.Warn("You are running Facebook Windows SDK on a Windows device.");
                         FB.OnDLLLoadedDelegate = delegate
                         {
                             ((WindowsFacebook)FB.facebook).Init(appId, FB.ClientToken, onHideUnity, onInitComplete);
                         };
                         ComponentFactory.GetComponent<WindowsFacebookLoader>();
-
                     }
                     else
                     {
@@ -266,7 +264,6 @@ namespace Facebook.Unity
                         {
                             ((EditorFacebook)FB.facebook).Init(onInitComplete);
                         };
-
                         ComponentFactory.GetComponent<EditorFacebookLoader>();
                         ComponentFactory.GetComponent<CodelessCrawler>();
                         ComponentFactory.GetComponent<CodelessUIInteractEvent>();

@@ -18,12 +18,9 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-﻿using System;
-
 namespace Facebook.Unity.Settings
 {
     using System.Collections.Generic;
-    using System.IO;
     using UnityEngine;
 
     /// <summary>
@@ -31,9 +28,30 @@ namespace Facebook.Unity.Settings
     /// </summary>
     public class FacebookSettings : ScriptableObject
     {
+
+
         public const string FacebookSettingsAssetName = "FacebookSettings";
         public const string FacebookSettingsPath = "FacebookSDK/SDK/Resources";
         public const string FacebookSettingsAssetExtension = ".asset";
+
+        public enum BuildTarget {
+            StandaloneOSX,
+            StandaloneWindows,
+            iOS,
+            Android,
+            StandaloneWindows64,
+            WebGL,
+            WSAPlayer,
+            StandaloneLinux64,
+            PS4,
+            XboxOne,
+            tvOS,
+            Switch,
+            Stadia,
+            CloudRendering,
+            PS5,
+            none,
+        }
 
         private static List<OnChangeCallback> onChangeCallbacks = new List<OnChangeCallback>();
         private static FacebookSettings instance;
@@ -71,6 +89,25 @@ namespace Facebook.Unity.Settings
         private bool advertiserIDCollectionEnabled = true;
 
         public delegate void OnChangeCallback();
+
+        private BuildTarget editorBuildTargetName = BuildTarget.none;
+
+        /// <summary>
+        /// Gets or sets the current editor build target
+        /// </summary>
+        /// <value>Build target name</value>
+        public static BuildTarget EditorBuildTarget
+        {
+            get
+            {
+                return Instance.editorBuildTargetName;
+            }
+
+            set
+            {
+                Instance.editorBuildTargetName = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the index of the selected app.

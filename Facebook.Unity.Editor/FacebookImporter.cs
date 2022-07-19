@@ -49,6 +49,8 @@ namespace Facebook.Unity.Editor
             SetiOSEditorSwiftConfiguration("/FBSDKTournamentFetcher.swift");
             SetiOSEditorSwiftConfiguration("/FBSDKTournamentUpdater.swift");
 
+            SetiOSResolverConfiguration("/Google.IOSResolver.dll");
+
             SetWindowsDllConfiguration("/Facebook.Unity.Windows.dll", WindowsArchitecture.both);
 
             // Windows SDK Dlls x84 and x64
@@ -82,12 +84,12 @@ namespace Facebook.Unity.Editor
 
         private static PluginImporter GetPluginImporter(string path)
         {
-            return ((PluginImporter)PluginImporter.GetAtPath("Assets/FacebookSDK"+path));
+            return ((PluginImporter)PluginImporter.GetAtPath("Assets"+path));
         }
 
         private static void SetCanvasDllConfiguration(string path)
         {
-            PluginImporter canvasDLL = GetPluginImporter("/Plugins/Canvas" + path);
+            PluginImporter canvasDLL = GetPluginImporter("/FacebookSDK/Plugins/Canvas" + path);
             if (canvasDLL)
             {
                 canvasDLL.SetCompatibleWithAnyPlatform(false);
@@ -97,7 +99,7 @@ namespace Facebook.Unity.Editor
 
         private static void SetAndroidDllConfiguration(string path)
         {
-            PluginImporter androidDLL = GetPluginImporter("/Plugins/Android" + path);
+            PluginImporter androidDLL = GetPluginImporter("/FacebookSDK/Plugins/Android" + path);
             if (androidDLL)
             {
                 androidDLL.SetCompatibleWithAnyPlatform(false);
@@ -107,7 +109,7 @@ namespace Facebook.Unity.Editor
 
         private static void SetiOSDllConfiguration(string path)
         {
-            PluginImporter iOSDLL = GetPluginImporter("/Plugins/iOS" + path);
+            PluginImporter iOSDLL = GetPluginImporter("/FacebookSDK/Plugins/iOS" + path);
             if (iOSDLL)
             {
                 iOSDLL.SetCompatibleWithAnyPlatform(false);
@@ -117,7 +119,7 @@ namespace Facebook.Unity.Editor
 
         private static void SetiOSEditorSwiftConfiguration(string path)
         {
-            PluginImporter iOSDLL = GetPluginImporter("/SDK/Editor/iOS/Swift" + path);
+            PluginImporter iOSDLL = GetPluginImporter("/FacebookSDK/SDK/Editor/iOS/Swift" + path);
             if (iOSDLL)
             {
                 iOSDLL.SetCompatibleWithAnyPlatform(false);
@@ -126,9 +128,21 @@ namespace Facebook.Unity.Editor
             }
         }
 
+        private static void SetiOSResolverConfiguration(string path)
+        {
+            PluginImporter iOSDLL = GetPluginImporter("/ExternalDependencyManager/Editor" + path);
+            if (iOSDLL)
+            {
+                iOSDLL.SetCompatibleWithAnyPlatform(false);
+                iOSDLL.SetCompatibleWithEditor(true);
+                iOSDLL.SetEditorData("OS", "macOS");
+                iOSDLL.SetEditorData("CPU", "AnyCPU");
+            }
+        }
+
         private static void SetWindowsDllConfiguration(string path, WindowsArchitecture architecture)
         {
-            PluginImporter windowsDLL = GetPluginImporter("/Plugins/Windows" + path);
+            PluginImporter windowsDLL = GetPluginImporter("/FacebookSDK/Plugins/Windows" + path);
             if (windowsDLL)
             {
                 bool isEditor = architecture == WindowsArchitecture.x86_64 || architecture == WindowsArchitecture.both;

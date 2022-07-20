@@ -137,6 +137,7 @@ namespace Facebook.Unity.Editor
                 iOSDLL.SetCompatibleWithEditor(true);
                 iOSDLL.SetEditorData("OS", "macOS");
                 iOSDLL.SetEditorData("CPU", "AnyCPU");
+                iOSDLL.SetCompatibleWithPlatform(BuildTarget.iOS, true);
             }
         }
 

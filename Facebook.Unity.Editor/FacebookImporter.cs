@@ -49,8 +49,6 @@ namespace Facebook.Unity.Editor
             SetiOSEditorSwiftConfiguration("/FBSDKTournamentFetcher.swift");
             SetiOSEditorSwiftConfiguration("/FBSDKTournamentUpdater.swift");
 
-            SetiOSResolverConfiguration("/Google.IOSResolver.dll");
-
             SetWindowsDllConfiguration("/Facebook.Unity.Windows.dll", WindowsArchitecture.both);
 
             // Windows SDK Dlls x84 and x64
@@ -93,6 +91,7 @@ namespace Facebook.Unity.Editor
             if (canvasDLL)
             {
                 canvasDLL.SetCompatibleWithAnyPlatform(false);
+                canvasDLL.SetCompatibleWithEditor(true);
                 canvasDLL.SetCompatibleWithPlatform(BuildTarget.WebGL, true);
             }
         }
@@ -103,6 +102,7 @@ namespace Facebook.Unity.Editor
             if (androidDLL)
             {
                 androidDLL.SetCompatibleWithAnyPlatform(false);
+                androidDLL.SetCompatibleWithEditor(true);
                 androidDLL.SetCompatibleWithPlatform(BuildTarget.Android, true);
             }
         }
@@ -124,19 +124,6 @@ namespace Facebook.Unity.Editor
             {
                 iOSDLL.SetCompatibleWithAnyPlatform(false);
                 iOSDLL.SetCompatibleWithEditor(true);
-                iOSDLL.SetCompatibleWithPlatform(BuildTarget.iOS, true);
-            }
-        }
-
-        private static void SetiOSResolverConfiguration(string path)
-        {
-            PluginImporter iOSDLL = GetPluginImporter("/ExternalDependencyManager/Editor" + path);
-            if (iOSDLL)
-            {
-                iOSDLL.SetCompatibleWithAnyPlatform(false);
-                iOSDLL.SetCompatibleWithEditor(true);
-                iOSDLL.SetEditorData("OS", "macOS");
-                iOSDLL.SetEditorData("CPU", "AnyCPU");
                 iOSDLL.SetCompatibleWithPlatform(BuildTarget.iOS, true);
             }
         }

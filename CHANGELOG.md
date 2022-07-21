@@ -11,9 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Issue with new Unity Input System and UnitySDK Example.
 - Issue with misconfiguration of each DLL when Unity import the package.
 - Fixed some example scenes background color
+- Fixed Windows platform loggin issue
 
 ### Changed
 - Bumped native SDK versions to 14.1.0
+- Updated Windows platform DLLs
 
 ## [14.0.0]
 

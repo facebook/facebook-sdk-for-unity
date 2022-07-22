@@ -1403,6 +1403,16 @@ namespace Facebook.Unity
             {
                 Windows.WindowsFacebookImpl.SetVirtualGamepadLayout(layout, callback);
             }
+
+            /// <summary>
+            /// Open Virtual Keyboard in mobile devices.
+            /// </summary>
+            /// <param name="open"> true if you want to open the keyboard</param>
+            /// <param name="callback">Callback to be called when request completes.</param>
+            public static void SetSoftKeyboardOpen(bool open, FacebookDelegate<ISoftKeyboardOpenResult> callback)
+            {
+                Windows.WindowsFacebookImpl.SetSoftKeyboardOpen(open, callback);
+            }
         }
 
         internal abstract class CompiledFacebookLoader : MonoBehaviour

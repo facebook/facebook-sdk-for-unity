@@ -664,5 +664,22 @@ namespace Facebook.Unity.Windows
                 callbackManager.OnFacebookResponse(new LocaleResult(new ResultContainer(result)));
             }
         }
+
+        public void SetSoftKeyboardOpen(bool open, string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Softkeyboard.setSoftKeyboardOpen(open,
+                (fbg.SoftkeyboardAction success) =>
+                {
+                    Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                        { Constants.CallbackIdKey, callbackId },
+                        { "success", success },
+                    };
+                    callbackManager.OnFacebookResponse(new SoftKeyboardOpenResult(new ResultContainer(resultDict)));
+                }, (fbg.Error error) =>
+                {
+                    SoftKeyboardOpenResult result = new SoftKeyboardOpenResult(WindowsParserBase.SetError(error, callbackId));
+                    callbackManager.OnFacebookResponse(result);
+                });
+        }
     }
 }

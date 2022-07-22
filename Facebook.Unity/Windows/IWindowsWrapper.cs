@@ -80,5 +80,7 @@ namespace Facebook.Unity.Windows
         void SetVirtualGamepadLayout(string layout, string callbackId, CallbackManager callbackManager);
 
         void GetUserLocale(string callbackId, CallbackManager callbackManager);
+
+        void SetSoftKeyboardOpen(bool open, string callbackId, CallbackManager callbackManager);
     }
 }

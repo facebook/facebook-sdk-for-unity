@@ -281,6 +281,11 @@ namespace Facebook.Unity.Windows
             this.windowsWrapper.SetVirtualGamepadLayout(layout, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
 
+        public void SetSoftKeyboardOpen(bool open, FacebookDelegate<ISoftKeyboardOpenResult> callback)
+        {
+            this.windowsWrapper.SetSoftKeyboardOpen(open, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
         // Not supported by Windows SDK
         public override void AppRequest(string message, OGActionType? actionType, string objectId, IEnumerable<string> to, IEnumerable<object> filters, IEnumerable<string> excludeIds, int? maxRecipients, string data, string title, FacebookDelegate<IAppRequestResult> callback)
         {

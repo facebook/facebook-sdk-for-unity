@@ -65,6 +65,7 @@
      <Compile Include="Assets\FacebookSDK\Examples\Windows\FBWindowsLogsManager.cs" />
      <Compile Include="Assets\FacebookSDK\Examples\Windows\FBWindowsPurchaseManager.cs" />
      <Compile Include="Assets\FacebookSDK\Examples\Windows\FBWindowsShareManager.cs" />
+     <Compile Include="Assets\FacebookSDK\Examples\Windows\FBWindowsSoftKeyboardManager.cs" />
      <Compile Include="Assets\FacebookSDK\Examples\Windows\FBWindowsTournamentsManager.cs" />
      <None Include="Assets\FacebookSDK\link.xml" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -142,6 +142,7 @@
     <Compile Include="Results\IRewardedVideoResult.cs" />
     <Compile Include="Results\IScheduleAppToUserNotificationResult.cs" />
     <Compile Include="Results\IShareResult.cs" />
+    <Compile Include="Results\ISoftKeyboardOpenResult.cs" />
     <Compile Include="Results\IVirtualGamepadLayoutResult.cs" />
     <Compile Include="Results\LocaleResult.cs" />
     <Compile Include="Results\LoginResult.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="Results\RewardedVideoResult.cs" />
     <Compile Include="Results\ScheduleAppToUserNotificationResult.cs" />
     <Compile Include="Results\ShareResult.cs" />
+    <Compile Include="Results\SoftKeyboardOpenResult.cs" />
     <Compile Include="Results\VirtualGamepadLayoutResult.cs" />
     <Compile Include="Utils\AsyncRequestString.cs" />
     <Compile Include="Utils\FacebookLogger.cs" />

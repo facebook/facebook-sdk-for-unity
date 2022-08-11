@@ -34,7 +34,7 @@
   <!-- BEGIN_UNITY_REFERENCES -->
   <!-- END_UNITY_REFERENCES -->
   <ItemGroup>
-    <Reference Include="System" />    
+    <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -18,6 +18,13 @@ FEATURES
 * Graph API - https://developers.facebook.com/docs/graph-api
 * Analytics for Apps - https://developers.facebook.com/docs/analytics
 
+SUPPORTED PLATFORMS
+-------------------
+* Android
+* iOS
+* Canvas (WebGL)
+* Windows Standalone (Only for Cloud Gaming Apps)
+
 GIVE FEEDBACK
 -------------
 Please report bugs or issues to https://developers.facebook.com/bugs/

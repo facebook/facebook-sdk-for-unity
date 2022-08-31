@@ -20,10 +20,13 @@
 
 namespace Facebook.Unity.Editor
 {
+    using System;
     using System.Diagnostics;
     using System.IO;
+    using System.Reflection;
     using System.Text;
     using Facebook.Unity.Settings;
+    using Google;
     using UnityEditor;
     using UnityEngine;
 
@@ -119,20 +122,25 @@ namespace Facebook.Unity.Editor
         public static string GetAndroidSdkPath()
         {
             string sdkPath = EditorPrefs.GetString("AndroidSdkRoot");
-            #if UNITY_2019_1_OR_NEWER
+
             if (string.IsNullOrEmpty(sdkPath) || EditorPrefs.GetBool("SdkUseEmbedded"))
             {
-                string androidPlayerDir = BuildPipeline.GetPlaybackEngineDirectory(BuildTarget.Android, BuildOptions.None);
-                if (!string.IsNullOrEmpty(androidPlayerDir))
+                try
                 {
-                    string androidPlayerSdkDir = Path.Combine(androidPlayerDir, "SDK");
-                    if (System.IO.Directory.Exists(androidPlayerSdkDir))
+                    sdkPath = (string)VersionHandler.InvokeStaticMethod(typeof(BuildPipeline), "GetPlaybackEngineDirectory", new object[] { BuildTarget.Android, BuildOptions.None });
+                }
+                catch (Exception)
+                {
+                    foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
                     {
-                        sdkPath = androidPlayerSdkDir;
+                        if (assembly.GetName().Name == "UnityEditor.Android.Extensions")
+                        {
+                            sdkPath = Path.GetDirectoryName(assembly.Location);
+                            break;
+                        }
                     }
                 }
             }
-            #endif
 
             return sdkPath;
         }

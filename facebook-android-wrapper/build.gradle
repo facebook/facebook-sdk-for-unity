@@ -10,11 +10,21 @@ allprojects {
 
 buildscript {
     repositories {
-        mavenCentral()
-        google()
-        jcenter()
-        maven {
-          url "https://maven.google.com"
+        // use skycastle custom repo
+        if (skycastle)
+        {
+            maven {
+                url 'file://Applications/maven'
+            }
+        }
+        else
+        {
+            mavenCentral()
+            google()
+            jcenter()
+            maven {
+                url "https://maven.google.com"
+            }
         }
     }
     dependencies {
@@ -25,11 +35,21 @@ buildscript {
 def fbSdkVersion = project.hasProperty("sdkVersion") ? sdkVersion : '14.1.0'
 
 repositories {
-    mavenCentral()
-    google()
-    jcenter()
-    maven {
-    url "https://maven.google.com"
+    // use skycastle custom repo
+    if (skycastle)
+    {
+        maven {
+            url 'file://Applications/maven'
+        }
+    }
+    else
+    {
+        mavenCentral()
+        google()
+        jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
     }
 }
 

@@ -36,6 +36,12 @@ if [[ $* == *--local* ]]; then
   localBuild=true
 fi
 
+#skycatle build
+skycastleBuild=false
+if [[ $* == *--skycastle* ]]; then
+  skycastleBuild=true
+fi
+
 # Copy the required libs
 UNITY_PLUGIN_FACEBOOK="$UNITY_PACKAGE_ROOT/Assets/FacebookSDK/Plugins/Android/libs"
 
@@ -51,7 +57,11 @@ FB_GS_SDK_AAR="$FB_ANDROID_SDK_PATH/facebook-gamingservices/build/outputs/aar/$F
 
 # Get Unity Jar Resolver
 info "Step 1 - Download $UNITY_JAR_RESOLVER_NAME"
-downloadUnityJarResolverFromGithub
+if [ "$skycastleBuild" = true ]; then
+  info "Using custom version from Skycastle builder resource repo."
+else
+  downloadUnityJarResolverFromGithub
+fi
 
 info "Step 2 - Build android wrapper"
 pushd "$FB_WRAPPER_PATH"
@@ -65,11 +75,11 @@ if [ "$localBuild" = true ]; then
   popd
   info "Step 2.2 - Copy $FB_ANDROID_SDK_AAR to $FB_WRAPPER_LIB_PATH/$FB_GS_SDK_AAR_NAME folder"
   cp "$FB_GS_SDK_AAR" "$FB_WRAPPER_LIB_PATH/$FB_GS_SDK_AAR_NAME" || die "Failed to copy sdk to wrapper libs folder"
-  ./gradlew clean -PlocalRepo=libs -PsdkVersion="$FB_ANDROID_SDK_VERSION" || die "Failed to perform gradle clean"
-  ./gradlew assemble -PlocalRepo=libs -PsdkVersion="$FB_ANDROID_SDK_VERSION" || die "Failed to build facebook android wrapper"
+  ./gradlew clean -PlocalRepo=libs -PsdkVersion="$FB_ANDROID_SDK_VERSION" -Pskycastle=$skycastleBuild || die "Failed to perform gradle clean"
+  ./gradlew assemble -PlocalRepo=libs -PsdkVersion="$FB_ANDROID_SDK_VERSION" -Pskycastle=$skycastleBuild || die "Failed to build facebook android wrapper"
 else
-  ./gradlew clean || die "Failed to perform gradle clean"
-  ./gradlew assemble || die "Failed to build facebook android wrapper"
+  ./gradlew clean -Pskycastle=$skycastleBuild || die "Failed to perform gradle clean"
+  ./gradlew assemble -Pskycastle=$skycastleBuild || die "Failed to build facebook android wrapper"
 fi
 popd
 

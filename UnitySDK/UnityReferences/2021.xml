@@ -1,3 +1,10 @@
+  <PropertyGroup>
+    <NoConfig>true</NoConfig>
+    <NoStdLib>true</NoStdLib>
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+    <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
+    <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.dll</HintPath>
@@ -25,5 +32,17 @@
     </Reference>
      <Reference Include="UnityEngine.UnityWebRequestWWWModule">
         <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard">
+      <HintPath>$(UNITY_NETWORKING_DIR)ref/2.1.0/netstandard.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>$(UNITY_NETWORKING_DIR)compat/2.1.0/shims/netfx/System.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib">
+      <HintPath>$(UNITY_NETWORKING_DIR)compat/2.1.0/shims/netfx/mscorlib.dll</HintPath>
     </Reference>
   </ItemGroup>

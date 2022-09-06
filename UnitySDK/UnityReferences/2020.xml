@@ -26,4 +26,7 @@
      <Reference Include="UnityEngine.UnityWebRequestWWWModule">
         <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.UIModule.dll</HintPath>
+    </Reference>
   </ItemGroup>

@@ -42,6 +42,6 @@
     <UNITY_UI_DIR>/Applications/Unity/Hub/Editor/2021.1.17f1/Unity.app/Contents/Resources/PackageManager/ProjectTemplates/libcache/com.unity.template.universal-11.0.0/ScriptAssemblies/</UNITY_UI_DIR>
     <UNITY_ENGINE_DIR>/Applications/Unity/Hub/Editor/2021.1.17f1/Unity.app/Contents/Managed/UnityEngine/</UNITY_ENGINE_DIR>
     <UNITY_EXTENSIONS_DIR>NONE</UNITY_EXTENSIONS_DIR>
-    <UNITY_NETWORKING_DIR>NONE</UNITY_NETWORKING_DIR>
+    <UNITY_NETWORKING_DIR>/Applications/Unity/Hub/Editor/2021.1.17f1/Unity.app/Contents/NetStandard/</UNITY_NETWORKING_DIR>
   </PropertyGroup>
 </Project>

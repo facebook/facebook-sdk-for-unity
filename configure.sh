@@ -223,7 +223,7 @@ case "$TARGET_VERSION" in
         UNITY_UI_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/Resources/PackageManager/ProjectTemplates/libcache/$TEMPLATE_VERSION/ScriptAssemblies/"
         UNITY_ENGINE_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/Managed/UnityEngine/"
         UNITY_EXTENSIONS_DIR="NONE"
-        UNITY_NETWORKING_DIR="NONE"
+        UNITY_NETWORKING_DIR="/Applications/Unity/Hub/Editor/$FULL_VERSION/Unity.app/Contents/NetStandard/"
     ;;
     *)
         printf "!Unknown version.\n"
@@ -289,6 +289,16 @@ echo " -> UnityReferences.xml Updated!"
 # Set version
 sed "s/\<UNITY_VERSION\>.*\<\/UNITY_VERSION\>/\<UNITY_VERSION\>$TARGET_VERSION<\/UNITY_VERSION\>/g" UnityReferences.xml > "$TEMP_FILE"
 mv "$TEMP_FILE" UnityReferences.xml
+
+# Only for Unity 2021: remove old System includes
+if [[ $TARGET_VERSION = "2021" ]];
+then
+    sed -i '' 's/<Reference Include="System.Xml.Linq" \/>//g' "UnitySDK/Assembly-CSharp.csproj"
+    sed -i '' 's/<Reference Include="System.Runtime.Serialization" \/>//g' "UnitySDK/Assembly-CSharp.csproj"
+    sed -i '' 's/<Reference Include="System.Core" \/>//g' "UnitySDK/Assembly-CSharp.csproj"
+    sed -i '' 's/<Reference Include="System.XML" \/>//g' "UnitySDK/Assembly-CSharp.csproj"
+    sed -i '' 's/<Reference Include="System" \/>//g' "UnitySDK/Assembly-CSharp.csproj"
+fi
 
 # Fix projects files
 printf "\n"

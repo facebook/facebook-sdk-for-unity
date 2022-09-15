@@ -34,8 +34,6 @@ namespace Facebook.Unity.Editor
 
         static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
-            Debug.Log("Configuring Facebook SDK dlls for each platform");
-
             SetCanvasDllConfiguration("/Facebook.Unity.Canvas.dll");
             SetCanvasDllConfiguration("/CanvasJSSDKBindings.jslib");
 

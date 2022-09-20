@@ -28,6 +28,7 @@ namespace Facebook.Unity.Editor
     using Facebook.Unity.Settings;
     using Google;
     using UnityEditor;
+    using UnityEditor.Android;
     using UnityEngine;
 
     public class FacebookAndroidUtil
@@ -121,7 +122,7 @@ namespace Facebook.Unity.Editor
 
         public static string GetAndroidSdkPath()
         {
-            string sdkPath = EditorPrefs.GetString("AndroidSdkRoot");
+            string sdkPath = AndroidExternalToolsSettings.sdkRootPath;
 
             if (string.IsNullOrEmpty(sdkPath) || EditorPrefs.GetBool("SdkUseEmbedded"))
             {

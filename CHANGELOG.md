@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Android SDK path detection on latest Unity versions
 
+### Changed
+- Bumped windows SDK versions to 1.0.15
+
 ## [14.1.0]
 
 ### Added

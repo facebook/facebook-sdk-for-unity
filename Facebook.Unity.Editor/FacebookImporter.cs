@@ -56,10 +56,10 @@ namespace Facebook.Unity.Editor
             // Windows SDK Dlls only x84
             SetWindowsDllConfiguration("/x86/LibFBGPlatform.dll", WindowsArchitecture.x86);
             SetWindowsDllConfiguration("/x86/cpprest_2_10.dll", WindowsArchitecture.x86);
-            SetWindowsDllConfiguration("/x86/libcrypto-1_1.dll", WindowsArchitecture.x86);
+            SetWindowsDllConfiguration("/x86/libcrypto-3.dll", WindowsArchitecture.x86);
             SetWindowsDllConfiguration("/x86/libcurl.dll", WindowsArchitecture.x86);
             SetWindowsDllConfiguration("/x86/LibFBGUI.dll", WindowsArchitecture.x86);
-            SetWindowsDllConfiguration("/x86/libssl-1_1.dll", WindowsArchitecture.x86);
+            SetWindowsDllConfiguration("/x86/libssl-3.dll", WindowsArchitecture.x86);
             SetWindowsDllConfiguration("/x86/tinyxml2.dll", WindowsArchitecture.x86);
             SetWindowsDllConfiguration("/x86/WebView2Loader.dll", WindowsArchitecture.x86);
             SetWindowsDllConfiguration("/x86/XInputInterface.dll", WindowsArchitecture.x86);
@@ -68,10 +68,10 @@ namespace Facebook.Unity.Editor
             // Windows SDK Dlls only x64
             SetWindowsDllConfiguration("/x64/LibFBGPlatform.dll", WindowsArchitecture.x86_64);
             SetWindowsDllConfiguration("/x64/cpprest_2_10.dll", WindowsArchitecture.x86_64);
-            SetWindowsDllConfiguration("/x64/libcrypto-1_1-x64.dll", WindowsArchitecture.x86_64);
+            SetWindowsDllConfiguration("/x64/libcrypto-3-x64.dll", WindowsArchitecture.x86_64);
             SetWindowsDllConfiguration("/x64/libcurl.dll", WindowsArchitecture.x86_64);
             SetWindowsDllConfiguration("/x64/LibFBGUI.dll", WindowsArchitecture.x86_64);
-            SetWindowsDllConfiguration("/x64/libssl-1_1-x64.dll", WindowsArchitecture.x86_64);
+            SetWindowsDllConfiguration("/x64/libssl-3-x64.dll", WindowsArchitecture.x86_64);
             SetWindowsDllConfiguration("/x64/tinyxml2.dll", WindowsArchitecture.x86_64);
             SetWindowsDllConfiguration("/x64/WebView2Loader.dll", WindowsArchitecture.x86_64);
             SetWindowsDllConfiguration("/x64/XInputInterface.dll", WindowsArchitecture.x86_64);

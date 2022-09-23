@@ -11,7 +11,7 @@ allprojects {
 buildscript {
     repositories {
         // use skycastle custom repo
-        if (skycastle)
+        if (skycastle == 'true')
         {
             maven {
                 url 'file://Applications/maven'
@@ -36,7 +36,7 @@ def fbSdkVersion = project.hasProperty("sdkVersion") ? sdkVersion : '14.1.0'
 
 repositories {
     // use skycastle custom repo
-    if (skycastle)
+    if (skycastle == 'true')
     {
         maven {
             url 'file://Applications/maven'

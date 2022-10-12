@@ -32,7 +32,7 @@ buildscript {
     }
 }
 
-def fbSdkVersion = project.hasProperty("sdkVersion") ? sdkVersion : '14.1.0'
+def fbSdkVersion = project.hasProperty("sdkVersion") ? sdkVersion : '15.0.0'
 
 repositories {
     // use skycastle custom repo
@@ -54,7 +54,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.facebook.android:facebook-android-sdk:[14.1.0, 15)'
+    implementation 'com.facebook.android:facebook-android-sdk:[15.0.1,16)'
 
     // enable local testing
     if (project.hasProperty("localRepo")) {

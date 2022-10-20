@@ -32,55 +32,67 @@ namespace Facebook.Unity.Editor
             both
         }
 
+        private static string currentAsset = "";
+
         static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
-            SetCanvasDllConfiguration("/Facebook.Unity.Canvas.dll");
-            SetCanvasDllConfiguration("/CanvasJSSDKBindings.jslib");
+            foreach (string str in importedAssets)
+            {
+                currentAsset=str;
 
-            SetAndroidDllConfiguration("/Facebook.Unity.Android.dll");
-            SetAndroidDllConfiguration("/libs/facebook-android-wrapper-14.0.0.aar");
+                SetCanvasDllConfiguration("/Facebook.Unity.Canvas.dll");
+                SetCanvasDllConfiguration("/CanvasJSSDKBindings.jslib");
 
-            SetiOSDllConfiguration("/Facebook.Unity.IOS.dll");
+                SetAndroidDllConfiguration("/Facebook.Unity.Android.dll");
+                SetAndroidDllConfiguration("/libs/facebook-android-wrapper-15.0.0.aar");
 
-            SetiOSEditorSwiftConfiguration("/FBSDKShareTournamentDialog.swift");
-            SetiOSEditorSwiftConfiguration("/FBSDKTournament.swift");
-            SetiOSEditorSwiftConfiguration("/FBSDKTournamentFetcher.swift");
-            SetiOSEditorSwiftConfiguration("/FBSDKTournamentUpdater.swift");
+                SetiOSDllConfiguration("/Facebook.Unity.IOS.dll");
 
-            SetWindowsDllConfiguration("/Facebook.Unity.Windows.dll", WindowsArchitecture.both);
+                SetiOSEditorSwiftConfiguration("/FBSDKShareTournamentDialog.swift");
+                SetiOSEditorSwiftConfiguration("/FBSDKTournament.swift");
+                SetiOSEditorSwiftConfiguration("/FBSDKTournamentFetcher.swift");
+                SetiOSEditorSwiftConfiguration("/FBSDKTournamentUpdater.swift");
 
-            // Windows SDK Dlls x84 and x64
-            SetWindowsDllConfiguration("/LibFBGManaged.dll", WindowsArchitecture.both);
-            SetWindowsDllConfiguration("/XInputDotNetPure.dll", WindowsArchitecture.both);
+                SetWindowsDllConfiguration("/Facebook.Unity.Windows.dll", WindowsArchitecture.both);
 
-            // Windows SDK Dlls only x84
-            SetWindowsDllConfiguration("/x86/LibFBGPlatform.dll", WindowsArchitecture.x86);
-            SetWindowsDllConfiguration("/x86/cpprest_2_10.dll", WindowsArchitecture.x86);
-            SetWindowsDllConfiguration("/x86/libcrypto-3.dll", WindowsArchitecture.x86);
-            SetWindowsDllConfiguration("/x86/libcurl.dll", WindowsArchitecture.x86);
-            SetWindowsDllConfiguration("/x86/LibFBGUI.dll", WindowsArchitecture.x86);
-            SetWindowsDllConfiguration("/x86/libssl-3.dll", WindowsArchitecture.x86);
-            SetWindowsDllConfiguration("/x86/tinyxml2.dll", WindowsArchitecture.x86);
-            SetWindowsDllConfiguration("/x86/WebView2Loader.dll", WindowsArchitecture.x86);
-            SetWindowsDllConfiguration("/x86/XInputInterface.dll", WindowsArchitecture.x86);
-            SetWindowsDllConfiguration("/x86/zlib1.dll", WindowsArchitecture.x86);
+                // Windows SDK Dlls x84 and x64
+                SetWindowsDllConfiguration("/LibFBGManaged.dll", WindowsArchitecture.both);
+                SetWindowsDllConfiguration("/XInputDotNetPure.dll", WindowsArchitecture.both);
 
-            // Windows SDK Dlls only x64
-            SetWindowsDllConfiguration("/x64/LibFBGPlatform.dll", WindowsArchitecture.x86_64);
-            SetWindowsDllConfiguration("/x64/cpprest_2_10.dll", WindowsArchitecture.x86_64);
-            SetWindowsDllConfiguration("/x64/libcrypto-3-x64.dll", WindowsArchitecture.x86_64);
-            SetWindowsDllConfiguration("/x64/libcurl.dll", WindowsArchitecture.x86_64);
-            SetWindowsDllConfiguration("/x64/LibFBGUI.dll", WindowsArchitecture.x86_64);
-            SetWindowsDllConfiguration("/x64/libssl-3-x64.dll", WindowsArchitecture.x86_64);
-            SetWindowsDllConfiguration("/x64/tinyxml2.dll", WindowsArchitecture.x86_64);
-            SetWindowsDllConfiguration("/x64/WebView2Loader.dll", WindowsArchitecture.x86_64);
-            SetWindowsDllConfiguration("/x64/XInputInterface.dll", WindowsArchitecture.x86_64);
-            SetWindowsDllConfiguration("/x64/zlib1.dll", WindowsArchitecture.x86_64);
+                // Windows SDK Dlls only x84
+                SetWindowsDllConfiguration("/x86/LibFBGPlatform.dll", WindowsArchitecture.x86);
+                SetWindowsDllConfiguration("/x86/cpprest_2_10.dll", WindowsArchitecture.x86);
+                SetWindowsDllConfiguration("/x86/libcrypto-3.dll", WindowsArchitecture.x86);
+                SetWindowsDllConfiguration("/x86/libcurl.dll", WindowsArchitecture.x86);
+                SetWindowsDllConfiguration("/x86/LibFBGUI.dll", WindowsArchitecture.x86);
+                SetWindowsDllConfiguration("/x86/libssl-3.dll", WindowsArchitecture.x86);
+                SetWindowsDllConfiguration("/x86/tinyxml2.dll", WindowsArchitecture.x86);
+                SetWindowsDllConfiguration("/x86/WebView2Loader.dll", WindowsArchitecture.x86);
+                SetWindowsDllConfiguration("/x86/XInputInterface.dll", WindowsArchitecture.x86);
+                SetWindowsDllConfiguration("/x86/zlib1.dll", WindowsArchitecture.x86);
+
+                // Windows SDK Dlls only x64
+                SetWindowsDllConfiguration("/x64/LibFBGPlatform.dll", WindowsArchitecture.x86_64);
+                SetWindowsDllConfiguration("/x64/cpprest_2_10.dll", WindowsArchitecture.x86_64);
+                SetWindowsDllConfiguration("/x64/libcrypto-3-x64.dll", WindowsArchitecture.x86_64);
+                SetWindowsDllConfiguration("/x64/libcurl.dll", WindowsArchitecture.x86_64);
+                SetWindowsDllConfiguration("/x64/LibFBGUI.dll", WindowsArchitecture.x86_64);
+                SetWindowsDllConfiguration("/x64/libssl-3-x64.dll", WindowsArchitecture.x86_64);
+                SetWindowsDllConfiguration("/x64/tinyxml2.dll", WindowsArchitecture.x86_64);
+                SetWindowsDllConfiguration("/x64/WebView2Loader.dll", WindowsArchitecture.x86_64);
+                SetWindowsDllConfiguration("/x64/XInputInterface.dll", WindowsArchitecture.x86_64);
+                SetWindowsDllConfiguration("/x64/zlib1.dll", WindowsArchitecture.x86_64);
+            }
         }
 
         private static PluginImporter GetPluginImporter(string path)
         {
-            return ((PluginImporter)PluginImporter.GetAtPath("Assets"+path));
+            string sdkAsset="Assets"+path;
+            if (currentAsset == sdkAsset)
+            {
+                return ((PluginImporter)PluginImporter.GetAtPath(sdkAsset));
+            }
+            return null;
         }
 
         private static void SetCanvasDllConfiguration(string path)
@@ -88,6 +100,7 @@ namespace Facebook.Unity.Editor
             PluginImporter canvasDLL = GetPluginImporter("/FacebookSDK/Plugins/Canvas" + path);
             if (canvasDLL)
             {
+                canvasDLL.ClearSettings();
                 canvasDLL.SetCompatibleWithAnyPlatform(false);
                 canvasDLL.SetCompatibleWithEditor(true);
                 canvasDLL.SetCompatibleWithPlatform(BuildTarget.WebGL, true);
@@ -99,6 +112,7 @@ namespace Facebook.Unity.Editor
             PluginImporter androidDLL = GetPluginImporter("/FacebookSDK/Plugins/Android" + path);
             if (androidDLL)
             {
+                androidDLL.ClearSettings();
                 androidDLL.SetCompatibleWithAnyPlatform(false);
                 androidDLL.SetCompatibleWithEditor(true);
                 androidDLL.SetCompatibleWithPlatform(BuildTarget.Android, true);
@@ -110,6 +124,7 @@ namespace Facebook.Unity.Editor
             PluginImporter iOSDLL = GetPluginImporter("/FacebookSDK/Plugins/iOS" + path);
             if (iOSDLL)
             {
+                iOSDLL.ClearSettings();
                 iOSDLL.SetCompatibleWithAnyPlatform(false);
                 iOSDLL.SetCompatibleWithPlatform(BuildTarget.iOS, true);
             }
@@ -120,6 +135,7 @@ namespace Facebook.Unity.Editor
             PluginImporter iOSDLL = GetPluginImporter("/FacebookSDK/SDK/Editor/iOS/Swift" + path);
             if (iOSDLL)
             {
+                iOSDLL.ClearSettings();
                 iOSDLL.SetCompatibleWithAnyPlatform(false);
                 iOSDLL.SetCompatibleWithEditor(true);
                 iOSDLL.SetCompatibleWithPlatform(BuildTarget.iOS, true);
@@ -131,6 +147,8 @@ namespace Facebook.Unity.Editor
             PluginImporter windowsDLL = GetPluginImporter("/FacebookSDK/Plugins/Windows" + path);
             if (windowsDLL)
             {
+                windowsDLL.ClearSettings();
+
                 bool isEditor = architecture == WindowsArchitecture.x86_64 || architecture == WindowsArchitecture.both;
 
                 windowsDLL.SetCompatibleWithAnyPlatform(false);

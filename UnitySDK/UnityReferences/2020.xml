@@ -29,4 +29,7 @@
     <Reference Include="UnityEngine.UIModule">
       <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.UIModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
   </ItemGroup>

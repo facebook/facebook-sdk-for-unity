@@ -22,28 +22,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace Facebook.Unity
 {
     public class CodelessUIInteractEvent : MonoBehaviour
     {
-
         private FBSDKEventBindingManager eventBindingManager { get; set; }
-        private Boolean isOldEventSystem { get; set; }
 
         void Awake ()
         {
             Debug.LogWarning("This example uses Unity Engine OLD input system. If you are using new Input System and you want to use this example, please set your input configuration to BOTH.");
 
-            EventSystem sceneEventSystem = FindObjectOfType<EventSystem> ();
-            isOldEventSystem = !(sceneEventSystem == null);
-            if (isOldEventSystem)
-            {
-                DontDestroyOnLoad(sceneEventSystem);
-            }
             switch (Constants.CurrentPlatform) {
             case FacebookUnityPlatform.Android:
                 SetLoggerInitAndroid ();
@@ -65,57 +54,6 @@ namespace Facebook.Unity
         private static void SetLoggerInitIos ()
         {
             //PLACEHOLDER for IOS
-        }
-
-        // Update is called once per frame
-        void Update ()
-        {
-            if (isOldEventSystem)
-            {
-                if (Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
-                {
-                    try
-                    {
-                        if (EventSystem.current.IsPointerOverGameObject() ||
-                            (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId))
-                            )
-                        {
-                            if (null != EventSystem.current.currentSelectedGameObject)
-                            {
-                                string name = EventSystem.current.currentSelectedGameObject.name;
-                                GameObject go = EventSystem.current.currentSelectedGameObject;
-                                if (null != go.GetComponent<UnityEngine.UI.Button>() &&
-                                    null != eventBindingManager)
-                                {
-
-                                    var eventBindings = eventBindingManager.eventBindings;
-                                    FBSDKEventBinding matchedBinding = null;
-                                    if (null != eventBindings)
-                                    {
-                                        foreach (var eventBinding in eventBindings)
-                                        {
-                                            if (FBSDKViewHiearchy.CheckGameObjectMatchPath(go, eventBinding.path))
-                                            {
-                                                matchedBinding = eventBinding;
-                                                break;
-                                            }
-                                        }
-                                    }
-
-                                    if (null != matchedBinding)
-                                    {
-                                        FB.LogAppEvent(matchedBinding.eventName);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        return;
-                    }
-                }
-            }
         }
 
         public void OnReceiveMapping (string message)

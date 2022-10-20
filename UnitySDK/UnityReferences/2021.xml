@@ -45,4 +45,7 @@
     <Reference Include="mscorlib">
       <HintPath>$(UNITY_NETWORKING_DIR)compat/2.1.0/shims/netfx/mscorlib.dll</HintPath>
     </Reference>
+     <Reference Include="UnityEngine.InputModule">
+      <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
   </ItemGroup>

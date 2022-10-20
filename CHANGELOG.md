@@ -9,7 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Android SDK path detection on latest Unity versions
-- Duplacte Event System in Unity SDK example
+- Duplicate Event System in Unity SDK example
+- Fixed DLLs configuration in asset importer
+- Fixed ConsoleBase.cs script for Unity 2021 and above.
 
 ### Changed
 - Bumped windows SDK versions to 1.0.15

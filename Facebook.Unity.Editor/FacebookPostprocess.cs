@@ -46,7 +46,6 @@ namespace Facebook.Unity.Editor
                             sw.WriteLine("target 'Unity-iPhone' do");
                             sw.WriteLine("end");
                         }
-                        sw.WriteLine("use_frameworks!");
                     }
                 }
                 else

@@ -23,6 +23,7 @@ namespace Facebook.Unity.Example
     using System;
     using System.IO;
     using UnityEngine;
+    using UnityEngine.Networking;
 
     internal class UploadToMediaLibrary : MenuBase
     {
@@ -48,18 +49,18 @@ namespace Facebook.Unity.Example
             }
             GUILayout.Space(24);
 
-            string imagePath = Path.GetFullPath(Application.streamingAssetsPath + "/" + imageFile);
+            string imagePath = GetPath(imageFile);
             if (File.Exists(imagePath))
             {
                 if (this.Button("Upload Image to media library"))
                 {
 
-                    FB.Mobile.UploadImageToMediaLibrary(imageCaption, new Uri(imagePath), imageShouldLaunchMediaDialog, this.HandleResult);
+                    FBGamingServices.UploadImageToMediaLibrary(imageCaption, new Uri(imagePath), imageShouldLaunchMediaDialog, this.HandleResult);
                 }
             }
             else
             {
-                GUILayout.Label("Image not exist: " + imagePath);
+                GUILayout.Label("Image does not exist: " + imagePath);
             }
             GUILayout.Space(24);
 
@@ -70,18 +71,43 @@ namespace Facebook.Unity.Example
             }
             GUILayout.Space(24);
 
-            string videoPath = Path.GetFullPath(Application.streamingAssetsPath + "/" + videoFile);
+            string videoPath = GetPath(videoFile);
             if (File.Exists(videoPath))
             {
                 if (this.Button("Upload Video to media library"))
                 {
-                    FB.Mobile.UploadVideoToMediaLibrary(videoCaption, new Uri(videoPath), videoShouldLaunchMediaDialog, this.HandleResult);
+                    FBGamingServices.UploadVideoToMediaLibrary(videoCaption, new Uri(videoPath), videoShouldLaunchMediaDialog, this.HandleResult);
                 }
             }
             else
             {
-                GUILayout.Label("Video not exist: " + videoPath);
+                GUILayout.Label("Video does not exist: " + videoPath);
             }
+        }
+
+        private string GetPath(string filename) {
+            string path = Path.Combine(Application.streamingAssetsPath, filename);
+
+            // Android cannot access StreamingAssets directly because they are packaged into an `apk`
+            #if UNITY_ANDROID
+            byte[] data = null;
+
+            // Retrieve packaged data via `UnityWebRequest`
+            var request = UnityWebRequest.Get(path);
+            request.SendWebRequest();
+            while (!request.isDone) {
+                if (request.isNetworkError || request.isHttpError) {
+                    break;
+                }
+            }
+            data = request.downloadHandler.data;
+
+            // Write the data so it can be uploaded
+            path = Path.Combine(Application.persistentDataPath, filename);
+            System.IO.File.WriteAllBytes(path, data);
+            #endif
+
+            return path;
         }
     }
 }

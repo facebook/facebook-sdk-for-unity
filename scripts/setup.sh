@@ -29,6 +29,13 @@ echo "checking packages..."
 nuget restore "$PROJECT_ROOT"
 echo "checking packages done."
 
+#skycatle build
+skycastleBuild=false
+if [[ $* != *--skycastle* ]]; then
+cd "$SCRIPTS_DIR" || die "$SCRIPTS_DIR not found"
+./build.sh
+fi
+
 "$SCRIPTS_DIR/setup_ios_unity_plugin.sh" "$@" || die "Failed to setup the ios sdk plugin"
 "$SCRIPTS_DIR/setup_android_unity_plugin.sh" "$@" || die "Failed to build the android sdk plugin"
 

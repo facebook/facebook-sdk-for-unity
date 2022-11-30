@@ -240,11 +240,7 @@ namespace Facebook.Unity.Example
         protected bool IsHorizontalLayout()
         {
             #if UNITY_IOS || UNITY_ANDROID
-                #if UNITY_2021 || UNITY_2022
-                    return Screen.orientation == ScreenOrientation.LandscapeLeft;
-                #else
-                    return Screen.orientation == ScreenOrientation.Landscape;
-                #endif
+                return Screen.orientation == ScreenOrientation.LandscapeLeft;
             #else
                 return true;
             #endif

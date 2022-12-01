@@ -282,7 +282,7 @@ namespace Facebook.Unity
             string description = product.ContainsKey("description") ? product["description"].ToStringNullOk():"";
             string imageURI = product.ContainsKey(isWindows ? "image_uri" : "imageURI") ? product[isWindows ? "image_uri" : "imageURI"].ToStringNullOk() : "";
             string price = product["price"].ToStringNullOk();
-            double? priceAmount = product.ContainsKey(isWindows ? "price_amount" : "priceAmount") ? (double?)product[isWindows ? "price_amount" : "priceAmount"] : null;
+            double? priceAmount = product.ContainsKey(isWindows ? "price_amount" : "priceAmount") ? (double?)Convert.ToDouble(product[isWindows ? "price_amount" : "priceAmount"]) : null;
             string priceCurrencyCode = product[isWindows ? "price_currency_code" : "priceCurrencyCode"].ToStringNullOk();
 
             return new Product(title, productID, description, imageURI, price, priceAmount, priceCurrencyCode);

@@ -272,5 +272,5 @@ var FBUnityLib = {
     }
 };
 
-autoAddDeps(LibraryManager.library, '$FBUnity');
+autoAddDeps(FBUnityLib, '$FBUnity');
 mergeInto(LibraryManager.library, FBUnityLib);

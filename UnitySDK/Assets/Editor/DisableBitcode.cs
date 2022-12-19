@@ -1,3 +1,4 @@
+#if UNITY_IOS && !UNITY_EDITOR
 using System.IO;
 using UnityEngine;
 using UnityEditor;
@@ -35,3 +36,4 @@ namespace Facebook.Unity.PostProcess
          }
     }
 }
+#endif

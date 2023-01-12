@@ -139,7 +139,7 @@ switch ($TARGET_VERSION) {
         $UNITY_UI_DIR = "$TARGET_PATH\Data\UnityExtensions\Unity\GUISystem\"
         $UNITY_ENGINE_DIR = "$TARGET_PATH\Data\Managed\"
         $UNITY_EXTENSIONS_DIR = "$TARGET_PATH\Data\UnityExtensions\Unity\"
-        $TARGET_VERSION = 2017;
+        $TARGET_VERSION = "2017";
     }
     default {
         Write-Output ""

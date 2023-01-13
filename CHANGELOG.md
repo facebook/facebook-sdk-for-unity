@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [15.2.0]
 
 ### Changed
+- Updated Windows SDK Dlls
 - Bumped android SDK versions to 15.2
 
 ## [15.1.0]

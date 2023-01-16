@@ -1,9 +1,12 @@
 using System.IO;
 using UnityEngine;
 using UnityEditor;
+#if UNITY_IOS
 using UnityEditor.Build.Reporting;
-using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
+#endif
+using UnityEditor.Callbacks;
+
 
 namespace Facebook.Unity.PostProcess
 {
@@ -15,6 +18,7 @@ namespace Facebook.Unity.PostProcess
         [PostProcessBuildAttribute(999)]
         public static void OnPostProcessBuild(BuildTarget buildTarget, string pathToBuildProject)
         {
+#if UNITY_IOS
             if (buildTarget != BuildTarget.iOS) return;
             string projectPath = pathToBuildProject + "/Unity-iPhone.xcodeproj/project.pbxproj";
             PBXProject pbxProject = new PBXProject();
@@ -32,6 +36,7 @@ namespace Facebook.Unity.PostProcess
             pbxProject.SetBuildProperty(target, "ENABLE_BITCODE", "NO");
 
             pbxProject.WriteToFile(projectPath);
-         }
+#endif
+        }
     }
 }

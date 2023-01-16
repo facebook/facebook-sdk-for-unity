@@ -1413,6 +1413,23 @@ namespace Facebook.Unity
             {
                 Windows.WindowsFacebookImpl.SetSoftKeyboardOpen(open, callback);
             }
+
+            /// <summary>
+            /// Create a referral link
+            /// </summary>
+            /// <param name="payload">Custom payload to get by the game</param>
+            public static void CreateReferral(string payload, FacebookDelegate<IReferralsCreateResult> callback)
+            {
+                Windows.WindowsFacebookImpl.CreateReferral(payload, callback);
+            }
+
+            /// <summary>
+            /// Get Data from referral link
+            /// </summary>
+            public static void GetDataReferral(FacebookDelegate<IReferralsGetDataResult> callback)
+            {
+                Windows.WindowsFacebookImpl.GetDataReferral(callback);
+            }
         }
 
         internal abstract class CompiledFacebookLoader : MonoBehaviour

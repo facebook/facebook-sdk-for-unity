@@ -105,6 +105,8 @@
     <Compile Include="Results\AppReqeustResult.cs" />
     <Compile Include="Results\CatalogResult.cs" />
     <Compile Include="Results\FriendFinderInvitationResult.cs" />
+    <Compile Include="Results\ReferralsCreateResult.cs" />
+    <Compile Include="Results\ReferralsGetDataResult.cs" />
     <Compile Include="Results\IFriendFinderInvitationResult.cs" />
     <Compile Include="Results\ILocaleResult.cs" />
     <Compile Include="Results\IProfileResult.cs" />
@@ -139,6 +141,8 @@
     <Compile Include="Results\IPurchaseResult.cs" />
     <Compile Include="Results\IPurchasesResult.cs" />
     <Compile Include="Results\IResult.cs" />
+    <Compile Include="Results\IReferralsCreateResult.cs" />
+    <Compile Include="Results\IReferralsGetDataResult.cs" />
     <Compile Include="Results\IRewardedVideoResult.cs" />
     <Compile Include="Results\IScheduleAppToUserNotificationResult.cs" />
     <Compile Include="Results\IShareResult.cs" />

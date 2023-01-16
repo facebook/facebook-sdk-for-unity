@@ -99,7 +99,9 @@ namespace Facebook.Unity
                 CallbackManager.TryCallCallback<IVirtualGamepadLayoutResult>(callback, result) ||
                 CallbackManager.TryCallCallback<IDialogResult>(callback, result) ||
                 CallbackManager.TryCallCallback<ILocaleResult>(callback, result) ||
-                CallbackManager.TryCallCallback<ISoftKeyboardOpenResult>(callback, result))
+                CallbackManager.TryCallCallback<ISoftKeyboardOpenResult>(callback, result) ||
+                CallbackManager.TryCallCallback<IReferralsCreateResult>(callback, result) ||
+                CallbackManager.TryCallCallback<IReferralsGetDataResult>(callback, result))
             {
                 return;
             }

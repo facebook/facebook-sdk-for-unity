@@ -286,6 +286,16 @@ namespace Facebook.Unity.Windows
             this.windowsWrapper.SetSoftKeyboardOpen(open, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
 
+        public void CreateReferral(string payload, FacebookDelegate<IReferralsCreateResult> callback)
+        {
+            this.windowsWrapper.CreateReferral(payload, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
+        public void GetDataReferral(FacebookDelegate<IReferralsGetDataResult> callback)
+        {
+            this.windowsWrapper.GetDataReferral(this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
         // Not supported by Windows SDK
         public override void AppRequest(string message, OGActionType? actionType, string objectId, IEnumerable<string> to, IEnumerable<object> filters, IEnumerable<string> excludeIds, int? maxRecipients, string data, string title, FacebookDelegate<IAppRequestResult> callback)
         {

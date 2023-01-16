@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [15.2.0]
 
+### Added
+- Windows platform methods
+    - FB.Windows.CreateReferral
+    - FB.Windows.GetDataReferral
+
+### Fixed
+- Payments price convertion to double
+- Improved mobile orientation enum for unity example
+
 ### Changed
 - Updated Windows SDK Dlls
 - Bumped android SDK versions to 15.2

@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Payments price convertion to double
 - Improved mobile orientation enum for unity example
+- Improved mobile Tournaments example
 
 ### Changed
 - Updated Windows SDK Dlls

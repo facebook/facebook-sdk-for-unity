@@ -22,7 +22,7 @@
 namespace Facebook.Unity.Example
 {
     using System;
-    using System.Collections;
+    using System.Collections.Generic;
     using UnityEngine;
 
     internal class TournamentsMenu : MenuBase
@@ -35,9 +35,9 @@ namespace Facebook.Unity.Example
             bool enabled = GUI.enabled;
             GUI.enabled = enabled && FB.IsLoggedIn;
 
-            if (this.Button("Get Tournaments"))
+            if (this.Button("Get Tournament"))
             {
-                FB.Mobile.GetTournaments(this.HandleResult);
+                FB.Mobile.GetTournaments(this.GetTournamentsHandleResult);
             }
 
             GUILayout.Space(24);
@@ -68,6 +68,49 @@ namespace Facebook.Unity.Example
             }
 
             GUI.enabled = enabled;
+        }
+
+        private void GetTournamentsHandleResult(IGetTournamentsResult result)
+        {
+            LogView.AddLog("Getting first tournament id...");
+
+            if (result == null)
+            {
+                this.tournamentID = "Empty result";
+                LogView.AddLog("NULL result");
+                return;
+            }
+
+            if (result.ResultDictionary != null)
+            {
+                string dic;
+                result.ResultDictionary.TryGetValue("0", out dic);
+                if (dic != null)
+                {
+                    LogView.AddLog("ResultDictionary");
+                    TournamentResult tournament = new TournamentResult(new ResultContainer(dic));
+                    if (tournament != null)
+                    {
+                        LogView.AddLog("Tournament info ready");
+                        this.tournamentID = tournament.TournamentId;
+                        LogView.AddLog("First id: " + this.tournamentID + " / " + tournament.TournamentTitle);
+                    }
+                    else
+                    {
+                        LogView.AddLog("No tournament info");
+                    }
+                }
+                else
+                {
+                    LogView.AddLog("No TryGetValue data");
+                }
+            }
+            else
+            {
+                this.tournamentID = "Empty result";
+                LogView.AddLog("Empty result");
+            }
+            this.HandleResult(result);
         }
     }
 }

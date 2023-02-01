@@ -575,6 +575,60 @@ namespace Facebook.Unity.Mobile.Android
             consumePurchase.Call(args);
         }
 
+        public override void GetSubscribableCatalog(
+            FacebookDelegate<ISubscribableCatalogResult> callback)
+        {
+            var getSubscribableCatalog = new JavaMethodCall<ISubscribableCatalogResult>(
+                this,
+                "GetSubscribableCatalog")
+            {
+                Callback = callback
+            };
+            getSubscribableCatalog.Call();
+        }
+
+        public override void GetSubscriptions(
+            FacebookDelegate<ISubscriptionsResult> callback)
+        {
+            var getSubscriptions = new JavaMethodCall<ISubscriptionsResult>(
+                this,
+                "GetSubscriptions")
+            {
+                Callback = callback
+            };
+            getSubscriptions.Call();
+        }
+
+        public override void PurchaseSubscription(
+            string productID,
+            FacebookDelegate<ISubscriptionResult> callback)
+        {
+            MethodArguments args = new MethodArguments();
+            args.AddString("productID", productID);
+            var subscription = new JavaMethodCall<ISubscriptionResult>(
+                this,
+                "PurchaseSubscription")
+            {
+                Callback = callback
+            };
+            subscription.Call(args);
+        }
+
+        public override void CancelSubscription(
+            string purchaseToken,
+            FacebookDelegate<ICancelSubscriptionResult> callback)
+        {
+            MethodArguments args = new MethodArguments();
+            args.AddString("purchaseToken", purchaseToken);
+            var cancelSubscription = new JavaMethodCall<ICancelSubscriptionResult>(
+                this,
+                "CancelSubscription")
+            {
+                Callback = callback
+            };
+            cancelSubscription.Call(args);
+        }
+
         public override void InitCloudGame(
             FacebookDelegate<IInitCloudGameResult> callback)
         {

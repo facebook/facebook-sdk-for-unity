@@ -1348,4 +1348,66 @@ public class FB {
             Log.e(TAG, ex.getLocalizedMessage());
         }
     }
+
+    @UnityCallable
+    public static void GetSubscribableCatalog(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnGetSubscribableCatalogComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+
+        InAppPurchaseLibrary.getSubscribableCatalog(
+            getUnityActivity().getApplicationContext(),
+            createDaemonCallback(unityMessage)
+        );
+    }
+
+    @UnityCallable
+    public static void GetSubscriptions(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnGetSubscriptionsComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+
+        InAppPurchaseLibrary.getSubscriptions(
+            getUnityActivity().getApplicationContext(),
+            createDaemonCallback(unityMessage)
+        );
+    }
+
+    @UnityCallable
+    public static void PurchaseSubscription(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnPurchaseSubscriptionComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+
+        String productID = unityParams.getString("productID");
+
+        InAppPurchaseLibrary.purchaseSubscription(
+            getUnityActivity().getApplicationContext(),
+            productID,
+            createDaemonCallback(unityMessage)
+        );
+    }
+
+    @UnityCallable
+    public static void CancelSubscription(String params_str) {
+        UnityParams unityParams = UnityParams.parse(params_str);
+        final UnityMessage unityMessage = new UnityMessage("OnCancelSubscriptionComplete");
+        if (unityParams.hasString("callback_id")) {
+            unityMessage.put("callback_id", unityParams.getString("callback_id"));
+        }
+
+        String purchaseToken = unityParams.getString("purchaseToken");
+
+        InAppPurchaseLibrary.cancelSubscription(
+            getUnityActivity().getApplicationContext(),
+            purchaseToken,
+            createDaemonCallback(unityMessage)
+        );
+    }
 }

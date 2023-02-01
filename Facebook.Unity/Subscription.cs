@@ -25,48 +25,70 @@ namespace Facebook.Unity
     using System.Linq;
 
     /// <summary>
-    /// Contains a Instant Game Purchase.
+    /// Represents the purchase of a subscription.
     /// </summary>
-    public class Purchase
+    public class Subscription
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Purchase"/> class.
+        /// Initializes a new instance of the <see cref="Subscription"/> class.
         /// </summary>
-        /// <param name="developerPayload">A developer-specified string, provided during the purchase of the product.</param>
-        /// <param name="isConsumed">Whether or not the purchase has been consumed.</param>
-        /// <param name="paymentActionType">The current status of the purchase.</param>
-        /// <param name="paymentID">The identifier for the purchase transaction.</param>
-        /// <param name="productID">The product's game-specified identifier.</param>
-        /// <param name="purchasePlatform">The purchase platform, such as "GOOGLE" or "FB".</param>
-        /// <param name="purchasePrice">Contains the local amount and currency associated with the purchased item.</param>
+        /// <param name="deactivationTime">The Unix timestamp of when the subscription entitlement will no longer be active,
+        /// if subscription is not renewed or is canceled. Otherwise, null </param>
+        /// <param name="isEntitlementActive">Whether or not the user is an active subscriber and should receive entitlement
+        /// to the subscription benefits.</param>
+        /// <param name="periodStartTime">The current start Unix timestamp of the latest billing cycle.</param>
+        /// <param name="periodEndTime">The current end Unix timestamp of the latest billing cycle.</param>
+        /// <param name="productID">The corresponding subscribable product's game-specified identifier.</param>
+        /// <param name="purchasePlatform">The platform associated with the purchase, such as "FB" for Facebook and "GOOGLE" for Google.</param>
+        /// <param name="purchasePrice">Contains the local amount and currency.</param>
         /// <param name="purchaseTime">Unix timestamp of when the purchase occurred.</param>
-        /// <param name="purchaseToken">A token representing the purchase that may be used to consume the purchase.</param>
+        /// <param name="purchaseToken">A token representing the purchase that may be used to cancel the subscription.</param>
         /// <param name="signedRequest">Server-signed encoding of the purchase request.</param>
-        internal Purchase(
-            string developerPayload,
-            bool isConsumed,
-            string paymentActionType,
-            string paymentID,
+        /// <param name="status">The status of the subscription, such as CANCELED.</param>
+        /// <param name="subscriptionTerm">The billing cycle of a subscription.</param>
+        internal Subscription(
+            long deactivationTime,
+            bool isEntitlementActive,
+            long periodStartTime,
+            long periodEndTime,
             string productID,
             string purchasePlatform,
             IDictionary<string, object> purchasePrice,
             long purchaseTime,
             string purchaseToken,
-            string signedRequest)
+            string signedRequest,
+            string status,
+            string subscriptionTerm)
         {
-            if (string.IsNullOrEmpty(paymentActionType))
-            {
-                throw new ArgumentNullException("paymentActionType");
+            int deactivationTimeInt;
+            try {
+                deactivationTimeInt = Convert.ToInt32(deactivationTime);
+            } catch (OverflowException) {
+                throw new ArgumentException("purchaseTime");
             }
 
-            if (string.IsNullOrEmpty(paymentID))
-            {
-                throw new ArgumentNullException("paymentID");
+            int periodStartTimeInt;
+            try {
+                periodStartTimeInt = Convert.ToInt32(periodStartTime);
+            } catch (OverflowException) {
+                throw new ArgumentException("periodStartTime");
+            }
+
+            int periodEndTimeInt;
+            try {
+                periodEndTimeInt = Convert.ToInt32(periodEndTime);
+            } catch (OverflowException) {
+                throw new ArgumentException("periodEndTime");
             }
 
             if (string.IsNullOrEmpty(productID))
             {
                 throw new ArgumentNullException("productID");
+            }
+
+            if (string.IsNullOrEmpty(purchasePlatform))
+            {
+                throw new ArgumentNullException("purchasePlatform");
             }
 
             int purchaseTimeInt;
@@ -86,40 +108,53 @@ namespace Facebook.Unity
                 throw new ArgumentNullException("signedRequest");
             }
 
-            this.DeveloperPayload = developerPayload;
-            this.PaymentActionType = paymentActionType;
-            this.PaymentID = paymentID;
+            if (string.IsNullOrEmpty(status))
+            {
+                throw new ArgumentNullException("status");
+            }
+
+            if (string.IsNullOrEmpty(subscriptionTerm))
+            {
+                throw new ArgumentNullException("subscriptionTerm");
+            }
+
+            this.DeactivationTime = Utilities.FromTimestamp(deactivationTimeInt);
+            this.IsEntitlementActive = isEntitlementActive;
+            this.PeriodStartTime = Utilities.FromTimestamp(periodStartTimeInt);
+            this.PeriodEndTime = Utilities.FromTimestamp(periodEndTimeInt);
             this.ProductID = productID;
             this.PurchasePlatform = purchasePlatform;
             this.PurchasePrice = new CurrencyAmount(purchasePrice["currency"].ToStringNullOk(), purchasePrice["amount"].ToStringNullOk());
             this.PurchaseTime = Utilities.FromTimestamp(purchaseTimeInt);
             this.PurchaseToken = purchaseToken;
             this.SignedRequest = signedRequest;
+            this.Status = status;
+            this.SubscriptionTerm = subscriptionTerm;
         }
 
         /// <summary>
-        /// Gets the developer payload string.
+        /// Gets the deactivation time.
         /// </summary>
-        /// <value>The developer payload string.</value>
-        public string DeveloperPayload { get; private set; }
+        /// <value>The deactivation time.</value>
+        public DateTime DeactivationTime { get; private set; }
 
         /// <summary>
-        /// Gets whether or not the purchase has been consumed.
+        /// Gets whether or not the entitlement is active.
         /// </summary>
-        /// <value>The consumed boolean.</value>
-        public bool IsConsumed { get; private set; }
+        /// <value>The entitlement status.</value>
+        public bool IsEntitlementActive { get; private set; }
 
         /// <summary>
-        /// Gets the purchase status.
+        /// Gets the period start time.
         /// </summary>
-        /// <value>The purchase status.</value>
-        public string PaymentActionType { get; private set; }
+        /// <value>The period start time.</value>
+        public DateTime PeriodStartTime { get; private set; }
 
         /// <summary>
-        /// Gets the purchase identifier.
+        /// Gets the period end time.
         /// </summary>
-        /// <value>The purchase identifier.</value>
-        public string PaymentID { get; private set; }
+        /// <value>The period end time.</value>
+        public DateTime PeriodEndTime { get; private set; }
 
         /// <summary>
         /// Gets the product identifier.
@@ -158,9 +193,21 @@ namespace Facebook.Unity
         public string SignedRequest { get; private set; }
 
         /// <summary>
-        /// Returns a <see cref="System.String"/> that represents a <see cref="Facebook.Unity.Purchase"/>.
+        /// Gets the subscription status.
         /// </summary>
-        /// <returns>A <see cref="System.String"/> that represents a <see cref="Facebook.Unity.Purchase"/>.</returns>
+        /// <value>The subscription status</value>
+        public string Status { get; private set; }
+
+        /// <summary>
+        /// Gets the subscription term.
+        /// </summary>
+        /// <value>The subscription term</value>
+        public string SubscriptionTerm { get; private set; }
+
+        /// <summary>
+        /// Returns a <see cref="System.String"/> that represents a <see cref="Facebook.Unity.Subscription"/>.
+        /// </summary>
+        /// <returns>A <see cref="System.String"/> that represents a <see cref="Facebook.Unity.Subscription"/>.</returns>
         public override string ToString()
         {
             return Utilities.FormatToString(
@@ -168,16 +215,18 @@ namespace Facebook.Unity
                 this.GetType().Name,
                 new Dictionary<string, string>()
                 {
-                    { "DeveloperPayload", this.DeveloperPayload.ToStringNullOk() },
-                    { "IsConsumed", this.IsConsumed.ToStringNullOk() },
-                    { "PaymentActionType", this.PaymentActionType },
-                    { "PaymentID", this.PaymentID },
+                    { "DeactivationTime", this.DeactivationTime.TotalSeconds().ToString() },
+                    { "IsEntitlementActive", this.IsEntitlementActive.ToStringNullOk() },
+                    { "PeriodStartTime", this.PeriodStartTime.TotalSeconds().ToString() },
+                    { "PeriodEndTime", this.PeriodEndTime.TotalSeconds().ToString() },
                     { "ProductID", this.ProductID },
                     { "PurchasePlatform", this.PurchasePlatform },
                     { "PurchasePrice", this.PurchasePrice.ToString() },
                     { "PurchaseTime", this.PurchaseTime.TotalSeconds().ToString() },
                     { "PurchaseToken", this.PurchaseToken },
                     { "SignedRequest", this.SignedRequest },
+                    { "Status", this.Status },
+                    { "SubscriptionTerm", this.SubscriptionTerm },
                 });
         }
     }

@@ -51,6 +51,7 @@
     <Compile Include="Assets/FacebookSDK/Examples/Mobile/Scripts/SubMenus/GraphRequest.cs" />
     <Compile Include="Assets/FacebookSDK/Examples/Mobile/Scripts/SubMenus/MainMenu.cs" />
     <Compile Include="Assets/FacebookSDK/Examples/Mobile/Scripts/SubMenus/Pay.cs" />
+    <Compile Include="Assets/FacebookSDK/Examples/Mobile/Scripts/SubMenus/Subscription.cs" />
     <Compile Include="Assets/FacebookSDK/Examples/Mobile/Scripts/SubMenus/TournamentsMenu.cs" />
     <Compile Include="Assets/FacebookSDK/Examples/Mobile/Scripts/SubMenus/UploadToMediaLibrary.cs" />
     <Compile Include="Assets/FacebookSDK/Examples/Mobile/Scripts/UIInputHelper.cs" />

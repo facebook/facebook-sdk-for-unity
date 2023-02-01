@@ -161,6 +161,26 @@ namespace Facebook.Unity.Windows
             this.windowsWrapper.ConsumePurchase(productToken, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
 
+        public override void GetSubscribableCatalog(FacebookDelegate<ISubscribableCatalogResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void GetSubscriptions(FacebookDelegate<ISubscriptionsResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void PurchaseSubscription(string productID, FacebookDelegate<ISubscriptionResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void CancelSubscription(string purchaseToken, FacebookDelegate<ICancelSubscriptionResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void CurrentProfile(FacebookDelegate<IProfileResult> callback)
         {
             this.windowsWrapper.CurrentProfile(this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);

@@ -191,7 +191,12 @@ namespace Facebook.Unity.Example
             {
                 this.SwitchMenu(typeof(UploadToMediaLibrary));
             }
-            
+
+            if (Constants.IsWeb && this.Button("Subscription"))
+            {
+                this.SwitchMenu(typeof(Subscription));
+            }
+
             GUILayout.EndVertical();
 
             GUI.enabled = enabled;
@@ -232,6 +237,10 @@ namespace Facebook.Unity.Example
                 scopes.Add("user_gender");
             }
 
+            if (Constants.IsWeb && this.Button("Subscription"))
+            {
+                this.SwitchMenu(typeof(Subscription));
+            }
 
             if (mode == LoginTracking.ENABLED)
             {

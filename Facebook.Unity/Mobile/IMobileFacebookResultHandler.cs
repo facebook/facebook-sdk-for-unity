@@ -42,6 +42,14 @@ namespace Facebook.Unity.Mobile
 
         void OnConsumePurchaseComplete(ResultContainer resultContainer);
 
+        void OnGetSubscribableCatalogComplete(ResultContainer resultContainer);
+
+        void OnGetSubscriptionsComplete(ResultContainer resultContainer);
+
+        void OnPurchaseSubscriptionComplete(ResultContainer resultContainer);
+
+        void OnCancelSubscriptionComplete(ResultContainer resultContainer);
+
         void OnInitCloudGameComplete(ResultContainer resultContainer);
 
         void OnGameLoadCompleteComplete(ResultContainer resultContainer);

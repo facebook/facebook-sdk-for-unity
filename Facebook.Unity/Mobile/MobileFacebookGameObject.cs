@@ -80,6 +80,26 @@ namespace Facebook.Unity.Mobile
             this.MobileFacebook.OnConsumePurchaseComplete(new ResultContainer(message));
         }
 
+        public void OnGetSubscribableCatalogComplete(string message)
+        {
+            this.MobileFacebook.OnGetSubscribableCatalogComplete(new ResultContainer(message));
+        }
+
+        public void OnGetSubscriptionsComplete(string message)
+        {
+            this.MobileFacebook.OnGetSubscriptionsComplete(new ResultContainer(message));
+        }
+
+        public void OnPurchaseSubscriptionComplete(string message)
+        {
+            this.MobileFacebook.OnPurchaseSubscriptionComplete(new ResultContainer(message));
+        }
+
+        public void OnCancelSubscriptionComplete(string message)
+        {
+            this.MobileFacebook.OnCancelSubscriptionComplete(new ResultContainer(message));
+        }
+
         public void OnInitCloudGameComplete(string message)
         {
             this.MobileFacebook.OnInitCloudGameComplete(new ResultContainer(message));

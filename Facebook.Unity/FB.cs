@@ -743,12 +743,32 @@ namespace Facebook.Unity
 
         public static void Purchase(string productID, FacebookDelegate<IPurchaseResult> callback, string developerPayload = "")
         {
-            FacebookImpl.Purchase(productID,callback,developerPayload);
+            FacebookImpl.Purchase(productID, callback, developerPayload);
         }
 
         public static void ConsumePurchase(string productToken, FacebookDelegate<IConsumePurchaseResult> callback)
         {
             FacebookImpl.ConsumePurchase(productToken, callback);
+        }
+
+        public static void GetSubscribableCatalog(FacebookDelegate<ISubscribableCatalogResult> callback)
+        {
+            FacebookImpl.GetSubscribableCatalog(callback);
+        }
+
+        public static void GetSubscriptions(FacebookDelegate<ISubscriptionsResult> callback)
+        {
+            FacebookImpl.GetSubscriptions(callback);
+        }
+
+        public static void PurchaseSubscription(string productID, FacebookDelegate<ISubscriptionResult> callback)
+        {
+            FacebookImpl.PurchaseSubscription(productID, callback);
+        }
+
+        public static void CancelSubscription(string purchaseToken, FacebookDelegate<ICancelSubscriptionResult> callback)
+        {
+            FacebookImpl.CancelSubscription(purchaseToken, callback);
         }
 
         public static Profile CurrentProfile()

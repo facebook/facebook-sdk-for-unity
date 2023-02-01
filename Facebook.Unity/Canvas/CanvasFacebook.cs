@@ -601,6 +601,26 @@ namespace Facebook.Unity.Canvas
             throw new NotImplementedException();
         }
 
+        public override void GetSubscribableCatalog(FacebookDelegate<ISubscribableCatalogResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void GetSubscriptions(FacebookDelegate<ISubscriptionsResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void PurchaseSubscription(string productID, FacebookDelegate<ISubscriptionResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void CancelSubscription(string productToken, FacebookDelegate<ICancelSubscriptionResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
         public override Profile CurrentProfile()
         {
             throw new NotImplementedException();

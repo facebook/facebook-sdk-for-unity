@@ -122,6 +122,14 @@ namespace Facebook.Unity
 
         void ConsumePurchase(string productToken, FacebookDelegate<IConsumePurchaseResult> callback);
 
+        void GetSubscribableCatalog(FacebookDelegate<ISubscribableCatalogResult> callback);
+
+        void GetSubscriptions(FacebookDelegate<ISubscriptionsResult> callback);
+
+        void PurchaseSubscription(string productToken, FacebookDelegate<ISubscriptionResult> callback);
+
+        void CancelSubscription(string purchaseToken, FacebookDelegate<ICancelSubscriptionResult> callback);
+
         Profile CurrentProfile();
 
         void CurrentProfile(FacebookDelegate<IProfileResult> callback);

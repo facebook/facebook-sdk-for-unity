@@ -5,21 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [15.2.0]
+## [16.0.0]
 
 ### Added
 - Windows platform methods
     - FB.Windows.CreateReferral
     - FB.Windows.GetDataReferral
+= Android Cloud
+    - Android Cloud Unity example
+    - Subscriptions payments methods
 
 ### Fixed
 - Payments price convertion to double
-- Improved mobile orientation enum for unity example
+- Improved mobile orientation enum for Unity example
 - Improved mobile Tournaments example
 
 ### Changed
+- Bumped SDK to 16.0.0
+- Bumped Android SDK versions to 16.0.0
+- Bumped iOS SDK versions to 16.0.0
+- Bumped Graph API version to 16.0
 - Updated Windows SDK Dlls
-- Bumped android SDK versions to 15.2
 
 ## [15.1.0]
 
@@ -304,7 +310,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Facebook Developer Docs: [Changelog v7.x](https://developers.facebook.com/docs/unity/change-log)
 
 <!-- Links -->
-[15.1.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-14.1.0...HEAD
+[16.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-15.1.0...HEAD
+[15.1.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-15.0.0...sdk-version-15.1.0
 [15.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-14.1.0...sdk-version-15.0.0
 [14.1.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-14.0.0...sdk-version-14.1.0
 [14.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-13.2.0...sdk-version-14.0.0

@@ -56,3 +56,13 @@ cp "$UNITY_CSPROJ/external-dependency-manager_version-1.2.166_manifest.txt" $UNI
 ## TO DO: obtain the dependency version dinamically
 sed s/_v1.2.166././g "$UNITY_CSPROJ/tmp.txt" > "$UNITY_CSPROJ/external-dependency-manager_version-1.2.166_manifest.txt"
 rm "$UNITY_CSPROJ/tmp.txt"
+
+mkdir -p "$UNITY_CSPROJ/1.2.166/"
+mv "$UNITY_CSPROJ/Google.IOSResolver.dll" "$UNITY_CSPROJ/1.2.166/Google.IOSResolver.dll"
+mv "$UNITY_CSPROJ/Google.IOSResolver.dll.mdb" "$UNITY_CSPROJ/1.2.166/Google.IOSResolver.dll.mdb"
+mv "$UNITY_CSPROJ/Google.JarResolver.dll" "$UNITY_CSPROJ/1.2.166/Google.JarResolver.dll"
+mv "$UNITY_CSPROJ/Google.JarResolver.dll.mdb" "$UNITY_CSPROJ/1.2.166/Google.JarResolver.dll.mdb"
+mv "$UNITY_CSPROJ/Google.PackageManagerResolver.dll" "$UNITY_CSPROJ/1.2.166/Google.PackageManagerResolver.dll"
+mv "$UNITY_CSPROJ/Google.PackageManagerResolver.dll.mdb" "$UNITY_CSPROJ/1.2.166/Google.PackageManagerResolver.dll.mdb"
+mv "$UNITY_CSPROJ/Google.VersionHandlerImpl.dll" "$UNITY_CSPROJ/1.2.166/Google.VersionHandlerImpl.dll"
+mv "$UNITY_CSPROJ/Google.VersionHandlerImpl.dll.mdb" "$UNITY_CSPROJ/1.2.166/Google.VersionHandlerImpl.dll.mdb"

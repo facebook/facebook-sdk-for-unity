@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Payments price convertion to double
 - Improved mobile orientation enum for Unity example
 - Improved mobile Tournaments example
+- Changed folder structure for External Dependecy Manager dlls
 
 ### Changed
 - Bumped SDK to 16.0.0

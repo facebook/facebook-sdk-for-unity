@@ -61,7 +61,7 @@ TestResult.xml
 /UnitySDK/Assets/PlayServicesResolver.meta
 /UnitySDK/Assets/PlayServicesResolver/
 /UnitySDK/Assets/ExternalDependencyManager.meta
-/UnitySDK/Assets/ExternalDependencyManager/
+/UnitySDK/Assets/ExternalDependencyManager/Editor.meta
 
 # Ignore Current Facebook Settings
 FacebookSettings.asset*

@@ -1,3 +1,5 @@
+Copyright (c) Meta Platforms, Inc. and affiliates.
+
 <a name='assembly'></a>
 # Facebook.Unity
 

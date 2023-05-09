@@ -146,9 +146,9 @@ namespace Facebook.Unity
         public DateTime PurchaseTime { get; private set; }
 
         /// <summary>
-        /// Gets the price.
+        /// Gets the purchase token.
         /// </summary>
-        /// <value>The price.</value>
+        /// <value>The purchase token.</value>
         public string PurchaseToken { get; private set; }
 
         /// <summary>

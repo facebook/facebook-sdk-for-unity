@@ -1,9 +1,11 @@
+Copyright (c) Meta Platforms, Inc. and affiliates.
+
 Facebook SDK for Unity
 ========================
 
 This open-source library allows you to integrate Facebook into your Unity app.
 
-Learn more about about the provided samples, documentation, integrating the SDK into your app, accessing source code, and more at https://developers.facebook.com/docs/unity
+Learn more about the provided samples, documentation, integrating the SDK into your app, accessing source code, and more at https://developers.facebook.com/docs/unity
 
 TRY IT OUT
 ----------
@@ -93,5 +95,9 @@ DEVELOPER TERMS
 - If you use a Facebook integration, including to share information with us, you agree and confirm that you have provided appropriate and sufficiently prominent notice to and obtained the appropriate consent from your users regarding such collection, use, and disclosure (including, at a minimum, through your privacy policy). You further agree that you will not share information with us about children under the age of 13.
 
 - You agree to comply with all applicable laws and regulations and also agree to our Terms (https://www.facebook.com/policies/), including our Platform Policies (https://developers.facebook.com/policy/) and Advertising Guidelines, as applicable (https://www.facebook.com/ad_guidelines.php).
+
+- Open source Terms of Use - https://opensource.fb.com/legal/terms
+
+- Open source Privacy Policy - https://opensource.fb.com/legal/privacy
 
 By using the Facebook SDK for Unity you agree to these terms.

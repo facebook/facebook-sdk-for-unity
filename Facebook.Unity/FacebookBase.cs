@@ -280,6 +280,14 @@ namespace Facebook.Unity
 
         public abstract void ConsumePurchase(string productToken, FacebookDelegate<IConsumePurchaseResult> callback);
 
+        public abstract void GetSubscribableCatalog(FacebookDelegate<ISubscribableCatalogResult> callback);
+
+        public abstract void GetSubscriptions(FacebookDelegate<ISubscriptionsResult> callback);
+
+        public abstract void PurchaseSubscription(string productToken, FacebookDelegate<ISubscriptionResult> callback);
+
+        public abstract void CancelSubscription(string purchaseToken, FacebookDelegate<ICancelSubscriptionResult> callback);
+
         public abstract Profile CurrentProfile();
 
         public abstract void CurrentProfile(FacebookDelegate<IProfileResult> callback);
@@ -293,21 +301,21 @@ namespace Facebook.Unity
         public abstract void ShowRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback);
 
         public abstract void OpenFriendFinderDialog(FacebookDelegate<IGamingServicesFriendFinderResult> callback);
-        
+
         public abstract void GetFriendFinderInvitations(FacebookDelegate<IFriendFinderInvitationResult> callback);
-        
+
         public abstract void DeleteFriendFinderInvitation(string invitationId, FacebookDelegate<IFriendFinderInvitationResult> callback);
 
         public abstract void ScheduleAppToUserNotification(string title, string body, Uri media, int timeInterval, string payload, FacebookDelegate<IScheduleAppToUserNotificationResult> callback);
-        
+
         public abstract void PostSessionScore(int score, FacebookDelegate<ISessionScoreResult> callback);
-        
+
         public abstract void PostTournamentScore(int score, FacebookDelegate<ITournamentScoreResult> callback);
-        
+
         public abstract void GetTournament(FacebookDelegate<ITournamentResult> callback);
-        
+
         public abstract void ShareTournament(int score, Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback);
-        
+
         public abstract void CreateTournament(int initialScore, string title, string imageBase64DataUrl, string sortOrder, string scoreFormat, Dictionary<string, string> data, FacebookDelegate<ITournamentResult> callback);
 
         public abstract void UploadImageToMediaLibrary(string caption, Uri imageUri, bool shouldLaunchMediaDialog, FacebookDelegate<IMediaUploadResult> callback);

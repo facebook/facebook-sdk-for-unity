@@ -743,12 +743,32 @@ namespace Facebook.Unity
 
         public static void Purchase(string productID, FacebookDelegate<IPurchaseResult> callback, string developerPayload = "")
         {
-            FacebookImpl.Purchase(productID,callback,developerPayload);
+            FacebookImpl.Purchase(productID, callback, developerPayload);
         }
 
         public static void ConsumePurchase(string productToken, FacebookDelegate<IConsumePurchaseResult> callback)
         {
             FacebookImpl.ConsumePurchase(productToken, callback);
+        }
+
+        public static void GetSubscribableCatalog(FacebookDelegate<ISubscribableCatalogResult> callback)
+        {
+            FacebookImpl.GetSubscribableCatalog(callback);
+        }
+
+        public static void GetSubscriptions(FacebookDelegate<ISubscriptionsResult> callback)
+        {
+            FacebookImpl.GetSubscriptions(callback);
+        }
+
+        public static void PurchaseSubscription(string productID, FacebookDelegate<ISubscriptionResult> callback)
+        {
+            FacebookImpl.PurchaseSubscription(productID, callback);
+        }
+
+        public static void CancelSubscription(string purchaseToken, FacebookDelegate<ICancelSubscriptionResult> callback)
+        {
+            FacebookImpl.CancelSubscription(purchaseToken, callback);
         }
 
         public static Profile CurrentProfile()
@@ -1412,6 +1432,23 @@ namespace Facebook.Unity
             public static void SetSoftKeyboardOpen(bool open, FacebookDelegate<ISoftKeyboardOpenResult> callback)
             {
                 Windows.WindowsFacebookImpl.SetSoftKeyboardOpen(open, callback);
+            }
+
+            /// <summary>
+            /// Create a referral link
+            /// </summary>
+            /// <param name="payload">Custom payload to get by the game</param>
+            public static void CreateReferral(string payload, FacebookDelegate<IReferralsCreateResult> callback)
+            {
+                Windows.WindowsFacebookImpl.CreateReferral(payload, callback);
+            }
+
+            /// <summary>
+            /// Get Data from referral link
+            /// </summary>
+            public static void GetDataReferral(FacebookDelegate<IReferralsGetDataResult> callback)
+            {
+                Windows.WindowsFacebookImpl.GetDataReferral(callback);
             }
         }
 

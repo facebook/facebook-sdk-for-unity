@@ -247,10 +247,12 @@ cat "$TEMP_FILE"
 
 # Checking paths
 printf "\n"
-declare -a directories=("UNITY_MANAGED_DIR" "UNITY_UI_DIR" "UNITY_ENGINE_DIR" "UNITY_EXTENSIONS_DIR" "UNITY_NETWORKING_DIR")
+directories=("UNITY_MANAGED_DIR" "UNITY_UI_DIR" "UNITY_ENGINE_DIR" "UNITY_EXTENSIONS_DIR" "UNITY_NETWORKING_DIR")
 for TAG in "${directories[@]}"
 do
-    DIRECTORY=$(awk "/\<$TAG\>/, /\<\/$TAG\>/" "$TEMP_FILE" | sed -e "s/\<$TAG\>\(.*\)\<\/$TAG\>/\1/" | xargs)
+    echo $TAG
+    DIRECTORY_ARRAY=($(awk "/\<$TAG\>/, /\<\/$TAG\>/" "$TEMP_FILE" | sed -e "s/\<$TAG\>\(.*\)\<\/$TAG\>/\1/" | xargs))
+    DIRECTORY="${DIRECTORY_ARRAY[0]}"
     if [ "$DIRECTORY" != 'NONE' ]; then
         if [ ! -d "$DIRECTORY" ]; then
             echo "Path $DIRECTORY not found."
@@ -302,7 +304,7 @@ fi
 
 # Fix projects files
 printf "\n"
-declare -a projects=("Facebook.Unity" "Facebook.Unity.Settings" "Facebook.Unity.Android" "Facebook.Unity.Canvas" "Facebook.Unity.Editor" "Facebook.Unity.Tests" "UnitySDK" "Facebook.Unity.Windows")
+projects=("Facebook.Unity" "Facebook.Unity.Settings" "Facebook.Unity.Android" "Facebook.Unity.Canvas" "Facebook.Unity.Editor" "Facebook.Unity.Tests" "UnitySDK" "Facebook.Unity.Windows")
 for PROJECT in "${projects[@]}"
 do
     printf "Project: %s \n" "$PROJECT"

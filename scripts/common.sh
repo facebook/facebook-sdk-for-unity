@@ -45,8 +45,8 @@ SDK_VERSION_MAJOR=$(echo "$SDK_VERSION_RAW" | awk -F'.' '{print $1}')
 SDK_VERSION_MAJOR=${SDK_VERSION_MAJOR:-0}
 SDK_VERSION_MINOR=$(echo "$SDK_VERSION_RAW" | awk -F'.' '{print $2}')
 SDK_VERSION_MINOR=${SDK_VERSION_MINOR:-0}
-SDK_VERSION_REVISION=$(echo "$SDK_VERSION_RAW" | awk -F'.' '{print $3}')
-SDK_VERSION_REVISION=${SDK_VERSION_REVISION:-0}
+SDK_VERSION_REVISION=$(echo "$SDK_VERSION_RAW" | awk -F'.' '{print $3}' | tr -d '\r')
+# SDK_VERSION_REVISION=${SDK_VERSION_REVISION:-0}
 export SDK_VERSION=$SDK_VERSION_MAJOR.$SDK_VERSION_MINOR.$SDK_VERSION_REVISION
 
 UNITY_JAR_RESOLVER_NAME='unity-jar-resolver'
@@ -59,14 +59,15 @@ export OUT="$PROJECT_ROOT/out"
 
 # Read UnityReferences.xml and extract unity executable path
 set_unity_path_from_settings() {
-  UNITY_VERSION=$(awk "/\<UNITY_VERSION\>/, /\<\/UNITY_VERSION\>/" UnityReferences.xml | sed -e "s/\<UNITY_VERSION\>\(.*\)\<\/UNITY_VERSION\>/\1/" | xargs)
+  UNITY_VERSION_ARRAY=($(awk "/\<UNITY_VERSION\>/, /\<\/UNITY_VERSION\>/" UnityReferences.xml | sed -e "s/\<UNITY_VERSION\>\(.*\)\<\/UNITY_VERSION\>/\1/" | xargs))
+  UNITY_VERSION="${UNITY_VERSION_ARRAY[0]}"
   if [ "$UNITY_VERSION" == 'NONE' ]; then
     echo "!Unity project not configured. Please, execute ./configure.sh to set Unity version."
     exit 1
   fi
   UNITY_CONFIG=$(sed -n "/\<PropertyGroup Condition=\"\'\$(UNITY_VERSION)\' == \'$UNITY_VERSION\'\"\>/,/<\/PropertyGroup>/p" UnityReferences.xml | grep -v PropertyGroup)
-  MANAGED=$(awk "/\<UNITY_MANAGED_DIR\>/, /\<\/UNITY_MANAGED_DIR\>/" <<< "$UNITY_CONFIG" | sed -e "s/\<UNITY_MANAGED_DIR\>\(.*\)\<\/UNITY_MANAGED_DIR\>/\1/" | xargs)
-  UNITY_PATH=$(sed "s/Managed\//MacOS\/Unity/" <<< "$MANAGED")
+  MANAGED=($(awk "/\<UNITY_MANAGED_DIR\>/, /\<\/UNITY_MANAGED_DIR\>/" <<< "$UNITY_CONFIG" | sed -e "s/\<UNITY_MANAGED_DIR\>\(.*\)\<\/UNITY_MANAGED_DIR\>/\1/" | xargs))
+  UNITY_PATH=$(sed "s/Managed\//MacOS\/Unity/" <<< "${MANAGED[0]}")
   if [ ! -f "$UNITY_PATH" ]; then
       echo "Unity executable $UNITY_PATH not found."
       exit 1

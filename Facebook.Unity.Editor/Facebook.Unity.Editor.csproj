@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Google.VersionHandler">
-      <HintPath>..\UnitySDK\Assets\PlayServicesResolver\Editor\Google.VersionHandler.dll</HintPath>
+      <HintPath>..\UnitySDK\Assets\ExternalDependencyManager\Editor\Google.VersionHandler.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

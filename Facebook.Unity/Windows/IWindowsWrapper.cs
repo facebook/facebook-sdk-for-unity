@@ -82,5 +82,9 @@ namespace Facebook.Unity.Windows
         void GetUserLocale(string callbackId, CallbackManager callbackManager);
 
         void SetSoftKeyboardOpen(bool open, string callbackId, CallbackManager callbackManager);
+
+        void CreateReferral(string payload, string callbackId, CallbackManager callbackManager);
+
+        void GetDataReferral(string callbackId, CallbackManager callbackManager);
     }
 }

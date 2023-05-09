@@ -42,6 +42,14 @@ namespace Facebook.Unity.Mobile
 
         void OnConsumePurchaseComplete(string message);
 
+        void OnGetSubscribableCatalogComplete(string message);
+
+        void OnGetSubscriptionsComplete(string message);
+
+        void OnPurchaseSubscriptionComplete(string message);
+
+        void OnCancelSubscriptionComplete(string message);
+
         void OnInitCloudGameComplete(string message);
 
         void OnGameLoadCompleteComplete(string message);

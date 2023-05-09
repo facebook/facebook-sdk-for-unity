@@ -31,7 +31,6 @@ namespace Facebook.Unity.Editor
         private const string SDKPath = "Assets/FacebookSDK/SDK/";
         private const string ExamplesPath = "Assets/FacebookSDK/Examples/";
         private const string PluginsPath = "Assets/FacebookSDK/Plugins/";
-        private const string PlayServicesResolverPath = "Assets/PlayServicesResolver/";
         private const string StreamingAssetsPath = "Assets/StreamingAssets/";
         private const string ExternalDependencyManagerPath = "Assets/ExternalDependencyManager/";
         private const string EditorPath = "Assets/Editor/";
@@ -86,21 +85,19 @@ namespace Facebook.Unity.Editor
                 string[] sdkFiles = (string[])Directory.GetFiles(SDKPath, "*.*", SearchOption.AllDirectories);
                 string[] exampleFiles = (string[])Directory.GetFiles(ExamplesPath, "*.*", SearchOption.AllDirectories);
                 string[] pluginsFiles = (string[])Directory.GetFiles(PluginsPath, "*.*", SearchOption.AllDirectories);
-                string[] playServicesResolverFiles = (string[])Directory.GetFiles(PlayServicesResolverPath, "*.*", SearchOption.AllDirectories);
                 string[] streamingAssetsFiles = (string[])Directory.GetFiles(StreamingAssetsPath, "*.*", SearchOption.AllDirectories);
                 string[] externalDependencyManagerFiles = (string[])Directory.GetFiles(ExternalDependencyManagerPath, "*.*", SearchOption.AllDirectories);
                 string[] editorFiles = (string[])Directory.GetFiles(EditorPath, "*.*", SearchOption.AllDirectories);
 
-                string[] files = new string[facebookFiles.Length + sdkFiles.Length + exampleFiles.Length + pluginsFiles.Length + playServicesResolverFiles.Length + streamingAssetsFiles.Length + externalDependencyManagerFiles.Length + editorFiles.Length];
+                string[] files = new string[facebookFiles.Length + sdkFiles.Length + exampleFiles.Length + pluginsFiles.Length + streamingAssetsFiles.Length + externalDependencyManagerFiles.Length + editorFiles.Length];
 
                 facebookFiles.CopyTo(files, 0);
                 sdkFiles.CopyTo(files, facebookFiles.Length);
                 exampleFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length);
                 pluginsFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length + exampleFiles.Length);
-                playServicesResolverFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length + exampleFiles.Length + pluginsFiles.Length);
-                streamingAssetsFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length + exampleFiles.Length + pluginsFiles.Length + playServicesResolverFiles.Length);
-                externalDependencyManagerFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length + exampleFiles.Length + pluginsFiles.Length + playServicesResolverFiles.Length+ streamingAssetsFiles.Length);
-                editorFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length + exampleFiles.Length + pluginsFiles.Length + playServicesResolverFiles.Length+ streamingAssetsFiles.Length + externalDependencyManagerFiles.Length);
+                streamingAssetsFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length + exampleFiles.Length + pluginsFiles.Length);
+                externalDependencyManagerFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length + exampleFiles.Length + pluginsFiles.Length + streamingAssetsFiles.Length);
+                editorFiles.CopyTo(files, sdkFiles.Length + facebookFiles.Length + exampleFiles.Length + pluginsFiles.Length + streamingAssetsFiles.Length + externalDependencyManagerFiles.Length);
 
                 AssetDatabase.ExportPackage(
                     files,

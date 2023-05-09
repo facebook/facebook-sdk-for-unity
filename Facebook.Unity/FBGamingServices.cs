@@ -114,6 +114,22 @@ namespace Facebook.Unity
             MobileFacebookImpl.ConsumePurchase(purchaseToken, callback);
         }
 
+        public static void GetSubscribableCatalog(FacebookDelegate<ISubscribableCatalogResult> callback) {
+            MobileFacebookImpl.GetSubscribableCatalog(callback);
+        }
+
+        public static void GetSubscriptions(FacebookDelegate<ISubscriptionsResult> callback) {
+            MobileFacebookImpl.GetSubscriptions(callback);
+        }
+
+        public static void PurchaseSubscription(string productID, FacebookDelegate<ISubscriptionResult> callback) {
+            MobileFacebookImpl.PurchaseSubscription(productID, callback);
+        }
+
+        public static void CancelSubscription(string purchaseToken, FacebookDelegate<ICancelSubscriptionResult> callback) {
+            MobileFacebookImpl.CancelSubscription(purchaseToken, callback);
+        }
+
         public static void InitCloudGame(
             FacebookDelegate<IInitCloudGameResult> callback)
         {

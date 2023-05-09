@@ -25,5 +25,9 @@ namespace Facebook.Unity.Windows
         void SetVirtualGamepadLayout(string layout, FacebookDelegate<IVirtualGamepadLayoutResult> callback);
 
         void SetSoftKeyboardOpen(bool open, FacebookDelegate<ISoftKeyboardOpenResult> callback);
+
+        void CreateReferral(string payload, FacebookDelegate<IReferralsCreateResult> callback);
+
+        void GetDataReferral(FacebookDelegate<IReferralsGetDataResult> callback);
     }
 }

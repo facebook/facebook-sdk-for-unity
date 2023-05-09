@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 apply plugin: 'com.android.library'
 
 allprojects {
@@ -32,7 +39,7 @@ buildscript {
     }
 }
 
-def fbSdkVersion = project.hasProperty("sdkVersion") ? sdkVersion : '15.1.0'
+def fbSdkVersion = project.hasProperty("sdkVersion") ? sdkVersion : '16.0.0'
 
 repositories {
     // use skycastle custom repo
@@ -54,7 +61,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.facebook.android:facebook-android-sdk:[15.1.0,16)'
+    implementation 'com.facebook.android:facebook-android-sdk:[16.0.0,17)'
 
     // enable local testing
     if (project.hasProperty("localRepo")) {

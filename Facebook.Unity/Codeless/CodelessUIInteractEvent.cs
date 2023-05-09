@@ -31,8 +31,6 @@ namespace Facebook.Unity
 
         void Awake ()
         {
-            Debug.LogWarning("This example uses Unity Engine OLD input system. If you are using new Input System and you want to use this example, please set your input configuration to BOTH.");
-
             switch (Constants.CurrentPlatform) {
             case FacebookUnityPlatform.Android:
                 SetLoggerInitAndroid ();

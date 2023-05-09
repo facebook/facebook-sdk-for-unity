@@ -161,6 +161,26 @@ namespace Facebook.Unity.Windows
             this.windowsWrapper.ConsumePurchase(productToken, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
 
+        public override void GetSubscribableCatalog(FacebookDelegate<ISubscribableCatalogResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void GetSubscriptions(FacebookDelegate<ISubscriptionsResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void PurchaseSubscription(string productID, FacebookDelegate<ISubscriptionResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void CancelSubscription(string purchaseToken, FacebookDelegate<ICancelSubscriptionResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void CurrentProfile(FacebookDelegate<IProfileResult> callback)
         {
             this.windowsWrapper.CurrentProfile(this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
@@ -284,6 +304,16 @@ namespace Facebook.Unity.Windows
         public void SetSoftKeyboardOpen(bool open, FacebookDelegate<ISoftKeyboardOpenResult> callback)
         {
             this.windowsWrapper.SetSoftKeyboardOpen(open, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
+        public void CreateReferral(string payload, FacebookDelegate<IReferralsCreateResult> callback)
+        {
+            this.windowsWrapper.CreateReferral(payload, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+        }
+
+        public void GetDataReferral(FacebookDelegate<IReferralsGetDataResult> callback)
+        {
+            this.windowsWrapper.GetDataReferral(this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
 
         // Not supported by Windows SDK

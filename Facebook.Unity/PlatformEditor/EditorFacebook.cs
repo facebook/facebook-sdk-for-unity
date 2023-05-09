@@ -419,6 +419,31 @@ namespace Facebook.Unity.Editor
             CallbackManager.OnFacebookResponse(result);
         }
 
+        public void OnGetSubscribableCatalogComplete(ResultContainer resultContainer)
+        {
+            var result = new SubscribableCatalogResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnGetSubscriptionsComplete(ResultContainer resultContainer)
+        {
+            var result = new SubscriptionsResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+
+        }
+
+        public void OnPurchaseSubscriptionComplete(ResultContainer resultContainer)
+        {
+            var result = new SubscriptionResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnCancelSubscriptionComplete(ResultContainer resultContainer)
+        {
+            var result = new CancelSubscriptionResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
         public void OnInitCloudGameComplete(ResultContainer resultContainer)
         {
             var result = new InitCloudGameResult(resultContainer);
@@ -616,25 +641,53 @@ namespace Facebook.Unity.Editor
         public override void GetCatalog(FacebookDelegate<ICatalogResult> callback)
         {
             var result = new Dictionary<string, object>();
-            result["success"] = "[{\"productID\":\"123\",\"title\":\"item\",\"price\":\"$0.99\",\"priceCurrencyCode\":\"USD\"}]";
+            result["success"] = "[{\"productID\":\"123\",\"title\":\"item\",\"price\":\"$0.99\",\"priceAmount\":\"0.99\",\"priceCurrencyCode\":\"USD\"}]";
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 
         public override void GetPurchases(FacebookDelegate<IPurchasesResult> callback)
         {
             var result = new Dictionary<string, object>();
-            result["success"] = "[{\"isConsumed\":\"false\",\"paymentID\":\"2607915835989565\",\"productID\":\"123\",\"purchaseTime\":\"1583797821\":\"purchaseToken\":\"1655700687901784\",\"signedRequest\":\"abc123ZYZ\"}]";
+            result["success"] = "[{\"isConsumed\":\"false\",\"paymentID\":\"2607915835989565\",\"productID\":\"123\",\"purchasePlatform\":\"FB\",\"purchaseTime\":\"1583797821\":\"purchaseToken\":\"1655700687901784\",\"signedRequest\":\"abc123ZYZ\"}]";
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 
         public override void Purchase(string productID, FacebookDelegate<IPurchaseResult> callback, string developerPayload = "")
         {
             var result = new Dictionary<string, object>();
-            result["success"] = "{\"isConsumed\":\"false\",\"paymentID\":\"2607915835989565\",\"productID\":\"123\",\"purchaseTime\":\"1583797821\",\"purchaseToken\":\"1655700687901784\",\"signedRequest\":\"XZZ9xQDHOGulfhZMRVQ8UC-TadAqFrueYveAAqxock.eyJhbGdvcm10aG0iOiJITUFDLVNIQTI1Nilslm...\"}";
+            result["success"] = "{\"isConsumed\":\"false\",\"paymentID\":\"2607915835989565\",\"productID\":\"123\",\"purchasePlatform\":\"FB\",\"purchaseTime\":\"1583797821\",\"purchaseToken\":\"1655700687901784\",\"signedRequest\":\"XZZ9xQDHOGulfhZMRVQ8UC-TadAqFrueYveAAqxock.eyJhbGdvcm10aG0iOiJITUFDLVNIQTI1Nilslm...\"}";
             result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
         }
 
-        public override void ConsumePurchase(string productID, FacebookDelegate<IConsumePurchaseResult> callback)
+        public override void ConsumePurchase(string purchaseToken, FacebookDelegate<IConsumePurchaseResult> callback)
+        {
+            var result = new Dictionary<string, object>();
+            result["success"] = "";
+            result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
+        }
+
+        public override void GetSubscribableCatalog(FacebookDelegate<ISubscribableCatalogResult> callback)
+        {
+            var result = new Dictionary<string, object>();
+            result["success"] = "[{\"productID\":\"123\",\"title\":\"item\",\"price\":\"$0.99\",\"priceAmount\":\"0.99\",\"priceCurrencyCode\":\"USD\",\"subscriptionTerm\":\"MONTHLY\"}]";
+            result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
+        }
+
+        public override void GetSubscriptions(FacebookDelegate<ISubscriptionsResult> callback)
+        {
+            var result = new Dictionary<string, object>();
+            result["success"] = "[{\"deactivationTime\":\"15887857836\",\"isEntitlementActive\":\"true\",\"periodStartTime\":\"1583797821\",\"periodStartTime\":\"1584516124\",\"productID\":\"123\",\"purchasePlatform\":\"FB\",\"purchaseTime\":\"1583797821\":\"purchaseToken\":\"1655700687901784\",\"stats\":\"ACTIVE\",\"signedRequest\":\"abc123ZYZ\",\"subscriptionTerm\":\"MONTHLY\"}]";
+            result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
+        }
+
+        public override void PurchaseSubscription(string productID, FacebookDelegate<ISubscriptionResult> callback)
+        {
+            var result = new Dictionary<string, object>();
+            result["success"] = "{\"deactivationTime\":\"15887857836\",\"isEntitlementActive\":\"true\",\"periodStartTime\":\"1583797821\",\"periodStartTime\":\"1584516124\",\"productID\":\"123\",\"purchasePlatform\":\"FB\",\"purchaseTime\":\"1583797821\":\"purchaseToken\":\"1655700687901784\",\"stats\":\"ACTIVE\",\"signedRequest\":\"abc123ZYZ\",\"subscriptionTerm\":\"MONTHLY\"}";
+            result[Constants.CallbackIdKey] = this.CallbackManager.AddFacebookDelegate(callback);
+        }
+
+        public override void CancelSubscription(string purchaseToken, FacebookDelegate<ICancelSubscriptionResult> callback)
         {
             var result = new Dictionary<string, object>();
             result["success"] = "";

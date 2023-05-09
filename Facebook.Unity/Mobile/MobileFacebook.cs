@@ -197,6 +197,31 @@ namespace Facebook.Unity.Mobile
             CallbackManager.OnFacebookResponse(result);
         }
 
+        public void OnGetSubscribableCatalogComplete(ResultContainer resultContainer)
+        {
+            var result = new SubscribableCatalogResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnGetSubscriptionsComplete(ResultContainer resultContainer)
+        {
+            var result = new SubscriptionsResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+
+        }
+
+        public void OnPurchaseSubscriptionComplete(ResultContainer resultContainer)
+        {
+            var result = new SubscriptionResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
+        public void OnCancelSubscriptionComplete(ResultContainer resultContainer)
+        {
+            var result = new CancelSubscriptionResult(resultContainer);
+            CallbackManager.OnFacebookResponse(result);
+        }
+
         public void OnInitCloudGameComplete(ResultContainer resultContainer)
         {
             var result = new InitCloudGameResult(resultContainer);
@@ -383,6 +408,32 @@ namespace Facebook.Unity.Mobile
         public override void ConsumePurchase(
             string purchaseToken,
             FacebookDelegate<IConsumePurchaseResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void GetSubscribableCatalog(
+            FacebookDelegate<ISubscribableCatalogResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void GetSubscriptions(
+            FacebookDelegate<ISubscriptionsResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void PurchaseSubscription(
+            string productToken,
+            FacebookDelegate<ISubscriptionResult> callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void CancelSubscription(
+            string purchaseToken,
+            FacebookDelegate<ICancelSubscriptionResult> callback)
         {
             throw new NotImplementedException();
         }

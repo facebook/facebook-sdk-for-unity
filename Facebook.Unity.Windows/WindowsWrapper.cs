@@ -681,5 +681,41 @@ namespace Facebook.Unity.Windows
                     callbackManager.OnFacebookResponse(result);
                 });
         }
+
+        public void CreateReferral(string payload, string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Referrals.createReferral(payload,
+                (fbg.CreateReferralResult success) =>
+                {
+                    Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                        { Constants.CallbackIdKey, callbackId },
+                        { "raw", success.Raw },
+                        { "referral_link", success.ReferralLink },
+                    };
+                    callbackManager.OnFacebookResponse(new ReferralsCreateResult(new ResultContainer(resultDict)));
+                }, (fbg.Error error) =>
+                {
+                    ReferralsCreateResult result = new ReferralsCreateResult(WindowsParserBase.SetError(error, callbackId));
+                    callbackManager.OnFacebookResponse(result);
+                });
+        }
+
+        public void GetDataReferral(string callbackId, CallbackManager callbackManager)
+        {
+            fbg.Referrals.getDataReferral(
+                (fbg.GetDataReferralResult success) =>
+                {
+                    Dictionary<string, object> resultDict = new Dictionary<string, object>() {
+                        { Constants.CallbackIdKey, callbackId },
+                        { "raw", success.Raw },
+                        { "payload", success.Payload },
+                    };
+                    callbackManager.OnFacebookResponse(new ReferralsGetDataResult(new ResultContainer(resultDict)));
+                }, (fbg.Error error) =>
+                {
+                    ReferralsGetDataResult result = new ReferralsGetDataResult(WindowsParserBase.SetError(error, callbackId));
+                    callbackManager.OnFacebookResponse(result);
+                });
+        }
     }
 }

@@ -288,6 +288,39 @@ namespace Facebook.Unity
             return new Product(title, productID, description, imageURI, price, priceAmount, priceCurrencyCode);
         }
 
+        public static IList<SubscribableProduct> ParseSubscribableCatalogFromResult(IDictionary<string, object> resultDictionary)
+        {
+            object catalogObject;
+            IList<SubscribableProduct> subscribableProducts = new List<SubscribableProduct>();
+
+            if (resultDictionary.TryGetValue("success", out catalogObject))
+            {
+                IList<object> deserializedCatalogObject = (IList<object>) MiniJSON.Json.Deserialize(catalogObject as string);
+                foreach (IDictionary<string, object> subscribableProduct in deserializedCatalogObject) {
+                    subscribableProducts.Add(ParseSubscribableProductFromCatalogResult(subscribableProduct));
+                }
+                return subscribableProducts;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static SubscribableProduct ParseSubscribableProductFromCatalogResult(IDictionary<string, object> product, bool isWindows = false)
+        {
+            string title = product["title"].ToStringNullOk();
+            string productID = product[isWindows ? "product_id" : "productID"].ToStringNullOk();
+            string description = product.ContainsKey("description") ? product["description"].ToStringNullOk():"";
+            string imageURI = product.ContainsKey(isWindows ? "image_uri" : "imageURI") ? product[isWindows ? "image_uri" : "imageURI"].ToStringNullOk() : "";
+            string price = product["price"].ToStringNullOk();
+            double? priceAmount = product.ContainsKey(isWindows ? "price_amount" : "priceAmount") ? (double?)product[isWindows ? "price_amount" : "priceAmount"] : null;
+            string priceCurrencyCode = product[isWindows ? "price_currency_code" : "priceCurrencyCode"].ToStringNullOk();
+            string subscriptionTerm = product[isWindows ? "subscription_term" : "subscriptionTerm"].ToStringNullOk();
+
+            return new SubscribableProduct(title, productID, description, imageURI, price, priceAmount, priceCurrencyCode, subscriptionTerm);
+        }
+
         public static IList<Purchase> ParsePurchasesFromResult(IDictionary<string, object> resultDictionary)
         {
             object purchasesObject;
@@ -322,8 +355,41 @@ namespace Facebook.Unity
             }
         }
 
-        public static Purchase ParsePurchaseFromDictionary(IDictionary<string, object> purchase, bool isWindows = false) {
+        public static IList<Subscription> ParseSubscriptionsFromResult(IDictionary<string, object> resultDictionary)
+        {
+            object subscriptionsObject;
+            IList<Subscription> subscriptions = new List<Subscription>();
 
+            if (resultDictionary.TryGetValue("success", out subscriptionsObject))
+            {
+                IList<object> deserializedSubscriptionsObject = (IList<object>) MiniJSON.Json.Deserialize(subscriptionsObject as string);
+                foreach (IDictionary<string, object> subscription in (List<object>) deserializedSubscriptionsObject) {
+                    subscriptions.Add(ParseSubscriptionFromDictionary(subscription));
+                }
+
+                return subscriptions;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static Subscription ParseSubscriptionFromResult(IDictionary<string, object> resultDictionary)
+        {
+            object subscriptionObject;
+            if (resultDictionary.TryGetValue("success", out subscriptionObject))
+            {
+                IDictionary<string, object> deserializedSubscriptionObject = (IDictionary<string, object>) MiniJSON.Json.Deserialize(subscriptionObject as string);
+                return ParseSubscriptionFromDictionary(deserializedSubscriptionObject);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static Purchase ParsePurchaseFromDictionary(IDictionary<string, object> purchase, bool isWindows = false) {
             bool isConsumed = false;
             if ( !purchase.TryGetValue(isWindows ? "is_consumed" : "isConsumed", out isConsumed)) // compatibility with Graph API 11 or higher
             {
@@ -336,8 +402,8 @@ namespace Facebook.Unity
             if (purchase.ContainsKey("payment_action_type") || purchase.ContainsKey("paymentActionType"))
             {
                 paymentActionType = purchase[isWindows ? "payment_action_type" : "paymentActionType"].ToStringNullOk();
-            }           
-            
+            }
+
             string paymentID = purchase[isWindows ? "payment_id" : "paymentID"].ToStringNullOk();
             string productID = purchase[isWindows ? "product_id" : "productID"].ToStringNullOk();
             IDictionary<string, object> purchasePrice = new Dictionary<string, object>();
@@ -366,6 +432,36 @@ namespace Facebook.Unity
             string purchasePlatform = purchase[isWindows ? "purchase_platform" : "purchasePlatform"].ToStringNullOk();
 
             return new Purchase(developerPayload, isConsumed, paymentActionType, paymentID, productID, purchasePlatform, purchasePrice, purchaseTime, purchaseToken, signedRequest);
+        }
+
+        public static Subscription ParseSubscriptionFromDictionary(IDictionary<string, object> subscription, bool isWindows = false) {
+            long deactivationTime;
+            subscription.TryGetValue(isWindows ? "deactivation_time" : "deactivationTime", out deactivationTime);
+
+            bool isEntitlementActive;
+            subscription.TryGetValue(isWindows ? "is_entitlement_active" : "isEntitlementActive", out isEntitlementActive); // compatibility with Graph API 10 or lower
+
+            long periodStartTime;
+            subscription.TryGetValue(isWindows ? "period_start_time" : "periodStartTime", out periodStartTime);
+
+            long periodEndTime;
+            subscription.TryGetValue(isWindows ? "period_end_time" : "period_end_time", out periodEndTime);
+
+            string productID = subscription[isWindows ? "product_id" : "productID"].ToStringNullOk();
+
+            long purchaseTime;
+            subscription.TryGetValue(isWindows ? "purchase_time" : "purchaseTime", out purchaseTime);
+
+            IDictionary<string, object> purchasePrice = new Dictionary<string, object>();
+            purchasePrice = (IDictionary<string, object>)subscription[isWindows ? "purchase_price" : "purchasePrice"];
+
+            string purchasePlatform = subscription[isWindows ? "purchase_platform" : "purchasePlatform"].ToStringNullOk();
+            string purchaseToken = subscription[isWindows ? "purchase_token" : "purchaseToken"].ToStringNullOk();
+            string status = subscription["status"].ToStringNullOk();
+            string signedRequest = subscription[isWindows ? "signed_request" : "signedRequest"].ToStringNullOk();
+            string subscriptionTerm = subscription[isWindows ? "subscription_term" : "subscriptionTerm"].ToStringNullOk();
+
+            return new Subscription(deactivationTime, isEntitlementActive, periodStartTime, periodEndTime, productID, purchasePlatform, purchasePrice, purchaseTime, purchaseToken, signedRequest, status, subscriptionTerm);
         }
 
         public static IDictionary<string, string> ParseStringDictionaryFromString(string input) {

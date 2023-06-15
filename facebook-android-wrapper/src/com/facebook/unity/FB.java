@@ -123,6 +123,8 @@ public class FB {
         // (Deprecated) Attempt to initialize SDK manually with FB.Init args
         FacebookSdk.setClientToken(unity_params.getString("clientToken"));
         FacebookSdk.setApplicationId(appID);
+        FacebookSdk.setAutoInitEnabled(true);
+        FacebookSdk.fullyInitialize();
         FacebookSdk.sdkInitialize(FB.getUnityActivity(), new FacebookSdk.InitializeCallback() {
             @Override
             public void onInitialized() {

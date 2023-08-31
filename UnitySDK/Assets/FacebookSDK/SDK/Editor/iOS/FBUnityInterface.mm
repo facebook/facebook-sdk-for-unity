@@ -62,7 +62,8 @@
 
 - (void)didFinishLaunching:(NSNotification *)notification
 {
-
+  [[FBSDKApplicationDelegate sharedInstance] application:[UIApplication sharedApplication]
+                           didFinishLaunchingWithOptions:notification.userInfo];
 }
 
 - (void)didBecomeActive:(NSNotification *)notification
@@ -394,9 +395,6 @@ extern "C" {
 
   void IOSFBInit(const char *_appId, bool _frictionlessRequests, const char *_urlSuffix, const char *_userAgentSuffix)
   {
-    // Initialize SDK first
-    [[FBSDKApplicationDelegate sharedInstance] initializeSDK];
-
     // Set the user agent before calling init to ensure that calls made during
     // init use the user agent suffix.
     [FBSDKSettings.sharedSettings setUserAgentSuffix:[FBUnityUtility stringFromCString:_userAgentSuffix]];

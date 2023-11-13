@@ -123,7 +123,7 @@ namespace Facebook.Unity.Editor
         {
             string sdkPath = EditorPrefs.GetString("AndroidSdkRoot");
 
-            if (string.IsNullOrEmpty(sdkPath) || EditorPrefs.GetBool("SdkUseEmbedded"))
+            if (EditorPrefs.GetBool("SdkUseEmbedded") || string.IsNullOrEmpty(sdkPath))
             {
                 try
                 {

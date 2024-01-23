@@ -68,7 +68,6 @@ namespace Facebook.Unity.Editor
             if (target.ToString() == "iOS" || target.ToString() == "iPhone")
             {
                 UpdatePlist(path);
-                FixupFiles.FixColdStart(path);
                 FixupFiles.AddBuildFlag(path);
             }
 

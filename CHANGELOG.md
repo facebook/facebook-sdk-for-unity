@@ -10,10 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Native iOS SDK
     - Added privacy manifests.
+- Native Android SDK
+    - Supported more integrity use cases.
 
 ### Changed
 - Bumped SDK to 17.0.0
 - Bumped iOS SDK version to 17.0.0
+- Bumped Android SDK version to 17.0.0
 - Bumped Graph API version to 17.0.0
 
 ## [16.0.2]

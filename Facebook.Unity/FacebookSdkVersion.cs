@@ -33,7 +33,7 @@ namespace Facebook.Unity
         {
             get
             {
-                return "16.0.2";
+                return "17.0.0";
             }
         }
     }

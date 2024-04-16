@@ -213,6 +213,10 @@ namespace Facebook.Unity.Editor
         {
             return true;
         }
+        public bool SetDomainErrorEnabled(bool domainErrorEnabled)
+        {
+            return true;
+        }
 
         public void SetPushNotificationsDeviceTokenString(string token)
         {

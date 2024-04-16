@@ -200,6 +200,12 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             return true;
         }
 
+        public bool FBDomainErrorEnabled(bool domainErrorEnabled)
+        {
+            this.LogMethodCall();
+            return true;
+        }
+
         public void FBAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled)
         {
             this.LogMethodCall();

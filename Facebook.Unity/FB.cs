@@ -1240,6 +1240,15 @@ namespace Facebook.Unity
             }
 
             /// <summary>
+            /// Sets the setting to enable/disable domain errors.
+            /// </summary>
+            /// <param name="domainErrorEnabled">The setting for enabling/disabling domain errors</param>
+            public static bool SetDomainErrorEnabled(bool domainErrorEnabled)
+            {
+                return Mobile.MobileFacebookImpl.SetDomainErrorEnabled(domainErrorEnabled);
+            }
+
+            /// <summary>
             /// Sets device token in the purpose of uninstall tracking.
             /// </summary>
             /// <param name="token">The device token from APNs</param>

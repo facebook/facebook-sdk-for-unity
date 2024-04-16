@@ -102,6 +102,11 @@ namespace Facebook.Unity.Mobile.Android
             return false;
         }
 
+        public override bool SetDomainErrorEnabled(bool domainErrorEnabled)
+        {
+            return false;
+        }
+
         public override void SetPushNotificationsDeviceTokenString(string token)
         {
             this.CallFB("SetPushNotificationsDeviceTokenString", token);

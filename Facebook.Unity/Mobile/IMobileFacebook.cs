@@ -50,6 +50,8 @@ namespace Facebook.Unity.Mobile
 
         bool SetAdvertiserTrackingEnabled(bool advertiserTrackingEnabled);
 
+        bool SetDomainErrorEnabled(bool domainErrorEnabled);
+
         void SetDataProcessingOptions(IEnumerable<string> options, int country, int state);
 
         void OnIAPReady(FacebookDelegate<IIAPReadyResult> callback);

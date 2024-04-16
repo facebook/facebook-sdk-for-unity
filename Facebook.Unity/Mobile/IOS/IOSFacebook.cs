@@ -85,6 +85,11 @@ namespace Facebook.Unity.Mobile.IOS
             return this.iosWrapper.FBAdvertiserTrackingEnabled(advertiserTrackingEnabled);
         }
 
+        public override bool SetDomainErrorEnabled(bool domainErrorEnabled)
+        {
+            return this.iosWrapper.FBDomainErrorEnabled(domainErrorEnabled);
+        }
+
         public override void SetPushNotificationsDeviceTokenString(string token)
         {
             this.iosWrapper.SetPushNotificationsDeviceTokenString(token);

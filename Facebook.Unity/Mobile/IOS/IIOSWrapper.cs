@@ -108,6 +108,8 @@ namespace Facebook.Unity.Mobile.IOS
 
         bool FBAdvertiserTrackingEnabled(bool advertiserTrackingEnabled);
 
+        bool FBDomainErrorEnabled(bool domainErrorEnabled);
+
         void GetAppLink(int requestId);
 
         void RefreshCurrentAccessToken(int requestId);

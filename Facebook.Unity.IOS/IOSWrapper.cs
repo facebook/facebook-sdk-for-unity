@@ -240,6 +240,11 @@ namespace Facebook.Unity.IOS
             return IOSWrapper.IOSFBAdvertiserTrackingEnabled(advertiserTrackingEnabled);
         }
 
+        public bool FBDomainErrorEnabled(bool domainErrorEnabled)
+        {
+            return IOSWrapper.IOSFBDomainErrorEnabled(domainErrorEnabled);
+        }
+
         public void GetAppLink(int requestId)
         {
             IOSWrapper.IOSFBGetAppLink(requestId);
@@ -522,6 +527,9 @@ namespace Facebook.Unity.IOS
 
         [DllImport("__Internal")]
         private static extern bool IOSFBAdvertiserTrackingEnabled(bool advertiserTrackingEnabled);
+
+        [DllImport("__Internal")]
+        private static extern bool IOSFBDomainErrorEnabled(bool domainErrorEnabled);
 
         [DllImport("__Internal")]
         private static extern void IOSFBGetAppLink(int requestID);

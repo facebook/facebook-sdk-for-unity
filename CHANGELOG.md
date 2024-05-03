@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Bumped SDK to 17.0.2
-    - Fix MIR issue for MMP integration
+    - Removed "fb" prefix of ApplicationId in Android Manifest file
+    - Fixed Mobile Install Referrer issue
 
 ## [17.0.1]
 

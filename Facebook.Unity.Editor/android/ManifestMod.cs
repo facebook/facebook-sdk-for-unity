@@ -158,10 +158,10 @@ namespace Facebook.Unity.Editor
             ManifestMod.AddSimpleActivity(doc, dict, ns, UnityGameRequestActivityName);
 
             // add the app id
-            // <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="\ fb<APPID>" />
+            // <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="\ <APPID>" />
             XmlElement appIdElement = doc.CreateElement("meta-data");
             appIdElement.SetAttribute("name", ns, ApplicationIdMetaDataName);
-            appIdElement.SetAttribute("value", ns, "fb" + appId);
+            appIdElement.SetAttribute("value", ns, appId);
             ManifestMod.SetOrReplaceXmlElement(dict, appIdElement);
 
             // add the client token

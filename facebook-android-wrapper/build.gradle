@@ -39,7 +39,7 @@ buildscript {
     }
 }
 
-def fbSdkVersion = project.hasProperty("sdkVersion") ? sdkVersion : '17.0.1'
+def fbSdkVersion = project.hasProperty("sdkVersion") ? sdkVersion : '17.0.2'
 
 repositories {
     // use skycastle custom repo

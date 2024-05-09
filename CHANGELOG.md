@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [17.0.2]
 
+### Updated
+The release has been deprecated due to Unity support issues caused by removing “fb” prefix from previous version, please use other releases.
+
 ### Changed
 - Bumped SDK to 17.0.2
     - Removed "fb" prefix of ApplicationId in Android Manifest file

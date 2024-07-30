@@ -20,7 +20,7 @@
 namespace Facebook.Unity
 {
     using System.Collections.Generic;
-    internal class LocaleResult: ResultBase, ILocaleResult
+    internal class LocaleResult : ResultBase, ILocaleResult
     {
         internal LocaleResult(ResultContainer resultContainer) : base(resultContainer)
         {

@@ -27,22 +27,22 @@ using Facebook.Unity.Editor.iOS.Xcode.PBX;
 
 namespace Facebook.Unity.Editor.iOS.Xcode
 {
-    using PBXBuildFileSection           = KnownSectionBase<PBXBuildFileData>;
-    using PBXFileReferenceSection       = KnownSectionBase<PBXFileReferenceData>;
-    using PBXGroupSection               = KnownSectionBase<PBXGroupData>;
-    using PBXContainerItemProxySection  = KnownSectionBase<PBXContainerItemProxyData>;
-    using PBXReferenceProxySection      = KnownSectionBase<PBXReferenceProxyData>;
-    using PBXSourcesBuildPhaseSection   = KnownSectionBase<PBXSourcesBuildPhaseData>;
-    using PBXFrameworksBuildPhaseSection= KnownSectionBase<PBXFrameworksBuildPhaseData>;
+    using PBXBuildFileSection = KnownSectionBase<PBXBuildFileData>;
+    using PBXFileReferenceSection = KnownSectionBase<PBXFileReferenceData>;
+    using PBXGroupSection = KnownSectionBase<PBXGroupData>;
+    using PBXContainerItemProxySection = KnownSectionBase<PBXContainerItemProxyData>;
+    using PBXReferenceProxySection = KnownSectionBase<PBXReferenceProxyData>;
+    using PBXSourcesBuildPhaseSection = KnownSectionBase<PBXSourcesBuildPhaseData>;
+    using PBXFrameworksBuildPhaseSection = KnownSectionBase<PBXFrameworksBuildPhaseData>;
     using PBXResourcesBuildPhaseSection = KnownSectionBase<PBXResourcesBuildPhaseData>;
     using PBXCopyFilesBuildPhaseSection = KnownSectionBase<PBXCopyFilesBuildPhaseData>;
     using PBXShellScriptBuildPhaseSection = KnownSectionBase<PBXShellScriptBuildPhaseData>;
-    using PBXVariantGroupSection        = KnownSectionBase<PBXVariantGroupData>;
-    using PBXNativeTargetSection        = KnownSectionBase<PBXNativeTargetData>;
-    using PBXTargetDependencySection    = KnownSectionBase<PBXTargetDependencyData>;
-    using XCBuildConfigurationSection   = KnownSectionBase<XCBuildConfigurationData>;
-    using XCConfigurationListSection    = KnownSectionBase<XCConfigurationListData>;
-    using UnknownSection                = KnownSectionBase<PBXObjectData>;
+    using PBXVariantGroupSection = KnownSectionBase<PBXVariantGroupData>;
+    using PBXNativeTargetSection = KnownSectionBase<PBXNativeTargetData>;
+    using PBXTargetDependencySection = KnownSectionBase<PBXTargetDependencyData>;
+    using XCBuildConfigurationSection = KnownSectionBase<XCBuildConfigurationData>;
+    using XCConfigurationListSection = KnownSectionBase<XCConfigurationListData>;
+    using UnknownSection = KnownSectionBase<PBXObjectData>;
 
     internal class PBXProjectData
     {
@@ -212,7 +212,8 @@ namespace Facebook.Unity.Editor.iOS.Xcode
         {
             string ext = Path.GetExtension(path);
             var phase = FileTypeUtils.GetFileType(ext, isFolderRef);
-            switch (phase) {
+            switch (phase)
+            {
                 case PBXFileType.Framework:
                     foreach (var guid in target.phases)
                         if (frameworks.HasEntry(guid))
@@ -596,7 +597,7 @@ namespace Facebook.Unity.Editor.iOS.Xcode
             StringBuilder contentSb = new StringBuilder();
             contentSb.Append("// !$*UTF8*$!\n");
             Serializer.WriteDict(contentSb, m_RootElements, 0, false,
-                                 new PropertyCommentChecker(new string[]{"rootObject/*"}), commentMap);
+                                 new PropertyCommentChecker(new string[] { "rootObject/*" }), commentMap);
             contentSb.Append("\n");
             string content = contentSb.ToString();
 

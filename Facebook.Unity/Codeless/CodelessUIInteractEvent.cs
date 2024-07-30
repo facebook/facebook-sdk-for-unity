@@ -29,32 +29,33 @@ namespace Facebook.Unity
     {
         private FBSDKEventBindingManager eventBindingManager { get; set; }
 
-        void Awake ()
+        void Awake()
         {
-            switch (Constants.CurrentPlatform) {
-            case FacebookUnityPlatform.Android:
-                SetLoggerInitAndroid ();
-                break;
-            case FacebookUnityPlatform.IOS:
-                SetLoggerInitIos ();
-                break;
-            default:
-                break;
+            switch (Constants.CurrentPlatform)
+            {
+                case FacebookUnityPlatform.Android:
+                    SetLoggerInitAndroid();
+                    break;
+                case FacebookUnityPlatform.IOS:
+                    SetLoggerInitIos();
+                    break;
+                default:
+                    break;
             }
         }
 
-        private static void SetLoggerInitAndroid ()
+        private static void SetLoggerInitAndroid()
         {
-            AndroidJavaObject fetchedAppSettingsManager = new AndroidJavaClass ("com.facebook.internal.FetchedAppSettingsManager");
-            fetchedAppSettingsManager.CallStatic ("setIsUnityInit", true);
+            AndroidJavaObject fetchedAppSettingsManager = new AndroidJavaClass("com.facebook.internal.FetchedAppSettingsManager");
+            fetchedAppSettingsManager.CallStatic("setIsUnityInit", true);
         }
 
-        private static void SetLoggerInitIos ()
+        private static void SetLoggerInitIos()
         {
             //PLACEHOLDER for IOS
         }
 
-        public void OnReceiveMapping (string message)
+        public void OnReceiveMapping(string message)
         {
             var dict = MiniJSON.Json.Deserialize(message) as List<System.Object>;
             this.eventBindingManager = new FBSDKEventBindingManager(dict);

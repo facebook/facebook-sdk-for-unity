@@ -43,7 +43,7 @@ namespace Facebook.Unity.Tests
             FB.AppRequest(
                 "Test message",
                 callback:
-                    delegate(IAppRequestResult r)
+                    delegate (IAppRequestResult r)
                     {
                         result = r;
                     });

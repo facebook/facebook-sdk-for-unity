@@ -227,7 +227,7 @@ namespace Facebook.Unity.IOS
 
         public void FBAutoLogAppEventsEnabled(bool autoLogAppEventsEnabled)
         {
-           IOSWrapper.IOSFBAutoLogAppEventsEnabled(autoLogAppEventsEnabled);
+            IOSWrapper.IOSFBAutoLogAppEventsEnabled(autoLogAppEventsEnabled);
         }
 
         public void FBAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled)

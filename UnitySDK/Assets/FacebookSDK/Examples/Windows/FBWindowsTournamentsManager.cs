@@ -26,7 +26,8 @@ using UnityEngine.UI;
 using Facebook.Unity;
 using Facebook.MiniJSON;
 
-public class FBWindowsTournamentsManager : MonoBehaviour {
+public class FBWindowsTournamentsManager : MonoBehaviour
+{
 
     public FBWindowsLogsManager Logger;
     public InputField Title;

@@ -138,7 +138,8 @@ namespace Facebook.Unity
             /// Sets the CTA (Call to Action) text in the update message
             /// </summary>
             /// <param name="cta">Custom CTA to use. If none is provided a localized version of 'play' is used.</param>
-            public CustomUpdateContentBuilder setCTA(CustomUpdateLocalizedText cta) {
+            public CustomUpdateContentBuilder setCTA(CustomUpdateLocalizedText cta)
+            {
                 _cta = cta;
                 return this;
             }
@@ -148,7 +149,8 @@ namespace Facebook.Unity
             ///  game is launched from a Custom Update message the data here will be forwarded as a Payload.
             /// </summary>
             /// <param name="data">A String that will be sent back to the game</param>
-            public CustomUpdateContentBuilder setData(string data) {
+            public CustomUpdateContentBuilder setData(string data)
+            {
                 _data = data;
                 return this;
             }
@@ -157,7 +159,8 @@ namespace Facebook.Unity
             /// Returns a CustomUpdateContent with the values defined in this builder
             /// </summary>
             /// <returns>CustomUpdateContent instance to pass to FBGamingServices.PerformCustomUpdate()</returns>
-            public CustomUpdateContent build() {
+            public CustomUpdateContent build()
+            {
                 return new CustomUpdateContent(
                     _contextTokenId,
                     _text,
@@ -173,7 +176,8 @@ namespace Facebook.Unity
     /// <summary>
     /// Represents a text string that can have different Locale values provided.
     /// </summary>
-    public sealed class CustomUpdateLocalizedText {
+    public sealed class CustomUpdateLocalizedText
+    {
         private string _default;
         private IDictionary<string, string> _localizations;
 
@@ -205,7 +209,8 @@ namespace Facebook.Unity
     /// <summary>
     /// Represents a media that will be included in a Custom Update Message
     /// </summary>
-    public sealed class CustomUpdateMedia {
+    public sealed class CustomUpdateMedia
+    {
         private CustomUpdateMediaInfo _gif;
         private CustomUpdateMediaInfo _video;
 
@@ -245,10 +250,13 @@ namespace Facebook.Unity
     /// <summary>
     /// Stores Information about a Media that will be part of a Custom Update
     /// </summary>
-    public sealed class CustomUpdateMediaInfo {
+    public sealed class CustomUpdateMediaInfo
+    {
         private string _url;
-        public string Url {
-            get {
+        public string Url
+        {
+            get
+            {
                 return _url;
             }
         }

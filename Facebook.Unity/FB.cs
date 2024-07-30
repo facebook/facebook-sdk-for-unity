@@ -157,9 +157,11 @@ namespace Facebook.Unity
         {
             get
             {
-                if (FB.IsLoggedIn && AccessToken.CurrentAccessToken != null) {
+                if (FB.IsLoggedIn && AccessToken.CurrentAccessToken != null)
+                {
                     string graphDomain = AccessToken.CurrentAccessToken.GraphDomain;
-                    if (graphDomain == "gaming") {
+                    if (graphDomain == "gaming")
+                    {
                         return FB.gamingDomain;
                     }
                 }
@@ -653,13 +655,13 @@ namespace Facebook.Unity
         /// </summary>
         public static void ClearAppLink()
         {
-          #if UNITY_ANDROID
+#if UNITY_ANDROID
           var androidFacebook = FacebookImpl as AndroidFacebook;
           if (androidFacebook != null)
           {
             androidFacebook.ClearAppLink();
           }
-          #endif
+#endif
         }
 
         /// <summary>
@@ -838,7 +840,7 @@ namespace Facebook.Unity
 
         public static void ShareTournament(int score, Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
         {
-            FacebookImpl.ShareTournament(score,data,callback);
+            FacebookImpl.ShareTournament(score, data, callback);
         }
 
         public static void CreateTournament(
@@ -1142,7 +1144,8 @@ namespace Facebook.Unity
                 if (loginTracking == LoginTracking.ENABLED)
                 {
                     Mobile.MobileFacebookImpl.LoginWithTrackingPreference("enabled", permissions, nonce, callback);
-                } else
+                }
+                else
                 {
                     Mobile.MobileFacebookImpl.LoginWithTrackingPreference("limited", permissions, nonce, callback);
                 }
@@ -1323,7 +1326,7 @@ namespace Facebook.Unity
 
             public static void ShareTournament(int score, Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
             {
-                Mobile.MobileFacebookImpl.ShareTournament(score,data, callback);
+                Mobile.MobileFacebookImpl.ShareTournament(score, data, callback);
             }
 
             public static void GetTournaments(FacebookDelegate<IGetTournamentsResult> callback)

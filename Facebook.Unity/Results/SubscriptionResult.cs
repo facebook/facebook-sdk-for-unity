@@ -31,7 +31,8 @@ namespace Facebook.Unity
             {
                 this.Subscription = Utilities.ParseSubscriptionFromResult(this.ResultDictionary);
             }
-            else if (this.ResultDictionary != null && this.ResultDictionary.ContainsKey("subscription")) {
+            else if (this.ResultDictionary != null && this.ResultDictionary.ContainsKey("subscription"))
+            {
                 this.ResultDictionary.TryGetValue("subscription", out object subscription);
                 this.Subscription = (Subscription)subscription;
             }

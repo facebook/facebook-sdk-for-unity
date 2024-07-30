@@ -18,7 +18,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,103 +32,109 @@ namespace Facebook.Unity
 {
     public class CodelessCrawler : MonoBehaviour
     {
-        #if UNITY_IOS
+#if UNITY_IOS
         [DllImport ("__Internal")]
         private static extern void IOSFBSendViewHierarchy (string tree);
-        #endif
+#endif
 
         private static bool isGeneratingSnapshot = false;
 
         private static Camera mainCamera = null;
 
-        public void Awake ()
+        public void Awake()
         {
             SceneManager.activeSceneChanged += onActiveSceneChanged;
         }
 
-        public void CaptureViewHierarchy (string message)
+        public void CaptureViewHierarchy(string message)
         {
-            if (null == mainCamera || !mainCamera.isActiveAndEnabled) {
-                updateMainCamera ();
+            if (null == mainCamera || !mainCamera.isActiveAndEnabled)
+            {
+                updateMainCamera();
             }
-            StartCoroutine (GenSnapshot ());
+            StartCoroutine(GenSnapshot());
         }
 
-        private IEnumerator GenSnapshot ()
+        private IEnumerator GenSnapshot()
         {
-            yield return (new WaitForEndOfFrame ());
-            if (isGeneratingSnapshot) {
+            yield return (new WaitForEndOfFrame());
+            if (isGeneratingSnapshot)
+            {
                 yield break;
             }
             isGeneratingSnapshot = true;
-            StringBuilder masterBuilder = new StringBuilder ();
-            masterBuilder.AppendFormat (
+            StringBuilder masterBuilder = new StringBuilder();
+            masterBuilder.AppendFormat(
                 @"{{""screenshot"":""{0}"",",
-                GenBase64Screenshot ()
+                GenBase64Screenshot()
             );
-            masterBuilder.AppendFormat (
+            masterBuilder.AppendFormat(
                 @"""screenname"":""{0}"",",
-                SceneManager.GetActiveScene ().name
+                SceneManager.GetActiveScene().name
             );
-            masterBuilder.AppendFormat (
+            masterBuilder.AppendFormat(
                 @"""view"":[{0}]}}",
-                GenViewJson ()
+                GenViewJson()
             );
-            string json = masterBuilder.ToString ();
-            switch (Constants.CurrentPlatform) {
-            case FacebookUnityPlatform.Android:
-                SendAndroid (json);
-                break;
-            case FacebookUnityPlatform.IOS:
-                SendIos (json);
-                break;
-            default:
-                break;
+            string json = masterBuilder.ToString();
+            switch (Constants.CurrentPlatform)
+            {
+                case FacebookUnityPlatform.Android:
+                    SendAndroid(json);
+                    break;
+                case FacebookUnityPlatform.IOS:
+                    SendIos(json);
+                    break;
+                default:
+                    break;
             }
             isGeneratingSnapshot = false;
         }
 
-        private static void SendAndroid (string json)
+        private static void SendAndroid(string json)
         {
-            using (AndroidJavaObject viewIndexer = new AndroidJavaClass ("com.facebook.appevents.codeless.ViewIndexer")) {
-                viewIndexer.CallStatic ("sendToServerUnityInstance", json);
+            using (AndroidJavaObject viewIndexer = new AndroidJavaClass("com.facebook.appevents.codeless.ViewIndexer"))
+            {
+                viewIndexer.CallStatic("sendToServerUnityInstance", json);
             }
         }
 
-        private static void SendIos (string json)
+        private static void SendIos(string json)
         {
-            #if UNITY_IOS
+#if UNITY_IOS
             CodelessCrawler.IOSFBSendViewHierarchy (json);
-            #endif
+#endif
         }
 
-        private static string GenBase64Screenshot ()
+        private static string GenBase64Screenshot()
         {
-            Texture2D tex = new Texture2D (Screen.width, Screen.height);
-            tex.ReadPixels (new Rect (0, 0, Screen.width, Screen.height), 0, 0);
-            tex.Apply ();
-            string screenshot64 = System.Convert.ToBase64String (tex.EncodeToJPG ());
-            UnityEngine.Object.Destroy (tex);
+            Texture2D tex = new Texture2D(Screen.width, Screen.height);
+            tex.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+            tex.Apply();
+            string screenshot64 = System.Convert.ToBase64String(tex.EncodeToJPG());
+            UnityEngine.Object.Destroy(tex);
             return screenshot64;
         }
 
-        private static string GenViewJson ()
+        private static string GenViewJson()
         {
-            GameObject[] rootGameObjs = UnityEngine.SceneManagement.SceneManager.GetActiveScene ().GetRootGameObjects ();
+            GameObject[] rootGameObjs = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
 
-            StringBuilder builder = new StringBuilder ();
-            builder.AppendFormat (
+            StringBuilder builder = new StringBuilder();
+            builder.AppendFormat(
                 @"{{""classname"":""{0}"",""childviews"":[",
-                SceneManager.GetActiveScene ().name
+                SceneManager.GetActiveScene().name
             );
-            foreach (GameObject curObj in rootGameObjs) {
-                GenChild (curObj, builder);
-                builder.Append (",");
+            foreach (GameObject curObj in rootGameObjs)
+            {
+                GenChild(curObj, builder);
+                builder.Append(",");
             }
-            if (builder [builder.Length - 1] == ',') {
+            if (builder[builder.Length - 1] == ',')
+            {
                 builder.Length--;
             }
-            builder.AppendFormat (
+            builder.AppendFormat(
                 @"],""classtypebitmask"":""{0}"",""tag"":""0"",""dimension"":{{""height"":{1},""width"":{2},""scrolly"":{3},""left"":{4},""top"":{5},""scrollx"":{6},""visibility"":{7}}}}}",
                 "0",
                 (int)Screen.height,
@@ -139,101 +145,115 @@ namespace Facebook.Unity
                 "0",
                 "0"
             );
-            return builder.ToString ();
+            return builder.ToString();
         }
 
-        private static void GenChild (GameObject curObj, StringBuilder builder)
+        private static void GenChild(GameObject curObj, StringBuilder builder)
         {
-            builder.AppendFormat (
+            builder.AppendFormat(
                 @"{{""classname"":""{0}"",""childviews"":[",
                 curObj.name
             );
             int childCount = curObj.transform.childCount;
-            for (int i = 0; i < childCount; i++) {
-                if (null == curObj.GetComponent<Button> ()) {
-                    GenChild (curObj.transform.GetChild (i).gameObject, builder);
-                    builder.Append (",");
+            for (int i = 0; i < childCount; i++)
+            {
+                if (null == curObj.GetComponent<Button>())
+                {
+                    GenChild(curObj.transform.GetChild(i).gameObject, builder);
+                    builder.Append(",");
                 }
             }
 
-            if (builder [builder.Length - 1] == ',') {
+            if (builder[builder.Length - 1] == ',')
+            {
                 builder.Length--;
             }
 
-            UnityEngine.Canvas canvasParent = curObj.GetComponentInParent<UnityEngine.Canvas> ();
+            UnityEngine.Canvas canvasParent = curObj.GetComponentInParent<UnityEngine.Canvas>();
             string btntext = "";
-            if (null != curObj.GetComponent<Button> () && null != canvasParent) {
-                Rect rect = curObj.GetComponent<RectTransform> ().rect;
-                Vector2 position = getScreenCoordinate (curObj.transform.position, canvasParent.renderMode);
-                Text textComponent = curObj.GetComponent<Button> ().GetComponentInChildren<Text> ();
-                if (null != textComponent) {
+            if (null != curObj.GetComponent<Button>() && null != canvasParent)
+            {
+                Rect rect = curObj.GetComponent<RectTransform>().rect;
+                Vector2 position = getScreenCoordinate(curObj.transform.position, canvasParent.renderMode);
+                Text textComponent = curObj.GetComponent<Button>().GetComponentInChildren<Text>();
+                if (null != textComponent)
+                {
                     btntext = "\"text\":\"" + textComponent.text + "\",";
                 }
 
-                builder.AppendFormat (
+                builder.AppendFormat(
                     @"],{8}""classtypebitmask"":""{0}"",""tag"":""0"",""dimension"":{{""height"":{1},""width"":{2},""scrolly"":{3},""left"":{4},""top"":{5},""scrollx"":{6},""visibility"":{7}}}}}",
-                    getClasstypeBitmaskButton (),
+                    getClasstypeBitmaskButton(),
                     (int)rect.height,
                     (int)rect.width,
                     0,
-                    (int)Math.Ceiling (position.x - (rect.width / 2)),//left
-                    (int)Math.Ceiling ((Screen.height - position.y - (rect.height / 2))),
+                    (int)Math.Ceiling(position.x - (rect.width / 2)),//left
+                    (int)Math.Ceiling((Screen.height - position.y - (rect.height / 2))),
                     0,
-                    getVisibility (curObj),
+                    getVisibility(curObj),
                     btntext
                 );
-            } else {
-                builder.AppendFormat (
+            }
+            else
+            {
+                builder.AppendFormat(
                     @"],{8}""classtypebitmask"":""{0}"",""tag"":""0"",""dimension"":{{""height"":{1},""width"":{2},""scrolly"":{3},""left"":{4},""top"":{5},""scrollx"":{6},""visibility"":{7}}}}}",
-                    getClasstypeBitmaskButton (),
+                    getClasstypeBitmaskButton(),
                     0,
                     0,
                     0,
                     0,
                     0,
                     0,
-                    getVisibility (curObj),
+                    getVisibility(curObj),
                     btntext
                 );
             }
         }
 
-        private void onActiveSceneChanged (Scene arg0, Scene arg1)
+        private void onActiveSceneChanged(Scene arg0, Scene arg1)
         {
-            updateMainCamera ();
+            updateMainCamera();
         }
 
-        private static void updateMainCamera ()
+        private static void updateMainCamera()
         {
             mainCamera = Camera.main;
         }
 
-        private static Vector2 getScreenCoordinate (Vector3 position, RenderMode renderMode)
+        private static Vector2 getScreenCoordinate(Vector3 position, RenderMode renderMode)
         {
-            if (RenderMode.ScreenSpaceOverlay == renderMode || null == mainCamera) {
-                return(position);
-            } else {
-                return mainCamera.WorldToScreenPoint (position);
+            if (RenderMode.ScreenSpaceOverlay == renderMode || null == mainCamera)
+            {
+                return (position);
+            }
+            else
+            {
+                return mainCamera.WorldToScreenPoint(position);
             }
         }
 
-        private static string getClasstypeBitmaskButton ()
+        private static string getClasstypeBitmaskButton()
         {
-            switch (Constants.CurrentPlatform) {
-            case FacebookUnityPlatform.Android:
-                return "4";
-            case FacebookUnityPlatform.IOS:
-                return "16";
-            default:
-                return "0";
+            switch (Constants.CurrentPlatform)
+            {
+                case FacebookUnityPlatform.Android:
+                    return "4";
+                case FacebookUnityPlatform.IOS:
+                    return "16";
+                default:
+                    return "0";
             }
         }
 
-        private static string getVisibility (GameObject gameObj)
+        private static string getVisibility(GameObject gameObj)
         {
-            if (gameObj.activeInHierarchy) {
+            if (gameObj.activeInHierarchy)
+            {
                 return "0";
-            } else {
+            }
+            else
+            {
                 return "8";
             }
         }

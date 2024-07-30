@@ -29,21 +29,23 @@ namespace Facebook.Unity
     {
         public static bool CheckGameObjectMatchPath(GameObject go, List<FBSDKCodelessPathComponent> path)
         {
-            var goPath = GetPath (go);
-            return CheckPathMatchPath (goPath, path);
+            var goPath = GetPath(go);
+            return CheckPathMatchPath(goPath, path);
         }
 
         public static bool CheckPathMatchPath(List<FBSDKCodelessPathComponent> goPath, List<FBSDKCodelessPathComponent> path)
         {
-            for (int i = 0; i < System.Math.Min(goPath.Count, path.Count); i++) {
+            for (int i = 0; i < System.Math.Min(goPath.Count, path.Count); i++)
+            {
                 var idxGoPath = goPath.Count - i - 1;
                 var idxPath = path.Count - i - 1;
 
-                var goPathComponent = goPath [idxGoPath];
-                var pathComponent = path [idxPath];
+                var goPathComponent = goPath[idxGoPath];
+                var pathComponent = path[idxPath];
 
                 // TODO: add more attributes comparison beyond class names
-                if (String.Compare (goPathComponent.className, pathComponent.className) != 0) {
+                if (String.Compare(goPathComponent.className, pathComponent.className) != 0)
+                {
                     return false;
                 }
             }
@@ -52,31 +54,35 @@ namespace Facebook.Unity
 
         public static List<FBSDKCodelessPathComponent> GetPath(GameObject go)
         {
-            return GetPath (go, Constants.MaxPathDepth);
+            return GetPath(go, Constants.MaxPathDepth);
         }
 
         public static List<FBSDKCodelessPathComponent> GetPath(GameObject go, int limit)
         {
-            if (go == null || limit <= 0) {
+            if (go == null || limit <= 0)
+            {
                 return null;
             }
 
-            var path = new List<FBSDKCodelessPathComponent> ();
-            var parent = GetParent (go);
-            if (parent != null) {
-                var parentPath = GetPath (parent, limit - 1);
+            var path = new List<FBSDKCodelessPathComponent>();
+            var parent = GetParent(go);
+            if (parent != null)
+            {
+                var parentPath = GetPath(parent, limit - 1);
                 path = parentPath;
-            } else {
+            }
+            else
+            {
                 // pAdd the scene first
                 var componentInfo1 = new Dictionary<string, System.Object>();
-                componentInfo1.Add (Constants.EventBindingKeysClassName, SceneManager.GetActiveScene ().name);
-                var pathComponent1 = new FBSDKCodelessPathComponent (componentInfo1);
-                path.Add (pathComponent1);
+                componentInfo1.Add(Constants.EventBindingKeysClassName, SceneManager.GetActiveScene().name);
+                var pathComponent1 = new FBSDKCodelessPathComponent(componentInfo1);
+                path.Add(pathComponent1);
             }
 
             var componentInfo = GetAttribute(go, parent);
-            var pathComponent = new FBSDKCodelessPathComponent (componentInfo);
-            path.Add (pathComponent);
+            var pathComponent = new FBSDKCodelessPathComponent(componentInfo);
+            path.Add(pathComponent);
 
             return path;
         }
@@ -84,7 +90,8 @@ namespace Facebook.Unity
         public static GameObject GetParent(GameObject go)
         {
             var parentTransform = go.transform.parent;
-            if (parentTransform != null) {
+            if (parentTransform != null)
+            {
                 return parentTransform.gameObject;
             }
             return null;
@@ -92,12 +99,15 @@ namespace Facebook.Unity
 
         public static Dictionary<string, System.Object> GetAttribute(GameObject obj, GameObject parent)
         {
-            var result = new Dictionary<string, System.Object> ();
-            result.Add (Constants.EventBindingKeysClassName, obj.name);
-            if (parent != null) {
-                result.Add (Constants.EventBindingKeysIndex, Convert.ToInt64(obj.transform.GetSiblingIndex ()));
-            } else {
-                result.Add (Constants.EventBindingKeysIndex, Convert.ToInt64(0));
+            var result = new Dictionary<string, System.Object>();
+            result.Add(Constants.EventBindingKeysClassName, obj.name);
+            if (parent != null)
+            {
+                result.Add(Constants.EventBindingKeysIndex, Convert.ToInt64(obj.transform.GetSiblingIndex()));
+            }
+            else
+            {
+                result.Add(Constants.EventBindingKeysIndex, Convert.ToInt64(0));
             }
             return result;
         }

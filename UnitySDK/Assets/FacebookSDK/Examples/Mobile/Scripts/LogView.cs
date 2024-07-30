@@ -45,14 +45,14 @@ namespace Facebook.Unity.Example
                 this.GoBack();
             }
 
-            #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
+#if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
             {
                 Vector2 scrollPosition = this.ScrollPosition;
                 scrollPosition.y += Input.GetTouch(0).deltaPosition.y;
                 this.ScrollPosition = scrollPosition;
             }
-            #endif
+#endif
             this.ScrollPosition = GUILayout.BeginScrollView(
                 this.ScrollPosition,
                 GUILayout.MinWidth(ConsoleBase.MainWindowFullWidth));

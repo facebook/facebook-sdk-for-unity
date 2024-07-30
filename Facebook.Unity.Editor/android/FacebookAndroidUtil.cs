@@ -173,7 +173,8 @@ namespace Facebook.Unity.Editor
 
             switch (proc.ExitCode)
             {
-                case 255: setupError = ErrorKeytoolError;
+                case 255:
+                    setupError = ErrorKeytoolError;
                     return null;
             }
 

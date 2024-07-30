@@ -33,7 +33,7 @@ namespace Facebook.Unity.Tests.Canvas
             IPayResult result = null;
             FB.Canvas.Pay(
                 "testProduct",
-                callback: delegate(IPayResult r)
+                callback: delegate (IPayResult r)
                     {
                         result = r;
                     });
@@ -53,7 +53,7 @@ namespace Facebook.Unity.Tests.Canvas
             this.Mock.ResultExtras = extras;
             FB.Canvas.Pay(
                 "testProduct",
-                callback: delegate(IPayResult r)
+                callback: delegate (IPayResult r)
                     {
                         result = r;
                     });
@@ -75,7 +75,7 @@ namespace Facebook.Unity.Tests.Canvas
             this.Mock.ResultExtras = extras;
             FB.Canvas.Pay(
                 "testProduct",
-                callback: delegate(IPayResult r)
+                callback: delegate (IPayResult r)
                     {
                         result = r;
                     });

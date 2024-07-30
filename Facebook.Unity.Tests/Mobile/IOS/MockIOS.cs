@@ -324,7 +324,8 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             this.MobileFacebook.OnCreateGamingContextComplete(new ResultContainer(result));
         }
 
-        public void SwitchGamingContext(int requestId, string gamingContextID) {
+        public void SwitchGamingContext(int requestId, string gamingContextID)
+        {
             var result = MockResults.GetGenericResult(requestId, this.ResultExtras);
             this.MobileFacebook.OnSwitchGamingContextComplete(new ResultContainer(result));
         }

@@ -65,9 +65,11 @@ namespace Facebook.Unity.Editor
             Type playerSettingType = typeof(PlayerSettings);
             PropertyInfo info = playerSettingType.GetProperty(ApplicationIdentifier)
                                                 ?? playerSettingType.GetProperty(BundleIdentifier);
-            if (info != null) {
+            if (info != null)
+            {
                 string applicationIdentifier = (string)info.GetValue(playerSettingType, null);
-                if (applicationIdentifier is string) {
+                if (applicationIdentifier is string)
+                {
                     return applicationIdentifier;
                 }
             }

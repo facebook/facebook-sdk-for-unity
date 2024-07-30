@@ -32,7 +32,8 @@ namespace Facebook.Unity.Editor.iOS.Xcode.PBX
 
         public string this[string guid]
         {
-            get {
+            get
+            {
                 if (m_Dict.ContainsKey(guid))
                     return m_Dict[guid];
                 return null;
@@ -148,7 +149,7 @@ namespace Facebook.Unity.Editor.iOS.Xcode.PBX
               src.Substring(1, src.Length - 2)
                 .Replace("\\\\", "\u569f").Replace("\\\"", "\"")
                 .Replace("\\n", "\n").Replace("\u569f", "\\");
-                // U+569f is a rarely used Chinese character
+            // U+569f is a rarely used Chinese character
         }
     }
 

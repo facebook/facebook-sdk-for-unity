@@ -33,7 +33,7 @@ public class FBWindowsLogsManager : MonoBehaviour
     void Awake()
     {
 #if !UNITY_EDITOR_WIN
-			Debug.Log("This example is only for Windows devices.");
+        Debug.Log("This example is only for Windows devices.");
 #else
         if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.StandaloneWindows && EditorUserBuildSettings.activeBuildTarget != BuildTarget.StandaloneWindows64)
         {

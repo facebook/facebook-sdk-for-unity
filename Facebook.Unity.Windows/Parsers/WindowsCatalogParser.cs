@@ -23,7 +23,7 @@ using System.Collections.Generic;
 
 namespace Facebook.Unity.Windows
 {
-    class WindowsCatalogParser: WindowsParserBase
+    class WindowsCatalogParser : WindowsParserBase
     {
         public static ResultContainer Parse(fbg.Catalog catalog, string callbackId)
         {

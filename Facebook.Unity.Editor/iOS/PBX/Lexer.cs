@@ -120,7 +120,7 @@ namespace Facebook.Unity.Editor.iOS.Xcode.PBX
                 }
 
                 char ch = text[pos];
-                char ch2 = text[pos+1];
+                char ch2 = text[pos + 1];
 
                 if (ch == '\"')
                     ScanQuotedString(tok);
@@ -143,7 +143,7 @@ namespace Facebook.Unity.Editor.iOS.Xcode.PBX
             while (pos < length)
             {
                 char ch = text[pos];
-                char ch2 = text[pos+1];
+                char ch2 = text[pos + 1];
 
                 if (Char.IsWhiteSpace(ch))
                     break;
@@ -170,7 +170,7 @@ namespace Facebook.Unity.Editor.iOS.Xcode.PBX
             while (pos < length)
             {
                 // ignore escaped quotes
-                if (text[pos] == '\\' && text[pos+1] == '\"')
+                if (text[pos] == '\\' && text[pos + 1] == '\"')
                 {
                     pos += 2;
                     continue;
@@ -196,7 +196,7 @@ namespace Facebook.Unity.Editor.iOS.Xcode.PBX
 
             while (pos < length)
             {
-                if (text[pos] == '*' && text[pos+1] == '/')
+                if (text[pos] == '*' && text[pos + 1] == '/')
                     break;
 
                 // we support multiline comments

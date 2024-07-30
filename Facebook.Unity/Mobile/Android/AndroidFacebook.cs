@@ -207,19 +207,19 @@ namespace Facebook.Unity.Mobile.Android
             String authTokenString = this.androidWrapper.CallStatic<string>("GetCurrentAuthenticationToken");
             if (!String.IsNullOrEmpty(authTokenString))
             {
-              IDictionary<string, string> token = Utilities.ParseStringDictionaryFromString(authTokenString);
-              string tokenString;
-              string nonce;
-              token.TryGetValue("auth_token_string", out tokenString);
-              token.TryGetValue("auth_nonce", out nonce);
-              try
-              {
-                return new AuthenticationToken(tokenString, nonce);
-              }
-              catch (Exception)
-              {
-                Debug.Log("An unexpected error occurred while retrieving the current authentication token");
-              }
+                IDictionary<string, string> token = Utilities.ParseStringDictionaryFromString(authTokenString);
+                string tokenString;
+                string nonce;
+                token.TryGetValue("auth_token_string", out tokenString);
+                token.TryGetValue("auth_nonce", out nonce);
+                try
+                {
+                    return new AuthenticationToken(tokenString, nonce);
+                }
+                catch (Exception)
+                {
+                    Debug.Log("An unexpected error occurred while retrieving the current authentication token");
+                }
             }
             return null;
         }
@@ -282,7 +282,8 @@ namespace Facebook.Unity.Mobile.Android
             return null;
         }
 
-        public void RetrieveLoginStatus(FacebookDelegate<ILoginStatusResult> callback) {
+        public void RetrieveLoginStatus(FacebookDelegate<ILoginStatusResult> callback)
+        {
             var loginCall = new JavaMethodCall<ILoginStatusResult>(this, "RetrieveLoginStatus");
             loginCall.Callback = callback;
             loginCall.Call();
@@ -390,7 +391,7 @@ namespace Facebook.Unity.Mobile.Android
 
         public void ClearAppLink()
         {
-          this.CallFB("ClearAppLink", null);
+            this.CallFB("ClearAppLink", null);
         }
 
         public override void AppEventsLogEvent(
@@ -807,7 +808,7 @@ namespace Facebook.Unity.Mobile.Android
             args.AddString("imageBase64DataUrl", imageBase64DataUrl);
             args.AddString("sortOrder", sortOrder);
             args.AddString("scoreFormat", scoreFormat);
-            args.AddDictionary("data", data.ToDictionary( pair => pair.Key, pair => (object) pair.Value));
+            args.AddDictionary("data", data.ToDictionary(pair => pair.Key, pair => (object)pair.Value));
             var createTournament = new JavaMethodCall<ITournamentResult>(
                 this,
                 "CreateTournament")

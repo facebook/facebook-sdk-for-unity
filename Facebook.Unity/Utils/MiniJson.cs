@@ -255,23 +255,23 @@ namespace Facebook.MiniJSON
                         case TOKEN.CURLY_CLOSE:
                             return table;
                         default:
-                        // name
+                            // name
                             string name = this.ParseString();
                             if (name == null)
                             {
                                 return null;
                             }
 
-                        // :
+                            // :
                             if (this.NextToken != TOKEN.COLON)
                             {
                                 return null;
                             }
 
-                        // ditch the colon
+                            // ditch the colon
                             this.json.Read();
 
-                        // value
+                            // value
                             table[name] = this.ParseValue();
                             break;
                     }

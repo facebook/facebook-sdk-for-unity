@@ -25,7 +25,8 @@ using UnityEngine.UI;
 using Facebook.Unity;
 using System;
 
-public class FBWindowsFriendsManager : MonoBehaviour {
+public class FBWindowsFriendsManager : MonoBehaviour
+{
 
     public FBWindowsLogsManager Logger;
     public Transform ReceivedInvitationsPanelTransform;

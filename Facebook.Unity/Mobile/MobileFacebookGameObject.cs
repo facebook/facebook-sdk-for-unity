@@ -20,7 +20,7 @@
 
 namespace Facebook.Unity.Mobile
 {
-    internal abstract class MobileFacebookGameObject : FacebookGameObject,IMobileFacebookCallbackHandler
+    internal abstract class MobileFacebookGameObject : FacebookGameObject, IMobileFacebookCallbackHandler
     {
         private IMobileFacebookImplementation MobileFacebook
         {

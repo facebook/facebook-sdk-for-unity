@@ -26,22 +26,22 @@ using Facebook.Unity.Editor.iOS.Xcode.PBX;
 
 namespace Facebook.Unity.Editor.iOS.Xcode
 {
-    using PBXBuildFileSection           = KnownSectionBase<PBXBuildFileData>;
-    using PBXFileReferenceSection       = KnownSectionBase<PBXFileReferenceData>;
-    using PBXGroupSection               = KnownSectionBase<PBXGroupData>;
-    using PBXContainerItemProxySection  = KnownSectionBase<PBXContainerItemProxyData>;
-    using PBXReferenceProxySection      = KnownSectionBase<PBXReferenceProxyData>;
-    using PBXSourcesBuildPhaseSection   = KnownSectionBase<PBXSourcesBuildPhaseData>;
-    using PBXFrameworksBuildPhaseSection= KnownSectionBase<PBXFrameworksBuildPhaseData>;
+    using PBXBuildFileSection = KnownSectionBase<PBXBuildFileData>;
+    using PBXFileReferenceSection = KnownSectionBase<PBXFileReferenceData>;
+    using PBXGroupSection = KnownSectionBase<PBXGroupData>;
+    using PBXContainerItemProxySection = KnownSectionBase<PBXContainerItemProxyData>;
+    using PBXReferenceProxySection = KnownSectionBase<PBXReferenceProxyData>;
+    using PBXSourcesBuildPhaseSection = KnownSectionBase<PBXSourcesBuildPhaseData>;
+    using PBXFrameworksBuildPhaseSection = KnownSectionBase<PBXFrameworksBuildPhaseData>;
     using PBXResourcesBuildPhaseSection = KnownSectionBase<PBXResourcesBuildPhaseData>;
     using PBXCopyFilesBuildPhaseSection = KnownSectionBase<PBXCopyFilesBuildPhaseData>;
     using PBXShellScriptBuildPhaseSection = KnownSectionBase<PBXShellScriptBuildPhaseData>;
-    using PBXVariantGroupSection        = KnownSectionBase<PBXVariantGroupData>;
-    using PBXNativeTargetSection        = KnownSectionBase<PBXNativeTargetData>;
-    using PBXTargetDependencySection    = KnownSectionBase<PBXTargetDependencyData>;
-    using XCBuildConfigurationSection   = KnownSectionBase<XCBuildConfigurationData>;
-    using XCConfigurationListSection    = KnownSectionBase<XCConfigurationListData>;
-    using UnknownSection                = KnownSectionBase<PBXObjectData>;
+    using PBXVariantGroupSection = KnownSectionBase<PBXVariantGroupData>;
+    using PBXNativeTargetSection = KnownSectionBase<PBXNativeTargetData>;
+    using PBXTargetDependencySection = KnownSectionBase<PBXTargetDependencyData>;
+    using XCBuildConfigurationSection = KnownSectionBase<XCBuildConfigurationData>;
+    using XCConfigurationListSection = KnownSectionBase<XCConfigurationListData>;
+    using UnknownSection = KnownSectionBase<PBXObjectData>;
 
     // Determines the tree the given path is relative to
     public enum PBXSourceTree
@@ -62,32 +62,35 @@ namespace Facebook.Unity.Editor.iOS.Xcode
         // convenience accessors for public members of data. This is temporary; will be fixed by an interface change
         // of PBXProjectData
         internal PBXContainerItemProxySection containerItems { get { return m_Data.containerItems; } }
-        internal PBXReferenceProxySection references         { get { return m_Data.references; } }
-        internal PBXSourcesBuildPhaseSection sources         { get { return m_Data.sources; } }
-        internal PBXFrameworksBuildPhaseSection frameworks   { get { return m_Data.frameworks; } }
-        internal PBXResourcesBuildPhaseSection resources     { get { return m_Data.resources; } }
-        internal PBXCopyFilesBuildPhaseSection copyFiles     { get { return m_Data.copyFiles; } }
+        internal PBXReferenceProxySection references { get { return m_Data.references; } }
+        internal PBXSourcesBuildPhaseSection sources { get { return m_Data.sources; } }
+        internal PBXFrameworksBuildPhaseSection frameworks { get { return m_Data.frameworks; } }
+        internal PBXResourcesBuildPhaseSection resources { get { return m_Data.resources; } }
+        internal PBXCopyFilesBuildPhaseSection copyFiles { get { return m_Data.copyFiles; } }
         internal PBXShellScriptBuildPhaseSection shellScripts { get { return m_Data.shellScripts; } }
-        internal PBXNativeTargetSection nativeTargets        { get { return m_Data.nativeTargets; } }
+        internal PBXNativeTargetSection nativeTargets { get { return m_Data.nativeTargets; } }
         internal PBXTargetDependencySection targetDependencies { get { return m_Data.targetDependencies; } }
-        internal PBXVariantGroupSection variantGroups        { get { return m_Data.variantGroups; } }
-        internal XCBuildConfigurationSection buildConfigs    { get { return m_Data.buildConfigs; } }
+        internal PBXVariantGroupSection variantGroups { get { return m_Data.variantGroups; } }
+        internal XCBuildConfigurationSection buildConfigs { get { return m_Data.buildConfigs; } }
         internal XCConfigurationListSection buildConfigLists { get { return m_Data.buildConfigLists; } }
-        internal PBXProjectSection project                   { get { return m_Data.project; } }
+        internal PBXProjectSection project { get { return m_Data.project; } }
 
         internal PBXBuildFileData BuildFilesGet(string guid) { return m_Data.BuildFilesGet(guid); }
         internal void BuildFilesAdd(string targetGuid, PBXBuildFileData buildFile) { m_Data.BuildFilesAdd(targetGuid, buildFile); }
         internal void BuildFilesRemove(string targetGuid, string fileGuid) { m_Data.BuildFilesRemove(targetGuid, fileGuid); }
-        internal PBXBuildFileData BuildFilesGetForSourceFile(string targetGuid, string fileGuid) {
-          return m_Data.BuildFilesGetForSourceFile(targetGuid, fileGuid);
+        internal PBXBuildFileData BuildFilesGetForSourceFile(string targetGuid, string fileGuid)
+        {
+            return m_Data.BuildFilesGetForSourceFile(targetGuid, fileGuid);
         }
         internal IEnumerable<PBXBuildFileData> BuildFilesGetAll() { return m_Data.BuildFilesGetAll(); }
-        internal void FileRefsAdd(string realPath, string projectPath, PBXGroupData parent, PBXFileReferenceData fileRef) {
-          m_Data.FileRefsAdd(realPath, projectPath, parent, fileRef);
+        internal void FileRefsAdd(string realPath, string projectPath, PBXGroupData parent, PBXFileReferenceData fileRef)
+        {
+            m_Data.FileRefsAdd(realPath, projectPath, parent, fileRef);
         }
         internal PBXFileReferenceData FileRefsGet(string guid) { return m_Data.FileRefsGet(guid); }
-        internal PBXFileReferenceData FileRefsGetByRealPath(string path, PBXSourceTree sourceTree) {
-          return m_Data.FileRefsGetByRealPath(path, sourceTree);
+        internal PBXFileReferenceData FileRefsGetByRealPath(string path, PBXSourceTree sourceTree)
+        {
+            return m_Data.FileRefsGetByRealPath(path, sourceTree);
         }
         internal PBXFileReferenceData FileRefsGetByProjectPath(string path) { return m_Data.FileRefsGetByProjectPath(path); }
         internal void FileRefsRemove(string guid) { m_Data.FileRefsRemove(guid); }
@@ -98,8 +101,9 @@ namespace Facebook.Unity.Editor.iOS.Xcode
         internal void GroupsAdd(string projectPath, PBXGroupData parent, PBXGroupData gr) { m_Data.GroupsAdd(projectPath, parent, gr); }
         internal void GroupsAddDuplicate(PBXGroupData gr) { m_Data.GroupsAddDuplicate(gr); }
         internal void GroupsRemove(string guid) { m_Data.GroupsRemove(guid); }
-        internal FileGUIDListBase BuildSectionAny(PBXNativeTargetData target, string path, bool isFolderRef) {
-          return m_Data.BuildSectionAny(target, path, isFolderRef);
+        internal FileGUIDListBase BuildSectionAny(PBXNativeTargetData target, string path, bool isFolderRef)
+        {
+            return m_Data.BuildSectionAny(target, path, isFolderRef);
         }
         internal FileGUIDListBase BuildSectionAny(string sectionGuid) { return m_Data.BuildSectionAny(sectionGuid); }
 
@@ -320,7 +324,7 @@ namespace Facebook.Unity.Editor.iOS.Xcode
                 return null;
             if (buildFile.compileFlags == null)
                 return new List<string>();
-            return new List<string>(buildFile.compileFlags.Split(new char[]{' '}, StringSplitOptions.RemoveEmptyEntries));
+            return new List<string>(buildFile.compileFlags.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
         }
 
         /// <summary>
@@ -406,7 +410,7 @@ namespace Facebook.Unity.Editor.iOS.Xcode
         /// <param name="tag">The name of the asset tag.</param>
         public void RemoveAssetTagFromDefaultInstall(string targetGuid, string tag)
         {
-            UpdateBuildProperty(targetGuid, "ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS", null, new[]{tag});
+            UpdateBuildProperty(targetGuid, "ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS", null, new[] { tag });
         }
 
         /// <summary>
@@ -558,7 +562,7 @@ namespace Facebook.Unity.Editor.iOS.Xcode
             if (entitlementsFilePath != null && p.entitlementsFile == null)
             {
                 p.entitlementsFile = entitlementsFilePath;
-                AddFileImpl(entitlementsFilePath,  entitlementsFilePath, PBXSourceTree.Source, false);
+                AddFileImpl(entitlementsFilePath, entitlementsFilePath, PBXSourceTree.Source, false);
                 SetBuildProperty(targetGuid, "CODE_SIGN_ENTITLEMENTS", PBXPath.FixSlashes(entitlementsFilePath));
             }
             return true;
@@ -750,7 +754,7 @@ namespace Facebook.Unity.Editor.iOS.Xcode
                 if (fileRef != null)
                     res.Add(fileRef.path);
             }
-            return res == null ? new HashSet<string> () : res;
+            return res == null ? new HashSet<string>() : res;
         }
 
         internal HashSet<string> GetFileRefsByProjectPaths(IEnumerable<string> paths)
@@ -981,7 +985,8 @@ namespace Facebook.Unity.Editor.iOS.Xcode
         public string GetSourcesBuildPhaseByTarget(string targetGuid)
         {
             var target = nativeTargets[targetGuid];
-            foreach (var phaseGuid in target.phases) {
+            foreach (var phaseGuid in target.phases)
+            {
                 var phaseAny = BuildSectionAny(phaseGuid);
                 if (phaseAny is PBXSourcesBuildPhaseData)
                     return phaseGuid;
@@ -1017,7 +1022,8 @@ namespace Facebook.Unity.Editor.iOS.Xcode
         public string GetResourcesBuildPhaseByTarget(string targetGuid)
         {
             var target = nativeTargets[targetGuid];
-            foreach (var phaseGuid in target.phases) {
+            foreach (var phaseGuid in target.phases)
+            {
                 var phaseAny = BuildSectionAny(phaseGuid);
                 if (phaseAny is PBXResourcesBuildPhaseData)
                     return phaseGuid;
@@ -1053,7 +1059,8 @@ namespace Facebook.Unity.Editor.iOS.Xcode
         public string GetFrameworksBuildPhaseByTarget(string targetGuid)
         {
             var target = nativeTargets[targetGuid];
-            foreach (var phaseGuid in target.phases) {
+            foreach (var phaseGuid in target.phases)
+            {
                 var phaseAny = BuildSectionAny(phaseGuid);
                 if (phaseAny is PBXFrameworksBuildPhaseData)
                     return phaseGuid;
@@ -1097,11 +1104,12 @@ namespace Facebook.Unity.Editor.iOS.Xcode
         public string GetCopyFilesBuildPhaseByTarget(string targetGuid, string name, string dstPath, string subfolderSpec)
         {
             var target = nativeTargets[targetGuid];
-            foreach (var phaseGuid in target.phases) {
+            foreach (var phaseGuid in target.phases)
+            {
                 var phaseAny = BuildSectionAny(phaseGuid);
                 if (phaseAny is PBXCopyFilesBuildPhaseData)
                 {
-                    var copyPhase = (PBXCopyFilesBuildPhaseData) phaseAny;
+                    var copyPhase = (PBXCopyFilesBuildPhaseData)phaseAny;
                     if (copyPhase.name == name && copyPhase.dstPath == dstPath &&
                         copyPhase.dstSubfolderSpec == subfolderSpec)
                     {
@@ -1143,7 +1151,7 @@ namespace Facebook.Unity.Editor.iOS.Xcode
             if (targetGuid == project.project.guid)
                 return project.project.buildConfigList;
             else
-            return nativeTargets[targetGuid].buildConfigList;
+                return nativeTargets[targetGuid].buildConfigList;
         }
 
         // Sets the baseConfigurationReference key for a XCBuildConfiguration.
@@ -1438,7 +1446,8 @@ namespace Facebook.Unity.Editor.iOS.Xcode
                 targetAttributes = attributes.CreateDict("TargetAttributes");
             }
 
-            foreach (KeyValuePair<string, PBXNativeTargetData> target in nativeTargets.GetEntries()) {
+            foreach (KeyValuePair<string, PBXNativeTargetData> target in nativeTargets.GetEntries())
+            {
                 PBXElementDict targetAttributesRaw;
                 if (targetAttributes.Contains(target.Key))
                 {

@@ -47,7 +47,8 @@ namespace Facebook.Unity.Editor
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
-        public void onPurchaseCompleteHandler(System.Object data) {
+        public void onPurchaseCompleteHandler(System.Object data)
+        {
             CodelessIAPAutoLog.handlePurchaseCompleted(data);
         }
     }

@@ -239,11 +239,11 @@ namespace Facebook.Unity.Example
 
         protected bool IsHorizontalLayout()
         {
-            #if UNITY_IOS || UNITY_ANDROID
+#if UNITY_IOS || UNITY_ANDROID
                 return Screen.orientation == ScreenOrientation.LandscapeLeft;
-            #else
-                return true;
-            #endif
+#else
+            return true;
+#endif
         }
 
         protected void SwitchMenu(Type menuClass)

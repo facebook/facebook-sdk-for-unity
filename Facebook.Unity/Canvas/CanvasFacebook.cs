@@ -42,7 +42,7 @@ namespace Facebook.Unity.Canvas
         private ICanvasJSWrapper canvasJSWrapper;
         private HideUnityDelegate onHideUnityDelegate;
 
-        public CanvasFacebook(): this(GetCanvasJSWrapper(), new CallbackManager())
+        public CanvasFacebook() : this(GetCanvasJSWrapper(), new CallbackManager())
         {
         }
 
@@ -577,7 +577,7 @@ namespace Facebook.Unity.Canvas
                 clonedArgs.AddString("app_id", this.canvasImpl.appId);
                 clonedArgs.AddString("method", method);
                 var uniqueId = this.canvasImpl.CallbackManager.AddFacebookDelegate(callback);
-                this.canvasImpl.canvasJSWrapper.Ui(clonedArgs.ToJsonString (), uniqueId, this.callbackMethod);
+                this.canvasImpl.canvasJSWrapper.Ui(clonedArgs.ToJsonString(), uniqueId, this.callbackMethod);
             }
         }
 

@@ -29,15 +29,16 @@ namespace Facebook.Unity.Example
     internal sealed class MainMenu : MenuBase
     {
 
-        enum Scope {
-            PublicProfile   = 1,
-            UserFriends     = 2,
-            UserBirthday    = 3,
-            UserAgeRange    = 4,
-            PublishActions  = 5,
-            UserLocation    = 6,
-            UserHometown    = 7,
-            UserGender      = 8,
+        enum Scope
+        {
+            PublicProfile = 1,
+            UserFriends = 2,
+            UserBirthday = 3,
+            UserAgeRange = 4,
+            PublishActions = 5,
+            UserLocation = 6,
+            UserHometown = 7,
+            UserGender = 8,
         };
 
         protected override bool ShowBackButton()
@@ -138,13 +139,13 @@ namespace Facebook.Unity.Example
             GUILayout.Label(GUIContent.none, GUILayout.MinWidth(ConsoleBase.MarginFix));
             GUILayout.EndHorizontal();
 
-            #if !UNITY_WEBGL
+#if !UNITY_WEBGL
             if (this.Button("Logout"))
             {
                 CallFBLogout();
                 this.Status = "Logout called";
             }
-            #endif
+#endif
 
             GUI.enabled = enabled && FB.IsInitialized;
             if (this.Button("Share Dialog"))
@@ -206,33 +207,34 @@ namespace Facebook.Unity.Example
         {
             List<string> scopes = new List<string>();
 
-            if(scope.Contains(Scope.PublicProfile)) {
+            if (scope.Contains(Scope.PublicProfile))
+            {
                 scopes.Add("public_profile");
             }
-            if(scope.Contains(Scope.UserFriends))
+            if (scope.Contains(Scope.UserFriends))
             {
                 scopes.Add("user_friends");
             }
-            if(scope.Contains(Scope.UserBirthday))
+            if (scope.Contains(Scope.UserBirthday))
             {
                 scopes.Add("user_birthday");
             }
-            if(scope.Contains(Scope.UserAgeRange))
+            if (scope.Contains(Scope.UserAgeRange))
             {
                 scopes.Add("user_age_range");
             }
 
-            if(scope.Contains(Scope.UserLocation))
+            if (scope.Contains(Scope.UserLocation))
             {
                 scopes.Add("user_location");
             }
 
-            if(scope.Contains(Scope.UserHometown))
+            if (scope.Contains(Scope.UserHometown))
             {
                 scopes.Add("user_hometown");
             }
 
-            if(scope.Contains(Scope.UserGender))
+            if (scope.Contains(Scope.UserGender))
             {
                 scopes.Add("user_gender");
             }
@@ -244,9 +246,12 @@ namespace Facebook.Unity.Example
 
             if (mode == LoginTracking.ENABLED)
             {
-                if (Constants.CurrentPlatform == FacebookUnityPlatform.IOS) {
+                if (Constants.CurrentPlatform == FacebookUnityPlatform.IOS)
+                {
                     FB.Mobile.LoginWithTrackingPreference(LoginTracking.ENABLED, scopes, "classic_nonce123", this.HandleResult);
-                } else {
+                }
+                else
+                {
                     FB.LogInWithReadPermissions(scopes, this.HandleResult);
                 }
             }

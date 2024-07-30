@@ -43,7 +43,7 @@ namespace Facebook.Unity.Tests
                 "test title",
                 "test description",
                 new Uri("http://www.photo.com/"),
-                delegate(IShareResult r)
+                delegate (IShareResult r)
                 {
                     result = r;
                 });

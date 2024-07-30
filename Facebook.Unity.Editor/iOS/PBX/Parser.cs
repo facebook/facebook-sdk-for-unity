@@ -26,7 +26,7 @@ using System;
 
 namespace Facebook.Unity.Editor.iOS.Xcode.PBX
 {
-    class ValueAST {}
+    class ValueAST { }
 
     // IdentifierAST := <quoted string> \ <string>
     class IdentifierAST : ValueAST

@@ -86,7 +86,7 @@ namespace Facebook.Unity.Editor.iOS.Xcode.PBX
                 return true;
             foreach (var list in m_Props)
             {
-                if (list.Count == m_Level+1)
+                if (list.Count == m_Level + 1)
                 {
                     if (list[m_Level] == prop)
                         return true;
@@ -110,7 +110,7 @@ namespace Facebook.Unity.Editor.iOS.Xcode.PBX
                 if (list.Count == m_Level + 2)
                 {
                     if ((list[m_Level] == "*" || list[m_Level] == key) &&
-                        list[m_Level+1] == "*" || list[m_Level+1] == value)
+                        list[m_Level + 1] == "*" || list[m_Level + 1] == value)
                         return true;
                 }
             }
@@ -122,7 +122,7 @@ namespace Facebook.Unity.Editor.iOS.Xcode.PBX
             var newList = new List<List<string>>();
             foreach (var list in m_Props)
             {
-                if (list.Count <= m_Level+1)
+                if (list.Count <= m_Level + 1)
                     continue;
                 if (list[m_Level] == "*" || list[m_Level] == prop)
                     newList.Add(list);
@@ -227,13 +227,13 @@ namespace Facebook.Unity.Editor.iOS.Xcode.PBX
             sb.Append("{");
 
             if (el.Contains("isa"))
-                WriteDictKeyValue(sb, "isa", el["isa"], indent+1, compact, checker, comments);
+                WriteDictKeyValue(sb, "isa", el["isa"], indent + 1, compact, checker, comments);
             var keys = new List<string>(el.values.Keys);
             keys.Sort(StringComparer.Ordinal);
             foreach (var key in keys)
             {
                 if (key != "isa")
-                    WriteDictKeyValue(sb, key, el[key], indent+1, compact, checker, comments);
+                    WriteDictKeyValue(sb, key, el[key], indent + 1, compact, checker, comments);
             }
             if (!compact)
             {
@@ -252,15 +252,15 @@ namespace Facebook.Unity.Editor.iOS.Xcode.PBX
                 if (!compact)
                 {
                     sb.Append("\n");
-                    sb.Append(GetIndent(indent+1));
+                    sb.Append(GetIndent(indent + 1));
                 }
 
                 if (value is PBXElementString)
                     WriteStringImpl(sb, value.AsString(), checker.CheckStringValueInArray(value.AsString()), comments);
                 else if (value is PBXElementDict)
-                    WriteDict(sb, value.AsDict(), indent+1, compact, checker.NextLevel("*"), comments);
+                    WriteDict(sb, value.AsDict(), indent + 1, compact, checker.NextLevel("*"), comments);
                 else if (value is PBXElementArray)
-                    WriteArray(sb, value.AsArray(), indent+1, compact, checker.NextLevel("*"), comments);
+                    WriteArray(sb, value.AsArray(), indent + 1, compact, checker.NextLevel("*"), comments);
                 sb.Append(",");
                 if (compact)
                     sb.Append(" ");

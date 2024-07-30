@@ -45,11 +45,11 @@ namespace Facebook.Unity.Example
 
         protected override bool ShowDialogModeSelector()
         {
-            #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
+#if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
             return true;
-            #else
+#else
             return false;
-            #endif
+#endif
         }
 
         protected override void GetGui()

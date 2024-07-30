@@ -24,10 +24,10 @@ namespace Facebook.Unity
 
     internal class GamingServicesFriendFinderResult : ResultBase, IGamingServicesFriendFinderResult
     {
-    
+
         internal GamingServicesFriendFinderResult(ResultContainer resultContainer) : base(resultContainer)
         {
-           
+
         }
     }
 }

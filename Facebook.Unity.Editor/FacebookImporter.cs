@@ -38,7 +38,7 @@ namespace Facebook.Unity.Editor
         {
             foreach (string str in importedAssets)
             {
-                currentAsset=str;
+                currentAsset = str;
 
                 SetCanvasDllConfiguration("/Facebook.Unity.Canvas.dll");
                 SetCanvasDllConfiguration("/CanvasJSSDKBindings.jslib");
@@ -87,7 +87,7 @@ namespace Facebook.Unity.Editor
 
         private static PluginImporter GetPluginImporter(string path)
         {
-            string sdkAsset="Assets"+path;
+            string sdkAsset = "Assets" + path;
             if (currentAsset == sdkAsset)
             {
                 return ((PluginImporter)PluginImporter.GetAtPath(sdkAsset));

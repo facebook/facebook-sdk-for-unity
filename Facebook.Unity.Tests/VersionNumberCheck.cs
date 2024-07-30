@@ -46,7 +46,7 @@ namespace Facebook.Unity.Tests
         {
             VersionNumberCheck.CheckVersionOfDll(VersionNumberCheck.coreDLLSubPath);
             VersionNumberCheck.CheckVersionOfDll(VersionNumberCheck.editorDLLSubPath);
-       }
+        }
 
         private static void CheckVersionOfDll(string dllPath)
         {

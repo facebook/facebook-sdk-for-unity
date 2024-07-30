@@ -98,7 +98,8 @@ namespace Facebook.Unity.Editor.iOS.Xcode.PBX
         // returns null if not found
         public T this[string guid]
         {
-            get {
+            get
+            {
                 if (m_Entries.ContainsKey(guid))
                     return m_Entries[guid];
                 return null;
@@ -131,7 +132,8 @@ namespace Facebook.Unity.Editor.iOS.Xcode.PBX
 
         public PBXProjectObjectData project
         {
-            get {
+            get
+            {
                 foreach (var kv in GetEntries())
                     return kv.Value;
                 return null;

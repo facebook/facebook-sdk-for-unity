@@ -25,55 +25,64 @@ namespace Facebook.Unity
 {
     public class FBSDKCodelessPathComponent
     {
-        public FBSDKCodelessPathComponent (Dictionary<string, object> dict)
+        public FBSDKCodelessPathComponent(Dictionary<string, object> dict)
         {
-            className = (string) dict[Constants.EventBindingKeysClassName];
-            if (className != null) {
+            className = (string)dict[Constants.EventBindingKeysClassName];
+            if (className != null)
+            {
                 this.className = className;
             }
 
-            if (dict.ContainsKey(Constants.EventBindingKeysText)) {
-                text = (string) dict[Constants.EventBindingKeysText];
+            if (dict.ContainsKey(Constants.EventBindingKeysText))
+            {
+                text = (string)dict[Constants.EventBindingKeysText];
             }
 
-            if (dict.ContainsKey(Constants.EventBindingKeysHint)) {
-                this.hint = (string) dict[Constants.EventBindingKeysHint];
+            if (dict.ContainsKey(Constants.EventBindingKeysHint))
+            {
+                this.hint = (string)dict[Constants.EventBindingKeysHint];
             }
 
-            if (dict.ContainsKey(Constants.EventBindingKeysDescription)) {
-                desc = (string) dict[Constants.EventBindingKeysDescription];
+            if (dict.ContainsKey(Constants.EventBindingKeysDescription))
+            {
+                desc = (string)dict[Constants.EventBindingKeysDescription];
             }
 
-            if (dict.ContainsKey(Constants.EventBindingKeysIndex)) {
-                this.index = (long) dict[Constants.EventBindingKeysIndex];
+            if (dict.ContainsKey(Constants.EventBindingKeysIndex))
+            {
+                this.index = (long)dict[Constants.EventBindingKeysIndex];
             }
 
-            if (dict.ContainsKey(Constants.EventBindingKeysTag)) {
-                this.tag = (string) dict[Constants.EventBindingKeysTag];
+            if (dict.ContainsKey(Constants.EventBindingKeysTag))
+            {
+                this.tag = (string)dict[Constants.EventBindingKeysTag];
             }
 
-            if (dict.ContainsKey(Constants.EventBindingKeysSection)) {
-                section  = (long) dict[Constants.EventBindingKeysSection];
+            if (dict.ContainsKey(Constants.EventBindingKeysSection))
+            {
+                section = (long)dict[Constants.EventBindingKeysSection];
             }
 
-            if (dict.ContainsKey(Constants.EventBindingKeysRow)) {
-                row = (long) dict[Constants.EventBindingKeysRow];
+            if (dict.ContainsKey(Constants.EventBindingKeysRow))
+            {
+                row = (long)dict[Constants.EventBindingKeysRow];
             }
 
-            if (dict.ContainsKey(Constants.EventBindingKeysMatchBitmask)) {
-                matchBitmask = (long) dict[Constants.EventBindingKeysMatchBitmask];
+            if (dict.ContainsKey(Constants.EventBindingKeysMatchBitmask))
+            {
+                matchBitmask = (long)dict[Constants.EventBindingKeysMatchBitmask];
             }
 
         }
 
-        public string className {get; set;}
-        public string text {get; set;}
-        public string hint {get; set;}
-        public string desc {get; set;}
-        public string tag {get; set;}
-        public long index {get; set;}
-        public long section {get; set;}
-        public long row {get; set;}
-        public long matchBitmask {get; set;}
+        public string className { get; set; }
+        public string text { get; set; }
+        public string hint { get; set; }
+        public string desc { get; set; }
+        public string tag { get; set; }
+        public long index { get; set; }
+        public long section { get; set; }
+        public long row { get; set; }
+        public long matchBitmask { get; set; }
     }
 }

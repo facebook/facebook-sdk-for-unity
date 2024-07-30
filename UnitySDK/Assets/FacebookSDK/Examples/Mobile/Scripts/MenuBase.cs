@@ -118,12 +118,14 @@ namespace Facebook.Unity.Example
             resultSummary += "first name: " + profile.FirstName + "\n";
             resultSummary += "middle name: " + profile.MiddleName + "\n";
             resultSummary += "last name: " + profile.LastName + "\n";
-            resultSummary += "friends: " + String.Join(",", profile.FriendIDs)  + "\n";
+            resultSummary += "friends: " + String.Join(",", profile.FriendIDs) + "\n";
 
-            if (profile.Hometown!=null){
+            if (profile.Hometown != null)
+            {
                 resultSummary += "hometown: " + profile.Hometown.Name + "\n";
             }
-            if (profile.Location!=null){
+            if (profile.Location != null)
+            {
                 resultSummary += "location: " + profile.Location.Name + "\n";
             }
 
@@ -145,14 +147,14 @@ namespace Facebook.Unity.Example
 
             this.AddStatus();
 
-            #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
+#if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
             {
                 Vector2 scrollPosition = this.ScrollPosition;
                 scrollPosition.y += Input.GetTouch(0).deltaPosition.y;
                 this.ScrollPosition = scrollPosition;
             }
-            #endif
+#endif
             this.ScrollPosition = GUILayout.BeginScrollView(
                 this.ScrollPosition,
                 GUILayout.MinWidth(ConsoleBase.MainWindowFullWidth));

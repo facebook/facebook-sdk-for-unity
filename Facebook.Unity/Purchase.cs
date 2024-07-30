@@ -70,9 +70,12 @@ namespace Facebook.Unity
             }
 
             int purchaseTimeInt;
-            try {
+            try
+            {
                 purchaseTimeInt = Convert.ToInt32(purchaseTime);
-            } catch (OverflowException) {
+            }
+            catch (OverflowException)
+            {
                 throw new ArgumentException("purchaseTime");
             }
 

@@ -94,39 +94,48 @@ namespace Facebook.Unity
             FB.API("/me/custom_update", HttpMethod.POST, callback, content.toGraphAPIData());
         }
 
-        public static void OnIAPReady(FacebookDelegate<IIAPReadyResult> callback) {
+        public static void OnIAPReady(FacebookDelegate<IIAPReadyResult> callback)
+        {
             MobileFacebookImpl.OnIAPReady(callback);
         }
 
-        public static void GetCatalog(FacebookDelegate<ICatalogResult> callback) {
+        public static void GetCatalog(FacebookDelegate<ICatalogResult> callback)
+        {
             MobileFacebookImpl.GetCatalog(callback);
         }
 
-        public static void GetPurchases(FacebookDelegate<IPurchasesResult> callback) {
+        public static void GetPurchases(FacebookDelegate<IPurchasesResult> callback)
+        {
             MobileFacebookImpl.GetPurchases(callback);
         }
 
-        public static void Purchase(string productID, FacebookDelegate<IPurchaseResult> callback, string developerPayload = "") {
+        public static void Purchase(string productID, FacebookDelegate<IPurchaseResult> callback, string developerPayload = "")
+        {
             MobileFacebookImpl.Purchase(productID, callback, developerPayload);
         }
 
-        public static void ConsumePurchase(string purchaseToken, FacebookDelegate<IConsumePurchaseResult> callback) {
+        public static void ConsumePurchase(string purchaseToken, FacebookDelegate<IConsumePurchaseResult> callback)
+        {
             MobileFacebookImpl.ConsumePurchase(purchaseToken, callback);
         }
 
-        public static void GetSubscribableCatalog(FacebookDelegate<ISubscribableCatalogResult> callback) {
+        public static void GetSubscribableCatalog(FacebookDelegate<ISubscribableCatalogResult> callback)
+        {
             MobileFacebookImpl.GetSubscribableCatalog(callback);
         }
 
-        public static void GetSubscriptions(FacebookDelegate<ISubscriptionsResult> callback) {
+        public static void GetSubscriptions(FacebookDelegate<ISubscriptionsResult> callback)
+        {
             MobileFacebookImpl.GetSubscriptions(callback);
         }
 
-        public static void PurchaseSubscription(string productID, FacebookDelegate<ISubscriptionResult> callback) {
+        public static void PurchaseSubscription(string productID, FacebookDelegate<ISubscriptionResult> callback)
+        {
             MobileFacebookImpl.PurchaseSubscription(productID, callback);
         }
 
-        public static void CancelSubscription(string purchaseToken, FacebookDelegate<ICancelSubscriptionResult> callback) {
+        public static void CancelSubscription(string purchaseToken, FacebookDelegate<ICancelSubscriptionResult> callback)
+        {
             MobileFacebookImpl.CancelSubscription(purchaseToken, callback);
         }
 
@@ -153,23 +162,28 @@ namespace Facebook.Unity
             MobileFacebookImpl.ScheduleAppToUserNotification(title, body, media, timeInterval, payload, callback);
         }
 
-        public static void LoadInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback) {
+        public static void LoadInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback)
+        {
             MobileFacebookImpl.LoadInterstitialAd(placementID, callback);
         }
 
-        public static void ShowInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback) {
+        public static void ShowInterstitialAd(string placementID, FacebookDelegate<IInterstitialAdResult> callback)
+        {
             MobileFacebookImpl.ShowInterstitialAd(placementID, callback);
         }
 
-        public static void LoadRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback) {
+        public static void LoadRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback)
+        {
             MobileFacebookImpl.LoadRewardedVideo(placementID, callback);
         }
 
-        public static void ShowRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback) {
+        public static void ShowRewardedVideo(string placementID, FacebookDelegate<IRewardedVideoResult> callback)
+        {
             MobileFacebookImpl.ShowRewardedVideo(placementID, callback);
         }
 
-        public static void GetPayload(FacebookDelegate<IPayloadResult> callback) {
+        public static void GetPayload(FacebookDelegate<IPayloadResult> callback)
+        {
             MobileFacebookImpl.GetPayload(callback);
         }
 
@@ -205,11 +219,13 @@ namespace Facebook.Unity
             MobileFacebookImpl.PostTournamentScore(score, callback);
         }
 
-        public static void OpenAppStore(FacebookDelegate<IOpenAppStoreResult> callback) {
+        public static void OpenAppStore(FacebookDelegate<IOpenAppStoreResult> callback)
+        {
             MobileFacebookImpl.OpenAppStore(callback);
         }
 
-        public static void CreateGamingContext(string playerID, FacebookDelegate<ICreateGamingContextResult> callback) {
+        public static void CreateGamingContext(string playerID, FacebookDelegate<ICreateGamingContextResult> callback)
+        {
             MobileFacebookImpl.CreateGamingContext(playerID, callback);
         }
 

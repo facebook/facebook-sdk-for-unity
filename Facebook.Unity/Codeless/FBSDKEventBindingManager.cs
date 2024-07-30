@@ -25,12 +25,13 @@ namespace Facebook.Unity
 {
     public class FBSDKEventBindingManager
     {
-        public List<FBSDKEventBinding> eventBindings {get; set;}
+        public List<FBSDKEventBinding> eventBindings { get; set; }
         public FBSDKEventBindingManager(List<System.Object> listDict)
         {
             this.eventBindings = new List<FBSDKEventBinding>();
-            foreach (Dictionary<string, object> dict in listDict) {
-                this.eventBindings.Add( new FBSDKEventBinding(dict));
+            foreach (Dictionary<string, object> dict in listDict)
+            {
+                this.eventBindings.Add(new FBSDKEventBinding(dict));
             }
         }
     }

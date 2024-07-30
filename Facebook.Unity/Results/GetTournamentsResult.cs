@@ -31,7 +31,7 @@ namespace Facebook.Unity
             if (this.ResultDictionary != null)
             {
                 List<TournamentResult> tournaments = new List<TournamentResult>();
-                foreach(KeyValuePair<string, object> pair in this.ResultDictionary)
+                foreach (KeyValuePair<string, object> pair in this.ResultDictionary)
                 {
                     var dictionary = pair.Value as IDictionary<string, object>;
                     if (dictionary != null)

@@ -31,7 +31,7 @@ namespace Facebook.Unity.Tests
             IShareResult result = null;
             FB.FeedShare(
                 link: new Uri("https://www.facebook.com"),
-                callback: delegate(IShareResult r)
+                callback: delegate (IShareResult r)
                     {
                         result = r;
                     });

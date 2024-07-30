@@ -46,7 +46,7 @@ namespace Facebook.Unity.Tests.Mobile
             };
 
             FB.GetAppLink(
-                delegate(IAppLinkResult r)
+                delegate (IAppLinkResult r)
                 {
                     result = r;
                 });
@@ -73,7 +73,7 @@ namespace Facebook.Unity.Tests.Mobile
             };
 
             FB.GetAppLink(
-                delegate(IAppLinkResult r)
+                delegate (IAppLinkResult r)
                 {
                     result = r;
                 });
@@ -96,7 +96,7 @@ namespace Facebook.Unity.Tests.Mobile
             };
 
             FB.GetAppLink(
-                delegate(IAppLinkResult r)
+                delegate (IAppLinkResult r)
                 {
                     result = r;
                 });

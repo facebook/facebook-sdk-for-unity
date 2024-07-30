@@ -24,7 +24,7 @@ namespace Facebook.Unity
     using System.Collections.Generic;
     using UnityEngine;
 
-    internal interface IFacebook: IFacebookWindows
+    internal interface IFacebook : IFacebookWindows
     {
         bool LoggedIn { get; }
 

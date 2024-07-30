@@ -28,14 +28,18 @@ namespace Facebook.Unity
 
     internal class CodelessIAPAutoLog
     {
-        internal static void handlePurchaseCompleted(System.Object data) {
-            try {
-                if (!FB.Mobile.IsImplicitPurchaseLoggingEnabled()) {
+        internal static void handlePurchaseCompleted(System.Object data)
+        {
+            try
+            {
+                if (!FB.Mobile.IsImplicitPurchaseLoggingEnabled())
+                {
                     return;
                 }
-                object metadata =  CodelessIAPAutoLog.GetProperty(data, "metadata");
+                object metadata = CodelessIAPAutoLog.GetProperty(data, "metadata");
                 object productDefinition = CodelessIAPAutoLog.GetProperty(data, "definition");
-                if (metadata == null || productDefinition == null) {
+                if (metadata == null || productDefinition == null)
+                {
                     return;
                 }
                 Decimal price = (Decimal)CodelessIAPAutoLog.GetProperty(metadata, "localizedPrice");
@@ -57,21 +61,26 @@ namespace Facebook.Unity
             }
         }
 
-        internal static void addListenerToIAPButtons(object listenerObject) {
+        internal static void addListenerToIAPButtons(object listenerObject)
+        {
             UnityEngine.Object[] iapButtons = FindObjectsOfTypeByName("IAPButton", "UnityEngine.Purchasing");
-            if (iapButtons == null) {
+            if (iapButtons == null)
+            {
                 return;
             }
-            foreach (UnityEngine.Object btn in iapButtons) {
+            foreach (UnityEngine.Object btn in iapButtons)
+            {
                 addListenerToGameObject(btn, listenerObject);
             }
         }
 
-        internal static void addListenerToGameObject(UnityEngine.Object gameObject, object listenerObject) {
+        internal static void addListenerToGameObject(UnityEngine.Object gameObject, object listenerObject)
+        {
             // Code stripping will work here when developer uses Unity IAP service the UnityEngine.Purchasing will be linked
             // If it's not enabled, this will return null and it's expected and handled in null check
             Type productType = FindTypeInAssemblies("Product", "UnityEngine.Purchasing");
-            if (productType == null) {
+            if (productType == null)
+            {
                 return;
             }
             Type eventGeneric = typeof(UnityEvent<>);
@@ -90,10 +99,10 @@ namespace Facebook.Unity
                 BindingFlags.Instance | BindingFlags.Public
             );
 
-            removeListener.Invoke (onPurchaseComplete, new object[] {
+            removeListener.Invoke(onPurchaseComplete, new object[] {
                 System.Delegate.CreateDelegate(unityActionProduct, listenerObject, method)
             });
-            addListener.Invoke (onPurchaseComplete, new object[] {
+            addListener.Invoke(onPurchaseComplete, new object[] {
                 System.Delegate.CreateDelegate(unityActionProduct, listenerObject, method)
             });
         }
@@ -101,12 +110,13 @@ namespace Facebook.Unity
         private static System.Type FindTypeInAssemblies(string typeName, string nameSpace)
         {
             var assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
-            for(int i = 0; i < assemblies.Length; i++)
+            for (int i = 0; i < assemblies.Length; i++)
             {
                 var types = assemblies[i].GetTypes();
-                for(int n = 0; n < types.Length; n++)
+                for (int n = 0; n < types.Length; n++)
                 {
-                    if (typeName == types[n].Name && nameSpace == types[n].Namespace) {
+                    if (typeName == types[n].Name && nameSpace == types[n].Namespace)
+                    {
                         return types[n];
                     }
                 }
@@ -119,7 +129,8 @@ namespace Facebook.Unity
             // Code stripping will work here when developer uses Unity IAP service the UnityEngine.Purchasing will be linked
             // If it's not enabled, this will return null and it's expected and handled in null check
             Type type = FindTypeInAssemblies(typeName, nameSpace);
-            if (type == null) {
+            if (type == null)
+            {
                 return null;
             }
             return UnityEngine.Object.FindObjectsOfType(type);

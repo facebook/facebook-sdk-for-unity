@@ -61,23 +61,32 @@ namespace Facebook.Unity
             string subscriptionTerm)
         {
             int deactivationTimeInt;
-            try {
+            try
+            {
                 deactivationTimeInt = Convert.ToInt32(deactivationTime);
-            } catch (OverflowException) {
+            }
+            catch (OverflowException)
+            {
                 throw new ArgumentException("purchaseTime");
             }
 
             int periodStartTimeInt;
-            try {
+            try
+            {
                 periodStartTimeInt = Convert.ToInt32(periodStartTime);
-            } catch (OverflowException) {
+            }
+            catch (OverflowException)
+            {
                 throw new ArgumentException("periodStartTime");
             }
 
             int periodEndTimeInt;
-            try {
+            try
+            {
                 periodEndTimeInt = Convert.ToInt32(periodEndTime);
-            } catch (OverflowException) {
+            }
+            catch (OverflowException)
+            {
                 throw new ArgumentException("periodEndTime");
             }
 
@@ -92,9 +101,12 @@ namespace Facebook.Unity
             }
 
             int purchaseTimeInt;
-            try {
+            try
+            {
                 purchaseTimeInt = Convert.ToInt32(purchaseTime);
-            } catch (OverflowException) {
+            }
+            catch (OverflowException)
+            {
                 throw new ArgumentException("purchaseTime");
             }
 

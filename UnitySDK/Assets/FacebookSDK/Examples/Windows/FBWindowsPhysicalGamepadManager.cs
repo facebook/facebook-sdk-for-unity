@@ -25,7 +25,8 @@ using UnityEngine.UI;
     using XInputDotNetPure;
 #endif
 
-public class FBWindowsPhysicalGamepadManager : MonoBehaviour {
+public class FBWindowsPhysicalGamepadManager : MonoBehaviour
+{
     public Text displayGamepadInputText;
 
 #if (UNITY_STANDALONE_WIN || UNTIY_EDITOR_WIN) && !UNITY_WEBGL

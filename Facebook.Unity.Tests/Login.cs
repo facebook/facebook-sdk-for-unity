@@ -45,7 +45,7 @@ namespace Facebook.Unity.Tests
             ILoginResult result = null;
             FB.LogInWithReadPermissions(
                 null,
-                delegate(ILoginResult r)
+                delegate (ILoginResult r)
                 {
                     result = r;
                 });
@@ -58,7 +58,7 @@ namespace Facebook.Unity.Tests
             ILoginResult result = null;
             FB.LogInWithReadPermissions(
                 this.ReadPermissions,
-                delegate(ILoginResult r)
+                delegate (ILoginResult r)
                 {
                     result = r;
                 });
@@ -71,7 +71,7 @@ namespace Facebook.Unity.Tests
             ILoginResult result = null;
             FB.LogInWithPublishPermissions(
                 this.PublishPermissions,
-                delegate(ILoginResult r)
+                delegate (ILoginResult r)
                 {
                     result = r;
                 });
@@ -92,7 +92,7 @@ namespace Facebook.Unity.Tests
                 "faketokenstring",
                 "1",
                 DateTime.UtcNow.AddDays(1),
-                new List<string>(), 
+                new List<string>(),
                 null,
                 "facebook");
             Assert.IsTrue(FB.IsLoggedIn);
@@ -105,7 +105,7 @@ namespace Facebook.Unity.Tests
                 "faketokenstring",
                 "1",
                 DateTime.UtcNow.AddDays(-1),
-                new List<string>(), 
+                new List<string>(),
                 null,
                 "facebook");
             Assert.IsFalse(FB.IsLoggedIn);

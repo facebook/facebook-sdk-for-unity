@@ -36,7 +36,7 @@ namespace Facebook.Unity.Editor
         {
             if (state == PlayModeStateChange.EnteredPlayMode)
             {
-                FacebookSettings.EditorBuildTarget = (FacebookSettings.BuildTarget) Enum.Parse(typeof(FacebookSettings.BuildTarget), EditorUserBuildSettings.activeBuildTarget.ToString(), true); ;
+                FacebookSettings.EditorBuildTarget = (FacebookSettings.BuildTarget)Enum.Parse(typeof(FacebookSettings.BuildTarget), EditorUserBuildSettings.activeBuildTarget.ToString(), true); ;
             }
         }
     }

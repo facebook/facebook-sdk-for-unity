@@ -43,7 +43,7 @@ public class FBWindowsADSManager : MonoBehaviour
             }
             else
             {
-                Logger.DebugLog("Rewarded Video "+ placementID + " loaded correctly!");
+                Logger.DebugLog("Rewarded Video " + placementID + " loaded correctly!");
             }
         });
     }
@@ -101,7 +101,8 @@ public class FBWindowsADSManager : MonoBehaviour
 
     public void OnButtonLoadInterstitialAd()
     {
-        if (!String.IsNullOrEmpty(InputInterstitialAd.text)) {
+        if (!String.IsNullOrEmpty(InputInterstitialAd.text))
+        {
             LoadInterstitialAd(InputInterstitialAd.text);
         }
         else

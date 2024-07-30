@@ -29,7 +29,8 @@ namespace Facebook.Unity
             if (this.ResultDictionary != null)
             {
                 bool hasLicense;
-                if (this.ResultDictionary.TryGetValue<bool> (Constants.HasLicenseKey, out hasLicense)) {
+                if (this.ResultDictionary.TryGetValue<bool>(Constants.HasLicenseKey, out hasLicense))
+                {
                     this.HasLicense = hasLicense;
                 }
             }

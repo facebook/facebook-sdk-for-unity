@@ -82,7 +82,7 @@ namespace Facebook.Unity.Editor.Dialogs
             FB.API(
                 "/me?fields=id",
                HttpMethod.GET,
-               delegate(IGraphResult graphResult)
+               delegate (IGraphResult graphResult)
             {
                 if (!string.IsNullOrEmpty(graphResult.Error))
                 {
@@ -96,7 +96,7 @@ namespace Facebook.Unity.Editor.Dialogs
                 FB.API(
                     "/me/permissions",
                    HttpMethod.GET,
-                   delegate(IGraphResult permResult)
+                   delegate (IGraphResult permResult)
                 {
                     if (!string.IsNullOrEmpty(permResult.Error))
                     {

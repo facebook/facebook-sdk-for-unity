@@ -118,8 +118,8 @@ namespace Facebook.Unity.Editor.iOS.Xcode
         public static string[] Split(string path)
         {
             if (string.IsNullOrEmpty(path))
-                return new string[]{};
-            return path.Split(new[]{'/'}, StringSplitOptions.RemoveEmptyEntries);
+                return new string[] { };
+            return path.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
         }
     }
 

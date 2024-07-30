@@ -243,7 +243,7 @@ namespace Facebook.Unity.Windows
 
         public override void ShareTournament(int score, Dictionary<string, string> data, FacebookDelegate<ITournamentScoreResult> callback)
         {
-            this.windowsWrapper.ShareTournament(score,data,this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+            this.windowsWrapper.ShareTournament(score, data, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
 
         public override void CreateTournament(int initialScore, string title, string imageBase64DataUrl, string sortOrder, string scoreFormat, Dictionary<string, string> data, FacebookDelegate<ITournamentResult> callback)
@@ -253,7 +253,7 @@ namespace Facebook.Unity.Windows
 
         public new void UploadImageToMediaLibrary(string caption, Uri imageUri, bool shouldLaunchMediaDialog, string travelId, FacebookDelegate<IMediaUploadResult> callback)
         {
-            this.windowsWrapper.UploadImageToMediaLibrary(caption,imageUri, shouldLaunchMediaDialog, travelId, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
+            this.windowsWrapper.UploadImageToMediaLibrary(caption, imageUri, shouldLaunchMediaDialog, travelId, this.CallbackManager.AddFacebookDelegate(callback), this.CallbackManager);
         }
 
         public new void UploadVideoToMediaLibrary(string caption, Uri videoUri, bool shouldLaunchMediaDialog, string travelId, FacebookDelegate<IMediaUploadResult> callback)

@@ -29,7 +29,7 @@ namespace Facebook.Unity.Tests
         {
             IAppLinkResult result = null;
             FB.GetAppLink(
-                delegate(IAppLinkResult r)
+                delegate (IAppLinkResult r)
                 {
                     result = r;
                 });

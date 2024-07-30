@@ -34,7 +34,8 @@ namespace Facebook.Unity.Settings
         public const string FacebookSettingsPath = "FacebookSDK/SDK/Resources";
         public const string FacebookSettingsAssetExtension = ".asset";
 
-        public enum BuildTarget {
+        public enum BuildTarget
+        {
             StandaloneOSX,
             StandaloneWindows,
             iOS,
@@ -414,20 +415,20 @@ namespace Facebook.Unity.Settings
         /// <value>The access token to upload build to Facebook hosting.</value>
         public static string UploadAccessToken
         {
-          get
-          {
-            return Instance.uploadAccessToken;
-          }
-
-
-          set
-          {
-            if (Instance.uploadAccessToken != value)
+            get
             {
-              Instance.uploadAccessToken = value;
-              SettingsChanged();
+                return Instance.uploadAccessToken;
             }
-          }
+
+
+            set
+            {
+                if (Instance.uploadAccessToken != value)
+                {
+                    Instance.uploadAccessToken = value;
+                    SettingsChanged();
+                }
+            }
         }
 
         /// <summary>

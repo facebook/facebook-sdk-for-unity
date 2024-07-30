@@ -49,27 +49,33 @@ namespace Facebook.Unity.Canvas
             login(MiniJSON.Json.Serialize(scope), callback_id);
         }
 
-        public void Logout() {
+        public void Logout()
+        {
             logout();
         }
 
-        public void ActivateApp() {
+        public void ActivateApp()
+        {
             activateApp();
         }
 
-        public void LogAppEvent(string eventName, float? valueToSum, string parameters) {
+        public void LogAppEvent(string eventName, float? valueToSum, string parameters)
+        {
             logAppEvent(eventName, valueToSum.GetValueOrDefault(), parameters);
         }
 
-        public void LogPurchase(float purchaseAmount, string currency, string parameters) {
+        public void LogPurchase(float purchaseAmount, string currency, string parameters)
+        {
             logPurchase(purchaseAmount, currency, parameters);
         }
 
-        public void Ui(string x, string uid, string callbackMethodName) {
+        public void Ui(string x, string uid, string callbackMethodName)
+        {
             ui(x, uid, callbackMethodName);
         }
 
-        public void InitScreenPosition() {
+        public void InitScreenPosition()
+        {
             initScreenPosition();
         }
 

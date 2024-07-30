@@ -49,7 +49,8 @@ namespace Facebook.Unity
             string name;
             dictionary.TryGetValue(prefix + "_id", out id);
             dictionary.TryGetValue(prefix + "_name", out name);
-            if (id == null || name == null) {
+            if (id == null || name == null)
+            {
                 return null;
             }
             return new FBLocation(id, name);

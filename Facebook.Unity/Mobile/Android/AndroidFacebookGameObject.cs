@@ -44,7 +44,8 @@ namespace Facebook.Unity.Mobile.Android
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
-        public void onPurchaseCompleteHandler(System.Object data) {
+        public void onPurchaseCompleteHandler(System.Object data)
+        {
             CodelessIAPAutoLog.handlePurchaseCompleted(data);
         }
 

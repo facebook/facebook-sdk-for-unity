@@ -25,41 +25,46 @@ namespace Facebook.Unity
 {
     public class FBSDKEventBinding
     {
-        public FBSDKEventBinding (Dictionary<string, object> dict)
+        public FBSDKEventBinding(Dictionary<string, object> dict)
         {
-            eventName = (string) dict[Constants.EventBindingKeysEventName];
-            if (eventName != null) {
+            eventName = (string)dict[Constants.EventBindingKeysEventName];
+            if (eventName != null)
+            {
                 this.eventName = eventName;
             }
 
-            eventType = (string) dict[Constants.EventBindingKeysEventType];
-            if (eventType != null) {
+            eventType = (string)dict[Constants.EventBindingKeysEventType];
+            if (eventType != null)
+            {
                 this.eventType = eventType;
             }
 
-            appVersion = (string) dict[Constants.EventBindingKeysAppVersion];
-            if (appVersion != null) {
+            appVersion = (string)dict[Constants.EventBindingKeysAppVersion];
+            if (appVersion != null)
+            {
                 this.appVersion = appVersion;
             }
 
-            eventName = (string) dict[Constants.EventBindingKeysEventName];
-            if (eventName != null) {
+            eventName = (string)dict[Constants.EventBindingKeysEventName];
+            if (eventName != null)
+            {
                 this.eventName = eventName;
             }
 
-            var _path = (List<System.Object>) dict[Constants.EventBindingKeysPath];
-            path = new List<FBSDKCodelessPathComponent> ();
-            foreach(Dictionary<string, System.Object> p in _path) {
+            var _path = (List<System.Object>)dict[Constants.EventBindingKeysPath];
+            path = new List<FBSDKCodelessPathComponent>();
+            foreach (Dictionary<string, System.Object> p in _path)
+            {
                 var pathComponent = new FBSDKCodelessPathComponent(p);
                 path.Add(pathComponent);
             }
         }
 
-        public string eventName {get; set;}
-        public string eventType {get; set;}
-        public string appVersion {get; set;}
-        public string pathType {get; set;}
-        public List<FBSDKCodelessPathComponent> path {get; set;}
-        public List<string> parameters {get; set;}
+        public string eventName { get; set; }
+        public string eventType { get; set; }
+        public string appVersion { get; set; }
+        public string pathType { get; set; }
+        public List<FBSDKCodelessPathComponent> path { get; set; }
+        public List<string> parameters { get; set; }
     }
 }

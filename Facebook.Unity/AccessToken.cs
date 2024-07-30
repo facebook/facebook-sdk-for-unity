@@ -146,7 +146,7 @@ namespace Facebook.Unity
                 dictionary[LoginResult.LastRefreshKey] = this.LastRefresh.Value.TotalSeconds().ToString();
             }
             dictionary[LoginResult.GraphDomain] = this.GraphDomain;
-            
+
 
             return MiniJSON.Json.Serialize(dictionary);
         }

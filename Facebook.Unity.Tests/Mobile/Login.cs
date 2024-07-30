@@ -37,7 +37,7 @@ namespace Facebook.Unity.Tests.Mobile
 
             FB.LogInWithReadPermissions(
                 this.ReadPermissions,
-                delegate(ILoginResult r)
+                delegate (ILoginResult r)
                 {
                     result = r;
                 });
@@ -57,7 +57,7 @@ namespace Facebook.Unity.Tests.Mobile
 
             FB.LogInWithReadPermissions(
                 this.ReadPermissions,
-                delegate(ILoginResult r)
+                delegate (ILoginResult r)
                 {
                     result = r;
                 });

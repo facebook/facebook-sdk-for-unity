@@ -27,12 +27,12 @@ namespace Facebook.Unity.Editor.iOS.Xcode.PBX
 
     class PBXElement
     {
-        protected PBXElement() {}
+        protected PBXElement() { }
 
         // convenience methods
         public string AsString() { return ((PBXElementString)this).value; }
         public PBXElementArray AsArray() { return (PBXElementArray)this; }
-        public PBXElementDict AsDict()   { return (PBXElementDict)this; }
+        public PBXElementDict AsDict() { return (PBXElementDict)this; }
 
         public PBXElement this[string key]
         {
@@ -50,14 +50,15 @@ namespace Facebook.Unity.Editor.iOS.Xcode.PBX
 
     class PBXElementDict : PBXElement
     {
-        public PBXElementDict() : base() {}
+        public PBXElementDict() : base() { }
 
         private Dictionary<string, PBXElement> m_PrivateValue = new Dictionary<string, PBXElement>();
-        public IDictionary<string, PBXElement> values { get { return m_PrivateValue; }}
+        public IDictionary<string, PBXElement> values { get { return m_PrivateValue; } }
 
         new public PBXElement this[string key]
         {
-            get {
+            get
+            {
                 if (values.ContainsKey(key))
                     return values[key];
                 return null;
@@ -97,7 +98,7 @@ namespace Facebook.Unity.Editor.iOS.Xcode.PBX
 
     class PBXElementArray : PBXElement
     {
-        public PBXElementArray() : base() {}
+        public PBXElementArray() : base() { }
         public List<PBXElement> values = new List<PBXElement>();
 
         // convenience methods

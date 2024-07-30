@@ -263,8 +263,9 @@ namespace Facebook.Unity
 
             if (resultDictionary.TryGetValue("success", out catalogObject))
             {
-                IList<object> deserializedCatalogObject = (IList<object>) MiniJSON.Json.Deserialize(catalogObject as string);
-                foreach (IDictionary<string, object> product in deserializedCatalogObject) {
+                IList<object> deserializedCatalogObject = (IList<object>)MiniJSON.Json.Deserialize(catalogObject as string);
+                foreach (IDictionary<string, object> product in deserializedCatalogObject)
+                {
                     products.Add(ParseProductFromCatalogResult(product));
                 }
                 return products;
@@ -279,7 +280,7 @@ namespace Facebook.Unity
         {
             string title = product["title"].ToStringNullOk();
             string productID = product[isWindows ? "product_id" : "productID"].ToStringNullOk();
-            string description = product.ContainsKey("description") ? product["description"].ToStringNullOk():"";
+            string description = product.ContainsKey("description") ? product["description"].ToStringNullOk() : "";
             string imageURI = product.ContainsKey(isWindows ? "image_uri" : "imageURI") ? product[isWindows ? "image_uri" : "imageURI"].ToStringNullOk() : "";
             string price = product["price"].ToStringNullOk();
             double? priceAmount = product.ContainsKey(isWindows ? "price_amount" : "priceAmount") ? (double?)Convert.ToDouble(product[isWindows ? "price_amount" : "priceAmount"]) : null;
@@ -295,8 +296,9 @@ namespace Facebook.Unity
 
             if (resultDictionary.TryGetValue("success", out catalogObject))
             {
-                IList<object> deserializedCatalogObject = (IList<object>) MiniJSON.Json.Deserialize(catalogObject as string);
-                foreach (IDictionary<string, object> subscribableProduct in deserializedCatalogObject) {
+                IList<object> deserializedCatalogObject = (IList<object>)MiniJSON.Json.Deserialize(catalogObject as string);
+                foreach (IDictionary<string, object> subscribableProduct in deserializedCatalogObject)
+                {
                     subscribableProducts.Add(ParseSubscribableProductFromCatalogResult(subscribableProduct));
                 }
                 return subscribableProducts;
@@ -311,7 +313,7 @@ namespace Facebook.Unity
         {
             string title = product["title"].ToStringNullOk();
             string productID = product[isWindows ? "product_id" : "productID"].ToStringNullOk();
-            string description = product.ContainsKey("description") ? product["description"].ToStringNullOk():"";
+            string description = product.ContainsKey("description") ? product["description"].ToStringNullOk() : "";
             string imageURI = product.ContainsKey(isWindows ? "image_uri" : "imageURI") ? product[isWindows ? "image_uri" : "imageURI"].ToStringNullOk() : "";
             string price = product["price"].ToStringNullOk();
             double? priceAmount = product.ContainsKey(isWindows ? "price_amount" : "priceAmount") ? (double?)product[isWindows ? "price_amount" : "priceAmount"] : null;
@@ -328,8 +330,9 @@ namespace Facebook.Unity
 
             if (resultDictionary.TryGetValue("success", out purchasesObject))
             {
-                IList<object> deserializedPurchasesObject = (IList<object>) MiniJSON.Json.Deserialize(purchasesObject as string);
-                foreach (IDictionary<string, object> purchase in (List<object>) deserializedPurchasesObject) {
+                IList<object> deserializedPurchasesObject = (IList<object>)MiniJSON.Json.Deserialize(purchasesObject as string);
+                foreach (IDictionary<string, object> purchase in (List<object>)deserializedPurchasesObject)
+                {
                     purchases.Add(ParsePurchaseFromDictionary(purchase));
                 }
 
@@ -346,7 +349,7 @@ namespace Facebook.Unity
             object purchaseObject;
             if (resultDictionary.TryGetValue("success", out purchaseObject))
             {
-                IDictionary<string, object> deserializedPurchaseObject = (IDictionary<string, object>) MiniJSON.Json.Deserialize(purchaseObject as string);
+                IDictionary<string, object> deserializedPurchaseObject = (IDictionary<string, object>)MiniJSON.Json.Deserialize(purchaseObject as string);
                 return ParsePurchaseFromDictionary(deserializedPurchaseObject);
             }
             else
@@ -362,8 +365,9 @@ namespace Facebook.Unity
 
             if (resultDictionary.TryGetValue("success", out subscriptionsObject))
             {
-                IList<object> deserializedSubscriptionsObject = (IList<object>) MiniJSON.Json.Deserialize(subscriptionsObject as string);
-                foreach (IDictionary<string, object> subscription in (List<object>) deserializedSubscriptionsObject) {
+                IList<object> deserializedSubscriptionsObject = (IList<object>)MiniJSON.Json.Deserialize(subscriptionsObject as string);
+                foreach (IDictionary<string, object> subscription in (List<object>)deserializedSubscriptionsObject)
+                {
                     subscriptions.Add(ParseSubscriptionFromDictionary(subscription));
                 }
 
@@ -380,7 +384,7 @@ namespace Facebook.Unity
             object subscriptionObject;
             if (resultDictionary.TryGetValue("success", out subscriptionObject))
             {
-                IDictionary<string, object> deserializedSubscriptionObject = (IDictionary<string, object>) MiniJSON.Json.Deserialize(subscriptionObject as string);
+                IDictionary<string, object> deserializedSubscriptionObject = (IDictionary<string, object>)MiniJSON.Json.Deserialize(subscriptionObject as string);
                 return ParseSubscriptionFromDictionary(deserializedSubscriptionObject);
             }
             else
@@ -389,9 +393,10 @@ namespace Facebook.Unity
             }
         }
 
-        public static Purchase ParsePurchaseFromDictionary(IDictionary<string, object> purchase, bool isWindows = false) {
+        public static Purchase ParsePurchaseFromDictionary(IDictionary<string, object> purchase, bool isWindows = false)
+        {
             bool isConsumed = false;
-            if ( !purchase.TryGetValue(isWindows ? "is_consumed" : "isConsumed", out isConsumed)) // compatibility with Graph API 11 or higher
+            if (!purchase.TryGetValue(isWindows ? "is_consumed" : "isConsumed", out isConsumed)) // compatibility with Graph API 11 or higher
             {
                 purchase.TryGetValue(isWindows ? "consumed" : "isConsumed", out isConsumed); // compatibility with Graph API 10 or lower
             }
@@ -434,7 +439,8 @@ namespace Facebook.Unity
             return new Purchase(developerPayload, isConsumed, paymentActionType, paymentID, productID, purchasePlatform, purchasePrice, purchaseTime, purchaseToken, signedRequest);
         }
 
-        public static Subscription ParseSubscriptionFromDictionary(IDictionary<string, object> subscription, bool isWindows = false) {
+        public static Subscription ParseSubscriptionFromDictionary(IDictionary<string, object> subscription, bool isWindows = false)
+        {
             long deactivationTime;
             subscription.TryGetValue(isWindows ? "deactivation_time" : "deactivationTime", out deactivationTime);
 
@@ -464,9 +470,11 @@ namespace Facebook.Unity
             return new Subscription(deactivationTime, isEntitlementActive, periodStartTime, periodEndTime, productID, purchasePlatform, purchasePrice, purchaseTime, purchaseToken, signedRequest, status, subscriptionTerm);
         }
 
-        public static IDictionary<string, string> ParseStringDictionaryFromString(string input) {
+        public static IDictionary<string, string> ParseStringDictionaryFromString(string input)
+        {
             Dictionary<string, object> dict = MiniJSON.Json.Deserialize(input) as Dictionary<string, object>;
-            if (dict == null || dict.Count == 0) {
+            if (dict == null || dict.Count == 0)
+            {
                 return null;
             }
             IDictionary<string, string> result = new Dictionary<string, string>();

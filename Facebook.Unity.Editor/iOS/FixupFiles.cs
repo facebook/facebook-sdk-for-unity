@@ -28,26 +28,6 @@ namespace Facebook.Unity.Editor
 
     public class FixupFiles
     {
-        private static string didFinishLaunchingWithOptions =
-@"(?x)                                  # Verbose mode
-  (didFinishLaunchingWithOptions.+      # Find this function...
-    (?:.*\n)+?                          # Match as few lines as possible until...
-    \s*return\ )NO(\;\n                 #   return NO;
-  \})                                   # }";
-
-        public static void FixColdStart(string path)
-        {
-            string fullPath = Path.Combine(path, Path.Combine("Classes", "UnityAppController.mm"));
-            string data = Load(fullPath);
-
-            data = Regex.Replace(
-                data,
-                didFinishLaunchingWithOptions,
-                "$1YES$2");
-
-            Save(fullPath, data);
-        }
-
         public static void AddBuildFlag(string path)
         {
             string projPath = Path.Combine(path, Path.Combine("Unity-iPhone.xcodeproj", "project.pbxproj"));

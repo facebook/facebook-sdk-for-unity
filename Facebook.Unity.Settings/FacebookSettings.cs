@@ -52,6 +52,9 @@ namespace Facebook.Unity.Settings
             CloudRendering,
             PS5,
             none,
+            GameCoreScarlett,
+            GameCoreXboxSeries,
+            GameCoreXboxOne,
         }
 
         private static List<OnChangeCallback> onChangeCallbacks = new List<OnChangeCallback>();

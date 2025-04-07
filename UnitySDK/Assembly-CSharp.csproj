@@ -45,6 +45,7 @@
     <Compile Include="Assets/FacebookSDK/Examples/Mobile/Scripts/MenuBase.cs" />
     <Compile Include="Assets/FacebookSDK/Examples/Mobile/Scripts/SubMenus/AccessTokenMenu.cs" />
     <Compile Include="Assets/FacebookSDK/Examples/Mobile/Scripts/SubMenus/AppEvents.cs" />
+    <Compile Include="Assets/FacebookSDK/Examples/Mobile/Scripts/SubMenus/IAP.cs" />
     <Compile Include="Assets/FacebookSDK/Examples/Mobile/Scripts/SubMenus/AppLinks.cs" />
     <Compile Include="Assets/FacebookSDK/Examples/Mobile/Scripts/SubMenus/AppRequests.cs" />
     <Compile Include="Assets/FacebookSDK/Examples/Mobile/Scripts/SubMenus/DialogShare.cs" />
@@ -83,6 +84,41 @@
   <Import Project="$(SolutionDir)../UnityReferences.xml"></Import>
   <!-- Use ./configure.sh command to add correct unity references -->
   <!-- BEGIN_UNITY_REFERENCES -->
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.JSONSerializeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.UnityWebRequestModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+        <HintPath>$(UNITY_UI_DIR)UnityEngine.UI.dll</HintPath>
+    </Reference>
+     <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+        <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <!-- END_UNITY_REFERENCES -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

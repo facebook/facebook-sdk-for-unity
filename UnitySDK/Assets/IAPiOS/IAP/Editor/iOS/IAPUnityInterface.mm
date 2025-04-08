@@ -42,7 +42,7 @@
   return shared;
 }
 
-- (void)initialize
+- (void)initializeSK1
 {
   if (self.isInitialized || self.products.count > 0) {
     return;
@@ -52,6 +52,11 @@
   self.productOfferings = [[NSMutableDictionary alloc] initWithDictionary:@{}];
   [self fetchProducts:@[@"com.fbsdk.unity.consumable", @"com.fbsdk.unity.nonconsumable", @"com.fbsdk.unity.subscription"]];
   self.isInitialized = YES;
+}
+
+- (void)initializeSK2
+{
+  // TODO: Implement SK2
 }
 
 - (void)purchaseConsumable
@@ -141,9 +146,14 @@
 
 extern "C" {
 
-  void IAPInitialize()
+  void IAPInitializeSK1()
   {
-    [[IAPUnityInterface sharedInstance] initialize];
+    [[IAPUnityInterface sharedInstance] initializeSK1];
+  }
+
+  void IAPInitializeSK2()
+  {
+    [[IAPUnityInterface sharedInstance] initializeSK2];
   }
 
   void IAPPurchaseConsumable()

@@ -72,7 +72,7 @@
     <Compile Include="Assets/FacebookSDK/Examples/Windows/FBWindowsSoftKeyboardManager.cs" />
     <Compile Include="Assets/FacebookSDK/Examples/Windows/FBWindowsTournamentsManager.cs" />
     <Compile Include="Assets/FacebookSDK/Examples/Windows/FBWindowsVirtualGamepadManager.cs" />
-    <Compile Include="Assets/Scripts/IAPIOSWrapper.cs" />
+    <Compile Include="Assets/Scripts/IAPWrapper.cs" />
     <None Include="Assets\FacebookSDK\link.xml" />
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <Reference Include="Facebook.Unity">

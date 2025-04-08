@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-public class IAPIOSWrapper : MonoBehaviour
+public class IAPWrapper : MonoBehaviour
 {
 #if UNITY_IOS
     [DllImport ("__Internal")]
-    private static extern void IAPInitialize();
+    private static extern void IAPInitializeSK1();
+
+    [DllImport ("__Internal")]
+    private static extern void IAPInitializeSK2();
 
     [DllImport ("__Internal")]
     private static extern void IAPPurchaseConsumable();
@@ -17,20 +20,37 @@ public class IAPIOSWrapper : MonoBehaviour
 
     [DllImport ("__Internal")]
     private static extern void IAPPurchaseSubscription();
-#else
-    private static void IAPInitialize() { }
 
-    private static void IAPPurchaseConsumable() { }
-
-    private static void IAPPurchaseNonConsumable() { }
-
-    private static void IAPPurchaseSubscription() { }
-#endif
-
-    public static void Initialize()
+    public static void InitializeSK1()
     {
-        IAPInitialize();
+        IAPInitializeSK1();
     }
+
+    public static void InitializeSK2()
+    {
+        IAPInitializeSK2();
+    }
+#else
+    public static void InitializeGPBL()
+    {
+        // TODO: Implement GPBL
+    }
+
+    private static void IAPPurchaseConsumable()
+    {
+        // TODO: Implement GPBL
+    }
+
+    private static void IAPPurchaseNonConsumable()
+    {
+        // TODO: Implement GPBL
+    }
+
+    private static void IAPPurchaseSubscription()
+    {
+        // TODO: Implement GPBL
+    }
+#endif
 
     public static void PurchaseConsumable()
     {

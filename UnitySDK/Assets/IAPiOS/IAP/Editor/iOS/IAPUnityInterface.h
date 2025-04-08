@@ -21,7 +21,8 @@
 @interface IAPUnityInterface : NSObject
 
 + (IAPUnityInterface *)sharedInstance;
-- (void)initialize;
+- (void)initializeSK1;
+- (void)initializeSK2;
 - (void)purchaseConsumable;
 - (void)purchaseNonConsumable;
 - (void)purchaseSubscription;

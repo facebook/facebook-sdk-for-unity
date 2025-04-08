@@ -26,25 +26,48 @@ namespace Facebook.Unity.Example
     {
         protected override void GetGui()
         {
-            IAPIOSWrapper.Initialize();
+#if UNITY_IOS
+            if (this.Button("Initialize SK1"))
+            {
+                this.Status = "Initialized SK1";
+                IAPWrapper.InitializeSK1();
+                LogView.AddLog(
+                    "Initialized SK1");
+            }
+            if (this.Button("Initialize SK2"))
+            {
+                this.Status = "Initialized SK2";
+                IAPWrapper.InitializeSK2();
+                LogView.AddLog(
+                    "Initialized SK2");
+            }
+#else
+            if (this.Button("Initialize GPBL"))
+            {
+                this.Status = "Initialized GPBL";
+                IAPWrapper.InitializeGPBL();
+                LogView.AddLog(
+                    "Initialized GPBL");
+            }
+#endif
             if (this.Button("Purchase IAP Consumable"))
             {
                 this.Status = "Purchased IAP Consumable";
-                IAPIOSWrapper.PurchaseConsumable();
+                IAPWrapper.PurchaseConsumable();
                 LogView.AddLog(
                     "Purchased IAP Consumable");
             }
             if (this.Button("Purchase IAP Non-Consumable"))
             {
                 this.Status = "Purchased IAP Non-Consumable";
-                IAPIOSWrapper.PurchaseNonConsumable();
+                IAPWrapper.PurchaseNonConsumable();
                 LogView.AddLog(
                     "Purchased IAP Non-Consumable");
             }
             if (this.Button("Purchase IAP Subscription"))
             {
                 this.Status = "Purchased IAP Subscription";
-                IAPIOSWrapper.PurchaseSubscription();
+                IAPWrapper.PurchaseSubscription();
                 LogView.AddLog(
                     "Purchased IAP Subscription");
             }

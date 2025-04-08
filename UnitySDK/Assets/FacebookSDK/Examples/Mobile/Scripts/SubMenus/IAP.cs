@@ -26,24 +26,25 @@ namespace Facebook.Unity.Example
     {
         protected override void GetGui()
         {
+            IAPIOSWrapper.Initialize();
             if (this.Button("Purchase IAP Consumable"))
             {
                 this.Status = "Purchased IAP Consumable";
-                // TODO: Trigger the purcahse
+                IAPIOSWrapper.PurchaseConsumable();
                 LogView.AddLog(
                     "Purchased IAP Consumable");
             }
             if (this.Button("Purchase IAP Non-Consumable"))
             {
                 this.Status = "Purchased IAP Non-Consumable";
-                // TODO: Trigger the purcahse
+                IAPIOSWrapper.PurchaseNonConsumable();
                 LogView.AddLog(
                     "Purchased IAP Non-Consumable");
             }
             if (this.Button("Purchase IAP Subscription"))
             {
                 this.Status = "Purchased IAP Subscription";
-                // TODO: Trigger the purcahse
+                IAPIOSWrapper.PurchaseSubscription();
                 LogView.AddLog(
                     "Purchased IAP Subscription");
             }

@@ -19,11 +19,17 @@
 #import <StoreKit/StoreKit.h>
 #import "IAPUnityInterface.h"
 
+typedef enum {
+    SK1=1,
+    SK2=2
+} SKIntegration;
+
 @interface IAPUnityInterface() <SKRequestDelegate, SKProductsRequestDelegate, SKPaymentTransactionObserver>
 
 @property (nonatomic, strong) NSArray<SKProduct *> *products;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, SKProduct *> *productOfferings;
 @property (nonatomic, assign) BOOL isInitialized;
+@property (nonatomic, assign) SKIntegration skIntegration;
 
 @end
 
@@ -44,10 +50,11 @@
 
 - (void)initializeSK1
 {
+  self.skIntegration = SK1;
   if (self.isInitialized || self.products.count > 0) {
     return;
   }
-  NSLog(@"Initializing IAP...");
+  NSLog(@"Initializing SK1 IAP...");
   [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
   self.productOfferings = [[NSMutableDictionary alloc] initWithDictionary:@{}];
   [self fetchProducts:@[@"com.fbsdk.unity.consumable", @"com.fbsdk.unity.nonconsumable", @"com.fbsdk.unity.subscription"]];
@@ -56,25 +63,46 @@
 
 - (void)initializeSK2
 {
-  // TODO: Implement SK2
+  self.skIntegration = SK2;
+  if (@available(iOS 15.0, *)) {
+    [[IAPSK2 shared] initialize];
+  }
 }
 
 - (void)purchaseConsumable
 {
   NSLog(@"Purchasing Consumable...");
-  [self purchaseProductWithID:@"com.fbsdk.unity.consumable"];
+    if (self.skIntegration == SK1) {
+        [self purchaseProductWithID:@"com.fbsdk.unity.consumable"];
+    } else if (self.skIntegration == SK2) {
+        if (@available(iOS 15.0, *)) {
+            [[IAPSK2 shared] purchaseConsumable];
+        }
+    }
 }
 
 - (void)purchaseNonConsumable
 {
   NSLog(@"Purchasing Non-Consumable...");
-  [self purchaseProductWithID:@"com.fbsdk.unity.nonconsumable"];
+    if (self.skIntegration == SK1) {
+        [self purchaseProductWithID:@"com.fbsdk.unity.nonconsumable"];
+    } else if (self.skIntegration == SK2) {
+        if (@available(iOS 15.0, *)) {
+            [[IAPSK2 shared] purchaseNonConsumable];
+        }
+    }
 }
 
 - (void)purchaseSubscription
 {
   NSLog(@"Purchasing Subscription...");
-  [self purchaseProductWithID:@"com.fbsdk.unity.subscription"];
+    if (self.skIntegration == SK1) {
+        [self purchaseProductWithID:@"com.fbsdk.unity.subscription"];
+    } else if (self.skIntegration == SK2) {
+        if (@available(iOS 15.0, *)) {
+            [[IAPSK2 shared] purchaseSubscription];
+        }
+    }
 }
 
 #pragma mark - Internal APIs

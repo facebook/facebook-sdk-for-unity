@@ -16,19 +16,16 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <StoreKit/StoreKit.h>
 #import "IAPUnityInterface.h"
+#import "IAPSK1.h"
 
 typedef enum {
     SK1=1,
     SK2=2
 } SKIntegration;
 
-@interface IAPUnityInterface() <SKRequestDelegate, SKProductsRequestDelegate, SKPaymentTransactionObserver>
+@interface IAPUnityInterface()
 
-@property (nonatomic, strong) NSArray<SKProduct *> *products;
-@property (nonatomic, strong) NSMutableDictionary<NSString *, SKProduct *> *productOfferings;
-@property (nonatomic, assign) BOOL isInitialized;
 @property (nonatomic, assign) SKIntegration skIntegration;
 
 @end
@@ -51,14 +48,7 @@ typedef enum {
 - (void)initializeSK1
 {
   self.skIntegration = SK1;
-  if (self.isInitialized || self.products.count > 0) {
-    return;
-  }
-  NSLog(@"Initializing SK1 IAP...");
-  [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-  self.productOfferings = [[NSMutableDictionary alloc] initWithDictionary:@{}];
-  [self fetchProducts:@[@"com.fbsdk.unity.consumable", @"com.fbsdk.unity.nonconsumable", @"com.fbsdk.unity.subscription"]];
-  self.isInitialized = YES;
+  [[IAPSK1 sharedInstance] initialize];
 }
 
 - (void)initializeSK2
@@ -72,98 +62,35 @@ typedef enum {
 - (void)purchaseConsumable
 {
   NSLog(@"Purchasing Consumable...");
-    if (self.skIntegration == SK1) {
-        [self purchaseProductWithID:@"com.fbsdk.unity.consumable"];
-    } else if (self.skIntegration == SK2) {
-        if (@available(iOS 15.0, *)) {
-            [[IAPSK2 shared] purchaseConsumable];
-        }
+  if (self.skIntegration == SK1) {
+    [[IAPSK1 sharedInstance] purchaseConsumable];
+  } else if (self.skIntegration == SK2) {
+    if (@available(iOS 15.0, *)) {
+      [[IAPSK2 shared] purchaseConsumable];
     }
+  }
 }
 
 - (void)purchaseNonConsumable
 {
   NSLog(@"Purchasing Non-Consumable...");
-    if (self.skIntegration == SK1) {
-        [self purchaseProductWithID:@"com.fbsdk.unity.nonconsumable"];
-    } else if (self.skIntegration == SK2) {
-        if (@available(iOS 15.0, *)) {
-            [[IAPSK2 shared] purchaseNonConsumable];
-        }
+  if (self.skIntegration == SK1) {
+    [[IAPSK1 sharedInstance] purchaseNonConsumable];
+  } else if (self.skIntegration == SK2) {
+    if (@available(iOS 15.0, *)) {
+      [[IAPSK2 shared] purchaseNonConsumable];
     }
+  }
 }
 
 - (void)purchaseSubscription
 {
   NSLog(@"Purchasing Subscription...");
-    if (self.skIntegration == SK1) {
-        [self purchaseProductWithID:@"com.fbsdk.unity.subscription"];
-    } else if (self.skIntegration == SK2) {
-        if (@available(iOS 15.0, *)) {
-            [[IAPSK2 shared] purchaseSubscription];
-        }
-    }
-}
-
-#pragma mark - Internal APIs
-
-- (id)init {
-    self = [super init];
-    if (self) {
-        self.isInitialized = NO;
-    }
-    return self;
-}
-
-- (void)purchaseProductWithID:(NSString *)identifier
-{
-  if (self.products.count == 0) {
-    return;
-  }
-  SKProduct *product = [self.productOfferings valueForKey:identifier];
-  if (product == nil) {
-    return;
-  }
-  SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
-  [[SKPaymentQueue defaultQueue] addPayment:payment];
-}
-
-- (void)fetchProducts:(NSArray *)productIds
-{
-  SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithArray:productIds]];
-  request.delegate = self;
-  [request start];
-}
-
-#pragma mark - SKProductsRequestDelegate
-
-- (void)productsRequest:(nonnull SKProductsRequest *)request didReceiveResponse:(nonnull SKProductsResponse *)response {
-  self.products = [[NSArray alloc] initWithArray:response.products];
-  for (SKProduct* product in self.products) {
-    [self.productOfferings setValue:product forKey:product.productIdentifier];
-  }
-  NSLog(@"Fetched Product Offerings: %@", self.productOfferings);
-}
-
-#pragma mark - SKPaymentTransactionObserver
-
-- (void)paymentQueue:(nonnull SKPaymentQueue *)queue updatedTransactions:(nonnull NSArray<SKPaymentTransaction *> *)transactions {
-  for (SKPaymentTransaction* transaction in transactions) {
-    switch (transaction.transactionState) {
-      case SKPaymentTransactionStatePurchasing:
-        break;
-      case SKPaymentTransactionStateDeferred:
-        break;
-      case SKPaymentTransactionStatePurchased:
-        NSLog(@"Successfully purchased %@ with id %@", transaction.payment.productIdentifier, transaction.transactionIdentifier);
-        [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-        break;
-      case SKPaymentTransactionStateRestored:
-        [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-        break;
-      case SKPaymentTransactionStateFailed:
-        [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-        break;
+  if (self.skIntegration == SK1) {
+    [[IAPSK1 sharedInstance] purchaseSubscription];
+  } else if (self.skIntegration == SK2) {
+    if (@available(iOS 15.0, *)) {
+      [[IAPSK2 shared] purchaseSubscription];
     }
   }
 }

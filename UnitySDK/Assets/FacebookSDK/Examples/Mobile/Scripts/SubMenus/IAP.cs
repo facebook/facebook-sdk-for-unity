@@ -41,7 +41,7 @@ namespace Facebook.Unity.Example
                 LogView.AddLog(
                     "Initialized SK2");
             }
-#else
+#elif UNITY_ANDROID
             if (this.Button("Initialize GPBL"))
             {
                 this.Status = "Initialized GPBL";
@@ -49,6 +49,8 @@ namespace Facebook.Unity.Example
                 LogView.AddLog(
                     "Initialized GPBL");
             }
+#else
+            // Other Platforms not supported
 #endif
             if (this.Button("Purchase IAP Consumable"))
             {

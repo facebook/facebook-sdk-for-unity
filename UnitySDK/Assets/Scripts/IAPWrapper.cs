@@ -30,26 +30,34 @@ public class IAPWrapper : MonoBehaviour
     {
         IAPInitializeSK2();
     }
-#else
+#elif UNITY_ANDROID
     public static void InitializeGPBL()
     {
-        // TODO: Implement GPBL
+        IAPAndroidImpl.IAPInitialize();
     }
 
     private static void IAPPurchaseConsumable()
     {
-        // TODO: Implement GPBL
+        IAPAndroidImpl.IAPPurchaseConsumable();
     }
 
     private static void IAPPurchaseNonConsumable()
     {
-        // TODO: Implement GPBL
+        IAPAndroidImpl.IAPPurchaseNonConsumable();
     }
 
     private static void IAPPurchaseSubscription()
     {
-        // TODO: Implement GPBL
+        IAPAndroidImpl.IAPPurchaseSubscription();
     }
+#else
+
+    private static void IAPPurchaseConsumable() { }
+
+    private static void IAPPurchaseNonConsumable() { }
+
+    private static void IAPPurchaseSubscription() { }
+
 #endif
 
     public static void PurchaseConsumable()

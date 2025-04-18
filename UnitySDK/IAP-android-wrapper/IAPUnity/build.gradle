@@ -7,7 +7,7 @@ android {
     compileSdk 34
 
     defaultConfig {
-        minSdk 24
+        minSdk 21
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -32,7 +32,10 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+    def billing_version = "7.1.1"
+    implementation "com.android.billingclient:billing:$billing_version"
 }
+
 
 
 task copyPlugin(type: Copy) {

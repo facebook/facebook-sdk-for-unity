@@ -15,4 +15,5 @@ material = { group = "com.google.android.material", name = "material", version.r
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
 

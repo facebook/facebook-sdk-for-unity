@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "IAP-android-wrapper"
 include ':app'
+include ':IAPUnity'

@@ -2,11 +2,11 @@
 <dependencies>
     <androidPackages>
         <androidPackage spec="com.parse.bolts:bolts-android:1.4.0" />
-        <androidPackage spec="com.facebook.android:facebook-core:[17.0.0,18)" />
-        <androidPackage spec="com.facebook.android:facebook-applinks:[17.0.0,18)" />
-        <androidPackage spec="com.facebook.android:facebook-login:[17.0.0,18)" />
-        <androidPackage spec="com.facebook.android:facebook-share:[17.0.0,18)" />
-        <androidPackage spec="com.facebook.android:facebook-gamingservices:[17.0.0,18)" />
+        <androidPackage spec="com.facebook.android:facebook-core:[18.0.0,19)" />
+        <androidPackage spec="com.facebook.android:facebook-applinks:[18.0.0,19)" />
+        <androidPackage spec="com.facebook.android:facebook-login:[18.0.0,19)" />
+        <androidPackage spec="com.facebook.android:facebook-share:[18.0.0,19)" />
+        <androidPackage spec="com.facebook.android:facebook-gamingservices:[18.0.0,19)" />
     </androidPackages>
     <iosPods>
         <iosPod name="FBSDKCoreKit_Basics" version="~> 18.0.0" />

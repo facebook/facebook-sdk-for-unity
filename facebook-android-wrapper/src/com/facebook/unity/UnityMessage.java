@@ -56,7 +56,6 @@ public class UnityMessage {
     public void send() {
         assert methodName != null : "no method specified";
         String message = new UnityParams(this.params).toString();
-        Log.v(FB.TAG, "sending to Unity " + this.methodName + "(" + message + ")");
         try {
             UnityReflection.SendMessage(FB.FB_UNITY_OBJECT, this.methodName, message);
         } catch (UnsatisfiedLinkError e) {

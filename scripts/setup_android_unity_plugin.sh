@@ -46,7 +46,7 @@ fi
 UNITY_PLUGIN_FACEBOOK="$UNITY_PACKAGE_ROOT/Assets/FacebookSDK/Plugins/Android/libs"
 
 FB_WRAPPER_PATH="$PROJECT_ROOT/facebook-android-wrapper"
-FB_ANDROID_SDK_WRAPPER_NAME="facebook-android-wrapper.aar"
+FB_ANDROID_SDK_WRAPPER_NAME="facebook-android-wrapper-release.aar"
 FB_ANDROID_SDK_WRAPPER="$FB_WRAPPER_PATH/build/outputs/aar/$FB_ANDROID_SDK_WRAPPER_NAME"
 
 # Local build only properties

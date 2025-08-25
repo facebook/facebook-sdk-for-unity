@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <UNITY_VERSION>NONE</UNITY_VERSION>
+    <UNITY_VERSION>2021</UNITY_VERSION>
   </PropertyGroup>
   <PropertyGroup Condition="'$(UNITY_VERSION)' == '2020'">
     <UNITY_MANAGED_DIR>/Applications/Unity/hub/Editor/2020.3.44f1/Unity.app/Contents/Managed/</UNITY_MANAGED_DIR>
@@ -10,11 +10,11 @@
     <UNITY_NETWORKING_DIR>NONE</UNITY_NETWORKING_DIR>
   </PropertyGroup>
   <PropertyGroup Condition="'$(UNITY_VERSION)' == '2021'">
-    <UNITY_MANAGED_DIR>/Applications/Unity/hub/Editor/2021.3.17f1/Unity.app/Contents/Managed/</UNITY_MANAGED_DIR>
-    <UNITY_UI_DIR>/Applications/Unity/Hub/Editor/2021.3.17f1/Unity.app/Contents/Resources/PackageManager/ProjectTemplates/libcache/com.unity.template.universal-11.0.0/ScriptAssemblies/</UNITY_UI_DIR>
-    <UNITY_ENGINE_DIR>/Applications/Unity/Hub/Editor/2021.3.17f1/Unity.app/Contents/Managed/UnityEngine/</UNITY_ENGINE_DIR>
+    <UNITY_MANAGED_DIR>/Applications/Unity/hub/Editor/2021.3.33f1/Unity.app/Contents/Managed/</UNITY_MANAGED_DIR>
+    <UNITY_UI_DIR>/Applications/Unity/Hub/Editor/2021.3.33f1/Unity.app/Contents/Resources/PackageManager/ProjectTemplates/libcache/com.unity.template.universal-2d-1.1.4/ScriptAssemblies/</UNITY_UI_DIR>
+    <UNITY_ENGINE_DIR>/Applications/Unity/Hub/Editor/2021.3.33f1/Unity.app/Contents/Managed/UnityEngine/</UNITY_ENGINE_DIR>
     <UNITY_EXTENSIONS_DIR>NONE</UNITY_EXTENSIONS_DIR>
-    <UNITY_NETWORKING_DIR>/Applications/Unity/Hub/Editor/2021.3.17f1/Unity.app/Contents/NetStandard/</UNITY_NETWORKING_DIR>
+    <UNITY_NETWORKING_DIR>/Applications/Unity/Hub/Editor/2021.3.33f1/Unity.app/Contents/NetStandard/</UNITY_NETWORKING_DIR>
   </PropertyGroup>
   <PropertyGroup Condition="'$(UNITY_VERSION)' == '2022'">
     <UNITY_MANAGED_DIR>/Applications/Unity/hub/Editor/2022.2.3f1/Unity.app/Contents/Managed/</UNITY_MANAGED_DIR>

@@ -33,11 +33,11 @@
     <NoWarn>0169</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.XML" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml.Linq" />
+    
+    
+    
+    
+    
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets/FacebookSDK/Examples/Mobile/Scripts/ConsoleBase.cs" />
@@ -86,6 +86,13 @@
   <Import Project="$(SolutionDir)../UnityReferences.xml"></Import>
   <!-- Use ./configure.sh command to add correct unity references -->
   <!-- BEGIN_UNITY_REFERENCES -->
+  <PropertyGroup>
+    <NoConfig>true</NoConfig>
+    <NoStdLib>true</NoStdLib>
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+    <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
+    <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.dll</HintPath>
@@ -117,7 +124,16 @@
     <Reference Include="UnityEngine.UIModule">
       <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.UIModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.InputModule">
+    <Reference Include="netstandard">
+      <HintPath>$(UNITY_NETWORKING_DIR)ref/2.1.0/netstandard.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>$(UNITY_NETWORKING_DIR)compat/2.1.0/shims/netfx/System.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib">
+      <HintPath>$(UNITY_NETWORKING_DIR)compat/2.1.0/shims/netfx/mscorlib.dll</HintPath>
+    </Reference>
+     <Reference Include="UnityEngine.InputModule">
       <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.InputLegacyModule.dll</HintPath>
     </Reference>
   </ItemGroup>

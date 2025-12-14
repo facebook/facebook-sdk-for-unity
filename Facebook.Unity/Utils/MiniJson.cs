@@ -606,7 +606,7 @@ namespace Facebook.MiniJSON
                 }
                 else
                 {
-                    this.SerializeString(value.ToString());
+                    this.builder.Append(UnityEngine.JsonUtility.ToJson(value));
                 }
             }
         }

@@ -22,7 +22,8 @@ namespace Facebook.Unity.Settings
 {
     using System.Collections.Generic;
     using UnityEngine;
-
+    using System.Linq;
+    
     /// <summary>
     /// Facebook settings.
     /// </summary>
@@ -226,9 +227,10 @@ namespace Facebook.Unity.Settings
         {
             get
             {
-                return FacebookSettings.AppId != null
-                    && FacebookSettings.AppId.Length > 0
-                    && !FacebookSettings.AppId.Equals("0");
+                return !string.IsNullOrEmpty(FacebookSettings.AppId)
+                    && !FacebookSettings.AppId.Equals("0")
+                    && FacebookSettings.AppId.All(char.IsDigit)
+                    && !FacebookSettings.AppId.Contains(' ');
             }
         }
 

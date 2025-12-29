@@ -21,6 +21,7 @@
 package com.facebook.unity;
 
 import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,6 +30,8 @@ import android.os.Bundle;
 public class FBUnityLoginActivity extends BaseActivity {
     public static final String LOGIN_PARAMS = "login_params";
     public static final String LOGIN_TYPE = "login_type";
+
+    private boolean didReceiveActivityResult = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,4 +65,20 @@ public class FBUnityLoginActivity extends BaseActivity {
         TV_PUBLISH
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        didReceiveActivityResult = true;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(!didReceiveActivityResult)
+        {
+            didReceiveActivityResult = true;
+            int loginRequestCode = FacebookSdk.getCallbackRequestCodeOffset();
+            mCallbackManager.onActivityResult(loginRequestCode, RESULT_CANCELED, null);
+        }
+    }
 }

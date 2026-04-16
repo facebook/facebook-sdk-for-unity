@@ -33,7 +33,7 @@ namespace Facebook.Unity
             this.Init(this.RawResult);
 
             // The WWW object will throw an exception if accessing the texture field and
-            // an error has occured.
+            // an error has occurred.
             if (string.IsNullOrEmpty(result.webRequest.error))
             {
                 // The Graph API does not return textures directly, but a few endpoints can

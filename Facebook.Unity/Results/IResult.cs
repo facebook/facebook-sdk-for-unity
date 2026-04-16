@@ -30,7 +30,7 @@ namespace Facebook.Unity
         /// <summary>
         /// Gets the error.
         /// </summary>
-        /// <value>The error string from the result. If no error occured value is null or empty.</value>
+        /// <value>The error string from the result. If no error occurred value is null or empty.</value>
         string Error { get; }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Facebook.Unity
         /// </summary>
         /// <value>
         /// The error string from the result, as a Dictionary.
-        /// If no error occured or cannot be parsed as a Dictionary, value is null.
+        /// If no error occurred or cannot be parsed as a Dictionary, value is null.
         /// </value>
         IDictionary<string, string> ErrorDictionary { get; }
 

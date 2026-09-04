@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Unity 6.5 support on iOS for the Swift Xcode project type, including Login
+- Unity 6 support on iOS for the Swift Xcode project type, including Login
   redirects, deep links, and app links.
 - Unity 6 support on Android.
 

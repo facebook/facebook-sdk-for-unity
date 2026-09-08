@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [18.1.1]
+
 ### Added
 - Unity 6 support on iOS for the Swift Xcode project type, including Login
   redirects, deep links, and app links.
@@ -416,7 +418,9 @@ The release has been deprecated due to Unity support issues caused by removing â
 - Facebook Developer Docs: [Changelog v7.x](https://developers.facebook.com/docs/unity/change-log)
 
 <!-- Links -->
-[18.0.2]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-18.0.0...HEAD
+[18.1.1]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-18.1.0...HEAD
+[18.1.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-18.0.0...sdk-version-18.1.0
+[18.0.2]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-18.0.0...sdk-version-18.0.2
 [18.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-17.0.2...sdk-version-18.0.0
 [17.0.2]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-17.0.1...sdk-version-17.0.2
 [17.0.1]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-17.0.0...sdk-version-17.0.1

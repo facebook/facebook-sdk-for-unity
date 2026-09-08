@@ -27,7 +27,7 @@
 #include "FBUnityUtility.h"
 #include "FBSDK+Internal.h"
 
-static BOOL _fastAppSwitchEnabled = NO;
+static BOOL _fastAppSwitchEnabled = YES;
 
 @interface FBUnityInterface()
 

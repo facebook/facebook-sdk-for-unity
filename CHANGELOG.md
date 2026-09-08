@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- iOS: `LoginWithTrackingPreference` now defaults to fast app switch enabled,
+  matching the native iOS SDK and the classic `LogInWithReadPermissions` path.
+  Apps can still opt out via `FB.Mobile.SetFastAppSwitchEnabled(false)`. Behavior
+  change: eligible logins app-switch to the Facebook app instead of the web flow.
+
 ## [18.1.1]
 
 ### Added

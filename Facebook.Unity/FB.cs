@@ -1284,6 +1284,7 @@ namespace Facebook.Unity
             /// <summary>
             /// Sets the setting to enable/disable fast app switch for login.
             /// When enabled, users can switch to the Facebook app for authentication if installed.
+            /// On iOS this is enabled by default, matching the native iOS SDK; pass false to opt out.
             /// </summary>
             /// <param name="fastAppSwitchEnabled">The setting for enabling/disabling fast app switch</param>
             public static bool SetFastAppSwitchEnabled(bool fastAppSwitchEnabled)

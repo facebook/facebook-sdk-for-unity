@@ -62,6 +62,7 @@ namespace Facebook.Unity.Editor
         private GUIContent packageNameLabel = new GUIContent("Package Name [?]", "aka: the bundle identifier");
         private GUIContent classNameLabel = new GUIContent("Class Name [?]", "aka: the activity name");
         private GUIContent debugAndroidKeyLabel = new GUIContent("Debug Android Key Hash [?]", "Copy this key to the Facebook Settings in order to test a Facebook Android app");
+        private GUIContent editorAndroidKeyLabel = new GUIContent("Editor Android Key Hash [?]", "Copy this key to the Facebook Settings in order to test a Facebook Android app");
 
         private GUIContent autoLogAppEventsLabel = new GUIContent("Auto Logging App Events [?]", "If true, automatically log app install, app launch and in-app purchase events to Facebook. https://developers.facebook.com/docs/app-events/");
         private GUIContent advertiserIDCollectionLabel = new GUIContent("AdvertiserID Collection [?]", "If true, attempts to collect user's AdvertiserID. https://developers.facebook.com/docs/app-ads/targeting/mobile-advertiser-ids/");
@@ -313,6 +314,7 @@ namespace Facebook.Unity.Editor
                 this.SelectableLabelField(this.packageNameLabel, Utility.GetApplicationIdentifier());
                 this.SelectableLabelField(this.classNameLabel, ManifestMod.DeepLinkingActivityName);
                 this.SelectableLabelField(this.debugAndroidKeyLabel, FacebookAndroidUtil.DebugKeyHash);
+                this.SelectableLabelField(this.editorAndroidKeyLabel, FacebookAndroidUtil.CurrentKeyHash);
                 if (GUILayout.Button("Regenerate Android Manifest"))
                 {
                     ManifestMod.GenerateManifest();

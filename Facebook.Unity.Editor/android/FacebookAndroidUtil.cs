@@ -39,6 +39,7 @@ namespace Facebook.Unity.Editor
         public const string ErrorKeytoolError = "java_keytool_error";
 
         private static string debugKeyHash;
+        private static string currentKeyHash;
         private static string setupError;
 
         public static bool SetupProperly
@@ -83,6 +84,44 @@ namespace Facebook.Unity.Editor
                 }
 
                 return debugKeyHash;
+            }
+        }
+
+        public static string CurrentKeyHash
+        {
+            get
+            {
+                if (currentKeyHash == null)
+                {
+                    if (!HasAndroidSDK())
+                    {
+                        return ErrorNoSDK;
+                    }
+
+                    if(string.IsNullOrEmpty(PlayerSettings.Android.keystoreName))
+                    {
+                        return ErrorNoKeystore;
+                    }
+
+                    if(string.IsNullOrEmpty(PlayerSettings.Android.keyaliasName))
+                    {
+                        return ErrorNoKeystore;
+                    }
+
+                    if (!DoesCommandExist("echo \"xxx\" | openssl base64"))
+                    {
+                        return ErrorNoOpenSSL;
+                    }
+
+                    if (!DoesCommandExist("keytool"))
+                    {
+                        return ErrorNoKeytool;
+                    }
+
+                    currentKeyHash = GetKeyHash(PlayerSettings.Android.keyaliasName, PlayerSettings.Android.keystoreName, PlayerSettings.Android.keystorePass, PlayerSettings.Android.keyaliasPass);
+                }
+
+                return currentKeyHash;
             }
         }
 
@@ -145,7 +184,8 @@ namespace Facebook.Unity.Editor
             return sdkPath;
         }
 
-        private static string GetKeyHash(string alias, string keyStore, string password)
+        private static string GetKeyHash(string alias, string keyStore, string password) => GetKeyHash(alias,keyStore,password,password);
+        private static string GetKeyHash(string alias, string keyStore, string keystorePassword, string aliasPassword)
         {
             var proc = new Process();
             var arguments = @"""keytool -storepass {0} -keypass {1} -exportcert -alias {2} -keystore {3} | openssl sha1 -binary | openssl base64""";
@@ -160,7 +200,7 @@ namespace Facebook.Unity.Editor
                 arguments = @"-c " + arguments;
             }
 
-            proc.StartInfo.Arguments = string.Format(arguments, password, password, alias, keyStore);
+            proc.StartInfo.Arguments = string.Format(arguments, keystorePassword, aliasPassword, alias, keyStore);
             proc.StartInfo.UseShellExecute = false;
             proc.StartInfo.CreateNoWindow = true;
             proc.StartInfo.RedirectStandardOutput = true;

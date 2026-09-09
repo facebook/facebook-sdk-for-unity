@@ -371,6 +371,7 @@ namespace Facebook.Unity.Editor
                         if (GUILayout.Button("Remove Last Scheme"))
                         {
                             FacebookSettings.AppLinkSchemes[i].Schemes.Pop();
+                            this.SettingsChanged();
                         }
                     }
 

@@ -38,6 +38,8 @@ namespace Facebook.Unity.Editor
         {
             foreach (string str in importedAssets)
             {
+                if (!str.StartsWith("Assets/FacebookSDK/")) continue;
+                
                 currentAsset = str;
 
                 SetCanvasDllConfiguration("/Facebook.Unity.Canvas.dll");

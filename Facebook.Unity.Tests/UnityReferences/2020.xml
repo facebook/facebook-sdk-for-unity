@@ -3,6 +3,10 @@
       <HintPath>$(UNITY_MANAGED_DIR)UnityEditor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(UNITY_MANAGED_DIR)UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [19.0.0]
+
 ### Added
 - Added `FB.Mobile.SetAutoLogProductImprovementEnabled` and the default-on
   `FacebookSettings.AutoLogProductImprovementEnabled` build setting for diagnostic
@@ -19,6 +21,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   automatic app event logging; it does not itself collect or send data.
 
 ### Changed
+- Bumped SDK to 19.0.0
+- Bumped iOS SDK version to 19.0.0
+- Bumped Android SDK version to 19.0.0
 - iOS: `LoginWithTrackingPreference` now defaults to fast app switch enabled,
   matching the native iOS SDK and the classic `LogInWithReadPermissions` path.
   Apps can still opt out via `FB.Mobile.SetFastAppSwitchEnabled(false)`. Behavior
@@ -435,7 +440,8 @@ The release has been deprecated due to Unity support issues caused by removing â
 - Facebook Developer Docs: [Changelog v7.x](https://developers.facebook.com/docs/unity/change-log)
 
 <!-- Links -->
-[18.1.1]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-18.1.0...HEAD
+[19.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-18.1.1...HEAD
+[18.1.1]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-18.1.0...sdk-version-18.1.1
 [18.1.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-18.0.0...sdk-version-18.1.0
 [18.0.2]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-18.0.0...sdk-version-18.0.2
 [18.0.0]: https://github.com/facebook/facebook-sdk-for-unity/compare/sdk-version-17.0.2...sdk-version-18.0.0

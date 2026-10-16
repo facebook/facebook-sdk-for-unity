@@ -21,5 +21,5 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyVersion("18.1.1")]
+[assembly: AssemblyVersion("19.0.0")]
 [assembly: InternalsVisibleTo("Facebook.Unity.Tests")]

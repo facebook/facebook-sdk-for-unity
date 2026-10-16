@@ -39,6 +39,11 @@ namespace Facebook.Unity.Editor
         private const string FacebookClientTokenKey = "FacebookClientToken";
         private const string AutoLogAppEventsEnabled = "FacebookAutoLogAppEventsEnabled";
         private const string AutoLogProductImprovementEnabled = "FBSDKAutoLogProductImprovementEnabled";
+
+        // Carries the `FBSDK` prefix, not the `Facebook` one the keys around it use. That is how
+        // the native SDK declares it, so matching the local pattern here would write a key nothing
+        // reads.
+        private const string AutoLogMetaDataEnabled = "FBSDKAutoLogMetaDataEnabled";
         private const string AdvertiserIDCollectionEnabled = "FacebookAdvertiserIDCollectionEnabled";
 
         private static readonly IList<object> FacebookLSApplicationQueriesSchemes = new List<object>()
@@ -83,6 +88,9 @@ namespace Facebook.Unity.Editor
             // Set the Auto Log AppEvents Enabled
             this.XMLDict[PListParser.AutoLogAppEventsEnabled] = FacebookSettings.AutoLogAppEventsEnabled;
             this.XMLDict[PListParser.AutoLogProductImprovementEnabled] = FacebookSettings.AutoLogProductImprovementEnabled;
+
+            // Set the Auto Log App Metadata Enabled
+            this.XMLDict[PListParser.AutoLogMetaDataEnabled] = FacebookSettings.AutoLogMetaDataEnabled;
 
             // Set the AdvertiserID Collection Enabled
             this.XMLDict[PListParser.AdvertiserIDCollectionEnabled] = FacebookSettings.AdvertiserIDCollectionEnabled;

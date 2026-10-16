@@ -93,6 +93,8 @@ namespace Facebook.Unity.Settings
         [SerializeField]
         private bool autoLogProductImprovementEnabled = true;
         [SerializeField]
+        private bool autoLogMetaDataEnabled = true;
+        [SerializeField]
         private bool advertiserIDCollectionEnabled = true;
 
         public delegate void OnChangeCallback();
@@ -479,6 +481,28 @@ namespace Facebook.Unity.Settings
                 if (Instance.autoLogProductImprovementEnabled != value)
                 {
                     Instance.autoLogProductImprovementEnabled = value;
+                    SettingsChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether app metadata, such as screen titles and
+        /// AppLink URLs, can be automatically collected and included with logged app events.
+        /// </summary>
+        /// <value><c>true</c> if collecting metadata; otherwise, <c>false</c>.</value>
+        public static bool AutoLogMetaDataEnabled
+        {
+            get
+            {
+                return Instance.autoLogMetaDataEnabled;
+            }
+
+            set
+            {
+                if (Instance.autoLogMetaDataEnabled != value)
+                {
+                    Instance.autoLogMetaDataEnabled = value;
                     SettingsChanged();
                 }
             }

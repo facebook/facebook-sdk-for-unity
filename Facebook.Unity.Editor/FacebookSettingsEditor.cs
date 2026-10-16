@@ -65,6 +65,7 @@ namespace Facebook.Unity.Editor
 
         private GUIContent autoLogAppEventsLabel = new GUIContent("Auto Logging App Events [?]", "If true, automatically log app install, app launch and in-app purchase events to Facebook. https://developers.facebook.com/docs/app-events/");
         private GUIContent autoLogProductImprovementLabel = new GUIContent("Auto Logging Product Improvement [?]", "Allow automatic diagnostic product improvement data logging about the app and onscreen content. Defaults to true; independent of metadata and app event logging. Requires native SDK 19. This control does not itself collect data.");
+        private GUIContent autoLogMetaDataLabel = new GUIContent("Auto Logging App Metadata [?]", "If true, automatically collect app metadata such as screen titles and AppLink URLs, and include it with logged app events. https://developers.facebook.com/docs/app-events/");
         private GUIContent advertiserIDCollectionLabel = new GUIContent("AdvertiserID Collection [?]", "If true, attempts to collect user's AdvertiserID. https://developers.facebook.com/docs/app-ads/targeting/mobile-advertiser-ids/");
 
         private GUIContent sdkVersion = new GUIContent("SDK Version [?]", "This Unity Facebook SDK version.  If you have problems or compliments please include this so we know exactly what version to look out for.");
@@ -330,6 +331,7 @@ namespace Facebook.Unity.Editor
             {
                 FacebookSettings.AutoLogAppEventsEnabled = EditorGUILayout.Toggle(this.autoLogAppEventsLabel, FacebookSettings.AutoLogAppEventsEnabled);
                 FacebookSettings.AutoLogProductImprovementEnabled = EditorGUILayout.Toggle(this.autoLogProductImprovementLabel, FacebookSettings.AutoLogProductImprovementEnabled);
+                FacebookSettings.AutoLogMetaDataEnabled = EditorGUILayout.Toggle(this.autoLogMetaDataLabel, FacebookSettings.AutoLogMetaDataEnabled);
                 FacebookSettings.AdvertiserIDCollectionEnabled = EditorGUILayout.Toggle(this.advertiserIDCollectionLabel, FacebookSettings.AdvertiserIDCollectionEnabled);
             }
 

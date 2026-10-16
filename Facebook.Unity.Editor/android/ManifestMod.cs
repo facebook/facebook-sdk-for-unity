@@ -43,6 +43,7 @@ namespace Facebook.Unity.Editor
         public const string ClientTokenMetaDataName = "com.facebook.sdk.ClientToken";
         public const string AutoLogAppEventsEnabled = "com.facebook.sdk.AutoLogAppEventsEnabled";
         public const string AutoLogProductImprovementEnabled = "com.facebook.sdk.AutoLogProductImprovementEnabled";
+        public const string AutoLogMetaDataEnabled = "com.facebook.sdk.AutoLogMetaDataEnabled";
         public const string AdvertiserIDCollectionEnabled = "com.facebook.sdk.AdvertiserIDCollectionEnabled";
         public const string FacebookContentProviderName = "com.facebook.FacebookContentProvider";
         public const string FacebookContentProviderAuthFormat = "com.facebook.app.FacebookContentProvider{0}";
@@ -223,6 +224,14 @@ namespace Facebook.Unity.Editor
             autoLogProductImprovementEnabledElement.SetAttribute("name", ns, AutoLogProductImprovementEnabled);
             autoLogProductImprovementEnabledElement.SetAttribute("value", ns, autoLogProductImprovementEnabled);
             ManifestMod.SetOrReplaceXmlElement(dict, autoLogProductImprovementEnabledElement);
+
+            // enable AutoLogMetaDataEnabled by default
+            // <meta-data android:name="com.facebook.sdk.AutoLogMetaDataEnabled" android:value="true"/>
+            string autoLogMetaDataEnabled = FacebookSettings.AutoLogMetaDataEnabled.ToString().ToLower();
+            XmlElement autoLogMetaDataEnabledElement = doc.CreateElement("meta-data");
+            autoLogMetaDataEnabledElement.SetAttribute("name", ns, AutoLogMetaDataEnabled);
+            autoLogMetaDataEnabledElement.SetAttribute("value", ns, autoLogMetaDataEnabled);
+            ManifestMod.SetOrReplaceXmlElement(dict, autoLogMetaDataEnabledElement);
 
             // enable AdvertiserIDCollectionEnabled by default
             // <meta-data android:name="com.facebook.sdk.AdvertiserIDCollectionEnabled" android:value="true"/>

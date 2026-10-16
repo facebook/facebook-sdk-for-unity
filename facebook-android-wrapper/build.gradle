@@ -80,7 +80,7 @@ dependencies {
 }
 
 android {
-    // Bumped from 29: facebook-android-sdk 18.3.0 and its AndroidX deps
+    // Bumped from 29: facebook-android-sdk and its AndroidX deps
     // (androidx.activity 1.2.0) require compileSdk >= 30; use 34 to match the SDK.
     compileSdkVersion 34
     buildToolsVersion '34.0.0'

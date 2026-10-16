@@ -769,6 +769,16 @@ extern "C" {
     [FBSDKSettings.sharedSettings setIsAutoLogProductImprovementEnabled:autoLogProductImprovementEnabled];
   }
 
+  void IOSFBAutoLogMetaDataEnabled(BOOL autoLogMetaDataEnabled)
+  {
+    [FBSDKSettings.sharedSettings setIsMetaDataCollectionEnabled:autoLogMetaDataEnabled];
+  }
+
+  BOOL IOSFBIsAutoLogMetaDataEnabled()
+  {
+    return [FBSDKSettings.sharedSettings isMetaDataCollectionEnabled];
+  }
+
   void IOSFBAdvertiserIDCollectionEnabled(BOOL advertiserIDCollectionEnabledID)
   {
     [FBSDKSettings.sharedSettings setAdvertiserIDCollectionEnabled:advertiserIDCollectionEnabledID];

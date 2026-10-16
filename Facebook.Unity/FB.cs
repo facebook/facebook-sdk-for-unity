@@ -1267,6 +1267,31 @@ namespace Facebook.Unity
             }
 
             /// <summary>
+            /// Sets the setting for automatic app metadata collection, such as screen titles
+            /// and AppLink URLs, which is included with logged app events.
+            ///
+            /// Metadata is collected only when this setting and the Events Manager setting are
+            /// both enabled. Setting this to false discards metadata already collected.
+            /// </summary>
+            /// <param name="autoLogMetaDataEnabled">The setting for automatic app metadata collection</param>
+            public static void SetAutoLogMetaDataEnabled(bool autoLogMetaDataEnabled)
+            {
+                Mobile.MobileFacebookImpl.SetAutoLogMetaDataEnabled(autoLogMetaDataEnabled);
+            }
+
+            /// <summary>
+            /// Returns the setting for automatic app metadata collection.
+            ///
+            /// This reports the setting only. Collection additionally requires the Events Manager
+            /// setting to be enabled, so a true result does not on its own mean metadata is being
+            /// collected.
+            /// </summary>
+            public static bool IsAutoLogMetaDataEnabled()
+            {
+                return Mobile.MobileFacebookImpl.IsAutoLogMetaDataEnabled();
+            }
+
+            /// <summary>
             /// Sets the setting for Advertiser ID collection.
             /// </summary>
             /// <param name="advertiserIDCollectionEnabled">The setting for Advertiser ID collection</param>

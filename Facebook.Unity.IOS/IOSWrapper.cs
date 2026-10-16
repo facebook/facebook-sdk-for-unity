@@ -235,6 +235,16 @@ namespace Facebook.Unity.IOS
             IOSWrapper.IOSFBAutoLogProductImprovementEnabled(autoLogProductImprovementEnabled);
         }
 
+        public void FBAutoLogMetaDataEnabled(bool autoLogMetaDataEnabled)
+        {
+            IOSWrapper.IOSFBAutoLogMetaDataEnabled(autoLogMetaDataEnabled);
+        }
+
+        public bool FBIsAutoLogMetaDataEnabled()
+        {
+            return IOSWrapper.IOSFBIsAutoLogMetaDataEnabled();
+        }
+
         public void FBAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled)
         {
             IOSWrapper.IOSFBAdvertiserIDCollectionEnabled(advertiserIDCollectionEnabled);
@@ -544,6 +554,12 @@ namespace Facebook.Unity.IOS
 
         [DllImport("__Internal")]
         private static extern void IOSFBAutoLogProductImprovementEnabled(bool autoLogProductImprovementEnabled);
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBAutoLogMetaDataEnabled(bool autoLogMetaDataEnabled);
+
+        [DllImport("__Internal")]
+        private static extern bool IOSFBIsAutoLogMetaDataEnabled();
 
         [DllImport("__Internal")]
         private static extern void IOSFBAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabledID);

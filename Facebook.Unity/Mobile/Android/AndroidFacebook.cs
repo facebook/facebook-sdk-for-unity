@@ -97,6 +97,18 @@ namespace Facebook.Unity.Mobile.Android
             this.CallFB("SetAutoLogProductImprovementEnabled", autoLogProductImprovementEnabled.ToString());
         }
 
+        public override void SetAutoLogMetaDataEnabled(bool autoLogMetaDataEnabled)
+        {
+            this.CallFB("SetAutoLogMetaDataEnabled", autoLogMetaDataEnabled.ToString());
+        }
+
+        // Reads native state, so it takes the synchronous CallStatic path rather than CallFB,
+        // which is one-way and cannot return a value.
+        public override bool IsAutoLogMetaDataEnabled()
+        {
+            return this.androidWrapper.CallStatic<bool>("IsAutoLogMetaDataEnabled");
+        }
+
         public override void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled)
         {
             this.CallFB("SetAdvertiserIDCollectionEnabled", advertiserIDCollectionEnabled.ToString());

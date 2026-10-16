@@ -41,6 +41,12 @@ namespace Facebook.Unity.Tests.Mobile.Android
                 object result = "userid";
                 return (T)result;
             }
+            else if (methodName == "IsAutoLogMetaDataEnabled")
+            {
+                this.LogMethodCall(methodName);
+                object result = true;
+                return (T)result;
+            }
 
             throw new NotImplementedException();
         }

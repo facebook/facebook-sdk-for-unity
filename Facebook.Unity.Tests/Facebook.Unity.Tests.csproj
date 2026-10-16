@@ -76,6 +76,9 @@
     <Compile Include="Mobile\Android\MockAndroid.cs" />
     <Compile Include="Mobile\IOS\MockIOS.cs" />
     <Compile Include="Mobile\AccessTokenRefresh.cs" />
+    <Compile Include="Mobile\AutoLogMetaData.cs" />
+    <Compile Include="Mobile\IOS\AutoLogMetaData.cs" />
+    <Compile Include="Mobile\Android\AutoLogMetaData.cs" />
     <Compile Include="Mobile\LimitedLoginRefresh.cs" />
     <Compile Include="Mobile\IOS\AccessTokenRefresh.cs" />
     <Compile Include="Mobile\IOS\LimitedLoginRefresh.cs" />

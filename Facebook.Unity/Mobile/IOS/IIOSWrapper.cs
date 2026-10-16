@@ -106,6 +106,10 @@ namespace Facebook.Unity.Mobile.IOS
 
         void FBAutoLogProductImprovementEnabled(bool autoLogProductImprovementEnabled);
 
+        void FBAutoLogMetaDataEnabled(bool autoLogMetaDataEnabled);
+
+        bool FBIsAutoLogMetaDataEnabled();
+
         void FBAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabledID);
 
         bool FBAdvertiserTrackingEnabled(bool advertiserTrackingEnabled);

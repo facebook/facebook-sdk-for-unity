@@ -229,6 +229,16 @@ namespace Facebook.Unity.Editor
             return;
         }
 
+        public void SetAutoLogMetaDataEnabled(bool autoLogMetaDataEnabled)
+        {
+            return;
+        }
+
+        public bool IsAutoLogMetaDataEnabled()
+        {
+            return true;
+        }
+
         public void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled)
         {
             return;

@@ -459,6 +459,18 @@ public class FB {
     }
 
     @UnityCallable
+    public static void SetAutoLogMetaDataEnabled(String autoLogMetaDataEnabled) {
+        Log.v(TAG, "SetAutoLogMetaDataEnabled(" + autoLogMetaDataEnabled + ")");
+        FacebookSdk.setAutoLogMetaDataEnabled(
+            Boolean.valueOf(autoLogMetaDataEnabled));
+    }
+
+    @UnityCallable
+    public static boolean IsAutoLogMetaDataEnabled() {
+        return FacebookSdk.getAutoLogMetaDataEnabled();
+    }
+
+    @UnityCallable
     public static void SetAdvertiserIDCollectionEnabled(String advertiserIDCollectionEnabled) {
         Log.v(TAG, "SetAdvertiserIDCollectionEnabled(" + advertiserIDCollectionEnabled + ")");
         FacebookSdk.setAdvertiserIDCollectionEnabled(

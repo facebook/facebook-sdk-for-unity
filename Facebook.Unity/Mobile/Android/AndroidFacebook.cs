@@ -92,6 +92,11 @@ namespace Facebook.Unity.Mobile.Android
             this.CallFB("SetAutoLogAppEventsEnabled", autoLogAppEventsEnabled.ToString());
         }
 
+        public override void SetAutoLogProductImprovementEnabled(bool autoLogProductImprovementEnabled)
+        {
+            this.CallFB("SetAutoLogProductImprovementEnabled", autoLogProductImprovementEnabled.ToString());
+        }
+
         public override void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled)
         {
             this.CallFB("SetAdvertiserIDCollectionEnabled", advertiserIDCollectionEnabled.ToString());

@@ -1255,6 +1255,18 @@ namespace Facebook.Unity
             }
 
             /// <summary>
+            /// Sets whether diagnostic product improvement data about the app and its onscreen content may be automatically logged.
+            /// Defaults to true. Runtime assignments persist across launches and are independent of
+            /// metadata collection and automatic app event logging. Requires native SDK 19 or later.
+            /// This control does not itself collect or send product improvement data.
+            /// </summary>
+            /// <param name="autoLogProductImprovementEnabled">Whether automatic product improvement data logging is enabled.</param>
+            public static void SetAutoLogProductImprovementEnabled(bool autoLogProductImprovementEnabled)
+            {
+                Mobile.MobileFacebookImpl.SetAutoLogProductImprovementEnabled(autoLogProductImprovementEnabled);
+            }
+
+            /// <summary>
             /// Sets the setting for Advertiser ID collection.
             /// </summary>
             /// <param name="advertiserIDCollectionEnabled">The setting for Advertiser ID collection</param>

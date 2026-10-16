@@ -34,6 +34,8 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Compile Include="FacebookTestClass.cs" />
+    <Compile Include="ProductImprovement.cs" />
+    <Compile Include="BuildPostProcess\ProductImprovementSettingsTest.cs" />
     <Compile Include="Canvas\UserAgent.cs" />
     <Compile Include="Canvas\Pay.cs" />
     <Compile Include="MockResults.cs" />
@@ -105,6 +107,10 @@
       <HintPath>$(UNITY_MANAGED_DIR)UnityEditor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(UNITY_MANAGED_DIR)UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(UNITY_ENGINE_DIR)UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
@@ -113,6 +119,7 @@
   <!-- END_UNITY_REFERENCES -->
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
     <Reference Include="nunit.core" />
     <Reference Include="nunit.mocks">
       <HintPath>..\packages\NUnit.Mocks.2.6.4\lib\nunit.mocks.dll</HintPath>
@@ -139,6 +146,10 @@
     <ProjectReference Include="..\Facebook.Unity\Facebook.Unity.csproj">
       <Project>{3DFF6C0C-BB04-405D-A23F-95999630E7F8}</Project>
       <Name>Facebook.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Facebook.Unity.Settings\Facebook.Unity.Settings.csproj">
+      <Project>{BA9BAAC5-5D12-460A-A8B3-428CC1F1CCC6}</Project>
+      <Name>Facebook.Unity.Settings</Name>
     </ProjectReference>
     <ProjectReference Include="..\Facebook.Unity.Editor\Facebook.Unity.Editor.csproj">
       <Project>{4F631992-8D32-4AB5-8073-4BDC8A79380B}</Project>

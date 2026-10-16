@@ -764,6 +764,11 @@ extern "C" {
     [FBSDKSettings.sharedSettings setAutoLogAppEventsEnabled:autoLogAppEventsEnabledID];
   }
 
+  void IOSFBAutoLogProductImprovementEnabled(BOOL autoLogProductImprovementEnabled)
+  {
+    [FBSDKSettings.sharedSettings setIsAutoLogProductImprovementEnabled:autoLogProductImprovementEnabled];
+  }
+
   void IOSFBAdvertiserIDCollectionEnabled(BOOL advertiserIDCollectionEnabledID)
   {
     [FBSDKSettings.sharedSettings setAdvertiserIDCollectionEnabled:advertiserIDCollectionEnabledID];

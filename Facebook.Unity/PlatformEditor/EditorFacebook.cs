@@ -224,6 +224,11 @@ namespace Facebook.Unity.Editor
             return;
         }
 
+        public void SetAutoLogProductImprovementEnabled(bool autoLogProductImprovementEnabled)
+        {
+            return;
+        }
+
         public void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled)
         {
             return;

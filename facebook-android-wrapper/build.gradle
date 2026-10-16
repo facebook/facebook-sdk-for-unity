@@ -39,7 +39,7 @@ buildscript {
     }
 }
 
-def fbSdkVersion = project.hasProperty("sdkVersion") ? sdkVersion : '18.1.1'
+def fbSdkVersion = project.hasProperty("sdkVersion") ? sdkVersion : '[19.0.0,20)'
 
 repositories {
     // use skycastle custom repo
@@ -61,9 +61,10 @@ repositories {
 }
 
 dependencies {
-    // 18.3.0 is the first Facebook Android SDK release containing FB Login SSO
-    // (FBLoginSSOLauncher), required by FBUnitySSOActivity / FBLogin.loginWithSSO.
-    implementation 'com.facebook.android:facebook-android-sdk:[18.3.0,19)'
+    // SDK 19 introduces the ProductImprovement control used by the Unity bridge.
+    if (!project.hasProperty("localRepo")) {
+        implementation "com.facebook.android:facebook-android-sdk:${fbSdkVersion}"
+    }
 
     // AndroidX deps required by the SSO launcher: FBLoginSSOLauncher needs a
     // ComponentActivity for registerForActivityResult, and the no-app fallback

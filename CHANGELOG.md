@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Added `FB.Mobile.SetAutoLogProductImprovementEnabled` and the default-on
+  `FacebookSettings.AutoLogProductImprovementEnabled` build setting for diagnostic
+  data about the app and its onscreen content. Apps can opt out at runtime or
+  through the editor's Auto Logging Product Improvement setting, which exports
+  `FBSDKAutoLogProductImprovementEnabled` on iOS and
+  `com.facebook.sdk.AutoLogProductImprovementEnabled` on Android. Runtime changes
+  persist across launches and take precedence over build settings. Requires native
+  SDK 19.0.0 or later. This control is independent of metadata collection and
+  automatic app event logging; it does not itself collect or send data.
+
 ### Changed
 - iOS: `LoginWithTrackingPreference` now defaults to fast app switch enabled,
   matching the native iOS SDK and the classic `LogInWithReadPermissions` path.

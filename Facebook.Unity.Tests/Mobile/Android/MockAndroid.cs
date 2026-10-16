@@ -27,6 +27,8 @@ namespace Facebook.Unity.Tests.Mobile.Android
 
     internal class MockAndroid : MockWrapper, IAndroidWrapper
     {
+        public string AutoLogProductImprovementEnabled { get; private set; }
+
         public T CallStatic<T>(string methodName)
         {
             if (methodName == "GetSdkVersion")
@@ -46,6 +48,12 @@ namespace Facebook.Unity.Tests.Mobile.Android
         public void CallStatic(string methodName, params object[] args)
         {
             this.LogMethodCall(methodName);
+            if (methodName == "SetAutoLogProductImprovementEnabled")
+            {
+                this.AutoLogProductImprovementEnabled = (string)args[0];
+                return;
+            }
+
             Utilities.Callback<ResultContainer> callback = null;
             IDictionary<string, object> result;
             IDictionary<string, object> methodArguments = null;

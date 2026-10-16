@@ -194,6 +194,14 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             this.LogMethodCall();
         }
 
+        public bool? AutoLogProductImprovementEnabled { get; private set; }
+
+        public void FBAutoLogProductImprovementEnabled(bool autoLogProductImprovementEnabled)
+        {
+            this.LogMethodCall();
+            this.AutoLogProductImprovementEnabled = autoLogProductImprovementEnabled;
+        }
+
         public bool FBAdvertiserTrackingEnabled(bool advertiserTrackingEnabled)
         {
             this.LogMethodCall();

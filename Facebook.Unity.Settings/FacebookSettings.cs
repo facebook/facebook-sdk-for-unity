@@ -91,6 +91,8 @@ namespace Facebook.Unity.Settings
         [SerializeField]
         private bool autoLogAppEventsEnabled = true;
         [SerializeField]
+        private bool autoLogProductImprovementEnabled = true;
+        [SerializeField]
         private bool advertiserIDCollectionEnabled = true;
 
         public delegate void OnChangeCallback();
@@ -455,6 +457,28 @@ namespace Facebook.Unity.Settings
                 if (Instance.autoLogAppEventsEnabled != value)
                 {
                     Instance.autoLogAppEventsEnabled = value;
+                    SettingsChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the build-time default for automatic diagnostic product improvement data logging.
+        /// Native persisted runtime assignments take precedence over this setting.
+        /// </summary>
+        /// <value><c>true</c> by default; <c>false</c> to opt out.</value>
+        public static bool AutoLogProductImprovementEnabled
+        {
+            get
+            {
+                return Instance.autoLogProductImprovementEnabled;
+            }
+
+            set
+            {
+                if (Instance.autoLogProductImprovementEnabled != value)
+                {
+                    Instance.autoLogProductImprovementEnabled = value;
                     SettingsChanged();
                 }
             }

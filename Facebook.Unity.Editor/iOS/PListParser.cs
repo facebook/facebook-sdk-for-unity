@@ -38,6 +38,7 @@ namespace Facebook.Unity.Editor
         private const string FacebookAppIDPrefix = "fb";
         private const string FacebookClientTokenKey = "FacebookClientToken";
         private const string AutoLogAppEventsEnabled = "FacebookAutoLogAppEventsEnabled";
+        private const string AutoLogProductImprovementEnabled = "FBSDKAutoLogProductImprovementEnabled";
         private const string AdvertiserIDCollectionEnabled = "FacebookAdvertiserIDCollectionEnabled";
 
         private static readonly IList<object> FacebookLSApplicationQueriesSchemes = new List<object>()
@@ -81,6 +82,7 @@ namespace Facebook.Unity.Editor
 
             // Set the Auto Log AppEvents Enabled
             this.XMLDict[PListParser.AutoLogAppEventsEnabled] = FacebookSettings.AutoLogAppEventsEnabled;
+            this.XMLDict[PListParser.AutoLogProductImprovementEnabled] = FacebookSettings.AutoLogProductImprovementEnabled;
 
             // Set the AdvertiserID Collection Enabled
             this.XMLDict[PListParser.AdvertiserIDCollectionEnabled] = FacebookSettings.AdvertiserIDCollectionEnabled;

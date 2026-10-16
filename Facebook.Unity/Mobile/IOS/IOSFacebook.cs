@@ -75,6 +75,11 @@ namespace Facebook.Unity.Mobile.IOS
             this.iosWrapper.FBAutoLogAppEventsEnabled(autoLogAppEventsEnabled);
         }
 
+        public override void SetAutoLogProductImprovementEnabled(bool autoLogProductImprovementEnabled)
+        {
+            this.iosWrapper.FBAutoLogProductImprovementEnabled(autoLogProductImprovementEnabled);
+        }
+
         public override void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled)
         {
             this.iosWrapper.FBAdvertiserIDCollectionEnabled(advertiserIDCollectionEnabled);

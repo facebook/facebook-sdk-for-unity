@@ -198,6 +198,7 @@ Copyright (c) Meta Platforms, Inc. and affiliates.
   - [SetAdvertiserIDCollectionEnabled(advertiserIDCollectionEnabled)](#M-Facebook-Unity-FB-Mobile-SetAdvertiserIDCollectionEnabled-System-Boolean- 'Facebook.Unity.FB.Mobile.SetAdvertiserIDCollectionEnabled(System.Boolean)')
   - [SetAdvertiserTrackingEnabled(advertiserTrackingEnabled)](#M-Facebook-Unity-FB-Mobile-SetAdvertiserTrackingEnabled-System-Boolean- 'Facebook.Unity.FB.Mobile.SetAdvertiserTrackingEnabled(System.Boolean)')
   - [SetAutoLogAppEventsEnabled(autoLogAppEventsEnabled)](#M-Facebook-Unity-FB-Mobile-SetAutoLogAppEventsEnabled-System-Boolean- 'Facebook.Unity.FB.Mobile.SetAutoLogAppEventsEnabled(System.Boolean)')
+  - [SetAutoLogProductImprovementEnabled(autoLogProductImprovementEnabled)](#M-Facebook-Unity-FB-Mobile-SetAutoLogProductImprovementEnabled-System-Boolean- 'Facebook.Unity.FB.Mobile.SetAutoLogProductImprovementEnabled(System.Boolean)')
   - [SetPushNotificationsDeviceTokenString(token)](#M-Facebook-Unity-FB-Mobile-SetPushNotificationsDeviceTokenString-System-String- 'Facebook.Unity.FB.Mobile.SetPushNotificationsDeviceTokenString(System.String)')
 - [MobileFacebook](#T-Facebook-Unity-Mobile-MobileFacebook 'Facebook.Unity.Mobile.MobileFacebook')
   - [ShareDialogMode](#P-Facebook-Unity-Mobile-MobileFacebook-ShareDialogMode 'Facebook.Unity.Mobile.MobileFacebook.ShareDialogMode')
@@ -2353,6 +2354,25 @@ Sets the setting for Automatic App Events Logging.
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | autoLogAppEventsEnabled | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') | The setting for Automatic App Events Logging |
+
+<a name='M-Facebook-Unity-FB-Mobile-SetAutoLogProductImprovementEnabled-System-Boolean-'></a>
+### SetAutoLogProductImprovementEnabled(autoLogProductImprovementEnabled) `method`
+
+##### Summary
+
+Controls automatic diagnostic product improvement data logging about the app and its onscreen content. Requires iOS and Android native SDK 19.0.0 or later. The control defaults to `true` and is independent of metadata collection and automatic app event logging. This API introduces the control only; it does not itself collect or send product improvement data.
+
+```csharp
+FB.Mobile.SetAutoLogProductImprovementEnabled(false);
+```
+
+Runtime assignments persist across launches and take precedence over build-time configuration. In **Facebook > Edit Settings > App Events Settings**, disable **Auto Logging Product Improvement** to configure the build-time default. The build setting is also exposed as `FacebookSettings.AutoLogProductImprovementEnabled` and exports `FBSDKAutoLogProductImprovementEnabled` to the iOS app plist and `com.facebook.sdk.AutoLogProductImprovementEnabled` to the Android manifest. Reading the Unity build setting does not read the native runtime value. The runtime API is a no-op in the Unity Editor, matching the other mobile collection controls.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| autoLogProductImprovementEnabled | System.Boolean | `false` to opt out of automatic product improvement data logging; `true` to enable it. |
 
 <a name='M-Facebook-Unity-FB-Mobile-SetPushNotificationsDeviceTokenString-System-String-'></a>
 ### SetPushNotificationsDeviceTokenString(token) `method`

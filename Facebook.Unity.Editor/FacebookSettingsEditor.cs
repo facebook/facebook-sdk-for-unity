@@ -64,6 +64,7 @@ namespace Facebook.Unity.Editor
         private GUIContent debugAndroidKeyLabel = new GUIContent("Debug Android Key Hash [?]", "Copy this key to the Facebook Settings in order to test a Facebook Android app");
 
         private GUIContent autoLogAppEventsLabel = new GUIContent("Auto Logging App Events [?]", "If true, automatically log app install, app launch and in-app purchase events to Facebook. https://developers.facebook.com/docs/app-events/");
+        private GUIContent autoLogProductImprovementLabel = new GUIContent("Auto Logging Product Improvement [?]", "Allow automatic diagnostic product improvement data logging about the app and onscreen content. Defaults to true; independent of metadata and app event logging. Requires native SDK 19. This control does not itself collect data.");
         private GUIContent advertiserIDCollectionLabel = new GUIContent("AdvertiserID Collection [?]", "If true, attempts to collect user's AdvertiserID. https://developers.facebook.com/docs/app-ads/targeting/mobile-advertiser-ids/");
 
         private GUIContent sdkVersion = new GUIContent("SDK Version [?]", "This Unity Facebook SDK version.  If you have problems or compliments please include this so we know exactly what version to look out for.");
@@ -328,6 +329,7 @@ namespace Facebook.Unity.Editor
             if (this.showAppEventsSettings)
             {
                 FacebookSettings.AutoLogAppEventsEnabled = EditorGUILayout.Toggle(this.autoLogAppEventsLabel, FacebookSettings.AutoLogAppEventsEnabled);
+                FacebookSettings.AutoLogProductImprovementEnabled = EditorGUILayout.Toggle(this.autoLogProductImprovementLabel, FacebookSettings.AutoLogProductImprovementEnabled);
                 FacebookSettings.AdvertiserIDCollectionEnabled = EditorGUILayout.Toggle(this.advertiserIDCollectionLabel, FacebookSettings.AdvertiserIDCollectionEnabled);
             }
 

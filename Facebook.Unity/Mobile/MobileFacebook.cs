@@ -95,6 +95,8 @@ namespace Facebook.Unity.Mobile
 
         public abstract void SetAutoLogAppEventsEnabled(bool autoLogAppEventsEnabled);
 
+        public abstract void SetAutoLogProductImprovementEnabled(bool autoLogProductImprovementEnabled);
+
         public abstract void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled);
 
         public abstract bool SetAdvertiserTrackingEnabled(bool advertiserTrackingEnabled);

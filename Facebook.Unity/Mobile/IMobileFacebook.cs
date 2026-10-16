@@ -54,6 +54,8 @@ namespace Facebook.Unity.Mobile
 
         void SetAutoLogAppEventsEnabled(bool autoLogAppEventsEnabled);
 
+        void SetAutoLogProductImprovementEnabled(bool autoLogProductImprovementEnabled);
+
         void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled);
 
         bool SetAdvertiserTrackingEnabled(bool advertiserTrackingEnabled);

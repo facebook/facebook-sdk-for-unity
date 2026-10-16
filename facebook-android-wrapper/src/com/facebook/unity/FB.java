@@ -452,6 +452,13 @@ public class FB {
     }
 
     @UnityCallable
+    public static void SetAutoLogProductImprovementEnabled(String autoLogProductImprovementEnabled) {
+        Log.v(TAG, "SetAutoLogProductImprovementEnabled(" + autoLogProductImprovementEnabled + ")");
+        FacebookSdk.setAutoLogProductImprovementEnabled(
+            Boolean.valueOf(autoLogProductImprovementEnabled));
+    }
+
+    @UnityCallable
     public static void SetAdvertiserIDCollectionEnabled(String advertiserIDCollectionEnabled) {
         Log.v(TAG, "SetAdvertiserIDCollectionEnabled(" + advertiserIDCollectionEnabled + ")");
         FacebookSdk.setAdvertiserIDCollectionEnabled(

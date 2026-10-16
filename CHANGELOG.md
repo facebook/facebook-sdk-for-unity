@@ -10,19 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [19.0.0]
 
 ### Added
-- Added `FB.Mobile.SetAutoLogProductImprovementEnabled` and the default-on
-  `FacebookSettings.AutoLogProductImprovementEnabled` build setting for diagnostic
-  data about the app and its onscreen content. Apps can opt out at runtime or
-  through the editor's Auto Logging Product Improvement setting, which exports
-  `FBSDKAutoLogProductImprovementEnabled` on iOS and
-  `com.facebook.sdk.AutoLogProductImprovementEnabled` on Android. Runtime changes
-  persist across launches and take precedence over build settings. Requires native
-  SDK 19.0.0 or later. This control is independent of metadata collection and
-  automatic app event logging; it does not itself collect or send data.
-- Starting on 10/16/2026, Screen Title and AppLink URL will be included with
-  events logged with Facebook SDK. You can disable additional metadata by
-  setting `AutoLogMetaDataEnabled` false or by turning off "Automatically
-  include more app event details" in Events Manager.
+- Starting on 10/31/2026, Screen Title and AppLink URL will be included with events logged with Facebook SDK. You can disable additional metadata by setting AutoLogAppMetadataEnabled false or by turning off "Automatically include more app event details" in Events Manager.
+
+- FB SDK will automatically send sampled information about your app, such as the layout of elements on app screens. This information helps Meta improve ads systems and build new features. It is not used for ads delivery. You can disable the feature by setting the LogProductImprovementEnabled false or by turning off "Automatically send more app information" in Events Manager.
 
 ### Changed
 - Bumped SDK to 19.0.0
